@@ -1,4 +1,6 @@
 = PlanWithEase
+
+image:https://api.codacy.com/project/badge/Grade/afddc705c46549088ff106d26c3e9df3[link="https://app.codacy.com/app/cs2113-ay1819s2-t09-1/main?utm_source=github.com&utm_medium=referral&utm_content=cs2113-ay1819s2-t09-1/main&utm_campaign=Badge_Grade_Dashboard"]
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/se-edu/addressbook-level4[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]]
