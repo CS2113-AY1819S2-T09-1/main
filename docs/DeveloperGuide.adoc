@@ -809,13 +809,19 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* National University of Singapore (NUS) Information Security freshmen
+* does not plan to undertake special programs such as NOC, BComp Dissertation, Co-Op programme, etc.
+* has a need to plan modules to be taken during University life
 * prefer desktop apps over other types
 * can type fast
-* prefers typing over mouse input
+* prefers typing over other means of input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* Helps information security freshman plan their modules quickly and more conveniently.
+* Automatically check module pre-requisites to avoid module conflicts.
+* Provide an informed decision so that information security freshmen are able to decide which module to take at which semester.
 
 [appendix]
 == User Stories
