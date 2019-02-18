@@ -831,17 +831,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |list my module plan |know which modules to bid/take in future
 
-|`* * *` |user |add a new person |
+|`* * *` |user |edit my module plan |update my plan if there is any change in my current plan
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |mark those modules that are exempted in the module plan |keep track of exempted modules
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* *` |user |choose to overload/underload modules in a semester |manage my workload better
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |user |generate my own module plan |easily plan which modules to take during university life
 |=======================================================================
 
 _{More to be added}_
