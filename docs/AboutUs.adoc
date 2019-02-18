@@ -29,12 +29,12 @@ Responsibilities: UI
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Lee Yu Choy
+image::lycjackie.png[width="150", align="left"]
+{empty}[https://github.com/lycjackie[github]] [<<lycjackie#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Logic
 
 '''
 
