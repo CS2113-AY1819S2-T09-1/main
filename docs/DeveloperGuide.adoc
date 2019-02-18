@@ -835,9 +835,21 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
+|`* * *` |user |list my module plan|know which modules to bid/take in future
+
+|`* * *` |user |mark those modules that are exempted in the module plan|the planner can add modules with prerequisites that I am exempted
+
+|`* * *` |user |know which modules I can take in a particular semester|plan ahead
+
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
+|`* *` |user |edit my module plan|update my plan if there is any change in my current plan
+
+|`*` |user |generate my own module plan|Plan which modules to take during university life
+
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`*` |user |view my planner in graphics mode|visualise the plan
 |=======================================================================
 
 _{More to be added}_
