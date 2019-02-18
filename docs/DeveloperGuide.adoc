@@ -885,6 +885,36 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+=== Use case: Generate a module planner table
+
+*MSS*
+
+1.  Student requests to get a system-generated module planner
+2.  Application prompts students to select their restrictions
+3.  Student enters required details
+4.  Application sets the module planner according to programme requirements and restrictions.
+5.  Application shows the module planner
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* Students have already keyed in their restrictions in step 1
++
+Use case jumps to step 5
+
+=== Use case: Changes a module planner table
+
+*MSS*
+
+1.  Student requests to change their module planner
+2.  Application prompts students to enter the changes, which can be either changing the time to take a module, reset the restriction and generate a new table or save and exit. If student chooses save and exit, the application saves the changes and the use case ends.
+3.  Student enters required details
+4.  Application shows the new module planner
+5.  Use case goes back to step 2
+
 _{More to be added}_
 
 [appendix]
