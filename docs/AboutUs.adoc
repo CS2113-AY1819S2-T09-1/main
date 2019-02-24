@@ -20,12 +20,12 @@ Role: Project Advisor
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Bai Yunwei
+image::wendybaiyunwei.png[width="150", align="left"]
+{empty}[http://github.com/wendybaiyunwei[github]] [<<wendybaiyunwei#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer +
+Responsibilities: Logic
 
 '''
 
