@@ -219,6 +219,58 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the address book. +
 Format: `clear`
 
+=== Adding a module to the planner : `planner add`
+
+Adds an existing module to the planner +
+Format: `planner add MODULE_CODE`
+
+Examples:
+
+* `planner add CS1231`
+
+=== Deleting a module from the planner : `planner delete`
+
+Deleting an existing module from the planner +
+Format: `planner delete MODULE_CODE`
+
+Examples:
+
+* `planner delete CS1231`
+
+=== Moving a module in the planner : `planner move`
+
+Moves an existing module to another semester in the planner +
+Format: `planner edit MODULE_CODE SEMESTER`
+
+Examples:
+
+* `planner move CS1231 Y1S2`
+
+=== Toggling an existing module in the planner to be exempted: `planner exempt MODULE_CODE`
+
+Toggles an existing module in the planner to be exempted so that the planner can suggest modules
+accordingly
+
+Examples:
+
+* `planner exempt CS1231`
+
+=== Using planner to suggest modules to take: `planner suggest`
+
+Displays a list of modules that can be taken in the current selected semester
+
+=== Displaying the entire module planner : `planner list`
+
+Displays the entire module planner
+
+=== Displaying the entire module planner in tree format : `planner list-tree`
+
+Displays the entire module planner in tree format
+
+===  Auto-generating the entire module plan and display the result : `planner generate`
+
+Auto-generates the entire module plan and display the result
+
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -258,3 +310,15 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Planner add* : `planner add`
+e.g. * `planner add CS1231`
+* *Planner delete* : `planner delete`
+e.g. * `planner delete CS1231`
+* *Planner move* : `planner move MODULE_CODE SEMESTER`
+e.g. * `planner move CS1231 Y1S2`
+* *Planner exempt* : `planner exempt MODULE_CODE`
+e.g. * `planner exempt CS1231`
+* *Planner list* : `planner list`
+* *Planner list-tree* : `planner list-tree`
+* *Planner susggest* : `planner suggest`
+* *Planner generate* : `planner generate`
