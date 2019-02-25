@@ -837,9 +837,21 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |mark those modules that are exempted in the module plan |keep track of exempted modules
 
+|`* * *` |user |list my module plan|know which modules to bid/take in future
+
+|`* * *` |user |mark those modules that are exempted in the module plan|the planner can add modules with prerequisites that I am exempted
+
+|`* * *` |user |know which modules I can take in a particular semester|plan ahead
+
 |`* *` |user |choose to overload/underload modules in a semester |manage my workload better
 
+|`* *` |user |edit my module plan|update my plan if there is any change in my current plan
+
+|`*` |user |generate my own module plan|Plan which modules to take during university life
+
 |`*` |user |generate my own module plan |easily plan which modules to take during university life
+
+|`*` |user |view my planner in graphics mode|visualise the plan
 |=======================================================================
 
 _{More to be added}_
@@ -874,6 +886,37 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+
+=== Use case: Generate a module planner table
+
+*MSS*
+
+1.  Student requests to get a system-generated module planner
+2.  Application prompts students to select their restrictions
+3.  Student enters required details
+4.  Application sets the module planner according to programme requirements and restrictions.
+5.  Application shows the module planner
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* Students have already keyed in their restrictions in step 1
++
+Use case directly jumps to step 5
+
+=== Use case: Changes a module planner table
+
+*MSS*
+
+1.  Student requests to change their module planner
+2.  Application prompts students to enter the changes, which can either be changing the time to take a module, resetting the restriction or saving and exiting. If student chooses save and exit, the application saves the changes and the use case ends.
+3.  Student enters required details
+4.  Application shows the new module planner
+5.  Use case goes back to step 2
 
 _{More to be added}_
 
