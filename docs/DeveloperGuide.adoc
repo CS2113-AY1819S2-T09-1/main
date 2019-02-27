@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2113-ay1819s2-t09-1/main/tree/master
 
-By: `Team T09-1`      Since: `Feb 2019`      Licence: `MIT`
+By: `Team T09-1`      Since: `Feb 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -839,11 +839,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |edit my module plan |update my plan if there is any change in my current plan
 
+|`* * *` |user |know which modules I can take in a particular semester|plan ahead
+
 |`* * *` |user |mark those modules that are exempted in the module plan |keep track of exempted modules
 
 |`* *` |user |choose to overload/underload modules in a semester |manage my workload better
 
+|`* *` |user |edit my module plan|update my plan if there is any change in my current plan
+
+|`*` |user |generate my own module plan|Plan which modules to take during university life
+
 |`*` |user |generate my own module plan |easily plan which modules to take during university life
+
+|`*` |user |view my planner in graphics mode|visualise the plan
 |=======================================================================
 
 _{More to be added}_
@@ -880,6 +888,36 @@ Use case ends.
 Use case resumes at step 2.
 
 _{More to be added}_
+
+=== Use case: Generate a module planner table
+
+*MSS*
+
+1.  Student requests to get a system-generated module planner
+2.  Application prompts students to select their restrictions
+3.  Student enters required details
+4.  Application sets the module planner according to programme requirements and restrictions.
+5.  Application shows the module planner
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* Students have already keyed in their restrictions in step 1
++
+Use case directly jumps to step 5
+
+=== Use case: Changes a module planner table
+
+*MSS*
+
+1.  Student requests to change their module planner
+2.  Application prompts students to enter the changes, which can either be changing the time to take a module, resetting the restriction or saving and exiting. If student chooses save and exit, the application saves the changes and the use case ends.
+3.  Student enters required details
+4.  Application shows the new module planner
+5.  Use case goes back to step 2
 
 [appendix]
 == Non Functional Requirements
@@ -961,3 +999,4 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
