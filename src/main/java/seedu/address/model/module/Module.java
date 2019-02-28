@@ -17,7 +17,7 @@ public class Module {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
+    private final Credits credits;
     private final Email email;
 
     // Data fields
@@ -27,10 +27,10 @@ public class Module {
     /**
      * Every field must be present and not null.
      */
-    public Module(Name name, Phone phone, Email email, Code code, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, code, tags);
+    public Module(Name name, Credits credits, Email email, Code code, Set<Tag> tags) {
+        requireAllNonNull(name, credits, email, code, tags);
         this.name = name;
-        this.phone = phone;
+        this.credits = credits;
         this.email = email;
         this.code = code;
         this.tags.addAll(tags);
@@ -40,8 +40,8 @@ public class Module {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Credits getCredits() {
+        return credits;
     }
 
     public Email getEmail() {
@@ -71,7 +71,7 @@ public class Module {
 
         return otherModule != null
                 && otherModule.getName().equals(getName())
-                && (otherModule.getPhone().equals(getPhone()) || otherModule.getEmail().equals(getEmail()));
+                && (otherModule.getCredits().equals(getCredits()) || otherModule.getEmail().equals(getEmail()));
     }
 
     /**
@@ -90,7 +90,7 @@ public class Module {
 
         Module otherModule = (Module) other;
         return otherModule.getName().equals(getName())
-                && otherModule.getPhone().equals(getPhone())
+                && otherModule.getCredits().equals(getCredits())
                 && otherModule.getEmail().equals(getEmail())
                 && otherModule.getCode().equals(getCode())
                 && otherModule.getTags().equals(getTags());
@@ -99,15 +99,15 @@ public class Module {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, code, tags);
+        return Objects.hash(name, credits, email, code, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
+                .append(" Credits: ")
+                .append(getCredits())
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Code: ")

@@ -15,14 +15,14 @@ public class ModuleCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
     private static final String CODE_FIELD_ID = "#code";
-    private static final String PHONE_FIELD_ID = "#phone";
+    private static final String CREDITS_FIELD_ID = "#credits";
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
     private final Label nameLabel;
     private final Label codeLabel;
-    private final Label phoneLabel;
+    private final Label creditsLabel;
     private final Label emailLabel;
     private final List<Label> tagLabels;
 
@@ -32,7 +32,7 @@ public class ModuleCardHandle extends NodeHandle<Node> {
         idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
         codeLabel = getChildNode(CODE_FIELD_ID);
-        phoneLabel = getChildNode(PHONE_FIELD_ID);
+        creditsLabel = getChildNode(CREDITS_FIELD_ID);
         emailLabel = getChildNode(EMAIL_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
@@ -55,8 +55,8 @@ public class ModuleCardHandle extends NodeHandle<Node> {
         return codeLabel.getText();
     }
 
-    public String getPhone() {
-        return phoneLabel.getText();
+    public String getCredits() {
+        return creditsLabel.getText();
     }
 
     public String getEmail() {
@@ -76,7 +76,7 @@ public class ModuleCardHandle extends NodeHandle<Node> {
     public boolean equals(Module module) {
         return getName().equals(module.getName().fullName)
                 && getCode().equals(module.getCode().value)
-                && getPhone().equals(module.getPhone().value)
+                && getCredits().equals(module.getCredits().value)
                 && getEmail().equals(module.getEmail().value)
                 && getTags().equals(module.getTags().stream()
                         .map(tag -> tag.tagName)

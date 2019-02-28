@@ -33,7 +33,7 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label credits;
     @FXML
     private Label code;
     @FXML
@@ -46,7 +46,7 @@ public class ModuleCard extends UiPart<Region> {
         this.module = module;
         id.setText(displayedIndex + ". ");
         name.setText(module.getName().fullName);
-        phone.setText(module.getPhone().value);
+        credits.setText(module.getCredits().value);
         code.setText(module.getCode().value);
         email.setText(module.getEmail().value);
         module.getTags().stream()

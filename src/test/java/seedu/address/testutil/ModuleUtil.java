@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -31,7 +31,7 @@ public class ModuleUtil {
     public static String getModuleDetails(Module module) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + module.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + module.getPhone().value + " ");
+        sb.append(PREFIX_CREDITS + module.getCredits().value + " ");
         sb.append(PREFIX_EMAIL + module.getEmail().value + " ");
         sb.append(PREFIX_CODE + module.getCode().value + " ");
         module.getTags().stream().forEach(
@@ -46,7 +46,7 @@ public class ModuleUtil {
     public static String getEditModuleDescriptorDetails(EditModuleDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
+        descriptor.getCredits().ifPresent(credits -> sb.append(PREFIX_CREDITS).append(credits.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getCode().ifPresent(code -> sb.append(PREFIX_CODE).append(code.value).append(" "));
         if (descriptor.getTags().isPresent()) {

@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MODULES;
 
@@ -21,10 +21,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.module.Code;
+import seedu.address.model.module.Credits;
 import seedu.address.model.module.Email;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Name;
-import seedu.address.model.module.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -39,12 +39,12 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_CREDITS + "CREDITS] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_CODE + "CODE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
+            + PREFIX_CREDITS + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
@@ -96,12 +96,12 @@ public class EditCommand extends Command {
         assert moduleToEdit != null;
 
         Name updatedName = editModuleDescriptor.getName().orElse(moduleToEdit.getName());
-        Phone updatedPhone = editModuleDescriptor.getPhone().orElse(moduleToEdit.getPhone());
+        Credits updatedCredits = editModuleDescriptor.getCredits().orElse(moduleToEdit.getCredits());
         Email updatedEmail = editModuleDescriptor.getEmail().orElse(moduleToEdit.getEmail());
         Code updatedCode = editModuleDescriptor.getCode().orElse(moduleToEdit.getCode());
         Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
 
-        return new Module(updatedName, updatedPhone, updatedEmail, updatedCode, updatedTags);
+        return new Module(updatedName, updatedCredits, updatedEmail, updatedCode, updatedTags);
     }
 
     @Override
@@ -128,7 +128,7 @@ public class EditCommand extends Command {
      */
     public static class EditModuleDescriptor {
         private Name name;
-        private Phone phone;
+        private Credits credits;
         private Email email;
         private Code code;
         private Set<Tag> tags;
@@ -141,7 +141,7 @@ public class EditCommand extends Command {
          */
         public EditModuleDescriptor(EditModuleDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
+            setCredits(toCopy.credits);
             setEmail(toCopy.email);
             setCode(toCopy.code);
             setTags(toCopy.tags);
@@ -151,7 +151,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, code, tags);
+            return CollectionUtil.isAnyNonNull(name, credits, email, code, tags);
         }
 
         public void setName(Name name) {
@@ -162,12 +162,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setCredits(Credits credits) {
+            this.credits = credits;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Credits> getCredits() {
+            return Optional.ofNullable(credits);
         }
 
         public void setEmail(Email email) {
@@ -219,7 +219,7 @@ public class EditCommand extends Command {
             EditModuleDescriptor e = (EditModuleDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
+                    && getCredits().equals(e.getCredits())
                     && getEmail().equals(e.getEmail())
                     && getCode().equals(e.getCode())
                     && getTags().equals(e.getTags());
