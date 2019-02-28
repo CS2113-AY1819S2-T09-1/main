@@ -116,8 +116,8 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find address of module in address book -> 0 modules found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
+        /* Case: find code of module in address book -> 0 modules found */
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getCode().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

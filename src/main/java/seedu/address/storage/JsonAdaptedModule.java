@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.module.Address;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Email;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Name;
@@ -27,7 +27,7 @@ class JsonAdaptedModule {
     private final String name;
     private final String phone;
     private final String email;
-    private final String address;
+    private final String code;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -35,12 +35,12 @@ class JsonAdaptedModule {
      */
     @JsonCreator
     public JsonAdaptedModule(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
+            @JsonProperty("email") String email, @JsonProperty("code") String code,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.code = code;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -53,7 +53,7 @@ class JsonAdaptedModule {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        address = source.getAddress().value;
+        code = source.getCode().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -94,16 +94,16 @@ class JsonAdaptedModule {
         }
         final Email modelEmail = new Email(email);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (code == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Code.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        if (!Code.isValidCode(code)) {
+            throw new IllegalValueException(Code.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Code modelCode = new Code(code);
 
         final Set<Tag> modelTags = new HashSet<>(moduleTags);
-        return new Module(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Module(modelName, modelPhone, modelEmail, modelCode, modelTags);
     }
 
 }

@@ -2,7 +2,7 @@ package seedu.address.model.module;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CODE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -44,17 +44,17 @@ public class ModuleTest {
         assertFalse(ALICE.isSameModule(editedAlice));
 
         // same name, same phone, different attributes -> returns true
-        editedAlice = new ModuleBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new ModuleBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withCode(VALID_CODE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameModule(editedAlice));
 
         // same name, same email, different attributes -> returns true
-        editedAlice = new ModuleBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new ModuleBuilder(ALICE).withPhone(VALID_PHONE_BOB).withCode(VALID_CODE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameModule(editedAlice));
 
         // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new ModuleBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new ModuleBuilder(ALICE).withCode(VALID_CODE_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameModule(editedAlice));
     }
 
@@ -88,8 +88,8 @@ public class ModuleTest {
         editedAlice = new ModuleBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different address -> returns false
-        editedAlice = new ModuleBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        // different code -> returns false
+        editedAlice = new ModuleBuilder(ALICE).withCode(VALID_CODE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different tags -> returns false

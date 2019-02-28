@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -20,7 +20,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.module.Address;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Email;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Name;
@@ -41,7 +41,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_CODE + "CODE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -98,10 +98,10 @@ public class EditCommand extends Command {
         Name updatedName = editModuleDescriptor.getName().orElse(moduleToEdit.getName());
         Phone updatedPhone = editModuleDescriptor.getPhone().orElse(moduleToEdit.getPhone());
         Email updatedEmail = editModuleDescriptor.getEmail().orElse(moduleToEdit.getEmail());
-        Address updatedAddress = editModuleDescriptor.getAddress().orElse(moduleToEdit.getAddress());
+        Code updatedCode = editModuleDescriptor.getCode().orElse(moduleToEdit.getCode());
         Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
 
-        return new Module(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Module(updatedName, updatedPhone, updatedEmail, updatedCode, updatedTags);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private Address address;
+        private Code code;
         private Set<Tag> tags;
 
         public EditModuleDescriptor() {}
@@ -143,7 +143,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setAddress(toCopy.address);
+            setCode(toCopy.code);
             setTags(toCopy.tags);
         }
 
@@ -151,7 +151,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, code, tags);
         }
 
         public void setName(Name name) {
@@ -178,12 +178,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setCode(Code code) {
+            this.code = code;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Code> getCode() {
+            return Optional.ofNullable(code);
         }
 
         /**
@@ -221,7 +221,7 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
+                    && getCode().equals(e.getCode())
                     && getTags().equals(e.getTags());
         }
     }

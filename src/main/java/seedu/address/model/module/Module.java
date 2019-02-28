@@ -21,18 +21,18 @@ public class Module {
     private final Email email;
 
     // Data fields
-    private final Address address;
+    private final Code code;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Module(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Module(Name name, Phone phone, Email email, Code code, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, code, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.code = code;
         this.tags.addAll(tags);
     }
 
@@ -48,8 +48,8 @@ public class Module {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public Code getCode() {
+        return code;
     }
 
     /**
@@ -92,14 +92,14 @@ public class Module {
         return otherModule.getName().equals(getName())
                 && otherModule.getPhone().equals(getPhone())
                 && otherModule.getEmail().equals(getEmail())
-                && otherModule.getAddress().equals(getAddress())
+                && otherModule.getCode().equals(getCode())
                 && otherModule.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, code, tags);
     }
 
     @Override
@@ -110,8 +110,8 @@ public class Module {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Code: ")
+                .append(getCode())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

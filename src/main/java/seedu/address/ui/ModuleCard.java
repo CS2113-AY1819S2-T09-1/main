@@ -35,7 +35,7 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private Label address;
+    private Label code;
     @FXML
     private Label email;
     @FXML
@@ -47,7 +47,7 @@ public class ModuleCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(module.getName().fullName);
         phone.setText(module.getPhone().value);
-        address.setText(module.getAddress().value);
+        code.setText(module.getCode().value);
         email.setText(module.getEmail().value);
         module.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
