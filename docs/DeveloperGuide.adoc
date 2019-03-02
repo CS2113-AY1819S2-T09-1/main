@@ -855,7 +855,7 @@ _{More to be added}_
 
 *ASSUMPTION*
 
-Category is static! Only from "University Level Requirements/Computing Foundation/Information Security Requirements/Computing Breadth/IT Professionalism/Mathematics "
+Category is static! Only from "University Level Requirements/Computing Foundation/Information Security Requirements/Computing Breadth/IT Professionalism/Mathematics"
 
 *MSS*
 
@@ -954,7 +954,7 @@ Use case ends.
 +
 Use case resume at step 2.
 
-== Delete a module from degree requirements
+=== Use case: Delete a module from degree requirements
 
 *MSS*
 
@@ -978,7 +978,7 @@ Use case ends.
 +
 Use case resume at step 2.
 
-== Add module to degree planner
+=== Use case: Add module to degree planner
 
 *MSS*
 
