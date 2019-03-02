@@ -855,7 +855,7 @@ _{More to be added}_
 
 *ASSUMPTION*
 
-Category is static! Only from “University Level Requirements/Computing Foundation/Information Security Requirements/Computing Breadth/IT Professionalism/Mathematics "
+Category is static! Only from "University Level Requirements/Computing Foundation/Information Security Requirements/Computing Breadth/IT Professionalism/Mathematics "
 
 *MSS*
 
@@ -884,14 +884,125 @@ Use case resumes from step 1.
 +
 Use case resumes from step 1.
 
-=== Use case: Delete module
+=== Use case: List requirements of a degree module requirements category
 
 *MSS*
 
-1.  User requests to list modules
-2.  AddressBook shows a list of modules
+1.  Student requests to add a degree module requirement
+2.  Application add a module into degree requirements and notifies the student of success
++
+Use case ends.
+
+*Extensions*
+
+* 1a. Category name is empty
++
+** 2a1 The application shows an error message that the entered data is invalid
++
+Use case resumes from step 1.
+
+* 1b. Category name does not exist
++
+** 2b1 The application shows an error message that the entered data is invalid
++
+Use case resumes from step 1.
+
+* 2a. Module is already in degree requirements of the category exist
++
+** 2b1 The application shows an error message that the entered data is invalid
++
+Use case resumes from step 1.
+
+=== Use case: List all degree module requirements
+
+*MSS*
+
+1.  Student requests to list all degree module requirements
+2.  Application shows a list of all degree module requirements
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The list is empty
++
+** 2a1. Application shows an error message.
++
+Use case ends.
+
+=== Use case: List requirements of a degree module requirements category
+
+*MSS*
+
+1.  Student requests to list a degree module requirements
+2.  Application shows a list of all degree module requirements
+3.  Student requests to update a degree module requirement
+4.  Student enters required details
+5.  Application shows success message
+
+*Extensions*
+
+* 2a. The list is empty
++
+** 2a1. Application shows an error message.
++
+Use case ends.
+
+* 4a. The given detail is invalid
++
+** 4a1. Application shows an error message
++
+Use case resume at step 2.
+
+== Delete a module from degree requirements
+
+*MSS*
+
+1.  Student requests to list all modules from degree requirements
+2.  Application shows a list of all modules from degree requirements
+3.  Student requests to delete a module from degree requirements
+4.  Student input required details
+5.  Application shows success message
+
+*Extensions*
+
+* 2a. The list is empty
++
+** 2a1. Application shows an error message.
++
+Use case ends.
+
+* 4a. The input detail is invalid
++
+** 4a1 Application shows an error message
++
+Use case resume at step 2.
+
+== Add module to degree planner
+
+*MSS*
+
+1.  User requests to list modules in degree planner
+2.  Degree planner shows the list of modules
+3.  User requests to add a specific module in the list
+4.  Degree planner adds the module
++
+Use case ends.
+
+*Extensions*
+
+* 3a. The input is invalid.
++
+[none]
+** 3a1. Degree planner shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: Delete module from degree planner
+1.  User requests to list modules in degree planner
+2.  Degree planner shows the list of modules
 3.  User requests to delete a specific module in the list
-4.  AddressBook deletes the module
+4.  Degree planner deletes the module
 +
 Use case ends.
 
@@ -902,10 +1013,10 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The input is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Degree planner shows an error message.
 +
 Use case resumes at step 2.
 
