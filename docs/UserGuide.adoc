@@ -315,5 +315,5 @@ e.g.  `planner add CS1010 y1/s2/s`
 * *Delete module from Degree Planner* : `planner delete` +
 e.g.  `planner delete CS1231`
 * *Planner move* : `planner move MODULE_CODE SEMESTER` +
-e.g. * `planner move CS1231 y1/s2/s`
+e.g.  `planner move CS1231 y1/s2/s`
 * *Planner suggest* : `planner suggest`
