@@ -219,12 +219,16 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Adding a module to the planner : `planner add`
+=== Adding a module to the degree planner : `planner add`
 
-Adds an existing module to the planner. +
-Format: `planner add MODULE_CODE SEMESTER`
+Adds an existing module to the degree planner. +
+Format: `planner add MODULE_CODE y/YEARs/SEM[/s]`
 
-* `SEMESTER` is in the format `y/years/sem[/s]`, with `year` indicating the year, `sem` indicating the semester and `[/s]` indicating whether the semester is a special semester.`year` must be a positive integer lower than 7, and `sem` must be either 1 or 2.
+* `YEAR` indicates the year.
+* `SEM` indicates the semester.
+* `[/s]` indicates whether the semester is a special semester.
+* `YEAR` must be a positive integer lower than 7, and `SEM` must be either 1 or 2.
+* After adding, the changes will be reflected in the degree planner accordingly
 
 Examples:
 
@@ -234,14 +238,30 @@ Adds module CS1231 to year 1 semester 2.
 * `planner add CS1010 y1/s2/s` +
 Adds module CS1010 to year 1 semester 1 special semester.
 
-=== Deleting a module from the planner : `planner delete`
+=== Deleting a module from the degree planner : `planner delete`
 
-Deleting an existing module from the planner. +
+Deleting an existing module from the degree planner. +
 Format: `planner delete MODULE_CODE`
 
 Examples:
 
 * `planner delete CS1231`
+
+=== Moving a module in the planner : `planner move`
+
+Format: `planner move MODULE_CODE y/YEARs/SEM[/s]`
+
+* `YEAR` indicates the year.
+* `SEM` indicates the semester.
+* `[/s]` indicates whether the semester is a special semester.
+* `YEAR` must be a positive integer lower than 7, and `SEM` must be either 1 or 2.
+* After moving, the changes will be reflected in the degree planner accordingly
+
+=== Using planner to suggest modules to take: `planner suggest`
+
+Displays a list of modules that can be taken in the current selected semester.
+
+* The modules suggested are selected according to pre-requisites and exemption.
 
 === Exiting the program : `exit`
 
@@ -282,7 +302,10 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Planner add* : `planner add MODULE SEMESTER` +
+* *Add module to Degree Planner* : `planner add MODULE_CODE y/YEARs/SEM[/s]` +
 e.g.  `planner add CS1010 y1/s2/s`
-* *Planner delete* : `planner delete` +
+* *Delete module from Degree Planner* : `planner delete` +
 e.g.  `planner delete CS1231`
+* *Planner move* : `planner move MODULE_CODE SEMESTER`
+e.g. * `planner move CS1231 y1/s2/s`
+* *Planner suggest* : `planner suggest`
