@@ -837,7 +837,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |user |have a degree planner |know which modules to bid/take in future
 
-|`* * *` |user |add modules to degree planner | 
+|`* * *` |user |add modules to degree planner |
 
 |`* * *` |user |delete modules from degree planner |
 |=======================================================================
@@ -853,7 +853,9 @@ _{More to be added}_
 
 === Use case: Add a degree module requirements category
 
-*ASSUMPTION* Category is static! Only from “University Level Requirements/Computing Foundation/Information Security Requirements/Computing Breadth/IT Professionalism/Mathematics "
+*ASSUMPTION*
+
+Category is static! Only from “University Level Requirements/Computing Foundation/Information Security Requirements/Computing Breadth/IT Professionalism/Mathematics "
 
 *MSS*
 
@@ -878,7 +880,7 @@ Use case resumes from step 1.
 
 * 2a. Module is already in degree requirements of the category exist
 +
-2b1 The application shows an error message that the entered data is invalid
+** 2b1 The application shows an error message that the entered data is invalid
 +
 Use case resumes from step 1.
 
