@@ -226,7 +226,7 @@ Format: `planner add MODULE_CODE y/YEARs/SEM[/s]`
 
 * `YEAR` indicates the year.
 * `SEM` indicates the semester.
-* `[/s]` indicates whether the semester is a special semester.
+* `[/s]` indicates whether the semester is a special semester. When `/s` is added, it is a special semester, vice versa.
 * `YEAR` must be a positive integer lower than 7, and `SEM` must be either 1 or 2.
 * After adding, the changes will be reflected in the degree planner accordingly.
 
@@ -253,7 +253,7 @@ Format: `planner move MODULE_CODE y/YEARs/SEM[/s]`
 
 * `YEAR` indicates the year.
 * `SEM` indicates the semester.
-* `[/s]` indicates whether the semester is a special semester.
+* `[/s]` indicates whether the semester is a special semester. When `/s` is added, it is a special semester, vice versa.
 * `YEAR` must be a positive integer lower than 7, and `SEM` must be either 1 or 2.
 * After moving, the changes will be reflected in the degree planner accordingly.
 
@@ -261,6 +261,9 @@ Examples:
 
 * `planner move CS1231 y1/s2` +
 Moves module CS1231 to year 1 semester 2.
+
+* `planner move CS1231 y1/s2/s` +
+Moves module CS1231 to year 1 semester 2 special semester.
 
 === Using planner to suggest modules to take: `planner suggest`
 
@@ -312,5 +315,5 @@ e.g.  `planner add CS1010 y1/s2/s`
 * *Delete module from Degree Planner* : `planner delete` +
 e.g.  `planner delete CS1231`
 * *Planner move* : `planner move MODULE_CODE SEMESTER`
-e.g. * `planner move CS1231 y1/s2/s`
+e.g. * `planner move CS1231 y1/s2/s` +
 * *Planner suggest* : `planner suggest`
