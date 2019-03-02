@@ -224,7 +224,7 @@ Format: `clear`
 Adds an existing module to the planner +
 Format: `planner add MODULE_CODE SEMESTER`
 
-* `SEMESTER` is in the format Y`year`S`sem``[s]`, with `year` indicating the year, `sem` indicating the semester and `[s]` indicating whether the semester is a special semester.`year` must be a positive integer lower than 7, and `sem` must be either 1 or 2.
+* `SEMESTER` is in the format `YyearSsem[s]`, with `year` indicating the year, `sem` indicating the semester and `[s]` indicating whether the semester is a special semester.`year` must be a positive integer lower than 7, and `sem` must be either 1 or 2.
 
 Examples:
 
@@ -282,7 +282,7 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Planner add* : `planner add MODULE SEMESTER`
-e.g. * `planner add CS1231 Y1S2`
-* *Planner delete* : `planner delete`
-e.g. * `planner delete CS1231`
+* *Planner add* : `planner add MODULE SEMESTER` +
+e.g.  `planner add CS1231 Y1S2`
+* *Planner delete* : `planner delete` +
+e.g.  `planner delete CS1231`
