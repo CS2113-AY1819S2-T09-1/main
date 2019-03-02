@@ -868,19 +868,19 @@ Use case ends.
 
 * 1a. Category name is empty
 +
-** 2a1 The application shows an error message that the entered data is invalid
+** 2a1. Application shows an error message that the entered data is invalid
 +
 Use case resumes from step 1.
 
 * 1b. Category name does not exist
 +
-** 2b1 The application shows an error message that the entered data is invalid
+** 2b1. Application shows an error message that the entered data is invalid
 +
 Use case resumes from step 1.
 
 * 2a. Module is already in degree requirements of the category exist
 +
-** 2b1 The application shows an error message that the entered data is invalid
+** 2b1. Application shows an error message that the entered data is invalid
 +
 Use case resumes from step 1.
 
@@ -897,19 +897,19 @@ Use case ends.
 
 * 1a. Category name is empty
 +
-** 2a1 The application shows an error message that the entered data is invalid
+** 2a1. Application shows an error message that the entered data is invalid
 +
 Use case resumes from step 1.
 
 * 1b. Category name does not exist
 +
-** 2b1 The application shows an error message that the entered data is invalid
+** 2b1. Application shows an error message that the entered data is invalid
 +
 Use case resumes from step 1.
 
 * 2a. Module is already in degree requirements of the category exist
 +
-** 2b1 The application shows an error message that the entered data is invalid
+** 2b1. Application shows an error message that the entered data is invalid
 +
 Use case resumes from step 1.
 
