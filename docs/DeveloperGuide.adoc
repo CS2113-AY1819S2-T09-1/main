@@ -837,7 +837,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |user |have a degree planner |know which modules to bid/take in future
 
-|`* * *` |user |add modules to degree planner |
+|`* * *` |user |add modules to degree planner | 
 
 |`* * *` |user |delete modules from degree planner |
 |=======================================================================
@@ -850,6 +850,38 @@ _{More to be added}_
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
+
+=== Use case: Add a degree module requirements category
+
+*ASSUMPTION* Category is static! Only from “University Level Requirements/Computing Foundation/Information Security Requirements/Computing Breadth/IT Professionalism/Mathematics "
+
+*MSS*
+
+1.  Student requests to add a degree module requirement
+2.  Application add a module into degree requirements and notifies the student of success
++
+Use case ends.
+
+*Extensions*
+
+* 1a. Category name is empty
++
+** 2a1 The application shows an error message that the entered data is invalid
++
+Use case resumes from step 1.
+
+* 1b. Category name does not exist
++
+** 2b1 The application shows an error message that the entered data is invalid
++
+Use case resumes from step 1.
+
+* 2a. Module is already in degree requirements of the category exist
++
+2b1 The application shows an error message that the entered data is invalid
++
+Use case resumes from step 1.
+
 === Use case: Delete module
 
 *MSS*
@@ -872,52 +904,6 @@ Use case ends.
 +
 [none]
 ** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
-
-=== Use case: Add module to degree planner
-
-*MSS*
-
-1.  User requests to list modules in degree planner
-2.  Degree planner shows the list of modules
-3.  User requests to add a specific module in the list
-4.  Degree planner adds the module
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 3a. The input is invalid.
-+
-[none]
-** 3a1. Degree planner shows an error message.
-+
-Use case resumes at step 2.
-
-=== Use case: Delete module from degree planner
-
-*MSS*
-
-1.  User requests to list modules in degree planner
-2.  Degree planner shows the list of modules
-3.  User requests to delete a specific module in the list
-4.  Degree planner deletes the module
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The input is invalid.
-+
-[none]
-** 3a1. Degree planner shows an error message.
 +
 Use case resumes at step 2.
 
@@ -1003,3 +989,4 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
