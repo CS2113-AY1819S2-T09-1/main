@@ -5,7 +5,6 @@ import java.util.Set;
 
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Credits;
-import seedu.address.model.module.Email;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Name;
 import seedu.address.model.tag.Tag;
@@ -18,19 +17,16 @@ public class ModuleBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_CREDITS = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_CODE = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
     private Credits credits;
-    private Email email;
     private Code code;
     private Set<Tag> tags;
 
     public ModuleBuilder() {
         name = new Name(DEFAULT_NAME);
         credits = new Credits(DEFAULT_CREDITS);
-        email = new Email(DEFAULT_EMAIL);
         code = new Code(DEFAULT_CODE);
         tags = new HashSet<>();
     }
@@ -41,7 +37,6 @@ public class ModuleBuilder {
     public ModuleBuilder(Module moduleToCopy) {
         name = moduleToCopy.getName();
         credits = moduleToCopy.getCredits();
-        email = moduleToCopy.getEmail();
         code = moduleToCopy.getCode();
         tags = new HashSet<>(moduleToCopy.getTags());
     }
@@ -78,16 +73,8 @@ public class ModuleBuilder {
         return this;
     }
 
-    /**
-     * Sets the {@code Email} of the {@code Module} that we are building.
-     */
-    public ModuleBuilder withEmail(String email) {
-        this.email = new Email(email);
-        return this;
-    }
-
     public Module build() {
-        return new Module(name, credits, email, code, tags);
+        return new Module(name, credits, code, tags);
     }
 
 }

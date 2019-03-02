@@ -8,7 +8,6 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditModuleDescriptor;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Credits;
-import seedu.address.model.module.Email;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Name;
 import seedu.address.model.tag.Tag;
@@ -35,7 +34,6 @@ public class EditModuleDescriptorBuilder {
         descriptor = new EditCommand.EditModuleDescriptor();
         descriptor.setName(module.getName());
         descriptor.setCredits(module.getCredits());
-        descriptor.setEmail(module.getEmail());
         descriptor.setCode(module.getCode());
         descriptor.setTags(module.getTags());
     }
@@ -53,14 +51,6 @@ public class EditModuleDescriptorBuilder {
      */
     public EditModuleDescriptorBuilder withCredits(String credits) {
         descriptor.setCredits(new Credits(credits));
-        return this;
-    }
-
-    /**
-     * Sets the {@code Email} of the {@code EditModuleDescriptor} that we are building.
-     */
-    public EditModuleDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
         return this;
     }
 

@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -30,8 +29,6 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_CREDITS_AMY = "11111111";
     public static final String VALID_CREDITS_BOB = "22222222";
-    public static final String VALID_EMAIL_AMY = "amy@example.com";
-    public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_CODE_AMY = "Block 312, Amy Street 1";
     public static final String VALID_CODE_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
@@ -41,8 +38,6 @@ public class CommandTestUtil {
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String CREDITS_DESC_AMY = " " + PREFIX_CREDITS + VALID_CREDITS_AMY;
     public static final String CREDITS_DESC_BOB = " " + PREFIX_CREDITS + VALID_CREDITS_BOB;
-    public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
-    public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String CODE_DESC_AMY = " " + PREFIX_CODE + VALID_CODE_AMY;
     public static final String CODE_DESC_BOB = " " + PREFIX_CODE + VALID_CODE_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
@@ -50,7 +45,6 @@ public class CommandTestUtil {
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_CREDITS_DESC = " " + PREFIX_CREDITS + "911a"; // 'a' not allowed in credits
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_CODE_DESC = " " + PREFIX_CODE; // empty string not allowed for codes
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
@@ -62,10 +56,10 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditModuleDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withCredits(VALID_CREDITS_AMY).withEmail(VALID_EMAIL_AMY).withCode(VALID_CODE_AMY)
+                .withCredits(VALID_CREDITS_AMY).withCode(VALID_CODE_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditModuleDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withCredits(VALID_CREDITS_BOB).withEmail(VALID_EMAIL_BOB).withCode(VALID_CODE_BOB)
+                .withCredits(VALID_CREDITS_BOB).withCode(VALID_CODE_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 

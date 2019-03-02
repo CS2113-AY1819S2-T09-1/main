@@ -2,7 +2,6 @@
   "modules": [ {
     "name": "Module with invalid name field: Ha!ns Mu@ster",
     "credits": "9482424",
-    "email": "hans@example.com",
     "code": "4th street"
   } ]
 }

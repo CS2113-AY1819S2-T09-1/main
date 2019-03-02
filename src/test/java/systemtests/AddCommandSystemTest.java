@@ -5,20 +5,15 @@ import static seedu.address.logic.commands.CommandTestUtil.CODE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.CODE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.CREDITS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.CREDITS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_CODE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_CREDITS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CODE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CREDITS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalModules.ALICE;
@@ -39,7 +34,6 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Credits;
-import seedu.address.model.module.Email;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Name;
 import seedu.address.model.tag.Tag;
@@ -58,8 +52,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          * -> added
          */
         Module toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + CREDITS_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + CODE_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + CREDITS_DESC_AMY
+                + "   " + CODE_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -75,14 +69,14 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a module with all fields same as another module in the address book except name -> added */
         toAdd = new ModuleBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + CREDITS_DESC_AMY + EMAIL_DESC_AMY + CODE_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + CREDITS_DESC_AMY + CODE_DESC_AMY
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a module with all fields same as another module in the address book except credits and email
+        /* Case: add a module with all fields same as another module in the address book except credits
          * -> added
          */
-        toAdd = new ModuleBuilder(AMY).withCredits(VALID_CREDITS_BOB).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new ModuleBuilder(AMY).withCredits(VALID_CREDITS_BOB).build();
         command = ModuleUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
@@ -93,7 +87,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: add a module with tags, command with parameters in random order -> added */
         toAdd = BOB;
         command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + CREDITS_DESC_BOB + CODE_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
+                + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a module, missing tags -> added */
@@ -117,39 +111,20 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = ModuleUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MODULE);
 
-        /* Case: add a duplicate module except with different credits -> rejected */
-        toAdd = new ModuleBuilder(HOON).withCredits(VALID_CREDITS_BOB).build();
-        command = ModuleUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MODULE);
-
-        /* Case: add a duplicate module except with different email -> rejected */
-        toAdd = new ModuleBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
-        command = ModuleUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MODULE);
-
-        /* Case: add a duplicate module except with different code -> rejected */
-        toAdd = new ModuleBuilder(HOON).withCode(VALID_CODE_BOB).build();
-        command = ModuleUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MODULE);
-
         /* Case: add a duplicate module except with different tags -> rejected */
         command = ModuleUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MODULE);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + CREDITS_DESC_AMY + EMAIL_DESC_AMY + CODE_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + CREDITS_DESC_AMY + CODE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing credits -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + CODE_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-
-        /* Case: missing email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + CREDITS_DESC_AMY + CODE_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + CODE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing code -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + CREDITS_DESC_AMY + EMAIL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + CREDITS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -157,23 +132,19 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + CREDITS_DESC_AMY + EMAIL_DESC_AMY + CODE_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + CREDITS_DESC_AMY + CODE_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid credits -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_CREDITS_DESC + EMAIL_DESC_AMY + CODE_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_CREDITS_DESC + CODE_DESC_AMY;
         assertCommandFailure(command, Credits.MESSAGE_CONSTRAINTS);
 
-        /* Case: invalid email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + CREDITS_DESC_AMY + INVALID_EMAIL_DESC + CODE_DESC_AMY;
-        assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
-
         /* Case: invalid code -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + CREDITS_DESC_AMY + EMAIL_DESC_AMY + INVALID_CODE_DESC;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + CREDITS_DESC_AMY + INVALID_CODE_DESC;
         assertCommandFailure(command, Code.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + CREDITS_DESC_AMY + EMAIL_DESC_AMY + CODE_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + CREDITS_DESC_AMY + CODE_DESC_AMY
                 + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
     }

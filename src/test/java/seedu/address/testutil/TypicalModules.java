@@ -4,8 +4,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CODE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CODE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CREDITS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CREDITS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
@@ -25,35 +23,35 @@ import seedu.address.model.module.Module;
 public class TypicalModules {
 
     public static final Module ALICE = new ModuleBuilder().withName("Alice Pauline")
-            .withCode("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
+            .withCode("123, Jurong West Ave 6, #08-111")
             .withCredits("94351253")
             .withTags("friends").build();
     public static final Module BENSON = new ModuleBuilder().withName("Benson Meier")
             .withCode("311, Clementi Ave 2, #02-25")
-            .withEmail("johnd@example.com").withCredits("98765432")
+            .withCredits("98765432")
             .withTags("owesMoney", "friends").build();
     public static final Module CARL = new ModuleBuilder().withName("Carl Kurz").withCredits("95352563")
-            .withEmail("heinz@example.com").withCode("wall street").build();
+            .withCode("wall street").build();
     public static final Module DANIEL = new ModuleBuilder().withName("Daniel Meier").withCredits("87652533")
-            .withEmail("cornelia@example.com").withCode("10th street").withTags("friends").build();
+            .withCode("10th street").withTags("friends").build();
     public static final Module ELLE = new ModuleBuilder().withName("Elle Meyer").withCredits("9482224")
-            .withEmail("werner@example.com").withCode("michegan ave").build();
+            .withCode("michegan ave").build();
     public static final Module FIONA = new ModuleBuilder().withName("Fiona Kunz").withCredits("9482427")
-            .withEmail("lydia@example.com").withCode("little tokyo").build();
+            .withCode("little tokyo").build();
     public static final Module GEORGE = new ModuleBuilder().withName("George Best").withCredits("9482442")
-            .withEmail("anna@example.com").withCode("4th street").build();
+            .withCode("4th street").build();
 
     // Manually added
     public static final Module HOON = new ModuleBuilder().withName("Hoon Meier").withCredits("8482424")
-            .withEmail("stefan@example.com").withCode("little india").build();
+            .withCode("little india").build();
     public static final Module IDA = new ModuleBuilder().withName("Ida Mueller").withCredits("8482131")
-            .withEmail("hans@example.com").withCode("chicago ave").build();
+            .withCode("chicago ave").build();
 
     // Manually added - Module's details found in {@code CommandTestUtil}
     public static final Module AMY = new ModuleBuilder().withName(VALID_NAME_AMY).withCredits(VALID_CREDITS_AMY)
-            .withEmail(VALID_EMAIL_AMY).withCode(VALID_CODE_AMY).withTags(VALID_TAG_FRIEND).build();
+            .withCode(VALID_CODE_AMY).withTags(VALID_TAG_FRIEND).build();
     public static final Module BOB = new ModuleBuilder().withName(VALID_NAME_BOB).withCredits(VALID_CREDITS_BOB)
-            .withEmail(VALID_EMAIL_BOB).withCode(VALID_CODE_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withCode(VALID_CODE_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = PREFIX_NAME + "Meier"; // A keyword that matches MEIER

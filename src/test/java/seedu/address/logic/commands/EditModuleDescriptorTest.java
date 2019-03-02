@@ -6,7 +6,6 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CODE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CREDITS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -41,10 +40,6 @@ public class EditModuleDescriptorTest {
 
         // different credits -> returns false
         editedAmy = new EditModuleDescriptorBuilder(DESC_AMY).withCredits(VALID_CREDITS_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
-
-        // different email -> returns false
-        editedAmy = new EditModuleDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different code -> returns false

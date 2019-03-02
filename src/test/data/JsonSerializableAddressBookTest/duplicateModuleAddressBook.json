@@ -2,13 +2,11 @@
   "modules": [ {
     "name": "Alice Pauline",
     "credits": "94351253",
-    "email": "alice@example.com",
-    "code": "123, Jurong West Ave 6, #08-111",
+    "code": "4th street",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
     "credits": "94351253",
-    "email": "pauline@example.com",
     "code": "4th street"
   } ]
 }

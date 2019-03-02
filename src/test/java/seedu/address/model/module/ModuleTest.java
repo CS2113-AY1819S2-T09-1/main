@@ -4,7 +4,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CODE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CREDITS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalModules.ALICE;
@@ -35,26 +34,17 @@ public class ModuleTest {
         // null -> returns false
         assertFalse(ALICE.isSameModule(null));
 
-        // different credits and email -> returns false
-        Module editedAlice = new ModuleBuilder(ALICE).withCredits(VALID_CREDITS_BOB).withEmail(VALID_EMAIL_BOB).build();
+        // different credits and code -> returns false
+        Module editedAlice = new ModuleBuilder(ALICE).withCredits(VALID_CREDITS_BOB).withCode(VALID_CODE_BOB).build();
         assertFalse(ALICE.isSameModule(editedAlice));
 
         // different name -> returns false
         editedAlice = new ModuleBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSameModule(editedAlice));
 
-        // same name, same credits, different attributes -> returns true
-        editedAlice = new ModuleBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withCode(VALID_CODE_BOB)
+        // same name, same code, different attributes -> returns true
+        editedAlice = new ModuleBuilder(ALICE)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameModule(editedAlice));
-
-        // same name, same email, different attributes -> returns true
-        editedAlice = new ModuleBuilder(ALICE).withCredits(VALID_CREDITS_BOB).withCode(VALID_CODE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameModule(editedAlice));
-
-        // same name, same credits, same email, different attributes -> returns true
-        editedAlice = new ModuleBuilder(ALICE).withCode(VALID_CODE_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameModule(editedAlice));
     }
 
@@ -82,10 +72,6 @@ public class ModuleTest {
 
         // different credits -> returns false
         editedAlice = new ModuleBuilder(ALICE).withCredits(VALID_CREDITS_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different email -> returns false
-        editedAlice = new ModuleBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different code -> returns false

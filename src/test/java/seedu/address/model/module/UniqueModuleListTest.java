@@ -44,14 +44,6 @@ public class UniqueModuleListTest {
     }
 
     @Test
-    public void contains_moduleWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueModuleList.add(ALICE);
-        Module editedAlice = new ModuleBuilder(ALICE).withCode(VALID_CODE_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        assertTrue(uniqueModuleList.contains(editedAlice));
-    }
-
-    @Test
     public void add_nullModule_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueModuleList.add(null);

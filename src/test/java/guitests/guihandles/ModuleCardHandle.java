@@ -16,14 +16,12 @@ public class ModuleCardHandle extends NodeHandle<Node> {
     private static final String NAME_FIELD_ID = "#name";
     private static final String CODE_FIELD_ID = "#code";
     private static final String CREDITS_FIELD_ID = "#credits";
-    private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
     private final Label nameLabel;
     private final Label codeLabel;
     private final Label creditsLabel;
-    private final Label emailLabel;
     private final List<Label> tagLabels;
 
     public ModuleCardHandle(Node cardNode) {
@@ -33,7 +31,6 @@ public class ModuleCardHandle extends NodeHandle<Node> {
         nameLabel = getChildNode(NAME_FIELD_ID);
         codeLabel = getChildNode(CODE_FIELD_ID);
         creditsLabel = getChildNode(CREDITS_FIELD_ID);
-        emailLabel = getChildNode(EMAIL_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
@@ -59,10 +56,6 @@ public class ModuleCardHandle extends NodeHandle<Node> {
         return creditsLabel.getText();
     }
 
-    public String getEmail() {
-        return emailLabel.getText();
-    }
-
     public List<String> getTags() {
         return tagLabels
                 .stream()
@@ -77,7 +70,6 @@ public class ModuleCardHandle extends NodeHandle<Node> {
         return getName().equals(module.getName().fullName)
                 && getCode().equals(module.getCode().value)
                 && getCredits().equals(module.getCredits().value)
-                && getEmail().equals(module.getEmail().value)
                 && getTags().equals(module.getTags().stream()
                         .map(tag -> tag.tagName)
                         .sorted()

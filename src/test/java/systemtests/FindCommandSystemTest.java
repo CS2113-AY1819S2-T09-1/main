@@ -23,7 +23,6 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.module.Name;
 import seedu.address.model.tag.Tag;
 
 public class FindCommandSystemTest extends AddressBookSystemTest {
@@ -159,11 +158,6 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         /* Case: find module in address book, code is substring of keyword -> 0 modules found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_CODE + "stre";
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
-        /* Case: find email of module in address book -> rejected */
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + DANIEL.getEmail().value;
-        assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
         assertSelectedCardUnchanged();
 
         /* Case: find tags of module in address book -> 0 modules found */

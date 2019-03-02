@@ -18,7 +18,6 @@ public class Module {
     // Identity fields
     private final Name name;
     private final Credits credits;
-    private final Email email;
 
     // Data fields
     private final Code code;
@@ -27,11 +26,10 @@ public class Module {
     /**
      * Every field must be present and not null.
      */
-    public Module(Name name, Credits credits, Email email, Code code, Set<Tag> tags) {
-        requireAllNonNull(name, credits, email, code, tags);
+    public Module(Name name, Credits credits, Code code, Set<Tag> tags) {
+        requireAllNonNull(name, credits, code, tags);
         this.name = name;
         this.credits = credits;
-        this.email = email;
         this.code = code;
         this.tags.addAll(tags);
     }
@@ -42,10 +40,6 @@ public class Module {
 
     public Credits getCredits() {
         return credits;
-    }
-
-    public Email getEmail() {
-        return email;
     }
 
     public Code getCode() {
@@ -70,8 +64,9 @@ public class Module {
         }
 
         return otherModule != null
-                && otherModule.getName().equals(getName())
-                && (otherModule.getCredits().equals(getCredits()) || otherModule.getEmail().equals(getEmail()));
+                && otherModule.getCode().equals(getCode())
+                && otherModule.getCredits().equals(getCredits())
+                && otherModule.getName().equals(getName());
     }
 
     /**
@@ -91,7 +86,6 @@ public class Module {
         Module otherModule = (Module) other;
         return otherModule.getName().equals(getName())
                 && otherModule.getCredits().equals(getCredits())
-                && otherModule.getEmail().equals(getEmail())
                 && otherModule.getCode().equals(getCode())
                 && otherModule.getTags().equals(getTags());
     }
@@ -99,7 +93,7 @@ public class Module {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, credits, email, code, tags);
+        return Objects.hash(name, credits, code, tags);
     }
 
     @Override
@@ -108,8 +102,6 @@ public class Module {
         builder.append(getName())
                 .append(" Credits: ")
                 .append(getCredits())
-                .append(" Email: ")
-                .append(getEmail())
                 .append(" Code: ")
                 .append(getCode())
                 .append(" Tags: ");

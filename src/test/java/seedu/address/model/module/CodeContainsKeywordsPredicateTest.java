@@ -70,9 +70,9 @@ public class CodeContainsKeywordsPredicateTest {
         predicate = new CodeContainsKeywordsPredicate(Arrays.asList("Clementi"));
         assertFalse(predicate.test(new ModuleBuilder().withCode("Ang Mo Kio").build()));
 
-        // Keywords match phone, email and name, but does not match address
-        predicate = new CodeContainsKeywordsPredicate(Arrays.asList("Alice", "12345", "alice@email.com"));
+        // Keywords match credits and name, but does not match code
+        predicate = new CodeContainsKeywordsPredicate(Arrays.asList("Alice", "12345"));
         assertFalse(predicate.test(new ModuleBuilder().withName("Alice").withCredits("12345")
-                .withEmail("alice@email.com").withCode("Main Street").build()));
+                .withCode("Main Street").build()));
     }
 }

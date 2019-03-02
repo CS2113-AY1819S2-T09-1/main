@@ -2,12 +2,10 @@
   "modules": [ {
     "name": "Valid Module",
     "credits": "9482424",
-    "email": "hans@example.com",
     "code": "4th street"
   }, {
     "name": "Module With Invalid Credits Field",
     "credits": "948asdf2424",
-    "email": "hans@example.com",
     "code": "4th street"
   } ]
 }
