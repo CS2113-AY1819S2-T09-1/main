@@ -243,57 +243,6 @@ Examples:
 
 * `planner delete CS1231`
 
-=== Moving a module in the planner : `planner move`
-
-Moves an existing module to another semester in the planner +
-Format: `planner move MODULE_CODE SEMESTER`
-
-* `SEMESTER` is in the format Y`year`S`sem`[`s`], with `year` indicating the year, `sem` indicating the semester and `[s]` indicating whether the semester is a special semester.`year` must be a positive integer lower than 7, and `sem` must be either 1 or 2.
-
-Examples:
-
-* `planner move CS1231 Y1S2`
-
-=== Using planner to suggest modules to take: `planner suggest`
-
-Displays a list of modules that can be taken in the current selected semester.
-
-* The modules suggested are selected according to pre-requisites and exemption.
-
-=== Displaying the entire module planner : `planner table`
-
-Displays the entire module planner in table format.
-
-* Exempted modules are not shown.
-
-=== Displaying the entire module planner in tree format : `planner tree`
-
-Displays the entire module planner in tree format. The pre-requisites will be the parents of a particular module.
-
-===  Generating the entire module plan and displaying the result : `planner generate`
-
-Automatically generates the entire module plan and displays the result according to restrictions. The module plan has 4 years and ATAP as default restrictions.
-
-Format: `planner generate NUMBER_OF_YEARS INTERNSHIP_TYPE`
-
-* `INTERNSHIP_TYPE` can be `ATAP` (Advanced Technology Attachment Programme), `TWO` (Two 3-month internships), `IIP` (Industry Internship Programme), `NOC` (NUS Overseas College) or `FYP`(Final Year Project).
-
-* `NUMBER_OF_YEARS` must be either a positive integer smaller than 7 or 3.5.
-
-Examples:
-
-* `planner generate 3.5 ATAP`
-Generates a planner for user to graduate in 3.5 years, with ATAP as the internship type.
-
-* `planner generate 4 FYP`
-Generates a planner for user to graduate in 4 years, with Final Year Project as the internship type.
-
-* `planner generate 4`
-Generates a planner for user to graduate in 4 years, with Advanced Technology Attachment Programme as the default internship type.
-
-* `planner generate`
-Generates a planner for user to graduate in 4 years, with Advanced Technology Attachment Programme as the internship type by default.
-
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -337,9 +286,3 @@ e.g.`select 2`
 e.g. * `planner add CS1231 Y1S2`
 * *Planner delete* : `planner delete`
 e.g. * `planner delete CS1231`
-* *Planner move* : `planner move MODULE_CODE SEMESTER`
-e.g. * `planner move CS1231 Y1S2s`
-* *Planner table* : `planner table`
-* *Planner tree* : `planner tree`
-* *Planner suggest* : `planner suggest`
-* *Planner generate* : `planner generate`
