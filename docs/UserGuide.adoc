@@ -243,6 +243,8 @@ Adds module CS1010 to year 1 semester 1 special semester.
 Deleting an existing module from the degree planner. +
 Format: `planner_delete CODE`
 
+* `CODE` indicates module code.
+
 Examples:
 
 * `planner_delete CS1231`
@@ -251,6 +253,7 @@ Examples:
 
 Format: `planner_move CODE y/YEAR s/SEM`
 
+* `CODE` indicates module code.
 * `YEAR` indicates the year.
 * `SEM` indicates the semester.
 * `YEAR` and `SEM` must be either 1, 2, 3 or 4.
