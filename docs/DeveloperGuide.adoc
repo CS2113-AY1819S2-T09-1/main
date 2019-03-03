@@ -855,7 +855,7 @@ _{More to be added}_
 
 *ASSUMPTION*
 
-Category is static! Only from "University Level Requirements/Computing Foundation/Information Security Requirements/Computing Breadth/IT Professionalism/Mathematics"
+Category is static. It is only from "University Level Requirements/Computing Foundation/Information Security Requirements/Computing Breadth/IT Professionalism/Mathematics"
 
 *MSS*
 
@@ -991,7 +991,7 @@ Use case ends.
 
 *Extensions*
 
-* 3a. The input is invalid.
+* 3a. User input incorrect format.
 +
 [none]
 ** 3a1. Degree planner shows an error message.
@@ -1013,7 +1013,7 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The input is invalid.
+* 3a. User input incorrect format.
 +
 [none]
 ** 3a1. Degree planner shows an error message.
