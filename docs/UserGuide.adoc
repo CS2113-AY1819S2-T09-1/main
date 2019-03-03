@@ -222,12 +222,12 @@ Format: `clear`
 === Adding a module to the degree planner : `planner add`
 
 Adds an existing module to the degree planner. +
-Format: `planner add MODULE_CODE y/YEARs/SEM[/s]`
+Format: `planner add MODULE_CODE y/YEAR s/SEM`
 
 * `YEAR` indicates the year.
 * `SEM` indicates the semester.
-* `[/s]` indicates whether the semester is a special semester. When `/s` is added, it is a special semester, vice versa.
-* `YEAR` must be a positive integer lower than 7, and `SEM` must be either 1 or 2.
+* `YEAR` must be a positive integer lower than 7, and `SEM` must be either 1, 2, 3 or 4.
+* 3 or 4 for `SEM` respectively indicate special semester 1 and special semester 2.
 * After adding, the changes will be reflected in the degree planner accordingly.
 
 Examples:
@@ -249,13 +249,14 @@ Examples:
 
 === Moving a module in the planner : `planner move`
 
-Format: `planner move MODULE_CODE y/YEARs/SEM[/s]`
+Format: `planner move MODULE_CODE y/YEAR s/SEM`
 
 * `YEAR` indicates the year.
 * `SEM` indicates the semester.
-* `[/s]` indicates whether the semester is a special semester. When `/s` is added, it is a special semester, vice versa.
-* `YEAR` must be a positive integer lower than 7, and `SEM` must be either 1 or 2.
-* After moving, the changes will be reflected in the degree planner accordingly.
+* `YEAR` must be a positive integer lower than 7, and `SEM` must be either 1, 2, 3 or 4.
+* 3 or 4 for `SEM` respectively indicate special semester 1 and special semester 2.
+* After adding, the changes will be reflected in the degree planner accordingly.
+
 
 Examples:
 
@@ -310,7 +311,7 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Add module to Degree Planner* : `planner add MODULE_CODE y/YEARs/SEM[/s]` +
+* *Add module to Degree Planner* : `planner add MODULE_CODE y/YEAR s/SEM[/s]` +
 e.g.  `planner add CS1010 y1/s2/s`
 * *Delete module from Degree Planner* : `planner delete` +
 e.g.  `planner delete CS1231`
