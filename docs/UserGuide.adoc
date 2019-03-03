@@ -221,6 +221,8 @@ Format: `clear`
 
 === Adding a module to the degree planner : `planner_add`
 
+* `CODE` indicates module code.
+
 Adds an existing module to the degree planner. +
 Format: `planner_add CODE y/YEAR s/SEM`
 
