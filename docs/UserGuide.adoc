@@ -219,54 +219,54 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Adding a module to the degree planner : `planner add`
+=== Adding a module to the degree planner : `planner_add`
 
 Adds an existing module to the degree planner. +
-Format: `planner add MODULE_CODE y/YEAR s/SEM`
+Format: `planner_add CODE y/YEAR s/SEM`
 
 * `YEAR` indicates the year.
 * `SEM` indicates the semester.
-* `YEAR` must be a positive integer lower than 5, and `SEM` must be either 1, 2, 3 or 4.
+* `YEAR` and `SEM` must be either 1, 2, 3 or 4.
 * 3 or 4 for `SEM` respectively indicate special semester 1 and special semester 2.
 * After adding, the changes will be reflected in the degree planner accordingly.
 
 Examples:
 
-* `planner add CS1231 y/1 s/2` +
+* `planner_add CS1231 y/1 s/2` +
 Adds module CS1231 to year 1 semester 2.
 
-* `planner add CS1010 y/1 s/3` +
+* `planner_add CS1010 y/1 s/3` +
 Adds module CS1010 to year 1 semester 1 special semester.
 
-=== Deleting a module from the degree planner : `planner delete`
+=== Deleting a module from the degree planner : `planner_delete`
 
 Deleting an existing module from the degree planner. +
-Format: `planner delete MODULE_CODE`
+Format: `planner_delete CODE`
 
 Examples:
 
-* `planner delete CS1231`
+* `planner_delete CS1231`
 
-=== Moving a module in the planner : `planner move`
+=== Moving a module in the planner : `planner_move`
 
-Format: `planner move MODULE_CODE y/YEAR s/SEM`
+Format: `planner_move CODE y/YEAR s/SEM`
 
 * `YEAR` indicates the year.
 * `SEM` indicates the semester.
-* `YEAR` must be a positive integer lower than 5, and `SEM` must be either 1, 2, 3 or 4.
+* `YEAR` and `SEM` must be either 1, 2, 3 or 4.
 * 3 or 4 for `SEM` respectively indicate special semester 1 and special semester 2.
 * After adding, the changes will be reflected in the degree planner accordingly.
 
 
 Examples:
 
-* `planner move CS1231 y/1 s/2` +
+* `planner_move CS1231 y/1 s/2` +
 Moves module CS1231 to year 1 semester 2.
 
-* `planner move CS1231 y/1 s/4` +
+* `planner_move CS1231 y/1 s/4` +
 Moves module CS1231 to year 1 semester 2 special semester.
 
-=== Using planner to suggest modules to take: `planner suggest`
+=== Using planner to suggest modules to take: `planner_suggest`
 
 Displays a list of modules that can be taken in the current selected semester.
 
@@ -311,10 +311,10 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Add module to Degree Planner* : `planner add MODULE_CODE y/YEAR s/SEMf` +
-e.g.  `planner add CS1010 y/1 s/2`
-* *Delete module from Degree Planner* : `planner delete` +
-e.g.  `planner delete CS1231`
-* *Planner move* : `planner move MODULE_CODE SEMESTER` +
-e.g.  `planner move CS1231 y/1 s/2`
-* *Planner suggest* : `planner suggest`
+* *Add module to Degree Planner* : `planner_add CODE y/YEAR s/SEM` +
+e.g.  `planner_add CS1010 y/1 s/2`
+* *Delete module from Degree Planner* : `planner_delete` +
+e.g.  `planner_delete CS1231`
+* *Planner move* : `planner_move CODE SEMESTER` +
+e.g.  `planner_move CS1231 y/1 s/2`
+* *Planner suggest* : `planner_suggest`
