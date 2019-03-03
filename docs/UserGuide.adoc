@@ -221,11 +221,10 @@ Format: `clear`
 
 === Adding a module to the degree planner : `planner_add`
 
-* `CODE` indicates module code.
-
 Adds an existing module to the degree planner. +
 Format: `planner_add CODE y/YEAR s/SEM`
 
+* `CODE` indicates module code.
 * `YEAR` indicates the year.
 * `SEM` indicates the semester.
 * `YEAR` and `SEM` must be either 1, 2, 3 or 4.
