@@ -270,7 +270,7 @@ Moves module CS1231 to year 1 semester 2 special semester.
 
 Displays a list of modules that can be taken in the current selected semester.
 
-* The modules suggested are selected according to pre-requisites and exemption.
+* The modules suggested are not currently in the planner.
 
 === Exiting the program : `exit`
 
@@ -311,7 +311,7 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Add module to Degree Planner* : `planner add MODULE_CODE y/YEAR s/SEM[/s]` +
+* *Add module to Degree Planner* : `planner add MODULE_CODE y/YEAR s/SEMf` +
 e.g.  `planner add CS1010 y/1 s/2`
 * *Delete module from Degree Planner* : `planner delete` +
 e.g.  `planner delete CS1231`
