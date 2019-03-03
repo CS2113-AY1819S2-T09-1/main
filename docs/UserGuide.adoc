@@ -226,7 +226,7 @@ Format: `planner add MODULE_CODE y/YEAR s/SEM`
 
 * `YEAR` indicates the year.
 * `SEM` indicates the semester.
-* `YEAR` must be a positive integer lower than 7, and `SEM` must be either 1, 2, 3 or 4.
+* `YEAR` must be a positive integer lower than 5, and `SEM` must be either 1, 2, 3 or 4.
 * 3 or 4 for `SEM` respectively indicate special semester 1 and special semester 2.
 * After adding, the changes will be reflected in the degree planner accordingly.
 
@@ -253,7 +253,7 @@ Format: `planner move MODULE_CODE y/YEAR s/SEM`
 
 * `YEAR` indicates the year.
 * `SEM` indicates the semester.
-* `YEAR` must be a positive integer lower than 7, and `SEM` must be either 1, 2, 3 or 4.
+* `YEAR` must be a positive integer lower than 5, and `SEM` must be either 1, 2, 3 or 4.
 * 3 or 4 for `SEM` respectively indicate special semester 1 and special semester 2.
 * After adding, the changes will be reflected in the degree planner accordingly.
 
