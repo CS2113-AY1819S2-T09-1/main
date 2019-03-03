@@ -241,7 +241,7 @@ Adds module CS1010 to year 1 semester 1 special semester.
 
 === Deleting a module from the degree planner : `planner_delete`
 
-Deleting an existing module from the degree planner. +
+Deletes an existing module from the degree planner. +
 Format: `planner_delete CODE`
 
 * `CODE` indicates module code.
@@ -252,6 +252,7 @@ Examples:
 
 === Moving a module in the planner : `planner_move`
 
+Moves a module in the planner to another semester. +
 Format: `planner_move CODE y/YEAR s/SEM`
 
 * `CODE` indicates module code.
