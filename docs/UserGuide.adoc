@@ -94,25 +94,36 @@ Edits the phone number and email address of the 1st module to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd module to be `Betsy Crower` and clears all existing tags.
 
-=== Locating modules by name: `find`
+=== Locating modules either by name, code or credits: `find`
 
-Finds modules whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Finds modules whose names, code or credits matches any of the given keywords. +
+Format: `find [name/NAME NAME...] [code/CODE CODE...] [credits/CREDITS CREDITS...]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Modules matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
 
+* The search is case insensitive. e.g `security` will match `Security`
+* The order of the keywords does not matter. e.g. `Security Information` will match `Information Security`
+* Only the module name, code or credits is searched.
+* Only full words will be matched. e.g. `CS` will not match `CS1231`
+* Modules matching at least one keyword will be returned (i.e. `OR` search). +
+e.g. `Information` will return `Information Technology`, `Information Business`
+****
+[NOTE]
+====
+You can only search one prefix. +
+e.g. `name/Information` or `code/CS1231` but not
+`name/Information code/CS1231`
+====
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any module having names `Betsy`, `Tim`, or `John`
+* `find name/Security` +
+Returns `security` and `Information Security` in the displayed module list.
+* `find name/Security Information Computer` +
+Returns any module having names `Security`, `Information`, or `Computer` in the displayed module list.
+* `find code/CS1231 CS2040` +
+Returns any module having code `CS1231` or `CS2040` in the displayed module list.
+* `find credits/004 012` +
+Returns any module having credits `004` or `012` in the displayed module list.
 
 === Deleting a module : `delete`
 
@@ -307,8 +318,8 @@ e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 123466
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+* *Find* : `find [name/NAME NAME...] [code/CODE CODE...] [credits/CREDITS CREDITS...]` +
+e.g. `find name/Information Security`
 * *List* : `list`
 * *Help* : `help`
 * *Select* : `select INDEX` +
