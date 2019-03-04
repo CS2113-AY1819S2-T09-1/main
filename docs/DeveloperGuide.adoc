@@ -972,7 +972,7 @@ _{ more test cases ... }_
 
 .. Prerequisites: List all modules using the `list` command. Multiple modules in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First module is deleted from the list. Details of the deleted module shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No module is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
