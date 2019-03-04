@@ -11,6 +11,7 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/cs2113-ay1819s2-t09-1/main/tree/master
 
@@ -18,25 +19,31 @@ By: `Team T09-1`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-Plan With Ease (PWE) is an application target at National University of Singapore (NUS) Information Security freshmen who prefer to use a desktop application to plan their modules according to their degree requirements. More Importantly, PWE is optimized for users who prefer an environment with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, PWE is able to plan your modules faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+PlanWithEase (PWE) is an application designed to help National University of Singapore (NUS) Information Security freshmen in creating a comprehensive degree plan according to the degree requirements.
+
+PWE is optimized for those who prefer using a Command Line Interface (CLI). The commands used to interact with PWE
+are designed to be simple and intuitive, so even those who are unfamiliar with CLI can use PWE with ease.
+
+PWE also comes with a clean Graphical User Interface (GUI) that presents information in an organized manner.
+
+Interested in using PWE to plan your degree easily? Jump to <<Quick Start>> to get started!
 
 == Quick Start
 
 .  Ensure you have Java version `9` installed in your Computer.
 .  Download the latest `PWE.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Copy the file to the folder you want to use as the home folder for PlanWithEase.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+.  Below are some example commands you can try:
+* *`list`* : lists all modules
+* **`add`**`name/Programming Methodology code/CS1010` : adds a module named `Programming Methodology` with code `CS1010` into module list
+* **`delete`**`3` : deletes the 3rd module shown in the current list
+* *`exit`* : exits the application
 
 .  Refer to <<Features>> for details of each command.
 
@@ -46,10 +53,24 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user
+.. e.g. in `add name/NAME`, `NAME` is a parameter
+which can be used as `add name/Programming Methodology`.
+* Items in square brackets are optional parameters
+** e.g. `name/NAME [tag/TAG]` can be used as:
+.. `name/Database Systems tag/sql` (with optional `tag` parameter)
+.. `name/Database Systems` (without optional `tag` parameter)
+* Items with `...`​ after them are parameters that can be used multiple times (including zero times)
+** e.g. `[tag/TAG]...` can be used as:
+.. `{nbsp}` (i.e. 0 times)
+.. `tag/programming` (i.e. 1 time)
+.. `tag/programming tag/algorithms`, etc.  (i.e. many times)
+** e.g. `[name/NAME NAME...]` can be used as:
+.. `{nbsp}` (i.e. 0 times)
+.. `name/Programming` (i.e. 1 time)
+.. `name/Programming Methodology`, etc.  (i.e. many times)
+* Prefixed-parameters can be arranged in any order
+.. e.g. if the command specifies `name/NAME code/CODE`, entering `code/CODE name/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
@@ -58,41 +79,60 @@ Format: `help`
 
 === Adding a module: `add`
 
-Adds a module to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a module to the module list. +
+Format: `add name/NAME code/CODE credits/CREDITS [tag/TAG]...`
+
+* `NAME` indicates the name of the module (e.g. `Programming Methodology`).
+* `CODE` indicates the module code (e.g. `CS1010`).
+* `CREDITS` indicates the modular credits assigned to the module (e.g. `004`).
+* `TAG` indicates the extra information to associate the module with (e.g. `programming`, `loops`).
+
+[WARNING]
+====
+`NAME` should only contain alphanumeric characters and spaces, and it should not be blank. +
+`CODE` can contain any character but it should not be blank. +
+`CREDITS` should be 3 digits long, and it should not be blank. +
+If the amount of modular credits is not 3 digit long (e.g. 4), prepend the value with `0` (i.e. 004) +
+`TAG` should only contain alphanumeric characters, and it should not be blank.
+====
+
+Examples:
+
+* `add name/Programming Methodology code/CS1010 credits/004 tag/programming tag/algorithms tag/c tag/imperative`
+* `add code/CS1231 name/Discrete Structures credits/004 tag/logic tag/math tag/proving`
 
 [TIP]
 A module can have any number of tags (including 0)
 
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Examples: +
+* `add code/CS1231 credits/004 name/Discrete Structures`
 
 === Listing all modules : `list`
 
-Shows a list of all modules in the address book. +
+Shows a list of all modules in the module list. +
 Format: `list`
 
 === Editing a module : `edit`
 
-Edits an existing module in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing module in the module list. +
+Format: `edit INDEX [name/NAME] [code/CODE] [credits/CREDITS] [tag/TAG]...`
 
-****
+[NOTE]
+====
 * Edits the module at the specified `INDEX`. The index refers to the index number shown in the displayed module list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the module will be removed i.e adding of tags is not cumulative.
-* You can remove all the module's tags by typing `t/` without specifying any tags after it.
-****
+* You can remove all the module's tags by typing `tag/` without specifying any tags after it.
+====
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st module to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd module to be `Betsy Crower` and clears all existing tags.
+* `edit 1 name/Data Structures and Algorithms code/CS2040C` +
+Edits the name and code of the 1st module in the displayed module list to be `Data Structures and Algorithms` and `CS2040C` respectively. +
+* `edit 2 code/CS2040C tag/` +
+Edits the code of the 2nd module in the displayed module list to be `CS2040C` and clears all existing tags associated
+ with the module.
 
 === Locating modules either by name, code or credits: `find`
 
@@ -127,21 +167,22 @@ Returns any module having credits `004` or `012` in the displayed module list.
 
 === Deleting a module : `delete`
 
-Deletes the specified module from the address book. +
+Deletes the specified module from the module list. +
 Format: `delete INDEX`
 
-****
+[NOTE]
+====
 * Deletes the module at the specified `INDEX`.
 * The index refers to the index number shown in the displayed module list.
 * The index *must be a positive integer* 1, 2, 3, ...
-****
+====
 
 Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd module in the address book.
-* `find Betsy` +
+Deletes the 2nd module in the module list.
+* `find Programming` +
 `delete 1` +
 Deletes the 1st module in the results of the `find` command.
 
@@ -160,7 +201,7 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd module in the address book.
+Selects the 2nd module in the displayed module list.
 * `find Betsy` +
 `select 1` +
 Selects the 1st module in the results of the `find` command.
@@ -178,12 +219,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores PlanWithEase's data to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the contents of PlanWithEase's data (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -227,7 +268,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the module list. +
 Format: `clear`
 
 === Adding a module to the degree planner : `planner_add`
@@ -295,31 +336,25 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+PlanWithEase data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous PlanWithEase data folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
+* *Add module to module list* : `add name/NAME code/CODE credits/CREDITS [tag/TAG]...` +
+e.g. `add name/Programming Methodology code/CS1010 credits/004 tag/programming tag/algorithms tag/c tag/imperative`
+* *Edit* : `edit INDEX [name/NAME] [code/CODE] [credits/CREDITS] [tag/TAG]...` +
+e.g. `edit 1 name/Data Structures and Algorithms code/CS2040C`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find [name/NAME NAME...] [code/CODE CODE...] [credits/CREDITS CREDITS...]` +
 e.g. `find name/Information Security`
+* *Clear* : `clear`
 * *List* : `list`
 * *Help* : `help`
 * *Select* : `select INDEX` +
