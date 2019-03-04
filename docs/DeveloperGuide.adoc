@@ -982,10 +982,10 @@ Use case resume at step 2.
 
 *MSS*
 
-1.  User requests to list modules in degree planner
-2.  Degree planner shows the list of modules
-3.  User requests to add a specific module in the list
-4.  Degree planner adds the module
+1. User requests to list modules in the Application's degree planner
+2. Application's degree planner shows the list of modules
+3. User requests to adds a module into the Application's degree planner
+4. Application adds the module into the degree planner
 +
 Use case ends.
 
@@ -994,15 +994,15 @@ Use case ends.
 * 3a. User input incorrect format.
 +
 [none]
-** 3a1. Degree planner shows an error message.
+** 3a1. Application's degree planner shows an error message.
 +
 Use case resumes at step 2.
 
 === Use case: Delete module from degree planner
-1.  User requests to list modules in degree planner
-2.  Degree planner shows the list of modules
-3.  User requests to delete a specific module in the list
-4.  Degree planner deletes the module
+1.  User requests to list modules in Application's degree planner
+2.  Application's degree planner shows the list of modules
+3.  User requests to delete a specific module from the list
+4.  Application's degree planner deletes the module
 +
 Use case ends.
 
@@ -1016,7 +1016,7 @@ Use case ends.
 * 3a. User input incorrect format.
 +
 [none]
-** 3a1. Degree planner shows an error message.
+** 3a1. Application's degree planner shows an error message.
 +
 Use case resumes at step 2.
 
