@@ -545,15 +545,49 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |user |list my module plan |know which modules to bid/take in future
 
-|`* * *` |user |edit my module plan |update my plan if there is any change in my current plan
+|`* * *` |user |add modules  |keep a list of modules that I want to take
+
+|`* * *` |user |delete modules  |remove modules that I am not interested in taking
+
+|`* * *` |user |edit modules |edit the modules' details if there are any changes
+
+|`* * *` |user |list all modules |have an overview of all the modules that are added
+
+|`* * *` |user |find modules that are already added |know if I have previously added them
+
+|`* * *` |user |mark modules that are exempted |keep track of exempted modules
+
+|`* * *` |user |add modules into my degree planner |know which modules to bid/take in future
+
+|`* * *` |user |move my modules to other academic semester in my degree planner |update my plan if there are any
+changes
 
 |`* * *` |user |mark those modules that are exempted in the module plan |keep track of exempted modules
+
+|`* * *` |user |list my degree planner |have an overview of my current plan
+
+|`* * *` |user |add module codes into different degree requirement categories |classify the modules according to their
+categories
+
+|`* * *` |user |remove module codes from the degree requirement categories |remove them if I made a mistake
+
+|`* * *` |user |move modules codes from a degree requirement categories to another |easily move them around
+
+|`* * *` |user |see all the degree requirement categories |get an overview of what modules fall under what categories
+
+|`*  *` |user |undo my previous command |easily revert back if a command was entered wrongly
+
+|`*  *` |user |redo my previous command |reverse my undo command if I have changed my opinion
 
 |`* *` |user |choose to overload/underload modules in a semester |manage my workload better
 
 |`*` |user |generate my own module plan |easily plan which modules to take during university life
+
+|`*`|user |export my data from the application|reuse the existing data on other devices
+
+|`*` |user |import existing data into application| utilise existing data that was previously created
+
 |=======================================================================
 
 _{More to be added}_
@@ -565,14 +599,38 @@ _{More to be added}_
 specified otherwise)
 
 [discrete]
-=== Use case: Delete module
+=== Use case: Add a module to Application
+
+*MSS*
+
+1. User requests to add a module
+2. Application adds the module into the module list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given input is invalid.
+[none]
+** 1a1. Application shows an error message that given input is invalid.
++
+Use case ends.
+* 1b. The module already exists in the module list.
+[none]
+** 1b1. Application shows an error message that module specified by user already exists in module list.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete module from Application
 
 *MSS*
 
 1.  User requests to list modules
-2.  AddressBook shows a list of modules
-3.  User requests to delete a specific module in the list
-4.  AddressBook deletes the module
+2.  Application shows a list of modules
+3.  User requests to delete a specific module in the module list
+4.  Application deletes the module in the module list
 +
 Use case ends.
 
@@ -583,39 +641,298 @@ Use case ends.
 +
 Use case ends.
 
+[none]
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Application shows an error message.
 +
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Find a module
-*Guarantee(s):*
+=== Use case: Edit module from Application
 
+*MSS*
+
+1.  User requests to list modules
+2.  Application shows a list of modules
+3.  User requests to edit a specific module in the module list
+4.  Application update the module in the module list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Application shows an error message.
++
+Use case resumes at step 2.
+
+[none]
+* 3b. The module already exists in the module list.
++
+[none]
+** 3b1. Application shows an error message that module specified by user already exists in module list.
++
+Use case ends.
+
+[discrete]
+=== Use case: Find a module in Application
+*Guarantee(s):*
+[none]
 * Modules will be listed if the input from the user is valid and can be matches the existing entries in the module list. +
 
 *MSS*
 
-. User requests to find modules with their keyword of choice.
-. Application shows a list of modules matched the keyword.
+1. User requests to find modules with their keyword of choice.
+2. Application shows a list of modules matched the keyword.
 +
 Use case ends.
 
 *Extensions*
 [none]
 * 1a. The given input is invalid.
++
+[none]
 ** 1a1. Application shows an error message that given input is invalid.
 +
 Use case ends.
 
-[none]
-* 2a. The module list is empty.
-** 2a1. Application shows an error message that module list is empty.
+[discrete]
+=== Use case: List all modules in Application
+
+*MSS*
+
+1.  Student requests to list all modules in the module list
+2.  Application shows a list of all modules in the module list
 +
 Use case ends.
 
+*Extensions*
+[none]
+* None
+
+[discrete]
+=== Use case: Clear all modules in Application
+
+*MSS*
+
+1.  Student requests to clear all modules in the module list
+2.  Application clear all modules in the module list
++
+Use case ends.
+
+*Extensions*
+[none]
+* None
+
+[discrete]
+=== Use case: Add a module to degree planner
+
+*MSS*
+
+1. User requests to add a module into the Application's degree planner
+2. Application adds the module into the degree planner
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given input is invalid.
+[none]
+** 1a1. Application shows an error message that given input is invalid.
++
+Use case ends.
+* 1b. The module already exists in the degree planner.
+[none]
+** 1b1. Application shows an error message that module specified by user already exists in degree planner.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete module from degree planner
+
+*MSS*
+
+1.  User requests to list modules in the Application's degree planner
+2.  Application shows a list of modules in the degree planner
+3.  User requests to delete a specific module in the degree planner
+4.  Application deletes the module in the degree planner
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The given input is invalid.
++
+[none]
+** 3a1. Application shows an error message that given input is invalid.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Move module in degree planner
+
+*MSS*
+
+1.  User requests to list modules in the Application's degree planner
+2.  Application shows a list of modules in the degree planner
+3.  User requests to move a specific module to another academic semester in the degree planner
+4.  Application update the degree planner
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The given input is invalid.
++
+[none]
+** 3a1. Application shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: List all degree planners
+
+*MSS*
+
+1.  Student requests to list all the Application's degree planners
+2.  Application shows a list of all the degree planners
++
+Use case ends.
+
+[discrete]
+=== Use case: List a specific degree planner
+
+*MSS*
+
+1.  Student requests to list a specific Application's degree planner
+2.  Application shows a list of the specific degree planner
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given input is invalid.
++
+[none]
+** 1a1. Application shows an error message that given input is invalid.
++
+Use case resumes from step 1.
+
+[discrete]
+=== Use case: Add a module to degree requirement category
+
+*MSS*
+
+1. User requests to add a module into the Application's degree requirement category
+2. Application adds the module into the degree requirement category
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given input is invalid.
+[none]
+** 1a1. Application shows an error message that given input is invalid.
++
+Use case ends.
+* 1b. The module already exists in the  degree requirement category.
+[none]
+** 1b1. Application shows an error message that module specified by user already exists in  degree requirement category.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete module from degree requirement category
+
+*MSS*
+
+1.  User requests to list modules in the Application's degree requirement category
+2.  Application shows a list of modules in the degree requirement category
+3.  User requests to delete a specific module in the degree requirement category
+4.  Application deletes the module in the degree requirement category
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The given input is invalid.
++
+[none]
+** 3a1. Application shows an error message that given input is invalid.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Move module in degree requirement category
+
+*MSS*
+
+1.  User requests to list modules in the Application's degree requirement category
+2.  Application shows a list of modules in the degree requirement category
+3.  User requests to move a specific module to another academic semester in the degree requirement category
+4.  Application update the degree requirement category
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The given input is invalid.
++
+[none]
+** 3a1. Application shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: List all degree requirement categories
+
+*MSS*
+
+1.  Student requests to list all the Application's degree requirement categories
+2.  Application shows a list of all the degree requirement categories
++
+Use case ends.
+
+*Extensions*
+[none]
+* None
 
 [appendix]
 == Non Functional Requirements
@@ -638,6 +955,18 @@ _{More to be added}_
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
+
+[[overload-module]] Overload::
+Taking above the workload of 22MC per academic semester
+
+[[underload-module]] Underload::
+Taking below the workload of 18MC per academic semester
+
+[[degree-planner]] Degree planner::
+A planner that allows user to decide what modules to take during a specific academic semester
+
+[[degree-requirement-catergory]] Degree requirement category::
+A category that allows classifying of modules based on the University Requirement
 
 [appendix]
 == Instructions for Manual Testing
