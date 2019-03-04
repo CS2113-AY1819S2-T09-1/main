@@ -60,12 +60,12 @@ which can be used as `add name/Programming Methodology`.
 ** e.g. `name/NAME [tag/TAG]` can be used as:
 .. `name/Database Systems tag/sql` (with optional `tag` parameter)
 .. `name/Database Systems` (without optional `tag` parameter)
-* Items with `...`​ after them are parameters that can be used multiple times (including zero times)
-** e.g. `[tag/TAG]...` can be used as:
+* Items with `…`​ after them are parameters that can be used multiple times (including zero times)
+** e.g. `[tag/TAG]…` can be used as:
 .. `{nbsp}` (i.e. 0 times)
 .. `tag/programming` (i.e. 1 time)
 .. `tag/programming tag/algorithms`, etc.  (i.e. many times)
-** e.g. `[name/NAME NAME...]` can be used as:
+** e.g. `[name/NAME NAME…]` can be used as:
 .. `{nbsp}` (i.e. 0 times)
 .. `name/Programming` (i.e. 1 time)
 .. `name/Programming Methodology`, etc.  (i.e. many times)
@@ -80,7 +80,7 @@ Format: `help`
 === Adding a module: `add`
 
 Adds a module to the module list. +
-Format: `add name/NAME code/CODE credits/CREDITS [tag/TAG]...`
+Format: `add name/NAME code/CODE credits/CREDITS [tag/TAG]…`
 
 * `NAME` indicates the name of the module (e.g. `Programming Methodology`).
 * `CODE` indicates the module code (e.g. `CS1010`).
@@ -105,6 +105,7 @@ Examples:
 A module can have any number of tags (including 0)
 
 Examples: +
+
 * `add code/CS1231 credits/004 name/Discrete Structures`
 
 === Listing all modules : `list`
@@ -115,11 +116,11 @@ Format: `list`
 === Editing a module : `edit`
 
 Edits an existing module in the module list. +
-Format: `edit INDEX [name/NAME] [code/CODE] [credits/CREDITS] [tag/TAG]...`
+Format: `edit INDEX [name/NAME] [code/CODE] [credits/CREDITS] [tag/TAG]…`
 
 [NOTE]
 ====
-* Edits the module at the specified `INDEX`. The index refers to the index number shown in the displayed module list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the module at the specified `INDEX`. The index refers to the index number shown in the displayed module list. The index *must be a positive integer* 1, 2, 3, …
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the module will be removed i.e adding of tags is not cumulative.
@@ -137,7 +138,7 @@ Edits the code of the 2nd module in the displayed module list to be `CS2040C` an
 === Locating modules either by name, code or credits: `find`
 
 Finds modules whose names, code or credits matches any of the given keywords. +
-Format: `find [name/NAME NAME...] [code/CODE CODE...] [credits/CREDITS CREDITS...]`
+Format: `find [name/NAME NAME…] [code/CODE CODE…] [credits/CREDITS CREDITS…]`
 
 ****
 
@@ -174,7 +175,7 @@ Format: `delete INDEX`
 ====
 * Deletes the module at the specified `INDEX`.
 * The index refers to the index number shown in the displayed module list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive integer* 1, 2, 3, …
 ====
 
 Examples:
@@ -194,7 +195,7 @@ Format: `select INDEX`
 ****
 * Selects the module and loads the Google search page the module at the specified `INDEX`.
 * The index refers to the index number shown in the displayed module list.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* The index *must be a positive integer* `1, 2, 3, …`
 ****
 
 Examples:
@@ -338,6 +339,51 @@ Shows a degree planner for year 1 semester 2
 
 Displays a list of modules that can be added to the degree planner.
 
+=== Adding a module code to degree requirement category : `requirement_add` `[coming in v2.0]`
+
+Add module code to a degree requirement category in the application. +
+Format: `requirement_add name/NAME [code/CODE]…`
+
+*  After adding, the changes will be reflected in the application accordingly.
+
+Examples:
+
+* `requirement_add name/IT Professionalism code/IS4231` +
+Add module code `IS4231` into `IT Professionalism` degree requirement category.
+
+* `requirement_add name/Computing Foundations code/CS1231 code/CS2100` +
+Adds module codes `CS1231` and `CS2100` into `Computing Foundations` degree requirement category.
+
+=== Deleting a module code from degree requirement category : `requirement_delete` `[coming in v2.0]`
+
+Deletes an existing module code from a degree requirement category. +
+Format: `requirement_delete name/NAME [code/CODE]…`
+
+*  After deleting, the changes will be reflected in the application accordingly.
+
+Examples:
+
+* `requirement_delete name/Professionalism code/IS4231` +
+Deletes the module code `IS4231` from the `IT Professionalism` degree requirement category.
+
+=== Moving a module code in degree requirement category : `requirement_move` `[coming in v2.0]`
+
+Moves a module code to another degree requirement category. +
+Format: `requirement_move CODE name/NAME`
+
+*  After moving, the changes will be reflected in the application accordingly.
+
+Examples:
+
+* `requirement_move IS4231 name/IT Professionalism` +
+Moves the module code `IS4231` from to `IT Professionalism` degree requirement category.
+
+=== Listing all degree requirement categories : `requirement_list` `[coming in v2.0]`
+
+Shows a list of all degree requirement categories in the application and the module codes
+added into each degree requirement categories. +
+Format: `requirement_list`
+
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -363,13 +409,13 @@ manually. The application will save the data at the specified storage location.
 
 == Command Summary
 
-* *Add module to module list* : `add name/NAME code/CODE credits/CREDITS [tag/TAG]...` +
+* *Add module to module list* : `add name/NAME code/CODE credits/CREDITS [tag/TAG]…` +
 e.g. `add name/Programming Methodology code/CS1010 credits/004 tag/programming tag/algorithms tag/c tag/imperative`
-* *Edit* : `edit INDEX [name/NAME] [code/CODE] [credits/CREDITS] [tag/TAG]...` +
+* *Edit* : `edit INDEX [name/NAME] [code/CODE] [credits/CREDITS] [tag/TAG]…` +
 e.g. `edit 1 name/Data Structures and Algorithms code/CS2040C`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Find* : `find [name/NAME NAME...] [code/CODE CODE...] [credits/CREDITS CREDITS...]` +
+* *Find* : `find [name/NAME NAME…] [code/CODE CODE…] [credits/CREDITS CREDITS…]` +
 e.g. `find name/Information Security`
 * *Clear* : `clear`
 * *List* : `list`
@@ -388,3 +434,12 @@ e.g.  `planner_move CS1231 y/1 s/2`
 * *List all degree planners* : `planner_list_all`
 * *List specific degree planner* : `planner_list y/YEAR s/SEMESTER` +
 e.g. `planner_list y/1 s/2`
+* *Using degree planner to suggest modules* : `planner_suggest`
+* *Add module code to degree requirement category* : `requirement_add name/NAME [code/CODE]…` +
+e.g. `requirement_add name/IT Professionalism code/IS4231`
+* *Delete module code from degree requirement category* : `requirement_delete name/NAME [code/CODE]…` +
+e.g. `requirement_delete name/IT Professionalism code/IS4231`
+* *Move module code from degree requirement category*  : `requirement_move CODE
+name/NAME` +
+e.g. `requirement_move IS4231 name/IT Professionalism`
+* *List all degree requirement category* : `requirement_list`
