@@ -271,16 +271,16 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the module list. +
 Format: `clear`
 
-=== Adding a module to the degree planner : `planner_add`
+=== Adding a module to the degree planner : `planner_add` `[coming in v2.0]`
 
 Adds an existing module to the degree planner. +
-Format: `planner_add CODE y/YEAR s/SEM`
+Format: `planner_add CODE y/YEAR s/SEMESTER`
 
 * `CODE` indicates module code.
 * `YEAR` indicates the year.
-* `SEM` indicates the semester.
-* `YEAR` and `SEM` must be either 1, 2, 3 or 4.
-* 3 or 4 for `SEM` respectively indicate special semester 1 and special semester 2.
+* `SEMESTER` indicates the semester.
+* `YEAR` and `SEMESTER` must be either 1, 2, 3 or 4.
+** 3 or 4 for `SEMESTER` indicates special semesters 1 and 2 respectively.
 * After adding, the changes will be reflected in the degree planner accordingly.
 
 Examples:
@@ -289,31 +289,25 @@ Examples:
 Adds module CS1231 to year 1 semester 2.
 
 * `planner_add CS1010 y/1 s/3` +
-Adds module CS1010 to year 1 semester 1 special semester.
+Adds module CS1010 to year 1 special semester 1.
 
-=== Deleting a module from the degree planner : `planner_delete`
+=== Deleting a module from the degree planner : `planner_delete` `[coming in v2.0]`
 
 Deletes an existing module from the degree planner. +
 Format: `planner_delete CODE`
 
-* `CODE` indicates module code.
+* After deleting, the changes will be reflected in the degree planner accordingly.
 
 Examples:
 
 * `planner_delete CS1231`
 
-=== Moving a module in the planner : `planner_move`
+=== Moving a module in the degree planner : `planner_move` `[coming in v2.0]`
 
-Moves a module in the planner to another semester. +
-Format: `planner_move CODE y/YEAR s/SEM`
+Moves a module in the degree planner to another academic semester. +
+Format: `planner_move CODE y/YEAR s/SEMESTER`
 
-* `CODE` indicates module code.
-* `YEAR` indicates the year.
-* `SEM` indicates the semester.
-* `YEAR` and `SEM` must be either 1, 2, 3 or 4.
-* 3 or 4 for `SEM` respectively indicate special semester 1 and special semester 2.
-* After adding, the changes will be reflected in the degree planner accordingly.
-
+* After moving, the changes will be reflected in the degree planner accordingly.
 
 Examples:
 
@@ -321,13 +315,28 @@ Examples:
 Moves module CS1231 to year 1 semester 2.
 
 * `planner_move CS1231 y/1 s/4` +
-Moves module CS1231 to year 1 semester 2 special semester.
+Moves module CS1231 to year 1 special semester 2.
 
-=== Using planner to suggest modules to take: `planner_suggest`
+=== Listing degree planners: `planner_list_all` `[coming in v2.0]`
 
-Displays a list of modules that can be taken in the current selected semester.
+Shows a list of all degree planners. +
+Format: `planner_list_all`
 
-* The modules suggested are not currently in the planner.
+=== Listing a degree planner: `planner_list` `[coming in v2.0]`
+
+Shows a list of a specific degree planner. +
+Format: `planner_list y/YEAR s/SEMESTER`
+
+Examples:
+
+* `planner_list y/1 s/1` +
+Shows a degree planner for year 1 semester 1.
+* `planner_list y/1 s/2` +
+Shows a degree planner for year 1 semester 2
+
+=== Using degree planner to suggest modules: `planner_suggest` `[coming in v2.0]`
+
+Displays a list of modules that can be added to the degree planner.
 
 === Exiting the program : `exit`
 
@@ -341,8 +350,16 @@ There is no need to save manually.
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous PlanWithEase data folder.
+*Q*: How am I able to import my data to the same application on another computer? +
+*A*: Install the application in the other computer and run the import command with the file path to
+the exported data.
+
+*Q*: How do I save my task data in the application? +
+*A*: The application saves your data automatically whenever you make any changes. You will not need to save the data
+manually. The application will save the data at the specified storage location.
+
+*Q*: Why did the application complain about an invalid file directory? +
+*A*: Check if the directory you wish to relocate to exists and if you have sufficient privileges to read the file.
 
 == Command Summary
 
@@ -362,10 +379,12 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Add module to Degree Planner* : `planner_add CODE y/YEAR s/SEM` +
+* *Add module to degree planner* : `planner_add CODE y/YEAR s/SEMESTER` +
 e.g.  `planner_add CS1010 y/1 s/2`
-* *Delete module from Degree Planner* : `planner_delete` +
+* *Delete module from degree planner* : `planner_delete CODE` +
 e.g.  `planner_delete CS1231`
-* *Planner move* : `planner_move CODE SEMESTER` +
+* *Move module in degree planner* : `planner_move CODE y/YEAR s/SEMESTER` +
 e.g.  `planner_move CS1231 y/1 s/2`
-* *Planner suggest* : `planner_suggest`
+* *List all degree planners* : `planner_list_all`
+* *List specific degree planner* : `planner_list y/YEAR s/SEMESTER` +
+e.g. `planner_list y/1 s/2`
