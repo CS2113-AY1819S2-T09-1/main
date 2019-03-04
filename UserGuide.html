@@ -30,7 +30,6 @@
 <li><a href="#using-planner-to-suggest-modules-to-take-code-planner_suggest-code">3.15. Using planner to suggest modules to take: <code>planner_suggest</code></a></li>
 <li><a href="#exiting-the-program-code-exit-code">3.16. Exiting the program : <code>exit</code></a></li>
 <li><a href="#saving-the-data">3.17. Saving the data</a></li>
-<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.18. Encrypting data files <code>[coming in v2.0]</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
@@ -42,7 +41,17 @@
 <h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Plan With Ease (PWE) is an application target at National University of Singapore (NUS) Information Security freshmen who prefer to use a desktop application to plan their modules according to their degree requirements. More Importantly, PWE is optimized for users who prefer an environment with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, PWE is able to plan your modules faster than traditional GUI apps. Interested? Jump to the <a href="#quick-start">Section 2, &#8220;Quick Start&#8221;</a> to get started. Enjoy!</p>
+<p>PlanWithEase (PWE) is an application designed to help National University of Singapore (NUS) Information Security freshmen in creating a comprehensive degree plan according to the degree requirements.</p>
+</div>
+<div class="paragraph">
+<p>PWE is optimized for those who prefer using a Command Line Interface (CLI). The commands used to interact with PWE
+are designed to be simple and intuitive, so even those who are unfamiliar with CLI can use PWE with ease.</p>
+</div>
+<div class="paragraph">
+<p>PWE also comes with a clean Graphical User Interface (GUI) that presents information in an organized manner.</p>
+</div>
+<div class="paragraph">
+<p>Interested in using PWE to plan your degree easily? Jump to <a href="#quick-start">Section 2, &#8220;Quick Start&#8221;</a> to get started!</p>
 </div>
 </div>
 </div>
@@ -58,7 +67,7 @@
 <p>Download the latest <code>PWE.jar</code> <a href="https://github.com/cs2113-ay1819s2-t09-1/main/tree/master/releases">here</a>.</p>
 </li>
 <li>
-<p>Copy the file to the folder you want to use as the home folder for your Address Book.</p>
+<p>Copy the file to the folder you want to use as the home folder for PlanWithEase.</p>
 </li>
 <li>
 <p>Double-click the file to start the app. The GUI should appear in a few seconds.</p>
@@ -73,20 +82,20 @@
 e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window.</p>
 </li>
 <li>
-<p>Some example commands you can try:</p>
+<p>Below are some example commands you can try:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong><code>list</code></strong> : lists all contacts</p>
+<p><strong><code>list</code></strong> : lists all modules</p>
 </li>
 <li>
-<p><strong><code>add</code></strong><code>n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code> : adds a contact named <code>John Doe</code> to the Address Book.</p>
+<p><strong><code>add</code></strong><code>name/Programming Methodology code/CS1010</code> : adds a module named <code>Programming Methodology</code> with code <code>CS1010</code> into module list</p>
 </li>
 <li>
-<p><strong><code>delete</code></strong><code>3</code> : deletes the 3rd contact shown in the current list</p>
+<p><strong><code>delete</code></strong><code>3</code> : deletes the 3rd module shown in the current list</p>
 </li>
 <li>
-<p><strong><code>exit</code></strong> : exits the app</p>
+<p><strong><code>exit</code></strong> : exits the application</p>
 </li>
 </ul>
 </div>
@@ -109,16 +118,84 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="ulist">
 <ul>
 <li>
-<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>add n/NAME</code>, <code>NAME</code> is a parameter which can be used as <code>add n/John Doe</code>.</p>
+<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>e.g. in <code>add name/NAME</code>, <code>NAME</code> is a parameter
+which can be used as <code>add name/Programming Methodology</code>.</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
-<p>Items in square brackets are optional e.g <code>n/NAME [t/TAG]</code> can be used as <code>n/John Doe t/friend</code> or as <code>n/John Doe</code>.</p>
+<p>Items in square brackets are optional parameters</p>
+<div class="ulist">
+<ul>
+<li>
+<p>e.g. <code>name/NAME [tag/TAG]</code> can be used as:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><code>name/Database Systems tag/sql</code> (with optional <code>tag</code> parameter)</p>
 </li>
 <li>
-<p>Items with <code>…</code>​ after them can be used multiple times including zero times e.g. <code>[t/TAG]&#8230;&#8203;</code> can be used as <code>&#160;</code> (i.e. 0 times), <code>t/friend</code>, <code>t/friend t/family</code> etc.</p>
+<p><code>name/Database Systems</code> (without optional <code>tag</code> parameter)</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p>Parameters can be in any order e.g. if the command specifies <code>n/NAME p/PHONE_NUMBER</code>, <code>p/PHONE_NUMBER n/NAME</code> is also acceptable.</p>
+<p>Items with <code>&#8230;&#8203;</code>​ after them are parameters that can be used multiple times (including zero times)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>e.g. <code>[tag/TAG]&#8230;&#8203;</code> can be used as:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><code>&#160;</code> (i.e. 0 times)</p>
+</li>
+<li>
+<p><code>tag/programming</code> (i.e. 1 time)</p>
+</li>
+<li>
+<p><code>tag/programming tag/algorithms</code>, etc.  (i.e. many times)</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>e.g. <code>[name/NAME NAME&#8230;&#8203;]</code> can be used as:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><code>&#160;</code> (i.e. 0 times)</p>
+</li>
+<li>
+<p><code>name/Programming</code> (i.e. 1 time)</p>
+</li>
+<li>
+<p><code>name/Programming Methodology</code>, etc.  (i.e. many times)</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Prefixed-parameters can be arranged in any order</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>e.g. if the command specifies <code>name/NAME code/CODE</code>, entering <code>code/CODE name/NAME</code> is also acceptable.</p>
+</li>
+</ol>
+</div>
 </li>
 </ul>
 </div>
@@ -133,8 +210,55 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="sect2">
 <h3 id="adding-a-module-code-add-code"><a class="link" href="#adding-a-module-code-add-code">3.2. Adding a module: <code>add</code></a></h3>
 <div class="paragraph">
-<p>Adds a module to the address book<br>
-Format: <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code></p>
+<p>Adds a module to the module list.<br>
+Format: <code>add name/NAME code/CODE credits/CREDITS [tag/TAG]&#8230;&#8203;</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>NAME</code> indicates the name of the module (e.g. <code>Programming Methodology</code>).</p>
+</li>
+<li>
+<p><code>CODE</code> indicates the module code (e.g. <code>CS1010</code>).</p>
+</li>
+<li>
+<p><code>CREDITS</code> indicates the modular credits assigned to the module (e.g. <code>004</code>).</p>
+</li>
+<li>
+<p><code>TAG</code> indicates the extra information to associate the module with (e.g. <code>programming</code>, <code>loops</code>).</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>NAME</code> should only contain alphanumeric characters and spaces, and it should not be blank.<br>
+<code>CODE</code> can contain any character but it should not be blank.<br>
+<code>CREDITS</code> should be 3 digits long, and it should not be blank.<br>
+If the amount of modular credits is not 3 digit long (e.g. 4), prepend the value with <code>0</code> (i.e. 004)<br>
+<code>TAG</code> should only contain alphanumeric characters, and it should not be blank.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add name/Programming Methodology code/CS1010 credits/004 tag/programming tag/algorithms tag/c tag/imperative</code></p>
+</li>
+<li>
+<p><code>add code/CS1231 name/Discrete Structures credits/004 tag/logic tag/math tag/proving</code></p>
+</li>
+</ul>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -149,34 +273,30 @@ A module can have any number of tags (including 0)
 </table>
 </div>
 <div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code></p>
-</li>
-<li>
-<p><code>add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal</code></p>
-</li>
-</ul>
+<p>Examples:<br>
+* <code>add code/CS1231 credits/004 name/Discrete Structures</code></p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="listing-all-modules-code-list-code"><a class="link" href="#listing-all-modules-code-list-code">3.3. Listing all modules : <code>list</code></a></h3>
 <div class="paragraph">
-<p>Shows a list of all modules in the address book.<br>
+<p>Shows a list of all modules in the module list.<br>
 Format: <code>list</code></p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="editing-a-module-code-edit-code"><a class="link" href="#editing-a-module-code-edit-code">3.4. Editing a module : <code>edit</code></a></h3>
 <div class="paragraph">
-<p>Edits an existing module in the address book.<br>
-Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code></p>
+<p>Edits an existing module in the module list.<br>
+Format: <code>edit INDEX [name/NAME] [code/CODE] [credits/CREDITS] [tag/TAG]&#8230;&#8203;</code></p>
 </div>
-<div class="sidebarblock">
-<div class="content">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="ulist">
 <ul>
 <li>
@@ -192,11 +312,13 @@ Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;
 <p>When editing tags, the existing tags of the module will be removed i.e adding of tags is not cumulative.</p>
 </li>
 <li>
-<p>You can remove all the module&#8217;s tags by typing <code>t/</code> without specifying any tags after it.</p>
+<p>You can remove all the module&#8217;s tags by typing <code>tag/</code> without specifying any tags after it.</p>
 </li>
 </ul>
 </div>
-</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -204,12 +326,13 @@ Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;
 <div class="ulist">
 <ul>
 <li>
-<p><code>edit 1 p/91234567 e/johndoe@example.com</code><br>
-Edits the phone number and email address of the 1st module to be <code>91234567</code> and <code>johndoe@example.com</code> respectively.</p>
+<p><code>edit 1 name/Data Structures and Algorithms code/CS2040C</code><br>
+Edits the name and code of the 1st module in the displayed module list to be <code>Data Structures and Algorithms</code> and <code>CS2040C</code> respectively.<br></p>
 </li>
 <li>
-<p><code>edit 2 n/Betsy Crower t/</code><br>
-Edits the name of the 2nd module to be <code>Betsy Crower</code> and clears all existing tags.</p>
+<p><code>edit 2 code/CS2040C tag/</code><br>
+Edits the code of the 2nd module in the displayed module list to be <code>CS2040C</code> and clears all existing tags associated
+ with the module.</p>
 </li>
 </ul>
 </div>
@@ -287,11 +410,16 @@ Returns any module having credits <code>004</code> or <code>012</code> in the di
 <div class="sect2">
 <h3 id="deleting-a-module-code-delete-code"><a class="link" href="#deleting-a-module-code-delete-code">3.6. Deleting a module : <code>delete</code></a></h3>
 <div class="paragraph">
-<p>Deletes the specified module from the address book.<br>
+<p>Deletes the specified module from the module list.<br>
 Format: <code>delete INDEX</code></p>
 </div>
-<div class="sidebarblock">
-<div class="content">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="ulist">
 <ul>
 <li>
@@ -305,7 +433,9 @@ Format: <code>delete INDEX</code></p>
 </li>
 </ul>
 </div>
-</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -315,10 +445,10 @@ Format: <code>delete INDEX</code></p>
 <li>
 <p><code>list</code><br>
 <code>delete 2</code><br>
-Deletes the 2nd module in the address book.</p>
+Deletes the 2nd module in the module list.</p>
 </li>
 <li>
-<p><code>find Betsy</code><br>
+<p><code>find Programming</code><br>
 <code>delete 1</code><br>
 Deletes the 1st module in the results of the <code>find</code> command.</p>
 </li>
@@ -356,7 +486,7 @@ Format: <code>select INDEX</code></p>
 <li>
 <p><code>list</code><br>
 <code>select 2</code><br>
-Selects the 2nd module in the address book.</p>
+Selects the 2nd module in the displayed module list.</p>
 </li>
 <li>
 <p><code>find Betsy</code><br>
@@ -390,7 +520,7 @@ Format: <code>history</code></p>
 <div class="sect2">
 <h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.9. Undoing previous command : <code>undo</code></a></h3>
 <div class="paragraph">
-<p>Restores the address book to the state before the previous <em>undoable</em> command was executed.<br>
+<p>Restores PlanWithEase&#8217;s data to the state before the previous <em>undoable</em> command was executed.<br>
 Format: <code>undo</code></p>
 </div>
 <div class="admonitionblock note">
@@ -401,7 +531,7 @@ Format: <code>undo</code></p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Undoable commands: those commands that modify the address book&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
+<p>Undoable commands: those commands that modify the contents of PlanWithEase&#8217;s data (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
 </div>
 </td>
 </tr>
@@ -467,7 +597,7 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 <div class="sect2">
 <h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.11. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
-<p>Clears all entries from the address book.<br>
+<p>Clears all entries from the module list.<br>
 Format: <code>clear</code></p>
 </div>
 </div>
@@ -606,14 +736,8 @@ Format: <code>exit</code></p>
 <div class="sect2">
 <h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.17. Saving the data</a></h3>
 <div class="paragraph">
-<p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+<p>PlanWithEase data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.18. Encrypting data files <code>[coming in v2.0]</code></a></h3>
-<div class="paragraph">
-<p><em>{explain how the user can enable/disable data encryption}</em></p>
 </div>
 </div>
 </div>
@@ -623,7 +747,7 @@ There is no need to save manually.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
-<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.</p>
+<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous PlanWithEase data folder.</p>
 </div>
 </div>
 </div>
@@ -633,23 +757,23 @@ There is no need to save manually.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Add</strong> <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code><br>
-e.g. <code>add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague</code></p>
+<p><strong>Add module to module list</strong> : <code>add name/NAME code/CODE credits/CREDITS [tag/TAG]&#8230;&#8203;</code><br>
+e.g. <code>add name/Programming Methodology code/CS1010 credits/004 tag/programming tag/algorithms tag/c tag/imperative</code></p>
 </li>
 <li>
-<p><strong>Clear</strong> : <code>clear</code></p>
+<p><strong>Edit</strong> : <code>edit INDEX [name/NAME] [code/CODE] [credits/CREDITS] [tag/TAG]&#8230;&#8203;</code><br>
+e.g. <code>edit 1 name/Data Structures and Algorithms code/CS2040C</code></p>
 </li>
 <li>
 <p><strong>Delete</strong> : <code>delete INDEX</code><br>
 e.g. <code>delete 3</code></p>
 </li>
 <li>
-<p><strong>Edit</strong> : <code>edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code><br>
-e.g. <code>edit 2 n/James Lee e/jameslee@example.com</code></p>
-</li>
-<li>
 <p><strong>Find</strong> : <code>find [name/NAME NAME&#8230;&#8203;] [code/CODE CODE&#8230;&#8203;] [credits/CREDITS CREDITS&#8230;&#8203;]</code><br>
 e.g. <code>find name/Information Security</code></p>
+</li>
+<li>
+<p><strong>Clear</strong> : <code>clear</code></p>
 </li>
 <li>
 <p><strong>List</strong> : <code>list</code></p>
@@ -688,4 +812,4 @@ e.g.  <code>planner_move CS1231 y/1 s/2</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-03-04 09:27:46 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-03-04 10:23:51 UTC</div></div></div></body></html>
