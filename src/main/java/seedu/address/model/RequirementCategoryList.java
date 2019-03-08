@@ -43,7 +43,7 @@ public class RequirementCategoryList implements ReadOnlyRequirementCategoryList 
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code Application} with {@code newData}.
      */
     public void resetData(ReadOnlyRequirementCategoryList newData) {
         requireNonNull(newData);
