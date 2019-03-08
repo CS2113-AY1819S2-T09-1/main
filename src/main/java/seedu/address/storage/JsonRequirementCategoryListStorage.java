@@ -19,7 +19,7 @@ import seedu.address.model.ReadOnlyRequirementCategoryList;
  */
 public class JsonRequirementCategoryListStorage implements RequirementCategoryListStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonApplicationStorage.class);
 
     private Path filePath;
 

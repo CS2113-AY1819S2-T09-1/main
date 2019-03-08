@@ -42,6 +42,6 @@ public interface RequirementCategoryListStorage {
     /**
      * @see #saveRequirementCategoryList(ReadOnlyRequirementCategoryList)
      */
-    void saveRequirementCategoryList(ReadOnlyRequirementCategoryList addressBook, Path filePath) throws IOException;
+    void saveRequirementCategoryList(ReadOnlyRequirementCategoryList application, Path filePath) throws IOException;
 
 }

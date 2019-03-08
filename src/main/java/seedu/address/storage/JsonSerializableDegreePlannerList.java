@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
-import seedu.address.model.DegreePlannerList;
-import seedu.address.model.ReadOnlyDegreePlannerList;
+import seedu.address.model.Application;
+import seedu.address.model.ReadOnlyApplication;
 import seedu.address.model.planner.DegreePlanner;
 
 /**
@@ -39,7 +39,7 @@ public class JsonSerializableDegreePlannerList {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableDegreePlannerList}.
      */
-    public JsonSerializableDegreePlannerList(ReadOnlyDegreePlannerList source) {
+    public JsonSerializableDegreePlannerList(ReadOnlyApplication source) {
         degreePlanners.addAll(source.getDegreePlannerList().stream().map(JsonAdaptedDegreePlannerList::new)
                 .collect(Collectors.toList()));
     }
@@ -49,8 +49,8 @@ public class JsonSerializableDegreePlannerList {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public DegreePlannerList toModelType() throws IllegalValueException {
-        DegreePlannerList degreePlannerList = new DegreePlannerList();
+    public Application toModelType() throws IllegalValueException {
+        Application degreePlannerList = new Application();
         for (JsonAdaptedDegreePlannerList jsonAdaptedDegreePlannerList : degreePlanners) {
             DegreePlanner degreePlanner = jsonAdaptedDegreePlannerList.toModelType();
             if (degreePlannerList.hasDegreePlanner(degreePlanner)) {
