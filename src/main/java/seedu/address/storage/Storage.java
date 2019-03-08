@@ -5,8 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyDegreePlannerList;
+import seedu.address.model.ReadOnlyApplication;
 import seedu.address.model.ReadOnlyRequirementCategoryList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -16,7 +15,7 @@ import seedu.address.model.UserPrefs;
  */
 
 public interface Storage
-        extends AddressBookStorage, UserPrefsStorage, DegreePlannerListStorage, RequirementCategoryListStorage {
+        extends ApplicationStorage, UserPrefsStorage, DegreePlannerListStorage, RequirementCategoryListStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -25,22 +24,19 @@ public interface Storage
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getApplicationFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyApplication> readApplication() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveApplication(ReadOnlyApplication application) throws IOException;
 
     @Override
     Path getDegreePlannerListFilePath();
 
     @Override
-    Optional<ReadOnlyDegreePlannerList> readDegreePlannerList() throws DataConversionException, IOException;
-
-    @Override
-    void saveDegreePlannerList(ReadOnlyDegreePlannerList degreePlannerList) throws IOException;
+    void saveDegreePlannerList(ReadOnlyApplication degreePlannerList) throws IOException;
 
     @Override
     Path getRequirementCategoryListFilePath();

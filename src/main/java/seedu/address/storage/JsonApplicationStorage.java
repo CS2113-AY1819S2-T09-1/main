@@ -15,44 +15,44 @@ import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyApplication;
 
 /**
- * A class to access DegreePlannerList data stored as a json file on the hard disk.
+ * A class to access Application data stored as a json file on the hard disk.
  */
-public class JsonDegreePlannerListStorage implements DegreePlannerListStorage {
+public class JsonApplicationStorage implements ApplicationStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonApplicationStorage.class);
 
     private Path filePath;
 
-    public JsonDegreePlannerListStorage(Path filePath) {
+    public JsonApplicationStorage(Path filePath) {
         this.filePath = filePath;
     }
 
-    public Path getDegreePlannerListFilePath() {
+    public Path getApplicationFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyApplication> readDegreePlannerList() throws DataConversionException {
-        return readDegreePlannerList(filePath);
+    public Optional<ReadOnlyApplication> readApplication() throws DataConversionException {
+        return readApplication(filePath);
     }
 
     /**
-     * Similar to {@link #readDegreePlannerList()}.
+     * Similar to {@link #readApplication()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyApplication> readDegreePlannerList(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyApplication> readApplication(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableDegreePlannerList> jsonDegreePlannerList = JsonUtil.readJsonFile(
-                filePath, JsonSerializableDegreePlannerList.class);
-        if (!jsonDegreePlannerList.isPresent()) {
+        Optional<JsonSerializableApplication> jsonApplication = JsonUtil.readJsonFile(
+                filePath, JsonSerializableApplication.class);
+        if (!jsonApplication.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonDegreePlannerList.get().toModelType());
+            return Optional.of(jsonApplication.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -60,20 +60,21 @@ public class JsonDegreePlannerListStorage implements DegreePlannerListStorage {
     }
 
     @Override
-    public void saveDegreePlannerList(ReadOnlyApplication degreePlannerList) throws IOException {
-        saveDegreePlannerList(degreePlannerList, filePath);
+    public void saveApplication(ReadOnlyApplication application) throws IOException {
+        saveApplication(application, filePath);
     }
 
     /**
-     * Similar to {@link #saveDegreePlannerList(ReadOnlyApplication)}.
+     * Similar to {@link #saveApplication(ReadOnlyApplication)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveDegreePlannerList(ReadOnlyApplication degreePlannerList, Path filePath) throws IOException {
-        requireNonNull(degreePlannerList);
+    public void saveApplication(ReadOnlyApplication application, Path filePath) throws IOException {
+        requireNonNull(application);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableDegreePlannerList(degreePlannerList), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableApplication(application), filePath);
     }
+
 }

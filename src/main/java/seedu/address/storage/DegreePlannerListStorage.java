@@ -5,10 +5,11 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyDegreePlannerList;
+import seedu.address.model.Application;
+import seedu.address.model.ReadOnlyApplication;
 
 /**
- * Represents a storage for {@link seedu.address.model.DegreePlannerList}.
+ * Represents a storage for {@link Application}.
  */
 public interface DegreePlannerListStorage {
     /**
@@ -17,30 +18,30 @@ public interface DegreePlannerListStorage {
     Path getDegreePlannerListFilePath();
 
     /**
-     * Returns DegreePlannerList data as a {@link ReadOnlyDegreePlannerList}.
+     * Returns DegreePlannerList data as a {@link ReadOnlyApplication}.
      * Returns {@code Optional.empty()} if storage file is not found.
      *
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException             if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyDegreePlannerList> readDegreePlannerList() throws DataConversionException, IOException;
+    Optional<ReadOnlyApplication> readDegreePlannerList() throws DataConversionException, IOException;
 
     /**
      * @see #getDegreePlannerListFilePath()
      */
-    Optional<ReadOnlyDegreePlannerList> readDegreePlannerList(Path filePath)
+    Optional<ReadOnlyApplication> readDegreePlannerList(Path filePath)
             throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyDegreePlannerList} to the storage.
+     * Saves the given {@link ReadOnlyApplication} to the storage.
      *
      * @param degreePlannerList cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveDegreePlannerList(ReadOnlyDegreePlannerList degreePlannerList) throws IOException;
+    void saveDegreePlannerList(ReadOnlyApplication degreePlannerList) throws IOException;
 
     /**
-     * @see #saveDegreePlannerList(ReadOnlyDegreePlannerList)
+     * @see #saveDegreePlannerList(ReadOnlyApplication)
      */
-    void saveDegreePlannerList(ReadOnlyDegreePlannerList addressBook, Path filePath) throws IOException;
+    void saveDegreePlannerList(ReadOnlyApplication degreePlannerList, Path filePath) throws IOException;
 }

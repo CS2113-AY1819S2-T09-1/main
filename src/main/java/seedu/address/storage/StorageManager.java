@@ -7,27 +7,26 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyDegreePlannerList;
+import seedu.address.model.ReadOnlyApplication;
 import seedu.address.model.ReadOnlyRequirementCategoryList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of Application data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private ApplicationStorage applicationStorage;
     private UserPrefsStorage userPrefsStorage;
     private DegreePlannerListStorage degreePlannerListStorage;
     private RequirementCategoryListStorage requirementCategoryListStorage;
 
-    public StorageManager(AddressBookStorage addressBookStorage, DegreePlannerListStorage degreePlannerListStorage,
+    public StorageManager(ApplicationStorage applicationStorage, DegreePlannerListStorage degreePlannerListStorage,
             RequirementCategoryListStorage requirementCategoryListStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.applicationStorage = applicationStorage;
         this.degreePlannerListStorage = degreePlannerListStorage;
         this.requirementCategoryListStorage = requirementCategoryListStorage;
         this.userPrefsStorage = userPrefsStorage;
@@ -51,33 +50,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ Application methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getApplicationFilePath() {
+        return applicationStorage.getApplicationFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyApplication> readApplication() throws DataConversionException, IOException {
+        return readApplication(applicationStorage.getApplicationFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyApplication> readApplication(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return applicationStorage.readApplication(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveApplication(ReadOnlyApplication application) throws IOException {
+        saveApplication(application, applicationStorage.getApplicationFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveApplication(ReadOnlyApplication application, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        applicationStorage.saveApplication(application, filePath);
     }
 
     // ================ DegreePlannerList methods ========================
@@ -88,24 +87,24 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyDegreePlannerList> readDegreePlannerList() throws DataConversionException, IOException {
+    public Optional<ReadOnlyApplication> readDegreePlannerList() throws DataConversionException, IOException {
         return readDegreePlannerList(degreePlannerListStorage.getDegreePlannerListFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyDegreePlannerList> readDegreePlannerList(Path filePath)
+    public Optional<ReadOnlyApplication> readDegreePlannerList(Path filePath)
             throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return degreePlannerListStorage.readDegreePlannerList(filePath);
     }
 
     @Override
-    public void saveDegreePlannerList(ReadOnlyDegreePlannerList degreePlannerList) throws IOException {
+    public void saveDegreePlannerList(ReadOnlyApplication degreePlannerList) throws IOException {
         saveDegreePlannerList(degreePlannerList, degreePlannerListStorage.getDegreePlannerListFilePath());
     }
 
     @Override
-    public void saveDegreePlannerList(ReadOnlyDegreePlannerList degreePlannerList, Path filePath) throws IOException {
+    public void saveDegreePlannerList(ReadOnlyApplication degreePlannerList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         degreePlannerListStorage.saveDegreePlannerList(degreePlannerList, filePath);
     }
