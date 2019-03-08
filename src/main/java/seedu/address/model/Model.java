@@ -17,6 +17,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<DegreePlanner> PREDICATE_SHOW_ALL_DEGREEPLANNERS = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -40,12 +43,12 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getApplicationFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setApplicationFilePath(Path applicationFilePath);
 
     /**
      * Returns the user prefs' degreePlanner list file path.
@@ -57,8 +60,8 @@ public interface Model {
      */
     void setDegreePlannerListFilePath(Path degreePlannerListFilePath);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the Application */
+    ReadOnlyApplication getApplication();
 
     /**
      * Returns the user prefs' requirement list file path.
@@ -71,9 +74,9 @@ public interface Model {
     void setRequirementCategoryListFilePath(Path requirementCategoryListFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code application}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setApplication(ReadOnlyApplication application);
 
     /**
      * Returns true if a module with the same identity as {@code module} exists in the address book.
@@ -112,27 +115,27 @@ public interface Model {
     /**
      * Returns true if the model has previous address book states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoApplication();
 
     /**
      * Returns true if the model has undone address book states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoApplication();
 
     /**
      * Restores the model's address book to its previous state.
      */
-    void undoAddressBook();
+    void undoApplication();
 
     /**
      * Restores the model's address book to its previously undone state.
      */
-    void redoAddressBook();
+    void redoApplication();
 
     /**
      * Saves the current address book state for undo/redo.
      */
-    void commitAddressBook();
+    void commitApplication();
 
     /**
      * Selected module in the filtered module list.
@@ -150,9 +153,6 @@ public interface Model {
      * Sets the selected module in the filtered module list.
      */
     void setSelectedModule(Module module);
-
-    /** Returns the DegreePlannerList */
-    ReadOnlyDegreePlannerList getDegreePlannerList();
 
     /**
      * Returns true if a degreePlanner with the same identity as {@code degreePlanner} exists in the address book.
@@ -188,31 +188,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredDegreePlannerList(Predicate<DegreePlanner> predicate);
-
-    /**
-     * Returns true if the model has previous degreePlanner list states to restore.
-     */
-    boolean canUndoDegreePlannerList();
-
-    /**
-     * Returns true if the model has undone degreePlanner list states to restore.
-     */
-    boolean canRedoDegreePlannerList();
-
-    /**
-     * Restores the model's degreePlanner list to its previous state.
-     */
-    void undoDegreePlannerList();
-
-    /**
-     * Restores the model's degreePlanner list to its previously undone state.
-     */
-    void redoDegreePlannerList();
-
-    /**
-     * Saves the current degreePlanner list for undo/redo.
-     */
-    void commitDegreePlannerList();
 
     /**
      * Returns the RequirementCategoryList

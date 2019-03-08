@@ -4,16 +4,19 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.Application;
+import seedu.address.model.ReadOnlyApplication;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Credits;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Name;
+import seedu.address.model.planner.DegreePlanner;
+import seedu.address.model.planner.Semester;
+import seedu.address.model.planner.Year;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code Application} with sample data.
  */
 public class SampleDataUtil {
     private static final Module CS1010 = new Module(
@@ -57,12 +60,36 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static DegreePlanner[] getSampleDegreePlanners() {
+        return new DegreePlanner[] {
+            new DegreePlanner(new Year("1"), new Semester("1"),
+                    getCodeSet()),
+            new DegreePlanner(new Year("1"), new Semester("2"),
+                    getCodeSet()),
+            new DegreePlanner(new Year("2"), new Semester("1"),
+                    getCodeSet()),
+            new DegreePlanner(new Year("2"), new Semester("2"),
+                    getCodeSet()),
+            new DegreePlanner(new Year("3"), new Semester("1"),
+                    getCodeSet()),
+            new DegreePlanner(new Year("3"), new Semester("2"),
+                    getCodeSet()),
+            new DegreePlanner(new Year("4"), new Semester("1"),
+                    getCodeSet()),
+            new DegreePlanner(new Year("4"), new Semester("2"),
+                    getCodeSet())
+        };
+    }
+
+    public static ReadOnlyApplication getSampleApplication() {
+        Application sampleApplication = new Application();
         for (Module sampleModule : getSampleModules()) {
-            sampleAb.addModule(sampleModule);
+            sampleApplication.addModule(sampleModule);
         }
-        return sampleAb;
+        for (DegreePlanner sampleDegreePlanner : getSampleDegreePlanners()) {
+            sampleApplication.addDegreePlanner(sampleDegreePlanner);
+        }
+        return sampleApplication;
     }
 
     /**
@@ -74,4 +101,12 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
+    /**
+     * Returns a tag set containing the list of strings given.
+     */
+    public static Set<Code> getCodeSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Code::new)
+                .collect(Collectors.toSet());
+    }
 }

@@ -3,20 +3,24 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
+import seedu.address.model.planner.DegreePlanner;
+import seedu.address.model.planner.UniqueDegreePlannerList;
 
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameModule comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class Application implements ReadOnlyApplication {
 
     private final UniqueModuleList modules;
+    private final UniqueDegreePlannerList degreePlanners;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -25,17 +29,17 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         modules = new UniqueModuleList();
+        degreePlanners = new UniqueDegreePlannerList();
     }
 
-    public AddressBook() {}
+    public Application() {}
 
     /**
-     * Creates an AddressBook using the Modules in the {@code toBeCopied}
+     * Creates an Application using the Modules in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public Application(ReadOnlyApplication toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -52,12 +56,20 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code Application} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyApplication newData) {
         requireNonNull(newData);
-
         setModules(newData.getModuleList());
+        setDegreePlanner(newData.getDegreePlannerList());
+    }
+
+    /**
+     * Replaces the contents of the degreePlanner list with {@code degreePlanners}.
+     * {@code degreePlanners} must not contain duplicate degreePlanners.
+     */
+    private void setDegreePlanner(List<DegreePlanner> degreePlanners) {
+        this.degreePlanners.setDegreePlanners(degreePlanners);
     }
 
     //// module-level operations
@@ -92,12 +104,57 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code Application}.
      * {@code key} must exist in the address book.
      */
     public void removeModule(Module key) {
         modules.remove(key);
         indicateModified();
+    }
+
+    /**
+     * Replaces the contents of the degreePlanner list with {@code degreePlanners}.
+     * {@code degreePlanners} must not contain duplicate degreePlanners.
+     */
+    public void setDegreePlanners(List<DegreePlanner> degreePlanners) {
+        this.degreePlanners.setDegreePlanners(degreePlanners);
+    }
+
+    //// planner-level operations
+
+    /**
+     * Returns true if an degreePlanner with the same identity as {@code degreePlanner} exists in the degreePlanner.
+     */
+    public boolean hasDegreePlanner(DegreePlanner degreePlanner) {
+        requireNonNull(degreePlanner);
+        return degreePlanners.contains(degreePlanner);
+    }
+
+    /**
+     * Adds a degreePlanner to the degreePlanner list.
+     * The degreePlanner must not already exist in the degreePlanner list.
+     */
+    public void addDegreePlanner(DegreePlanner p) {
+        degreePlanners.add(p);
+    }
+
+    /**
+     * Replaces the given planner {@code target} in the list with {@code editedDegreePlanner}.
+     * {@code target} must exist in the degreePlanner list.
+     * The identity of {@code editedDegreePlanner} must not be the same as another existing degreePlanner in the
+     * degreePlanner list.
+     */
+    public void setDegreePlanner(DegreePlanner target, DegreePlanner editedDegreePlanner) {
+        requireNonNull(editedDegreePlanner);
+        degreePlanners.setDegreePlanner(target, editedDegreePlanner);
+    }
+
+    /**
+     * Removes {@code key} from this {@code DegreePlannerList}.
+     * {@code key} must exist in the degreePlanner list.
+     */
+    public void removeDegreePlanner(DegreePlanner key) {
+        degreePlanners.remove(key);
     }
 
     @Override
@@ -121,7 +178,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return modules.asUnmodifiableObservableList().size() + " modules";
+        return modules.asUnmodifiableObservableList().size() + " modules"
+                + degreePlanners.asUnmodifiableObservableList().size() + "degreePlanners";
         // TODO: refine later
     }
 
@@ -131,14 +189,20 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<DegreePlanner> getDegreePlannerList() {
+        return degreePlanners.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && modules.equals(((AddressBook) other).modules));
+                || (other instanceof Application // instanceof handles nulls
+                && modules.equals(((Application) other).modules)
+                && degreePlanners.equals(((Application) other).degreePlanners));
     }
 
     @Override
     public int hashCode() {
-        return modules.hashCode();
+        return Objects.hash(modules.hashCode(), degreePlanners.hashCode());
     }
 }

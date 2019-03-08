@@ -4,70 +4,70 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@code DegreePlannerList} that keeps track of its own history.
+ * {@code Application} that keeps track of its own history.
  */
-public class VersionedDegreePlannerList extends DegreePlannerList {
+public class VersionedApplication extends Application {
 
-    private final List<ReadOnlyDegreePlannerList> degreePlannerStateList;
+    private final List<ReadOnlyApplication> applicationStateList;
     private int currentStatePointer;
 
-    public VersionedDegreePlannerList(ReadOnlyDegreePlannerList initialState) {
+    public VersionedApplication(ReadOnlyApplication initialState) {
         super(initialState);
 
-        degreePlannerStateList = new ArrayList<>();
-        degreePlannerStateList.add(new DegreePlannerList(initialState));
+        applicationStateList = new ArrayList<>();
+        applicationStateList.add(new Application(initialState));
         currentStatePointer = 0;
     }
 
     /**
-     * Saves a copy of the current {@code DegreePlannerList} state at the end of the state list.
+     * Saves a copy of the current {@code Application} state at the end of the state list.
      * Undone states are removed from the state list.
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        degreePlannerStateList.add(new DegreePlannerList(this));
+        applicationStateList.add(new Application(this));
         currentStatePointer++;
         indicateModified();
     }
 
     private void removeStatesAfterCurrentPointer() {
-        degreePlannerStateList.subList(currentStatePointer + 1, degreePlannerStateList.size()).clear();
+        applicationStateList.subList(currentStatePointer + 1, applicationStateList.size()).clear();
     }
 
     /**
-     * Restores the planner list to its previous state.
+     * Restores the address book to its previous state.
      */
     public void undo() {
         if (!canUndo()) {
-            throw new VersionedDegreePlannerList.NoUndoableStateException();
+            throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(degreePlannerStateList.get(currentStatePointer));
+        resetData(applicationStateList.get(currentStatePointer));
     }
 
     /**
-     * Restores the planner list to its previously undone state.
+     * Restores the address book to its previously undone state.
      */
     public void redo() {
         if (!canRedo()) {
-            throw new VersionedDegreePlannerList.NoRedoableStateException();
+            throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(degreePlannerStateList.get(currentStatePointer));
+        resetData(applicationStateList.get(currentStatePointer));
     }
 
     /**
-     * Returns true if {@code undo()} has planner list states to undo.
+     * Returns true if {@code undo()} has address book states to undo.
      */
     public boolean canUndo() {
         return currentStatePointer > 0;
     }
 
     /**
-     * Returns true if {@code redo()} has planner states to redo.
+     * Returns true if {@code redo()} has address book states to redo.
      */
     public boolean canRedo() {
-        return currentStatePointer < degreePlannerStateList.size() - 1;
+        return currentStatePointer < applicationStateList.size() - 1;
     }
 
     @Override
@@ -78,16 +78,16 @@ public class VersionedDegreePlannerList extends DegreePlannerList {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof VersionedDegreePlannerList)) {
+        if (!(other instanceof VersionedApplication)) {
             return false;
         }
 
-        VersionedDegreePlannerList otherVersionedPlannerList = (VersionedDegreePlannerList) other;
+        VersionedApplication otherVersionedApplication = (VersionedApplication) other;
 
         // state check
-        return super.equals(otherVersionedPlannerList)
-                && degreePlannerStateList.equals(otherVersionedPlannerList.degreePlannerStateList)
-                && currentStatePointer == otherVersionedPlannerList.currentStatePointer;
+        return super.equals(otherVersionedApplication)
+                && applicationStateList.equals(otherVersionedApplication.applicationStateList)
+                && currentStatePointer == otherVersionedApplication.currentStatePointer;
     }
 
     /**

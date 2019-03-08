@@ -26,35 +26,34 @@ import seedu.address.model.requirement.RequirementCategory;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedApplication versionedApplication;
     private final UserPrefs userPrefs;
-    private final FilteredList<Module> filteredModules;
     private final SimpleObjectProperty<Module> selectedModule = new SimpleObjectProperty<>();
 
-    private final VersionedDegreePlannerList versionedDegreePlannerList;
+    private final FilteredList<Module> filteredModules;
     private final FilteredList<DegreePlanner> filteredDegreePlanners;
 
     private final VersionedRequirementCategoryList versionedRequirementCategoryList;
     private final FilteredList<RequirementCategory> filteredRequirementCategory;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given application and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyDegreePlannerList degreePlannerList,
+    public ModelManager(ReadOnlyApplication application,
             ReadOnlyRequirementCategoryList requirementCategoryList, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, degreePlannerList, requirementCategoryList, userPrefs);
+        requireAllNonNull(application, requirementCategoryList, userPrefs);
 
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + application + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedApplication = new VersionedApplication(application);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredModules = new FilteredList<>(versionedAddressBook.getModuleList());
-        filteredModules.addListener(this::ensureSelectedModuleIsValid);
 
-        versionedDegreePlannerList = new VersionedDegreePlannerList(degreePlannerList);
-        filteredDegreePlanners = new FilteredList<>((versionedDegreePlannerList.getDegreePlannerList()));
+        filteredModules = new FilteredList<>(versionedApplication.getModuleList());
+        filteredDegreePlanners = new FilteredList<>((versionedApplication.getDegreePlannerList()));
+
+        filteredModules.addListener(this::ensureSelectedModuleIsValid);
 
         versionedRequirementCategoryList = new VersionedRequirementCategoryList(requirementCategoryList);
         filteredRequirementCategory =
@@ -65,7 +64,7 @@ public class ModelManager implements Model {
      * ToDo: Add DegreePlannerList
      */
     public ModelManager() {
-        this(new AddressBook(), new DegreePlannerList(), new RequirementCategoryList(), new UserPrefs());
+        this(new Application(), new RequirementCategoryList(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -93,14 +92,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getApplicationFilePath() {
+        return userPrefs.getApplicationFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setApplicationFilePath(Path applicationFilePath) {
+        requireNonNull(applicationFilePath);
+        userPrefs.setApplicationFilePath(applicationFilePath);
     }
 
     @Override
@@ -125,32 +124,32 @@ public class ModelManager implements Model {
         userPrefs.setDegreePlannerListFilePath(requirementCategoryListFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== Application ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
+    public void setApplication(ReadOnlyApplication application) {
+        versionedApplication.resetData(application);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyApplication getApplication() {
+        return versionedApplication;
     }
 
     @Override
     public boolean hasModule(Module module) {
         requireNonNull(module);
-        return versionedAddressBook.hasModule(module);
+        return versionedApplication.hasModule(module);
     }
 
     @Override
     public void deleteModule(Module target) {
-        versionedAddressBook.removeModule(target);
+        versionedApplication.removeModule(target);
     }
 
     @Override
     public void addModule(Module module) {
-        versionedAddressBook.addModule(module);
+        versionedApplication.addModule(module);
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
@@ -158,14 +157,14 @@ public class ModelManager implements Model {
     public void setModule(Module target, Module editedModule) {
         requireAllNonNull(target, editedModule);
 
-        versionedAddressBook.setModule(target, editedModule);
+        versionedApplication.setModule(target, editedModule);
     }
 
     //=========== Filtered Module List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Module} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedApplication}
      */
     @Override
     public ObservableList<Module> getFilteredModuleList() {
@@ -181,28 +180,28 @@ public class ModelManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoApplication() {
+        return versionedApplication.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoApplication() {
+        return versionedApplication.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
+    public void undoApplication() {
+        versionedApplication.undo();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
+    public void redoApplication() {
+        versionedApplication.redo();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitApplication() {
+        versionedApplication.commit();
     }
 
     //=========== Selected module ===========================================================================
@@ -268,7 +267,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedApplication.equals(other.versionedApplication)
                 && userPrefs.equals(other.userPrefs)
                 && filteredModules.equals(other.filteredModules)
                 && Objects.equals(selectedModule.get(), other.selectedModule.get());
@@ -277,28 +276,22 @@ public class ModelManager implements Model {
     //=========== DegreePlannerList Methods =================================================================
 
     @Override
-    public ReadOnlyDegreePlannerList getDegreePlannerList() {
-        return versionedDegreePlannerList;
-    }
-
-    @Override
     public boolean hasDegreePlanner(DegreePlanner planner) {
         requireNonNull(planner);
-        return versionedDegreePlannerList.hasDegreePlanner(planner);
+        return versionedApplication.hasDegreePlanner(planner);
     }
 
     @Override public void deleteDegreePlanner(DegreePlanner target) {
-        versionedDegreePlannerList.removeDegreePlanner(target);
+        versionedApplication.removeDegreePlanner(target);
     }
 
     @Override public void addDegreePlanner(DegreePlanner degreePlanner) {
-        versionedDegreePlannerList.addDegreePlanner(degreePlanner);
+        versionedApplication.addDegreePlanner(degreePlanner);
     }
 
     @Override public void setDegreePlanner(DegreePlanner target, DegreePlanner editedDegreePlanner) {
         requireAllNonNull(target, editedDegreePlanner);
-
-        versionedDegreePlannerList.setDegreePlanner(target, editedDegreePlanner);
+        versionedApplication.setDegreePlanner(target, editedDegreePlanner);
     }
 
     @Override public ObservableList<DegreePlanner> getFilteredDegreePlannerList() {
@@ -308,27 +301,6 @@ public class ModelManager implements Model {
     @Override public void updateFilteredDegreePlannerList(Predicate<DegreePlanner> predicate) {
         requireNonNull(predicate);
         filteredDegreePlanners.setPredicate(predicate);
-    }
-
-    //=========== Undo/Redo =================================================================================
-    @Override public boolean canUndoDegreePlannerList() {
-        return versionedDegreePlannerList.canUndo();
-    }
-
-    @Override public boolean canRedoDegreePlannerList() {
-        return versionedDegreePlannerList.canRedo();
-    }
-
-    @Override public void undoDegreePlannerList() {
-        versionedDegreePlannerList.undo();
-    }
-
-    @Override public void redoDegreePlannerList() {
-        versionedDegreePlannerList.redo();
-    }
-
-    @Override public void commitDegreePlannerList() {
-        versionedDegreePlannerList.commit();
     }
 
     //=========== RequirementCategoryList Methods =================================================================
