@@ -42,7 +42,7 @@ public class DeleteCommand extends Command {
 
         Module moduleToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteModule(moduleToDelete);
-        model.commitAddressBook();
+        model.commitApplication();
         return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
     }
 
