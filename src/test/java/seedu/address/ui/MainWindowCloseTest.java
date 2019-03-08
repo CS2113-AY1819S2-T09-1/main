@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.ModelManager;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonApplicationStorage;
 import seedu.address.storage.JsonDegreePlannerListStorage;
 import seedu.address.storage.JsonRequirementCategoryListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -36,14 +36,14 @@ public class MainWindowCloseTest extends GuiUnitTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(temporaryFolder.newFile().toPath());
+        JsonApplicationStorage jsonApplicationStorage = new JsonApplicationStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         JsonDegreePlannerListStorage jsonDegreePlannerListStorage =
                 new JsonDegreePlannerListStorage(temporaryFolder.newFile().toPath());
         JsonRequirementCategoryListStorage jsonRequirementCategoryListStorage =
                 new JsonRequirementCategoryListStorage(temporaryFolder.newFile().toPath());
         StorageManager storageManager =
-                new StorageManager(jsonAddressBookStorage, jsonDegreePlannerListStorage,
+                new StorageManager(jsonApplicationStorage, jsonDegreePlannerListStorage,
                         jsonRequirementCategoryListStorage, jsonUserPrefsStorage);
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
