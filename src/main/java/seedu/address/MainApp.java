@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
@@ -15,20 +14,18 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
+import seedu.address.model.Application;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyDegreePlannerList;
+import seedu.address.model.ReadOnlyApplication;
 import seedu.address.model.ReadOnlyRequirementCategoryList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.model.util.SampleDegreePlannerUtil;
 import seedu.address.model.util.SampleRequirementCategoryUtil;
-import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.ApplicationStorage;
 import seedu.address.storage.DegreePlannerListStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonApplicationStorage;
 import seedu.address.storage.JsonDegreePlannerListStorage;
 import seedu.address.storage.JsonRequirementCategoryListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -42,7 +39,7 @@ import seedu.address.ui.UiManager;
 /**
  * The main entry point to the application.
  */
-public class MainApp extends Application {
+public class MainApp extends javafx.application.Application {
 
     public static final Version VERSION = new Version(1, 1, 0, false);
 
@@ -64,14 +61,14 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        ApplicationStorage applicationStorage = new JsonApplicationStorage(userPrefs.getApplicationFilePath());
 
         DegreePlannerListStorage degreePlannerListStorage =
                 new JsonDegreePlannerListStorage(userPrefs.getDegreePlannerListFilePath());
 
         RequirementCategoryListStorage requirementCategoryListStorage =
                 new JsonRequirementCategoryListStorage(userPrefs.getRequirementCategoryListFilePath());
-        storage = new StorageManager(addressBookStorage, degreePlannerListStorage, requirementCategoryListStorage,
+        storage = new StorageManager(applicationStorage, degreePlannerListStorage, requirementCategoryListStorage,
                 userPrefsStorage);
 
         initLogging(config);
@@ -89,40 +86,23 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-
-        Optional<ReadOnlyDegreePlannerList> degreePlannerListOptional;
+        Optional<ReadOnlyApplication> applicationOptional;
         Optional<ReadOnlyRequirementCategoryList> requirementCategoryListOptional;
-        ReadOnlyAddressBook initialData;
-        ReadOnlyDegreePlannerList initialDegreePlannerListData;
+        ReadOnlyApplication initialData;
         ReadOnlyRequirementCategoryList initialRequirementCategoryListData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        }
+            applicationOptional = storage.readApplication();
 
-        try {
-            degreePlannerListOptional = storage.readDegreePlannerList();
-            if (!degreePlannerListOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample DegreePlannerList");
+            if (!applicationOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample Application");
             }
-            initialDegreePlannerListData =
-                    degreePlannerListOptional.orElseGet(SampleDegreePlannerUtil::getSampleDegreePlannerList);
+            initialData = applicationOptional.orElseGet(SampleDataUtil::getSampleApplication);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with a sample DegreePlannerList");
-            initialDegreePlannerListData = SampleDegreePlannerUtil.getSampleDegreePlannerList();
+            logger.warning("Data file not in the correct format. Will be starting with an empty Application");
+            initialData = new Application();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with a sample DegreePlannerList");
-            initialDegreePlannerListData = SampleDegreePlannerUtil.getSampleDegreePlannerList();
+            logger.warning("Problem while reading from the file. Will be starting with an empty Application");
+            initialData = new Application();
         }
 
         try {
@@ -141,7 +121,7 @@ public class MainApp extends Application {
             initialRequirementCategoryListData = SampleRequirementCategoryUtil.getSampleRequirementCategoryList();
         }
 
-        return new ModelManager(initialData, initialDegreePlannerListData, initialRequirementCategoryListData,
+        return new ModelManager(initialData, initialRequirementCategoryListData,
                 userPrefs);
 
     }
