@@ -8,14 +8,13 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showModuleAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MODULE;
-import static seedu.address.testutil.TypicalModules.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModules.getTypicalApplication;
 
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.DegreePlannerList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RequirementCategoryList;
@@ -27,9 +26,9 @@ import seedu.address.model.module.Module;
  * {@code DeleteCommand}.
  */
 public class DeleteCommandTest {
-    //ToDo: Implement getTypicalDegreePlannerList for DegreePlannerList and update the codes below
+
     private Model model =
-            new ModelManager(getTypicalAddressBook(), new DegreePlannerList(), new RequirementCategoryList(),
+            new ModelManager(getTypicalApplication(), new RequirementCategoryList(),
                     new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
@@ -41,10 +40,10 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete);
 
         ModelManager expectedModel =
-                new ModelManager(model.getAddressBook(), model.getDegreePlannerList(),
+                new ModelManager(model.getApplication(),
                         model.getRequirementCategoryList(), new UserPrefs());
         expectedModel.deleteModule(moduleToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitApplication();
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -66,10 +65,10 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getDegreePlannerList(),
+        Model expectedModel = new ModelManager(model.getApplication(),
                 model.getRequirementCategoryList(), new UserPrefs());
         expectedModel.deleteModule(moduleToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitApplication();
         showNoModule(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -81,7 +80,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_MODULE;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getModuleList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getApplication().getModuleList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
@@ -92,20 +91,20 @@ public class DeleteCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Module moduleToDelete = model.getFilteredModuleList().get(INDEX_FIRST_MODULE.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_MODULE);
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getDegreePlannerList(),
+        Model expectedModel = new ModelManager(model.getApplication(),
                 model.getRequirementCategoryList(), new UserPrefs());
         expectedModel.deleteModule(moduleToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitApplication();
 
         // delete -> first module deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered module list to show all modules
-        expectedModel.undoAddressBook();
+        // undo -> reverts application back to previous state and filtered module list to show all modules
+        expectedModel.undoApplication();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first module deleted again
-        expectedModel.redoAddressBook();
+        expectedModel.redoApplication();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -133,24 +132,24 @@ public class DeleteCommandTest {
     public void executeUndoRedo_validIndexFilteredList_sameModuleDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_MODULE);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getDegreePlannerList(),
+        Model expectedModel = new ModelManager(model.getApplication(),
                 model.getRequirementCategoryList(), new UserPrefs());
 
         showModuleAtIndex(model, INDEX_SECOND_MODULE);
         Module moduleToDelete = model.getFilteredModuleList().get(INDEX_FIRST_MODULE.getZeroBased());
         expectedModel.deleteModule(moduleToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.commitApplication();
 
         // delete -> deletes second module in unfiltered module list / first module in filtered module list
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered module list to show all modules
-        expectedModel.undoAddressBook();
+        // undo -> reverts application back to previous state and filtered module list to show all modules
+        expectedModel.undoApplication();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(moduleToDelete, model.getFilteredModuleList().get(INDEX_FIRST_MODULE.getZeroBased()));
         // redo -> deletes same second module in unfiltered module list
-        expectedModel.redoAddressBook();
+        expectedModel.redoApplication();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

@@ -3,13 +3,12 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showModuleAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
-import static seedu.address.testutil.TypicalModules.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModules.getTypicalApplication;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.DegreePlannerList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RequirementCategoryList;
@@ -27,9 +26,9 @@ public class ListCommandTest {
     @Before
     public void setUp() {
         //ToDo: Implement getTypicalDegreePlannerList for DegreePlannerList and update the codes below
-        model = new ModelManager(getTypicalAddressBook(), new DegreePlannerList(), new RequirementCategoryList(),
+        model = new ModelManager(getTypicalApplication(), new RequirementCategoryList(),
                 new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), model.getDegreePlannerList(),
+        expectedModel = new ModelManager(model.getApplication(),
                 model.getRequirementCategoryList(), new UserPrefs());
     }
 

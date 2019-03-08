@@ -8,14 +8,13 @@ import static seedu.address.logic.commands.CommandTestUtil.showModuleAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MODULE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_MODULE;
-import static seedu.address.testutil.TypicalModules.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModules.getTypicalApplication;
 
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.DegreePlannerList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RequirementCategoryList;
@@ -25,12 +24,12 @@ import seedu.address.model.UserPrefs;
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
 public class SelectCommandTest {
-    //ToDo: Implement getTypicalDegreePlannerList for DegreePlannerList and update the codes below
+
     private Model model =
-            new ModelManager(getTypicalAddressBook(), new DegreePlannerList(), new RequirementCategoryList(),
+            new ModelManager(getTypicalApplication(), new RequirementCategoryList(),
                     new UserPrefs());
     private Model expectedModel =
-            new ModelManager(getTypicalAddressBook(), new DegreePlannerList(), new RequirementCategoryList(),
+            new ModelManager(getTypicalApplication(), new RequirementCategoryList(),
                     new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
@@ -65,7 +64,7 @@ public class SelectCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_MODULE;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getModuleList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getApplication().getModuleList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
     }

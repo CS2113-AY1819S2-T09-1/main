@@ -14,7 +14,7 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.Application;
 import seedu.address.model.Model;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.NameContainsKeywordsPredicate;
@@ -103,7 +103,7 @@ public class CommandTestUtil {
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        Application expectedApplication = new Application(actualModel.getApplication());
         List<Module> expectedFilteredList = new ArrayList<>(actualModel.getFilteredModuleList());
         Module expectedSelectedModule = actualModel.getSelectedModule();
 
@@ -114,7 +114,7 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getAddressBook());
+            assertEquals(expectedApplication, actualModel.getApplication());
             assertEquals(expectedFilteredList, actualModel.getFilteredModuleList());
             assertEquals(expectedSelectedModule, actualModel.getSelectedModule());
             assertEquals(expectedCommandHistory, actualCommandHistory);
@@ -141,7 +141,7 @@ public class CommandTestUtil {
     public static void deleteFirstModule(Model model) {
         Module firstModule = model.getFilteredModuleList().get(0);
         model.deleteModule(firstModule);
-        model.commitAddressBook();
+        model.commitApplication();
     }
 
 }

@@ -22,7 +22,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.NameContainsKeywordsPredicate;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.ApplicationBuilder;
 import seedu.address.testutil.ModuleBuilder;
 
 public class ModelManagerTest {
@@ -35,7 +35,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new Application(), new Application(modelManager.getApplication()));
         assertEquals(null, modelManager.getSelectedModule());
     }
 
@@ -48,14 +48,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setApplicationFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setApplicationFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -73,16 +73,16 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
+    public void setApplicationFilePath_nullPath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.setAddressBookFilePath(null);
+        modelManager.setApplicationFilePath(null);
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
+    public void setApplicationFilePath_validPath_setsApplicationFilePath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+        modelManager.setApplicationFilePath(path);
+        assertEquals(path, modelManager.getApplicationFilePath());
     }
 
     @Test
@@ -92,12 +92,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasModule_moduleNotInAddressBook_returnsFalse() {
+    public void hasModule_moduleNotInApplication_returnsFalse() {
         assertFalse(modelManager.hasModule(ALICE));
     }
 
     @Test
-    public void hasModule_moduleInAddressBook_returnsTrue() {
+    public void hasModule_moduleInApplication_returnsTrue() {
         modelManager.addModule(ALICE);
         assertTrue(modelManager.hasModule(ALICE));
     }
@@ -151,21 +151,19 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withModule(ALICE).withModule(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        Application application = new ApplicationBuilder().withModule(ALICE).withModule(BENSON).build();
+        Application differentApplication = new Application();
         UserPrefs userPrefs = new UserPrefs();
-        //ToDo: update degreePlannerList to make sure it is different
-        DegreePlannerList degreePlannerList = new DegreePlannerList();
-        DegreePlannerList differentDegreePlannerList = new DegreePlannerList();
+
         //ToDo: update requirementCategoryList to make sure it is different
         RequirementCategoryList requirementCategoryList = new RequirementCategoryList();
         RequirementCategoryList differentRequirementCategoryList = new RequirementCategoryList();
 
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, degreePlannerList, requirementCategoryList, userPrefs);
+        modelManager = new ModelManager(application, requirementCategoryList, userPrefs);
         ModelManager modelManagerCopy =
-                new ModelManager(addressBook, degreePlannerList, requirementCategoryList, userPrefs);
+                new ModelManager(application, requirementCategoryList, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -177,9 +175,9 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
+        // different application -> returns false
 
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, differentDegreePlannerList,
+        assertFalse(modelManager.equals(new ModelManager(differentApplication,
                 differentRequirementCategoryList, userPrefs)));
 
         // different filteredList -> returns false
@@ -187,16 +185,16 @@ public class ModelManagerTest {
         modelManager.updateFilteredModuleList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
 
         assertFalse(modelManager
-                .equals(new ModelManager(addressBook, degreePlannerList, requirementCategoryList, userPrefs)));
+                .equals(new ModelManager(application, requirementCategoryList, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setApplicationFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager
-                .equals(new ModelManager(addressBook, degreePlannerList, requirementCategoryList, differentUserPrefs)));
+                .equals(new ModelManager(application, requirementCategoryList, differentUserPrefs)));
 
     }
 }

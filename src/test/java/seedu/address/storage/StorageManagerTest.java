@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static seedu.address.testutil.TypicalModules.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModules.getTypicalApplication;
 
 import java.nio.file.Path;
 
@@ -12,8 +12,8 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.Application;
+import seedu.address.model.ReadOnlyApplication;
 import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -25,7 +25,7 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonApplicationStorage applicationStorage = new JsonApplicationStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
 
         JsonDegreePlannerListStorage degreePlannerListStorage =
@@ -33,7 +33,7 @@ public class StorageManagerTest {
         JsonRequirementCategoryListStorage requirementCategoryListStorage =
                 new JsonRequirementCategoryListStorage(getTempFilePath("reqCat"));
         storageManager =
-                new StorageManager(addressBookStorage, degreePlannerListStorage, requirementCategoryListStorage,
+                new StorageManager(applicationStorage, degreePlannerListStorage, requirementCategoryListStorage,
                         userPrefsStorage);
     }
 
@@ -56,21 +56,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void applicationReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonApplicationStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonApplicationStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        Application original = getTypicalApplication();
+        storageManager.saveApplication(original);
+        ReadOnlyApplication retrieved = storageManager.readApplication().get();
+        assertEquals(original, new Application(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getApplicationFilePath() {
+        assertNotNull(storageManager.getApplicationFilePath());
     }
 
 }

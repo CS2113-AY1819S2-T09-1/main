@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalModules.CARL;
 import static seedu.address.testutil.TypicalModules.ELLE;
 import static seedu.address.testutil.TypicalModules.FIONA;
-import static seedu.address.testutil.TypicalModules.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModules.getTypicalApplication;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,7 +16,6 @@ import java.util.Collections;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.DegreePlannerList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RequirementCategoryList;
@@ -29,12 +28,12 @@ import seedu.address.model.module.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    //ToDo: Implement getTypicalDegreePlannerList for DegreePlannerList and update the codes below
+
     private Model model =
-            new ModelManager(getTypicalAddressBook(), new DegreePlannerList(), new RequirementCategoryList(),
+            new ModelManager(getTypicalApplication(), new RequirementCategoryList(),
                     new UserPrefs());
     private Model expectedModel =
-            new ModelManager(getTypicalAddressBook(), new DegreePlannerList(), new RequirementCategoryList(),
+            new ModelManager(getTypicalApplication(), new RequirementCategoryList(),
                     new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 

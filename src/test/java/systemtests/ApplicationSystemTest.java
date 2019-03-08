@@ -34,17 +34,17 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.AddressBook;
+import seedu.address.model.Application;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalModules;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
 /**
- * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
+ * A system test class for Application, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
-public abstract class AddressBookSystemTest {
+public abstract class ApplicationSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
@@ -79,8 +79,8 @@ public abstract class AddressBookSystemTest {
     /**
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
-    protected AddressBook getInitialData() {
-        return TypicalModules.getTypicalAddressBook();
+    protected Application getInitialData() {
+        return TypicalModules.getTypicalApplication();
     }
 
     /**
@@ -138,7 +138,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showAllModules() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getModuleList().size(), getModel().getFilteredModuleList().size());
+        assertEquals(getModel().getApplication().getModuleList().size(), getModel().getFilteredModuleList().size());
     }
 
     /**
@@ -146,7 +146,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showModulesWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredModuleList().size() < getModel().getAddressBook().getModuleList().size());
+        assertTrue(getModel().getFilteredModuleList().size() < getModel().getApplication().getModuleList().size());
     }
 
     /**
@@ -162,7 +162,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void deleteAllModules() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getModuleList().size());
+        assertEquals(0, getModel().getApplication().getModuleList().size());
     }
 
     /**
@@ -174,7 +174,7 @@ public abstract class AddressBookSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertEquals(new Application(expectedModel.getApplication()), testApp.readStorageApplication());
         assertListMatching(getModuleListPanel(), expectedModel.getFilteredModuleList());
     }
 

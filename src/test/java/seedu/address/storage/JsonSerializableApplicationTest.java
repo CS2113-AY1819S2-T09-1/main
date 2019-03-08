@@ -11,10 +11,10 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.AddressBook;
+import seedu.address.model.Application;
 import seedu.address.testutil.TypicalModules;
 
-public class JsonSerializableAddressBookTest {
+public class JsonSerializableApplicationTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
     private static final Path TYPICAL_MODULES_FILE = TEST_DATA_FOLDER.resolve("typicalModulesAddressBook.json");
@@ -26,27 +26,27 @@ public class JsonSerializableAddressBookTest {
 
     @Test
     public void toModelType_typicalModulesFile_success() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_MODULES_FILE,
-                JsonSerializableAddressBook.class).get();
-        AddressBook addressBookFromFile = dataFromFile.toModelType();
-        AddressBook typicalModulesAddressBook = TypicalModules.getTypicalAddressBook();
-        assertEquals(addressBookFromFile, typicalModulesAddressBook);
+        JsonSerializableApplication dataFromFile = JsonUtil.readJsonFile(TYPICAL_MODULES_FILE,
+                JsonSerializableApplication.class).get();
+        Application applicationFromFile = dataFromFile.toModelType();
+        Application typicalModulesApplication = TypicalModules.getTypicalApplication();
+        assertEquals(applicationFromFile, typicalModulesApplication);
     }
 
     @Test
     public void toModelType_invalidModuleFile_throwsIllegalValueException() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(INVALID_MODULE_FILE,
-                JsonSerializableAddressBook.class).get();
+        JsonSerializableApplication dataFromFile = JsonUtil.readJsonFile(INVALID_MODULE_FILE,
+                JsonSerializableApplication.class).get();
         thrown.expect(IllegalValueException.class);
         dataFromFile.toModelType();
     }
 
     @Test
     public void toModelType_duplicateModules_throwsIllegalValueException() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_MODULE_FILE,
-                JsonSerializableAddressBook.class).get();
+        JsonSerializableApplication dataFromFile = JsonUtil.readJsonFile(DUPLICATE_MODULE_FILE,
+                JsonSerializableApplication.class).get();
         thrown.expect(IllegalValueException.class);
-        thrown.expectMessage(JsonSerializableAddressBook.MESSAGE_DUPLICATE_MODULE);
+        thrown.expectMessage(JsonSerializableApplication.MESSAGE_DUPLICATE_MODULE);
         dataFromFile.toModelType();
     }
 

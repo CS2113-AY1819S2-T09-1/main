@@ -19,10 +19,9 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.Application;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyDegreePlannerList;
+import seedu.address.model.ReadOnlyApplication;
 import seedu.address.model.ReadOnlyRequirementCategoryList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.module.Module;
@@ -117,12 +116,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getApplicationFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setApplicationFilePath(Path applicationFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -149,12 +148,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setApplication(ReadOnlyApplication newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyApplication getApplication() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -184,27 +183,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoApplication() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoApplication() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoApplication() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoApplication() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitApplication() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -223,55 +222,28 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public ReadOnlyDegreePlannerList getDegreePlannerList() {
-            return null;
-        }
-
         @Override public boolean hasDegreePlanner(DegreePlanner degreePlanner) {
-            return false;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override public void deleteDegreePlanner(DegreePlanner degreePlanner) {
-            //ToDo: implement AssertionError
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override public void addDegreePlanner(DegreePlanner degreePlanner) {
-            //ToDo: implement error check
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override public void setDegreePlanner(DegreePlanner target, DegreePlanner editedDegreePlanner) {
-            //ToDo: implement error check
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override public ObservableList<DegreePlanner> getFilteredDegreePlannerList() {
-            return null;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override public void updateFilteredDegreePlannerList(Predicate<DegreePlanner> predicate) {
-            //ToDo: implement error check
-        }
-
-        @Override public boolean canUndoDegreePlannerList() {
-            //ToDo: implement AssertionError
-            return false;
-        }
-
-        @Override public boolean canRedoDegreePlannerList() {
-            //ToDo: implement error check
-            return false;
-        }
-
-        @Override public void undoDegreePlannerList() {
-            //ToDo: implement error check
-        }
-
-        @Override public void redoDegreePlannerList() {
-            //ToDo: implement error check
-        }
-
-        @Override public void commitDegreePlannerList() {
-            //ToDo: implement error check
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override public ReadOnlyRequirementCategoryList getRequirementCategoryList() {
@@ -365,13 +337,13 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitApplication() {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyApplication getApplication() {
+            return new Application();
         }
     }
 

@@ -25,10 +25,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyApplication;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.module.Module;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonApplicationStorage;
 import seedu.address.storage.JsonDegreePlannerListStorage;
 import seedu.address.storage.JsonRequirementCategoryListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -49,14 +49,14 @@ public class LogicManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(temporaryFolder.newFile().toPath());
+        JsonApplicationStorage applicationStorage = new JsonApplicationStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         JsonDegreePlannerListStorage degreePlannerListStorage =
                 new JsonDegreePlannerListStorage(temporaryFolder.newFile().toPath());
         JsonRequirementCategoryListStorage requirementCategoryListStorage =
                 new JsonRequirementCategoryListStorage(temporaryFolder.newFile().toPath());
         StorageManager storage =
-                new StorageManager(addressBookStorage, degreePlannerListStorage, requirementCategoryListStorage,
+                new StorageManager(applicationStorage, degreePlannerListStorage, requirementCategoryListStorage,
                         userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
@@ -84,16 +84,16 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        // Setup LogicManager with JsonApplicationIoExceptionThrowingStub
+        JsonApplicationStorage applicationStorage =
+                new JsonApplicationIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         JsonDegreePlannerListStorage degreePlannerListStorage =
                 new JsonDegreePlannerListStorage(temporaryFolder.newFile().toPath());
         JsonRequirementCategoryListStorage requirementCategoryListStorage =
                 new JsonRequirementCategoryListStorage(temporaryFolder.newFile().toPath());
         StorageManager storage =
-                new StorageManager(addressBookStorage, degreePlannerListStorage, requirementCategoryListStorage,
+                new StorageManager(applicationStorage, degreePlannerListStorage, requirementCategoryListStorage,
                         userPrefsStorage);
         logic = new LogicManager(model, storage);
 
@@ -102,7 +102,7 @@ public class LogicManagerTest {
         Module expectedModule = new ModuleBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addModule(expectedModule);
-        expectedModel.commitAddressBook();
+        expectedModel.commitApplication();
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
         assertHistoryCorrect(addCommand);
@@ -148,7 +148,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getDegreePlannerList(),
+        Model expectedModel = new ModelManager(model.getApplication(),
                 model.getRequirementCategoryList(), new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
@@ -192,13 +192,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonApplicationIoExceptionThrowingStub extends JsonApplicationStorage {
+        private JsonApplicationIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveApplication(ReadOnlyApplication application, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

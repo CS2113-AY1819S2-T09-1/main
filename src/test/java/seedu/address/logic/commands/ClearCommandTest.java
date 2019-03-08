@@ -1,13 +1,12 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalModules.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModules.getTypicalApplication;
 
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
-import seedu.address.model.DegreePlannerList;
+import seedu.address.model.Application;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RequirementCategoryList;
@@ -18,24 +17,23 @@ public class ClearCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyApplication_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
-        expectedModel.commitAddressBook();
+        expectedModel.commitApplication();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
-        //ToDo: Implement getTypicalDegreePlannerList for DegreePlannerList and update the codes below
-        Model model = new ModelManager(getTypicalAddressBook(), new DegreePlannerList(), new RequirementCategoryList(),
+    public void execute_nonEmptyApplication_success() {
+        Model model = new ModelManager(getTypicalApplication(), new RequirementCategoryList(),
                 new UserPrefs());
         Model expectedModel =
-                new ModelManager(getTypicalAddressBook(), new DegreePlannerList(), new RequirementCategoryList(),
+                new ModelManager(getTypicalApplication(), new RequirementCategoryList(),
                         new UserPrefs());
-        expectedModel.setAddressBook(new AddressBook());
-        expectedModel.commitAddressBook();
+        expectedModel.setApplication(new Application());
+        expectedModel.commitApplication();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

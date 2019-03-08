@@ -35,11 +35,11 @@ import seedu.address.testutil.EditModuleDescriptorBuilder;
 import seedu.address.testutil.ModuleBuilder;
 import seedu.address.testutil.ModuleUtil;
 
-public class AddressBookParserTest {
+public class ApplicationParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final ApplicationParser parser = new ApplicationParser();
 
     @Test
     public void parseCommand_add() throws Exception {
