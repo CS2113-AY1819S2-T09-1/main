@@ -29,7 +29,8 @@ public class Application implements ReadOnlyApplication {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */ {
+     */
+    {
         modules = new UniqueModuleList();
         degreePlanners = new UniqueDegreePlannerList();
     }
@@ -62,14 +63,6 @@ public class Application implements ReadOnlyApplication {
         requireNonNull(newData);
         setModules(newData.getModuleList());
         setDegreePlanner(newData.getDegreePlannerList());
-    }
-
-    /**
-     * Replaces the contents of the degreePlanner list with {@code degreePlanners}.
-     * {@code degreePlanners} must not contain duplicate degreePlanners.
-     */
-    private void setDegreePlanner(List<DegreePlanner> degreePlanners) {
-        this.degreePlanners.setDegreePlanners(degreePlanners);
     }
 
     //// module-level operations
@@ -136,6 +129,14 @@ public class Application implements ReadOnlyApplication {
      */
     public void addDegreePlanner(DegreePlanner p) {
         degreePlanners.add(p);
+    }
+
+    /**
+     * Replaces the contents of the degreePlanner list with {@code degreePlanners}.
+     * {@code degreePlanners} must not contain duplicate degreePlanners.
+     */
+    private void setDegreePlanner(List<DegreePlanner> degreePlanners) {
+        this.degreePlanners.setDegreePlanners(degreePlanners);
     }
 
     /**
