@@ -144,17 +144,13 @@ Format: `find [name/NAME NAME…] [code/CODE CODE…] [credits/CREDITS CREDITS�
 
 * The search is case insensitive. e.g `security` will match `Security`
 * The order of the keywords does not matter. e.g. `Security Information` will match `Information Security`
+* The order of the prefix does not matter. +
+e.g. finding `name/NAME... code/CODE...` will have the same result as finding `code/CODE... name/NAME...`
 * Only the module name, code or credits is searched.
 * Only full words will be matched. e.g. `CS` will not match `CS1231`
 * Modules matching at least one keyword will be returned (i.e. `OR` search). +
 e.g. `Information` will return `Information Technology`, `Information Business`
 ****
-[NOTE]
-====
-You can only search one prefix. +
-e.g. `name/Information` or `code/CS1231` but not
-`name/Information code/CS1231`
-====
 Examples:
 
 * `find name/Security` +
@@ -165,6 +161,10 @@ Returns any module having names `Security`, `Information`, or `Computer` in the 
 Returns any module having code `CS1231` or `CS2040` in the displayed module list.
 * `find credits/004 012` +
 Returns any module having credits `004` or `012` in the displayed module list.
+* `find name/Programming code/CS1231` +
+Returns any module having name `Programming` or code `CS1231` in the displayed module list.
+* `find code/CS2113 credits/004 name/Programming` +
+Returns any module having name `Programming` or code `CS2113` or credits `004` in the displayed module list.
 
 === Deleting a module : `delete`
 
