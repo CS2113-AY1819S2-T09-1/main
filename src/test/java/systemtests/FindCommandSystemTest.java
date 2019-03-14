@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.testutil.TypicalModules.BENSON;
 import static seedu.address.testutil.TypicalModules.CARL;
 import static seedu.address.testutil.TypicalModules.DANIEL;
-import static seedu.address.testutil.TypicalModules.GEORGE;
 import static seedu.address.testutil.TypicalModules.KEYWORD_MATCHING_MEIER;
 
 import java.util.ArrayList;
@@ -143,20 +142,20 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         // TODO: Update the test case again after proper attribute is given in TypicalModules
-        /* Case: find code of module in address book with correct PREFIX -> 3 modules found */
+        /* Case: find code of module in address book with correct PREFIX -> 1 module found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_CODE + DANIEL.getCode().value;
-        ModelHelper.setFilteredList(expectedModel, DANIEL, GEORGE, CARL);
+        ModelHelper.setFilteredList(expectedModel, DANIEL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find module not in address book with PREFIX_CODE -> 0 modules found */
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_CODE + "NotExisting";
+        /* Case: find non-existent module in address book with PREFIX_CODE -> 0 modules found */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_CODE + "AAA1234Z";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find module in address book, code is substring of keyword -> 0 modules found */
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_CODE + "stre";
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_CODE + "FS4205"; // valid partial code derived from IFS4205
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
