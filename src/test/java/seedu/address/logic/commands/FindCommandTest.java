@@ -104,7 +104,7 @@ public class FindCommandTest {
     public void execute_multipleCreditsKeywords_multipleModulesFound() {
         String expectedMessage = String.format(MESSAGE_MODULES_LISTED_OVERVIEW, 3);
         // TODO: update the module credits after TypicalModule attribute are updated
-        CreditsContainsKeywordsPredicate predicate = prepareCreditsPredicate("95352563 9482224 9482427");
+        CreditsContainsKeywordsPredicate predicate = prepareCreditsPredicate("2 4 5");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredModuleList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);

@@ -15,7 +15,7 @@ import seedu.address.model.util.SampleDataUtil;
 public class RequirementCategoryBuilder {
 
     public static final String DEFAULT_NAME = "Computing Foundation";
-    public static final String DEFAULT_CREDITS = "036";
+    public static final String DEFAULT_CREDITS = "36";
 
     private Name name;
     private Credits credits;

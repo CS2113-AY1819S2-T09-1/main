@@ -79,7 +79,7 @@ public class ModuleListPanelTest extends GuiUnitTest {
         ObservableList<Module> backingList = FXCollections.observableArrayList();
         for (int i = 0; i < moduleCount; i++) {
             Name name = new Name(i + "a");
-            Credits credits = new Credits("000");
+            Credits credits = new Credits("999");
             Code code = new Code("CS1010");
             Module module = new Module(name, credits, code, Collections.emptySet());
             backingList.add(module);

@@ -15,28 +15,28 @@ public class TypicalRequirementCategories {
 
     public static final RequirementCategory COMPUTING_FOUNDATION =
             new RequirementCategoryBuilder().withName("Computing Foundation")
-                    .withCredits("036").build();
+                    .withCredits("36").build();
     public static final RequirementCategory INFORMATION_SECURITY_REQUIREMENTS =
             new RequirementCategoryBuilder().withName("Information Security Requirements")
-                    .withCredits("032").build();
+                    .withCredits("32").build();
     public static final RequirementCategory INFORMATION_SECURITY_ELECTIVES =
             new RequirementCategoryBuilder().withName("Information Security Electives")
-                    .withCredits("012").build();
+                    .withCredits("12").build();
     public static final RequirementCategory COMPUTING_BREADTH =
             new RequirementCategoryBuilder().withName("Computing Breadth")
-                    .withCredits("020").build();
+                    .withCredits("20").build();
     public static final RequirementCategory IT_PROFESSIONALISM =
             new RequirementCategoryBuilder().withName("IT Professionalism")
-                    .withCredits("008").build();
+                    .withCredits("8").build();
     public static final RequirementCategory MATHEMATICS =
             new RequirementCategoryBuilder().withName("Mathematics")
-                    .withCredits("012").build();
+                    .withCredits("12").build();
     public static final RequirementCategory GENERAL_EDUCATION =
             new RequirementCategoryBuilder().withName("General Education")
-                    .withCredits("020").build();
+                    .withCredits("20").build();
     public static final RequirementCategory UNRESTRICTED_ELECTIVES =
             new RequirementCategoryBuilder().withName("Unrestricted Electives")
-                    .withCredits("012").build();
+                    .withCredits("12").build();
 
     private TypicalRequirementCategories() {} // prevents instantiation
 

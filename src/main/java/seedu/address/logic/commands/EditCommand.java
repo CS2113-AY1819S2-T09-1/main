@@ -41,7 +41,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_CREDITS + "CREDITS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_CREDITS + "008 ";
+            + PREFIX_CREDITS + "8 ";
 
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

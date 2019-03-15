@@ -27,7 +27,7 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Programming Methodology "
             + PREFIX_CODE + "CS1010 "
-            + PREFIX_CREDITS + "004 "
+            + PREFIX_CREDITS + "4 "
             + PREFIX_TAG + "programming "
             + PREFIX_TAG + "algorithms "
             + PREFIX_TAG + "c "

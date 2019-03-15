@@ -16,7 +16,7 @@ import seedu.address.model.util.SampleDataUtil;
 public class ModuleBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_CREDITS = "85355255";
+    public static final String DEFAULT_CREDITS = "666";
     public static final String DEFAULT_CODE = "CS1010";
 
     private Name name;
