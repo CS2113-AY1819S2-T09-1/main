@@ -366,6 +366,10 @@ Format: <code>find [name/NAME NAME…] [code/CODE CODE…] [credits/CREDITS CRED
 <p>The order of the keywords does not matter. e.g. <code>Security Information</code> will match <code>Information Security</code></p>
 </li>
 <li>
+<p>The order of the prefix does not matter.<br>
+e.g. finding <code>name/NAME&#8230;&#8203; code/CODE&#8230;&#8203;</code> will have the same result as finding <code>code/CODE&#8230;&#8203; name/NAME&#8230;&#8203;</code></p>
+</li>
+<li>
 <p>Only the module name, code or credits is searched.</p>
 </li>
 <li>
@@ -378,22 +382,6 @@ e.g. <code>Information</code> will return <code>Information Technology</code>, <
 </ul>
 </div>
 </div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>You can only search one prefix.<br>
-e.g. <code>name/Information</code> or <code>code/CS1231</code> but not
-<code>name/Information code/CS1231</code></p>
-</div>
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -415,6 +403,14 @@ Returns any module having code <code>CS1231</code> or <code>CS2040</code> in the
 <li>
 <p><code>find credits/004 012</code><br>
 Returns any module having credits <code>004</code> or <code>012</code> in the displayed module list.</p>
+</li>
+<li>
+<p><code>find name/Programming code/CS1231</code><br>
+Returns any module having name <code>Programming</code> or code <code>CS1231</code> in the displayed module list.</p>
+</li>
+<li>
+<p><code>find code/CS2113 credits/004 name/Programming</code><br>
+Returns any module having name <code>Programming</code> or code <code>CS2113</code> or credits <code>004</code> in the displayed module list.</p>
 </li>
 </ul>
 </div>
@@ -955,4 +951,4 @@ e.g. <code>requirement_move IS4231 name/IT Professionalism</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-03-15 09:52:01 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-03-16 09:12:16 UTC</div></div></div></body></html>
