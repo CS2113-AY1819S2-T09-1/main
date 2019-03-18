@@ -318,7 +318,7 @@ Moves module CS1231 to year 1 semester 2.
 * `planner_move CS1231 y/1 s/4` +
 Moves module CS1231 to year 1 special semester 2.
 
-=== Listing degree planners: `planner_list_all` `[coming in v2.0]`
+=== Listing degree planners: `planner_list_all`
 
 Shows a list of all degree planners. +
 Format: `planner_list_all`
