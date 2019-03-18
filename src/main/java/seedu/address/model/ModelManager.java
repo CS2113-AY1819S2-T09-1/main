@@ -303,7 +303,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addDegreePlannerModule(DegreePlannerModule degreePlannerModule) {
-
+        addDegreePlannerModule(degreePlannerModule);
     }
 
     @Override public void setDegreePlanner(DegreePlanner target, DegreePlanner editedDegreePlanner) {

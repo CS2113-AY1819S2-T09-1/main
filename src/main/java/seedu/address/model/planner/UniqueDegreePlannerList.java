@@ -61,6 +61,8 @@ public class UniqueDegreePlannerList implements Iterable<DegreePlanner> {
         int i = (Integer.valueOf(semester) == 2) ? 1 : 0;
 
         internalList.get(Integer.valueOf(year) * 2 + i - 2).addModuleCode(code);
+
+        System.out.print(internalList);
     }
     /**
      * Replaces the degreePlanner {@code target} in the list with {@code editedDegreePlanner}.

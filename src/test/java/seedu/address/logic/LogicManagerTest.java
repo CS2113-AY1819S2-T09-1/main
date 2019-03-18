@@ -56,8 +56,8 @@ public class LogicManagerTest {
         JsonRequirementCategoryListStorage requirementCategoryListStorage =
                 new JsonRequirementCategoryListStorage(temporaryFolder.newFile().toPath());
         StorageManager storage =
-                new StorageManager(addressBookStorage, degreePlannerListStorage, requirementCategoryListStorage,
-                        userPrefsStorage);
+                new StorageManager(addressBookStorage, requirementCategoryListStorage, degreePlannerListStorage,
+                                        userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -93,8 +93,8 @@ public class LogicManagerTest {
         JsonRequirementCategoryListStorage requirementCategoryListStorage =
                 new JsonRequirementCategoryListStorage(temporaryFolder.newFile().toPath());
         StorageManager storage =
-                new StorageManager(addressBookStorage, degreePlannerListStorage, requirementCategoryListStorage,
-                        userPrefsStorage);
+                new StorageManager(addressBookStorage, requirementCategoryListStorage, degreePlannerListStorage,
+                                        userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command

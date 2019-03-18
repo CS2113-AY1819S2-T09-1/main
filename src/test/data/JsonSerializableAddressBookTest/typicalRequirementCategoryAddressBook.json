@@ -1,0 +1,35 @@
+{
+  "requirementCategories" : [ {
+    "name" : "Computing Foundation",
+    "credits" : "036",
+    "codeList" : [ ]
+  }, {
+    "name" : "Information Security Requirements",
+    "credits" : "032",
+    "codeList" : [ ]
+  }, {
+    "name" : "Information Security Electives",
+    "credits" : "012",
+    "codeList" : [ ]
+  }, {
+    "name" : "Computing Breadth",
+    "credits" : "020",
+    "codeList" : [ ]
+  }, {
+    "name" : "IT Professionalism",
+    "credits" : "008",
+    "codeList" : [ ]
+  }, {
+    "name" : "Mathematics",
+    "credits" : "012",
+    "codeList" : [ ]
+  }, {
+    "name" : "General Education",
+    "credits" : "020",
+    "codeList" : [ ]
+  }, {
+    "name" : "Unrestricted Electives",
+    "credits" : "012",
+    "codeList" : [ ]
+  } ]
+}
