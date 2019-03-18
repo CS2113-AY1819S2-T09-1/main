@@ -16,11 +16,11 @@ import seedu.address.model.tag.Tag;
 public class Module {
 
     // Identity fields
-    private final Name name;
-    private final Credits credits;
+    private final Code code;
 
     // Data fields
-    private final Code code;
+    private final Name name;
+    private final Credits credits;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -63,10 +63,7 @@ public class Module {
             return true;
         }
 
-        return otherModule != null
-                && otherModule.getCode().equals(getCode())
-                && otherModule.getCredits().equals(getCredits())
-                && otherModule.getName().equals(getName());
+        return otherModule != null && otherModule.getCode().equals(getCode());
     }
 
     /**
