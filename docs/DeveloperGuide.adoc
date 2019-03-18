@@ -347,6 +347,42 @@ corequisites. The user will have to delete the invalid co-requisite manually aft
 refreshed to display the full listing just to be able to iterate and delete modules co-requisites accordingly.
 // end::corequisites[]
 
+// tag::requirement-add[]
+=== Requirement Add command
+The `requirement_add` command in PWE is used to add module code(s) to a requirement category.
+
+==== Current implementation
+
+The `requirement_add` command requires the `RequirementAddCommandParser` class to parse the user input provided. The  parsed data will then be passed to  `RequirmentAddCommand` class. Currently, the details that are required by the user is the name of the requirement category and module code(s).
+
+`RequirementAddCommandParser` will throw an error if the user input does not match the command format.
+
+When `RequirementAddCommand` receives the parsed data, it will perform the following checks:
+
+- Check if the requirement category exists in PWE though `getRequirementCategory`
+- Check if the module codes provided exists in PWE through `model.hasModuleCode`
+- Check if the modules codes have already been added to this requirement category through `RequirementCategory.hasModuleCode`
+
+`RequirementAddCommand` will throw an error any of the above check fails.
+
+After passing the checks `RequirementAddCommand` updates the context in `ModelManager` through `setRequirementCategory`.
+
+In addition to adding module code(s) to a requirement category, the `RequirementAddCommand` class also does the following:
+
+- Saves the current database state through `commitAddressBook` (for undo/redo functions).
+
+==== Design Considerations
+===== Aspect: Choice of what is added to the requirement category
+
+- **Alternative 1 (current choice):** Storing module codes only
+  ** Pros: Requires less storage, easy to maintain
+  ** Cons: Requires extra overhead to obtain additional information related to the module when needed
+- **Alternative 2:** Storing all information related to the module
+  ** Pros: All information related to the module are easily obtainable
+  ** Cons: Information stored is duplicated, additional storage space is needed
+  ** Cons: Hard to maintain information, if a module information is updated have to update data in the requirement category
+//end::requirement-add[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
