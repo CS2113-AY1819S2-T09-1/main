@@ -339,7 +339,7 @@ Shows a degree planner for year 1 semester 2
 
 Displays a list of modules that can be added to the degree planner.
 
-=== Adding a module code to degree requirement category : `requirement_add` `[coming in v2.0]`
+=== Adding a module code to degree requirement category : `requirement_add`
 
 Add module code to a degree requirement category in the application. +
 Format: `requirement_add name/NAME [code/CODE]…`
