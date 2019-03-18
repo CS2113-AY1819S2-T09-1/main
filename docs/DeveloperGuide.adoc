@@ -367,6 +367,64 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+===  Find Feature
+
+The find feature aims to help users to be able to locate any module in our application easily. We support
+the finding of module's name, code and credits. This enable our users to be able to find for any modules with partial
+ information.
+
+==== Overview
+
+When a user invokes the `find` command. (e.g. find name/Programming code/CS1231), the following steps are taken by
+the program.
+
+1. Extract out the text related to `find` command
+2. Parse the text related to each `PREFIX` individually.
+3. Return a composite predicate for all attributes.
+
+Step 1 is performed by the `AddressBookParser` class, and no special actions is needed for the `find` feature.
+
+Step 3 is performed by `FindCommandParser#getKeywordsPredicate`
+
+==== Current Implementation
+
+The `FindCommandParser` parses the strings of arguments provided by the user to retrieve a composite `Predicate`
+which is used by `FindCommand`. A `ParseException` is thrown when if the input provided by the user does not conform
+to the expected format.
+
+The sequence diagram below shows the interaction within the `Logic` components.
+
+.Find component interactions
+image::FindCommandSequenceDiagram.png[width="650"]
+
+==== Design Consideration
+
+===== Aspect: How to parse composite predicates
+
+[NOTE]
+Currently we have use choice 1 mainly because of time constrains. When there is sufficient time, Alternative 2 would
+be more preferred because it provide our user with a more robust find command.
+
+- Alternative 1 (current choice): Do an implicit boolean `OR` for every predicate.
+
+[cols="30%,<70%"]
+|======
+|*Pros*| Very easy implementation
+|*Cons*| User will not be able to do a very accurate search. e.g. Unable to find a module's name with Presentation
+Skill.
+|======
+
+- Alternative 2: Implement an algorithm that can parse complex boolean expression.
+
+[cols="30%,<70%"]
+|=====
+| *Pros* | User will have very flexible searching terms
+| *Cons* | Developer will take a very long time to implement.
+|=====
+
+
+
+
 == Documentation
 
 We use asciidoc for writing documentation.
