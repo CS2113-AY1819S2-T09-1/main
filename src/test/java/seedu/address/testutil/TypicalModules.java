@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.AddressBook;
 import seedu.address.model.module.Module;
 
@@ -61,13 +62,14 @@ public class TypicalModules {
     /**
      * Returns an {@code AddressBook} with all the typical modules.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static ObservableList<Module> getTypicalModuleList() {
+        AddressBook moduleList = new AddressBook();
         for (Module module : getTypicalModules()) {
-            ab.addModule(module);
+            moduleList.addModule(module);
         }
-        return ab;
+        return moduleList.getModuleList();
     }
+
 
     public static List<Module> getTypicalModules() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));

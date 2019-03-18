@@ -23,7 +23,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyDegreePlannerList;
-import seedu.address.model.ReadOnlyRequirementCategoryList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.module.Module;
 import seedu.address.model.planner.DegreePlanner;
@@ -288,11 +287,6 @@ public class AddCommandTest {
             //ToDo: implement error check
         }
 
-        @Override public ReadOnlyRequirementCategoryList getRequirementCategoryList() {
-            //ToDo: implement error check
-            return null;
-        }
-
         @Override public boolean hasRequirementCategory(RequirementCategory degreePlanner) {
             //ToDo: implement error check
             return false;
@@ -319,27 +313,21 @@ public class AddCommandTest {
             //ToDo: implement error check
         }
 
-        @Override public boolean canUndoRequirementCategoryList() {
-            //ToDo: implement error check
-            return false;
+        @Override
+        public RequirementCategory getSelectedRequirementCategory() {
+            throw new AssertionError("This method should not be called.");
         }
 
-        @Override public boolean canRedoRequirementCategoryList() {
-            //ToDo: implement error check
-            return false;
+        @Override
+        public void setSelectedRequirementCategory(RequirementCategory requirementCategory) {
+            throw new AssertionError("This method should not be called.");
         }
 
-        @Override public void undoRequirementCategoryList() {
-            //ToDo: implement error check
+        @Override
+        public ReadOnlyProperty<RequirementCategory> selectedRequirementCategoryProperty() {
+            throw new AssertionError("This method should not be called.");
         }
 
-        @Override public void redoRequirementCategoryList() {
-            //ToDo: implement error check
-        }
-
-        @Override public void commitRequirementCategoryList() {
-            //ToDo: implement error check
-        }
     }
 
     /**

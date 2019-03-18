@@ -18,6 +18,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<RequirementCategory> PREDICATE_SHOW_ALL_REQUIREMENT_CATEGORIES = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -222,11 +225,7 @@ public interface Model {
      */
     void commitDegreePlannerList();
 
-
-    /**
-     * Returns the RequirementCategoryList
-     */
-    ReadOnlyRequirementCategoryList getRequirementCategoryList();
+    ///// RequirementCategory Methods
 
     /**
      * Returns true if a requirement with the code as {@code requirement} exists in the
@@ -267,29 +266,22 @@ public interface Model {
      */
     void updateFilteredRequirementCategoryList(Predicate<RequirementCategory> predicate);
 
-    /**
-     * Returns true if the model has previous requirement list states to restore.
-     */
-    boolean canUndoRequirementCategoryList();
 
     /**
-     * Returns true if the model has undone requirement list states to restore.
+     * Selected requirementCategory in the filtered requirementCategory list.
+     * null if no requirementCategory is selected.
      */
-    boolean canRedoRequirementCategoryList();
+    ReadOnlyProperty<RequirementCategory> selectedRequirementCategoryProperty();
 
     /**
-     * Restores the model's requirement list to its previous state.
+     * Returns the selected requirementCategory in the filtered requirementCategory list.
+     * null if no requirementCategory is selected.
      */
-    void undoRequirementCategoryList();
+    RequirementCategory getSelectedRequirementCategory();
 
     /**
-     * Restores the model's requirement list to its previously undone state.
+     * Sets the selected requirementCategory in the filtered requirementCategory list.
      */
-    void redoRequirementCategoryList();
-
-    /**
-     * Saves the current address book state for undo/redo.
-     */
-    void commitRequirementCategoryList();
+    void setSelectedRequirementCategory(RequirementCategory requirementCategory);
 
 }

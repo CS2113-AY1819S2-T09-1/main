@@ -10,6 +10,7 @@ import seedu.address.model.module.Code;
 import seedu.address.model.module.Credits;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Name;
+import seedu.address.model.requirement.RequirementCategory;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -57,12 +58,45 @@ public class SampleDataUtil {
         };
     }
 
+    public static RequirementCategory[] getSampleRequirementCategories() {
+        return new RequirementCategory[] {
+            new RequirementCategory(new Name("Computing Foundation"), new Credits("036"),
+                getCodeSet()),
+            new RequirementCategory(new Name("Information Security Requirements"), new Credits("032"),
+                getCodeSet()),
+            new RequirementCategory(new Name("Information Security Electives"), new Credits("012"),
+                getCodeSet()),
+            new RequirementCategory(new Name("Computing Breadth"), new Credits("020"),
+                getCodeSet()),
+            new RequirementCategory(new Name("IT Professionalism"), new Credits("008"),
+                getCodeSet()),
+            new RequirementCategory(new Name("Mathematics"), new Credits("012"),
+                getCodeSet()),
+            new RequirementCategory(new Name("General Education"), new Credits("020"),
+                getCodeSet()),
+            new RequirementCategory(new Name("Unrestricted Electives"), new Credits("012"),
+                getCodeSet())
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Module sampleModule : getSampleModules()) {
             sampleAb.addModule(sampleModule);
         }
+        for (RequirementCategory sampleRequirementCategory : getSampleRequirementCategories()) {
+            sampleAb.addRequirementCategory(sampleRequirementCategory);
+        }
         return sampleAb;
+    }
+
+    /**
+     * Returns a Code set containing the list of strings given.
+     */
+    public static Set<Code> getCodeSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Code::new)
+                .collect(Collectors.toSet());
     }
 
     /**

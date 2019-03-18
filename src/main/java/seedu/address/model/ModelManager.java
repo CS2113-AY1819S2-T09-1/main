@@ -29,44 +29,44 @@ public class ModelManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
+
     private final FilteredList<Module> filteredModules;
+    private final FilteredList<RequirementCategory> filteredRequirementCategory;
+
     private final SimpleObjectProperty<Module> selectedModule = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<RequirementCategory> selectedRequirementCategory = new SimpleObjectProperty<>();
 
     private final VersionedDegreePlannerList versionedDegreePlannerList;
     private final FilteredList<DegreePlanner> filteredDegreePlanners;
-
-    private final VersionedRequirementCategoryList versionedRequirementCategoryList;
-    private final FilteredList<RequirementCategory> filteredRequirementCategory;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyDegreePlannerList degreePlannerList,
-            ReadOnlyRequirementCategoryList requirementCategoryList, ReadOnlyUserPrefs userPrefs) {
+            ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, degreePlannerList, requirementCategoryList, userPrefs);
-
+        requireAllNonNull(addressBook, degreePlannerList, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+
         filteredModules = new FilteredList<>(versionedAddressBook.getModuleList());
-        filteredModules.addListener(this::ensureSelectedModuleIsValid);
+        filteredRequirementCategory = new FilteredList<>(versionedAddressBook.getRequirementCategoryList());
 
         versionedDegreePlannerList = new VersionedDegreePlannerList(degreePlannerList);
         filteredDegreePlanners = new FilteredList<>((versionedDegreePlannerList.getDegreePlannerList()));
 
-        versionedRequirementCategoryList = new VersionedRequirementCategoryList(requirementCategoryList);
-        filteredRequirementCategory =
-                new FilteredList<>((versionedRequirementCategoryList.getRequirementCategoryList()));
+        filteredModules.addListener(this::ensureSelectedModuleIsValid);
+        filteredRequirementCategory.addListener(this::ensureSelectedRequirementCategoryIsValid);
     }
 
     /**
      * ToDo: Add DegreePlannerList
      */
     public ModelManager() {
-        this(new AddressBook(), new DegreePlannerList(), new RequirementCategoryList(), new UserPrefs());
+        this(new AddressBook(), new DegreePlannerList(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -272,7 +272,8 @@ public class ModelManager implements Model {
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredModules.equals(other.filteredModules)
-                && Objects.equals(selectedModule.get(), other.selectedModule.get());
+                && Objects.equals(selectedModule.get(), other.selectedModule.get())
+                && Objects.equals(selectedRequirementCategory.get(), other.selectedRequirementCategory.get());
     }
 
     //=========== DegreePlannerList Methods =================================================================
@@ -303,7 +304,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addDegreePlannerModule(DegreePlannerModule degreePlannerModule) {
-        addDegreePlannerModule(degreePlannerModule);
+
     }
 
     @Override public void setDegreePlanner(DegreePlanner target, DegreePlanner editedDegreePlanner) {
@@ -345,29 +346,25 @@ public class ModelManager implements Model {
     //=========== RequirementCategoryList Methods =================================================================
 
     @Override
-    public ReadOnlyRequirementCategoryList getRequirementCategoryList() {
-        return versionedRequirementCategoryList;
-    }
-
-    @Override
     public boolean hasRequirementCategory(RequirementCategory planner) {
         requireNonNull(planner);
-        return versionedRequirementCategoryList.hasRequirementCategory(planner);
+        return versionedAddressBook.hasRequirementCategory(planner);
     }
 
     @Override public void deleteRequirementCategory(RequirementCategory target) {
-        versionedRequirementCategoryList.removeRequirementCategory(target);
+        versionedAddressBook.removeRequirementCategory(target);
     }
 
-    @Override public void addRequirementCategory(RequirementCategory degreePlanner) {
-        versionedRequirementCategoryList.addRequirementCategory(degreePlanner);
+    @Override public void addRequirementCategory(RequirementCategory requirementCategory) {
+        versionedAddressBook.addRequirementCategory(requirementCategory);
+        updateFilteredRequirementCategoryList(PREDICATE_SHOW_ALL_REQUIREMENT_CATEGORIES);
     }
 
     @Override public void setRequirementCategory(RequirementCategory target,
             RequirementCategory editedRequirementCategory) {
         requireAllNonNull(target, editedRequirementCategory);
 
-        versionedRequirementCategoryList.setRequirementCategory(target, editedRequirementCategory);
+        versionedAddressBook.setRequirementCategory(target, editedRequirementCategory);
     }
 
     @Override public ObservableList<RequirementCategory> getFilteredRequirementCategoryList() {
@@ -379,24 +376,55 @@ public class ModelManager implements Model {
         filteredRequirementCategory.setPredicate(predicate);
     }
 
-    //=========== Undo/Redo =================================================================================
-    @Override public boolean canUndoRequirementCategoryList() {
-        return versionedRequirementCategoryList.canUndo();
+    @Override
+    public ReadOnlyProperty<RequirementCategory> selectedRequirementCategoryProperty() {
+        return selectedRequirementCategory;
     }
 
-    @Override public boolean canRedoRequirementCategoryList() {
-        return versionedRequirementCategoryList.canRedo();
+    @Override
+    public RequirementCategory getSelectedRequirementCategory() {
+        return selectedRequirementCategory.getValue();
     }
 
-    @Override public void undoRequirementCategoryList() {
-        versionedRequirementCategoryList.undo();
+    @Override
+    public void setSelectedRequirementCategory(RequirementCategory requirementCategory) {
+        if (requirementCategory != null && !filteredRequirementCategory.contains(requirementCategory)) {
+            throw new ModuleNotFoundException();
+        }
+        selectedRequirementCategory.setValue(requirementCategory);
     }
 
-    @Override public void redoRequirementCategoryList() {
-        versionedRequirementCategoryList.redo();
+    /**
+     * Ensures {@code selectedRequirementCategory} is a valid module in {@code selectedRequirementCategory}.
+     */
+    private void ensureSelectedRequirementCategoryIsValid(
+            ListChangeListener.Change<? extends RequirementCategory> change) {
+        while (change.next()) {
+            if (selectedRequirementCategory.getValue() == null) {
+                // null is always a valid selected module, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedRequirementCategoryReplaced =
+                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                            && change.getRemoved().contains(selectedRequirementCategory.getValue());
+            if (wasSelectedRequirementCategoryReplaced) {
+                // Update selectedModule to its new value.
+                int index = change.getRemoved().indexOf(selectedRequirementCategory.getValue());
+                selectedRequirementCategory.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedRequirementCategoryRemoved = change.getRemoved().stream()
+                    .anyMatch(removedRequirementCategory -> selectedRequirementCategory.getValue()
+                            .isSameRequirementCategory(removedRequirementCategory));
+            if (wasSelectedRequirementCategoryRemoved) {
+                // Select the module that came before it in the list,
+                // or clear the selection if there is no such module.
+                selectedRequirementCategory
+                        .setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
     }
 
-    @Override public void commitRequirementCategoryList() {
-        versionedRequirementCategoryList.commit();
-    }
 }

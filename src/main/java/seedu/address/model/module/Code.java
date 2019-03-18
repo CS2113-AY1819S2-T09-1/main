@@ -36,7 +36,7 @@ public class Code {
      * Returns true if a given string is a valid code.
      */
     public static boolean isValidCode(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return true;
     }
 
     @Override

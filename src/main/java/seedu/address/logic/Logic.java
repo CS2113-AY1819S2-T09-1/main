@@ -10,6 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.module.Module;
+import seedu.address.model.requirement.RequirementCategory;
 
 /**
  * API of the Logic component
@@ -33,6 +34,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of modules */
     ObservableList<Module> getFilteredModuleList();
+
+    /** Returns an unmodifiable view of the filtered list of modules */
+    ObservableList<RequirementCategory> getFilteredRequirementCategoryList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -69,4 +73,19 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedModule(Module)
      */
     void setSelectedModule(Module module);
+
+    /**
+     * Selected module in the filtered module list.
+     * null if no module is selected.
+     *
+     * @see seedu.address.model.Model#selectedModuleProperty()
+     */
+    ReadOnlyProperty<RequirementCategory> selectedRequirementCategoryProperty();
+
+    /**
+     * Sets the selected module in the filtered module list.
+     *
+     * @see seedu.address.model.Model#setSelectedModule(Module)
+     */
+    void setSelectedRequirementCategory(RequirementCategory requirementCategory);
 }

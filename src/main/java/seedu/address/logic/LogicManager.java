@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.module.Module;
+import seedu.address.model.requirement.RequirementCategory;
 import seedu.address.storage.Storage;
 
 /**
@@ -69,12 +70,6 @@ public class LogicManager implements Logic {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
-        try {
-            storage.saveRequirementCategoryList(model.getRequirementCategoryList());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        }
-
         return commandResult;
     }
 
@@ -86,6 +81,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Module> getFilteredModuleList() {
         return model.getFilteredModuleList();
+    }
+
+    @Override
+    public ObservableList<RequirementCategory> getFilteredRequirementCategoryList() {
+        return model.getFilteredRequirementCategoryList();
     }
 
     @Override
@@ -117,4 +117,15 @@ public class LogicManager implements Logic {
     public void setSelectedModule(Module module) {
         model.setSelectedModule(module);
     }
+
+    @Override
+    public ReadOnlyProperty<RequirementCategory> selectedRequirementCategoryProperty() {
+        return model.selectedRequirementCategoryProperty();
+    }
+
+    @Override
+    public void setSelectedRequirementCategory(RequirementCategory requirementCategory) {
+        model.setSelectedRequirementCategory(requirementCategory);
+    }
+
 }
