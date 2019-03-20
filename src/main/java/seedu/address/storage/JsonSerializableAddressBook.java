@@ -28,11 +28,11 @@ public class JsonSerializableAddressBook {
         return requirementCategoryObservableList;
     }
 
-    public static Class getJsonSerializableModuleListClass() {
+    public static Class<JsonSerializableModuleList> getJsonSerializableModuleListClass() {
         return JsonSerializableModuleList.class;
     }
 
-    public static Class getJsonSerializableRequirementCategoryListClass() {
+    public static Class<JsonSerializableRequirementCategoryList> getJsonSerializableRequirementCategoryListClass() {
         return JsonSerializableRequirementCategoryList.class;
     }
 
