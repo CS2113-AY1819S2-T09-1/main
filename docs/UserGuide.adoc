@@ -313,6 +313,19 @@ Displays a list of modules that can be added to the degree planner.
 
 === Requirement Management
 
+The following table describes the parameters you may use for commands in this section.
+|======
+|*Parameter*| *Description* | *Acceptable range of values*
+| `NAME` | Indicates the degree requirement category (e.g. `IT Professionalism`). |
+`NAME` should only contain alphanumeric characters and spaces.
+  +
+`NAME` should not be blank.
+| `CODE` | Indicates the module code (e.g. `CS2101`). |
+`CODE` should begin with two or three alphabets, followed by four digits, and may optionally end with an alphabet.
+ +
+`CODE` should not be blank.
+|======
+
 ==== Adding a module code to degree requirement category : `requirement_add`
 
 Add module code to a degree requirement category in the application. +
