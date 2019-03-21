@@ -230,16 +230,30 @@ Selects the 1st module in the results of the `find` command.
 
 === Planner Management
 
+The following table describes the parameters you may use for commands in this section.
+|======
+|*Parameter*| *Description* | *Acceptable range of values*
+| `CODE` | Indicates the module code (e.g. `CS2101`). |
+`CODE` should begin with two or three alphabets, followed by four digits, and may optionally end with an alphabet.
+ +
+`CODE` should not be blank.
+| `YEAR` | Indicates the year. |
+`YEAR` should be between 1 and 4
+| `SEMESTER` | Indicates the semester. |
+`SEMESTER` follow the same format as `YEAR`
+|======
+
+[NOTE]
+====
+`SEMESTER` 3 and 4 indicate special semester 1 and 2 respectively.
+====
+
+
 ====  Adding a module to the degree planner : `planner_add` `[coming in v2.0]`
 
 Adds an existing module to the degree planner. +
 Format: `planner_add CODE y/YEAR s/SEMESTER`
 
-* `CODE` indicates module code.
-* `YEAR` indicates the year.
-* `SEMESTER` indicates the semester.
-* `YEAR` and `SEMESTER` must be either 1, 2, 3 or 4.
-** 3 or 4 for `SEMESTER` indicates special semesters 1 and 2 respectively.
 * After adding, the changes will be reflected in the degree planner accordingly.
 
 Examples:
