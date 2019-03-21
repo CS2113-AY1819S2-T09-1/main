@@ -76,27 +76,34 @@ which can be used as `add name/Programming Methodology`.
 
 === Module Management
 
+The following table describes the parameters you may use for commands in this section.
+|======
+|*Parameter*| *Description* | *Acceptable range of values*
+| `NAME` | Indicates the name of the module (e.g. `Effective Communication for Computing Professionals`). |
+`NAME` should only contain alphanumeric characters and spaces.
+  +
+`NAME` should not be blank.
+| `CODE` | Indicates the module code (e.g. `CS2101`). |
+`CODE` should begin with two or three alphabets, followed by four digits, and may optionally end with an alphabet.
+ +
+`CODE` should not be blank.
+| `CREDITS` | Indicates the modular credits assigned to the module (e.g. `4`). |
+`CREDITS` should be between 0 to 999.
+| `TAG` | Indicates the extra information to associate the module with (e.g. `Presentation`, `Email`). |
+`TAG` should only contain alphanumeric characters.
+ +
+`TAG` should not be blank unless otherwise specified.
+| `COREQUISITE` | indicates the module code that is a co-requisite of the module to be added. |
+`COREQUISITE` follow the same format as `CODE`
+ +
+`COREQUISITE` should not be blank unless otherwise specified.
+|======
+
+
 ==== Adding a module: `add`
 
 Adds a module to the module list. +
 Format: `add name/NAME code/CODE credits/CREDITS [tag/TAG]… [coreq/COREQUISITE]…`
-
-* `NAME` indicates the name of the module (e.g. `Programming Methodology`).
-* `CODE` indicates the module code (e.g. `CS1010`).
-* `CREDITS` indicates the modular credits assigned to the module (e.g. `004`).
-* `TAG` indicates the extra information to associate the module with (e.g. `programming`, `loops`).
-* `COREQUISITE` indicates the module code that is a co-requisite of the module to be added.
-
-[WARNING]
-====
-`NAME` should only contain alphanumeric characters and spaces, and it should not be blank. +
-`CODE` should begin with two alphabets, followed by four digits, and may optionally end with an alphabet. +
-In addition, `CODE` should not be be blank. +
-`CREDITS` should only contain numbers between 0 and 999. +
-If the amount of modular credits is not 3 digit long (e.g. 4), prepend the value with `0` (i.e. 004) +
-`TAG` should only contain alphanumeric characters, and it should not be blank. +
-`COREQUISITE` follows the same format as `CODE`.
-====
 
 Examples:
 
