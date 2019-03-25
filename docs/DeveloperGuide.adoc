@@ -383,6 +383,53 @@ In addition to adding module code(s) to a requirement category, the `Requirement
   ** Cons: Hard to maintain information, if a module information is updated have to update data in the requirement category
 //end::requirement-add[]
 
+// tag::planner-list[]
+=== Planner List Feature
+
+Planner list feature aims to help users to be able to locate any degree planner(s) based on certain condition(s) in our
+application easily. We support the listing of degree planners based on year and semester. This enable a user to be able
+to list any degree planner(s) with partial information.
+
+==== Overview
+
+When a user invokes the `planner_list` command. (e.g. planner_list y/YEAR s/SEMESTER), the following steps
+are taken by the program.
+
+1. Extract out the text related to `planner_list` command
+2. Parse the text related to each `PREFIX` individually.
+3. Return a composite predicate for all attributes.
+
+.PlannerList component interactions
+image::PlannerListComponentSequenceDiagram.png[width="650"]
+
+==== Current Implementation
+
+Planner List is able to:
+
+* list degree planner(s) by year
+i.e. `planner_list y/YEAR`
+returns degree planner(s) having its year matches the year given
+
+* list degree planner(s) by semester
+i.e. `planner_list s/SEMESTER`
+returns degree planner(s) having its semester matches the semester given
+
+* include `year` and `semester` attributes in one `planner_list` command and list degree planner(s)
+i.e. `planner_list y/YEAR s/SEMESTER`
+returns module having its year or semester matches the given year and semester
+
+==== Design Considerations
+===== Aspect: How to parse multiple attributes
+
+- Alternative 1 (current choice): Parse the text related to each `PREFIX` individually
+** Pros: User is able to have more flexible search
+** Cons: More time and work needed for developer to implement
+
+- Alternative 2: Parse the text related to each `PREFIX` at one go
+** Pros: Easy to implement
+** Cons: Additional overhead needed
+// end::planner-list[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
