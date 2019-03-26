@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
@@ -26,6 +27,7 @@ public class ModuleListPanel extends UiPart<Region> {
     public ModuleListPanel(ObservableList<Module> moduleList, ObservableValue<Module> selectedModule,
             Consumer<Module> onSelectedModuleChange) {
         super(FXML);
+        moduleList = moduleList.sorted(Comparator.comparing(module -> module.getCode().value));
         moduleListView.setItems(moduleList);
         moduleListView.setCellFactory(listView -> new ModuleListViewCell());
         moduleListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
