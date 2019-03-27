@@ -738,7 +738,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add modules into my degree planner |know which modules to bid/take in future
 
-|`* * *` |user |remove modules from my degree planner |ensure that the modules in my degree planner are the right ones
+|`* * *` |user |remove modules from my degree planner |remove modules that I am not interested in taking
+from my degree planner
 
 |`* * *` |user |move my modules to other academic semester in my degree planner |update my plan if there are any
 changes
@@ -932,9 +933,9 @@ Use case ends.
 ** 1a1. Application shows an error message that given input is invalid.
 +
 Use case ends.
-* 1b. The modules already exist in the degree planner.
+* 1b. Any of the modules already exist in the degree planner.
 [none]
-** 1b1. Application shows an error message that modules specified by user already exists in degree planner.
+** 1b1. Application shows an error message that some of the modules specified by user already exist in degree planner.
 +
 Use case ends.
 
@@ -964,7 +965,11 @@ Use case ends.
 ** 3a1. Application shows an error message that given input is invalid.
 +
 Use case resumes at step 2.
-
+* 3b. Any of the modules do not exist in the degree planner.
+[none]
+** 3b1. Application shows an error message that some of the modules specified by user do not exist in degree planner.
++
+Use case ends.
 [discrete]
 === Use case: Move module in degree planner
 
