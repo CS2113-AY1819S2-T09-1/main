@@ -301,10 +301,10 @@ Format: `planner_add code/CODE [code/CODE]… year/YEAR sem/SEMESTER`
 
 Examples:
 
-* `planner_add CS1010 y/3 s/2` +
+* `planner_add CS1010 year/3 sem/2` +
 Adds module CS1010 to year 3 semester 2.
 
-* `planner_add CS1231 CS2040C y/1 s/2` +
+* `planner_add CS1231 CS2040C year/1 sem/2` +
 Adds modules CS1231 and CS2040C to year 1 semester 2.
 
 === Deleting modules from the degree planner : `planner_delete` `[coming in v2.0]`
@@ -317,9 +317,11 @@ Format: `planner_delete code/CODE [code/CODE]…`
 
 Examples:
 
-* `planner_delete CS1231`
+* `planner_delete CS1231` +
+Deletes module CS1231 from the degree planner.
 
-* `planner_delete CS2100 CS2040C`
+* `planner_delete CS2100 CS2040C` +
+Deletes modules CS2100 and CS2040C from the degree planner.
 
 === Moving a module in the degree planner : `planner_move` `[coming in v2.0]`
 
@@ -443,10 +445,10 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Add module to degree planner* : `planner_add CODE y/YEAR s/SEMESTER` +
-e.g.  `planner_add CS1010 y/1 s/2`
-* *Delete module from degree planner* : `planner_delete CODE` +
-e.g.  `planner_delete CS1231`
+* *Add module to degree planner* : `planner_add code/CODE [code/CODE]… year/YEAR sem/SEMESTER` +
+e.g.  `planner_add CS1010 CS2113T year/1 sem/2`
+* *Delete module from degree planner* : `planner_delete code/CODE [code/CODE]…` +
+e.g.  `planner_delete CS1231 CS1010`
 * *Move module in degree planner* : `planner_move CODE y/YEAR s/SEMESTER` +
 e.g.  `planner_move CS1231 y/1 s/2`
 * *List all degree planners* : `planner_list_all`
