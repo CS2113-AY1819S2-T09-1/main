@@ -3,7 +3,8 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: PlanWithEase
+_{The dummy content given below serves as a placeholder to be updated in the future.}_ +
 
 ---
 
@@ -52,7 +53,6 @@ _{you can add/remove categories in the list above}_
 
 include::../UserGuide.adoc[tag=undoredo]
 
-include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 
@@ -62,7 +62,6 @@ include::../UserGuide.adoc[tag=dataencryption]
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
 
 
 == PROJECT: PowerPointLabs

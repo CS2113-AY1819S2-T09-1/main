@@ -4,6 +4,9 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalDegreePlanners.getTypicalDegreePlannerList;
+import static seedu.address.testutil.TypicalModules.getTypicalModuleList;
+import static seedu.address.testutil.TypicalRequirementCategories.getTypicalRequirementCategoriesList;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
@@ -30,13 +33,14 @@ import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.testutil.TypicalModules;
+import seedu.address.storage.JsonSerializableAddressBook;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
@@ -64,7 +68,9 @@ public abstract class AddressBookSystemTest {
     @Before
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
-        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
+        testApp = setupHelper
+                .setupApplication(this::getInitialData, getModuleListFileLocation(), getDegreePlannerListFileLocation(),
+                        getRequirementCategoryListFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
         waitUntilBrowserLoaded(getBrowserPanel());
@@ -77,17 +83,35 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
+     * Returns the data to be loaded into the file in {@link #getModuleListFileLocation()}.
      */
     protected AddressBook getInitialData() {
-        return TypicalModules.getTypicalAddressBook();
+
+        AddressBook addressBook = new AddressBook();
+        try {
+            addressBook =
+                    new JsonSerializableAddressBook(getTypicalModuleList(), getTypicalDegreePlannerList(),
+                            getTypicalRequirementCategoriesList())
+                            .toModelType();
+        } catch (IllegalValueException ive) {
+            assertCommandBoxShowsErrorStyle();
+        }
+        return addressBook;
     }
 
     /**
      * Returns the directory of the data file.
      */
-    protected Path getDataFileLocation() {
-        return TestApp.SAVE_LOCATION_FOR_TESTING;
+    protected Path getModuleListFileLocation() {
+        return TestApp.SAVE_LOCATION_FOR_MODULE_LIST_TESTING;
+    }
+
+    protected Path getDegreePlannerListFileLocation() {
+        return TestApp.SAVE_LOCATION_FOR_DEGREE_PLANNER_LIST_TESTING;
+    }
+
+    protected Path getRequirementCategoryListFileLocation() {
+        return TestApp.SAVE_LOCATION_FOR_REQUIREMENT_CATEGORY_LIST_TESTING;
     }
 
     public MainWindowHandle getMainWindowHandle() {
@@ -193,6 +217,7 @@ public abstract class AddressBookSystemTest {
     /**
      * Asserts that the previously selected card is now deselected and the browser's url is now displaying the
      * default page.
+     *
      * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
@@ -203,6 +228,7 @@ public abstract class AddressBookSystemTest {
     /**
      * Asserts that the browser's url is changed to display the details of the module in the module list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     *
      * @see BrowserPanelHandle#isUrlChanged()
      * @see ModuleListPanelHandle#isSelectedModuleCardChanged()
      */
@@ -222,6 +248,7 @@ public abstract class AddressBookSystemTest {
 
     /**
      * Asserts that the browser's url and the selected card in the module list panel remain unchanged.
+     *
      * @see BrowserPanelHandle#isUrlChanged()
      * @see ModuleListPanelHandle#isSelectedModuleCardChanged()
      */
@@ -273,8 +300,8 @@ public abstract class AddressBookSystemTest {
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getModuleListPanel(), getModel().getFilteredModuleList());
         assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
-        assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
-                getStatusBarFooter().getSaveLocation());
+        assertEquals(Paths.get("").toAbsolutePath().relativize(testApp.getStorageSaveLocation().toAbsolutePath())
+                        .toString(), getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 

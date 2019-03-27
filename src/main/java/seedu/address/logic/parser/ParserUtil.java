@@ -2,17 +2,18 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.module.Address;
-import seedu.address.model.module.Email;
+import seedu.address.model.module.Code;
+import seedu.address.model.module.Credits;
 import seedu.address.model.module.Name;
-import seedu.address.model.module.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,6 +26,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -51,48 +53,90 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String... name} into a {@code List<Name>}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code name} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+    public static List<Name> parseMultiNames(String... names) throws ParseException {
+        List<Name> result = new ArrayList<>();
+        requireNonNull(names);
+        for (String name : names) {
+            String trimmedName = name.trim();
+            if (!Name.isValidName(trimmedName)) {
+                throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            }
+            result.add(new Name(trimmedName));
         }
-        return new Phone(trimmedPhone);
+        return result;
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a {@code String credits} into a {@code Credits}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code credits} is invalid.
      */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+    public static Credits parseCredits(String credits) throws ParseException {
+        requireNonNull(credits);
+        String trimmedCredits = credits.trim();
+        if (!Credits.isValidCredits(trimmedCredits)) {
+            throw new ParseException(Credits.MESSAGE_CONSTRAINTS);
         }
-        return new Address(trimmedAddress);
+        return new Credits(trimmedCredits);
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String... credits} into a {@code List<Credits>}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code credits} is invalid.
      */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+    public static List<Credits> parseMultiCredits(String... credits) throws ParseException {
+        List<Credits> result = new ArrayList<>();
+        requireNonNull(credits);
+        for (String credit : credits) {
+            String trimmedCredits = credit.trim();
+            if (!Credits.isValidCredits(trimmedCredits)) {
+                throw new ParseException(Credits.MESSAGE_CONSTRAINTS);
+            }
+            result.add(new Credits(trimmedCredits));
         }
-        return new Email(trimmedEmail);
+        return result;
+    }
+
+    /**
+     * Parses a {@code String code} into an {@code Code}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code code} is invalid.
+     */
+    public static Code parseCode(String code) throws ParseException {
+        requireNonNull(code);
+        String trimmedCode = code.trim();
+        if (!Code.isValidCode(trimmedCode)) {
+            throw new ParseException(Code.MESSAGE_CONSTRAINTS);
+        }
+        return new Code(trimmedCode);
+    }
+
+    /**
+     * Parses a {@code String... code} into an {@code List<Code>}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code code} is invalid.
+     */
+    public static List<Code> parseMultiCodes(String... codes) throws ParseException {
+        List<Code> result = new ArrayList<>();
+        requireNonNull(codes);
+        for (String code : codes) {
+            String trimmedCode = code.trim();
+            if (!Code.isValidCode(trimmedCode)) {
+                throw new ParseException(Code.MESSAGE_CONSTRAINTS);
+            }
+            result.add(new Code(trimmedCode));
+        }
+        return result;
     }
 
     /**
@@ -120,5 +164,29 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> codes} into a {@code Set<Code>}.
+     */
+    public static Set<Code> parseCodes(Collection<String> codes) throws ParseException {
+        requireNonNull(codes);
+        final Set<Code> codeList = new HashSet<>();
+        for (String code : codes) {
+            codeList.add(parseCode(code));
+        }
+        return codeList;
+    }
+
+    /**
+     * Parses {@code Collection<String> corequisites} into a {@code Set<Code>}.
+     */
+    public static Set<Code> parseCorequisites(Collection<String> corequisites) throws ParseException {
+        requireNonNull(corequisites);
+        final Set<Code> corequisitesSet = new HashSet<>();
+        for (String corequisite : corequisites) {
+            corequisitesSet.add(parseCode(corequisite));
+        }
+        return corequisitesSet;
     }
 }

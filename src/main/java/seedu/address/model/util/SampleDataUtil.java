@@ -6,37 +6,169 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.module.Address;
-import seedu.address.model.module.Email;
+import seedu.address.model.module.Code;
+import seedu.address.model.module.Credits;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Name;
-import seedu.address.model.module.Phone;
+import seedu.address.model.planner.DegreePlanner;
+import seedu.address.model.planner.Semester;
+import seedu.address.model.planner.Year;
+import seedu.address.model.requirement.RequirementCategory;
 import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
+    private static final Module CS1010 = new Module(
+            new Name("Programming Methodology"),
+            new Credits("4"),
+            new Code("CS1010"),
+            getTagSet("programming", "algorithms", "c", "imperative"),
+            getCodeSet()
+    );
+
+    private static final Module CS1231 = new Module(
+            new Name("Discrete Structures"),
+            new Credits("4"),
+            new Code("CS1231"),
+            getTagSet("math", "logic", "proving"),
+            getCodeSet()
+    );
+
+    private static final Module CS2040C = new Module(
+            new Name("Data Structures and Algorithms"),
+            new Credits("4"),
+            new Code("CS2040C"),
+            getTagSet("linkedlist", "stack", "queue", "hashtable", "heap", "avltree", "graph", "sssp"),
+            getCodeSet()
+    );
+
+    private static final Module CS2100 = new Module(
+            new Name("Computer Organisation"),
+            new Credits("4"),
+            new Code("CS2100"),
+            getTagSet("boolean", "mips", "assembly", "circuit", "flipflop", "pipelining", "cache"),
+            getCodeSet()
+    );
+
+    private static final Module CS2102 = new Module(
+            new Name("Database Systems"),
+            new Credits("4"),
+            new Code("CS2102"),
+            getTagSet("database", "rdbms", "entity", "sql", "normalisation"),
+            getCodeSet()
+    );
+
+    private static final DegreePlanner YEAR_1_SEMESTER_1 = new DegreePlanner(
+            new Year("1"),
+            new Semester("1"),
+            getCodeSet("CS1010", "CS1231", "CS2040C", "CS2100", "CS2102")
+    );
+
+    private static final DegreePlanner YEAR_1_SEMESTER_2 = new DegreePlanner(
+            new Year("1"),
+            new Semester("2"),
+            getCodeSet()
+    );
+
+    private static final DegreePlanner YEAR_2_SEMESTER_1 = new DegreePlanner(
+            new Year("2"),
+            new Semester("1"),
+            getCodeSet()
+    );
+
+    private static final DegreePlanner YEAR_2_SEMESTER_2 = new DegreePlanner(
+            new Year("2"),
+            new Semester("2"),
+            getCodeSet()
+    );
+
+    private static final DegreePlanner YEAR_3_SEMESTER_1 = new DegreePlanner(
+            new Year("3"),
+            new Semester("1"),
+            getCodeSet()
+    );
+
+    private static final DegreePlanner YEAR_3_SEMESTER_2 = new DegreePlanner(
+            new Year("3"),
+            new Semester("2"),
+            getCodeSet()
+    );
+
+    private static final DegreePlanner YEAR_4_SEMESTER_1 = new DegreePlanner(
+            new Year("4"),
+            new Semester("1"),
+            getCodeSet()
+    );
+
+    private static final DegreePlanner YEAR_4_SEMESTER_2 = new DegreePlanner(
+            new Year("4"),
+            new Semester("2"),
+            getCodeSet()
+    );
+
+    private static final RequirementCategory COMPUTING_FOUNDATION = new RequirementCategory(
+            new Name("Computing Foundation"), new Credits("36"),
+            getCodeSet("CS1010", "CS1231", "CS2040C", "CS2100", "CS2102")
+    );
+    private static final RequirementCategory INFORMATION_SECURITY_REQUIREMENTS = new RequirementCategory(
+            new Name("Information Security Requirements"), new Credits("32"), getCodeSet()
+    );
+
+    private static final RequirementCategory INFORMATION_SECURITY_ELECTIVES = new RequirementCategory(
+            new Name("Information Security Electives"), new Credits("12"), getCodeSet()
+    );
+
+    private static final RequirementCategory COMPUTING_BREADTH = new RequirementCategory(
+            new Name("Computing Breadth"), new Credits("20"), getCodeSet()
+    );
+
+    private static final RequirementCategory IT_PROFESSIONALISM = new RequirementCategory(
+            new Name("IT Professionalism"), new Credits("8"), getCodeSet()
+    );
+
+    private static final RequirementCategory MATHEMATICS = new RequirementCategory(
+            new Name("Mathematics"), new Credits("12"), getCodeSet()
+    );
+
+    private static final RequirementCategory GENERAL_EDUCATION = new RequirementCategory(
+            new Name("General Education"), new Credits("20"), getCodeSet()
+    );
+
+    private static final RequirementCategory UNRESTRICTED_ELECTIVES = new RequirementCategory(
+            new Name("Unrestricted Electives"), new Credits("12"), getCodeSet()
+    );
+
     public static Module[] getSampleModules() {
         return new Module[] {
-            new Module(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends")),
-            new Module(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends")),
-            new Module(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours")),
-            new Module(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family")),
-            new Module(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates")),
-            new Module(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"))
+            CS1010, CS1231, CS2040C, CS2100, CS2102
+        };
+    }
+
+    public static DegreePlanner[] getSampleDegreePlanners() {
+        return new DegreePlanner[] {
+            YEAR_1_SEMESTER_1,
+            YEAR_1_SEMESTER_2,
+            YEAR_2_SEMESTER_1,
+            YEAR_2_SEMESTER_2,
+            YEAR_3_SEMESTER_1,
+            YEAR_3_SEMESTER_2,
+            YEAR_4_SEMESTER_1,
+            YEAR_4_SEMESTER_2
+        };
+    }
+
+    public static RequirementCategory[] getSampleRequirementCategories() {
+        return new RequirementCategory[] {
+            COMPUTING_FOUNDATION,
+            INFORMATION_SECURITY_REQUIREMENTS,
+            INFORMATION_SECURITY_ELECTIVES,
+            COMPUTING_BREADTH,
+            IT_PROFESSIONALISM,
+            MATHEMATICS,
+            GENERAL_EDUCATION,
+            UNRESTRICTED_ELECTIVES
         };
     }
 
@@ -45,7 +177,22 @@ public class SampleDataUtil {
         for (Module sampleModule : getSampleModules()) {
             sampleAb.addModule(sampleModule);
         }
+        for (RequirementCategory sampleRequirementCategory : getSampleRequirementCategories()) {
+            sampleAb.addRequirementCategory(sampleRequirementCategory);
+        }
+        for (DegreePlanner sampleDegreePlanner : getSampleDegreePlanners()) {
+            sampleAb.addDegreePlanner(sampleDegreePlanner);
+        }
         return sampleAb;
+    }
+
+    /**
+     * Returns a code set containing the list of strings given.
+     */
+    public static Set<Code> getCodeSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Code::new)
+                .collect(Collectors.toSet());
     }
 
     /**

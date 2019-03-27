@@ -1,20 +1,20 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CODE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CODE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CREDITS_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CREDITS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.AddressBook;
 import seedu.address.model.module.Module;
 
@@ -24,51 +24,54 @@ import seedu.address.model.module.Module;
 public class TypicalModules {
 
     public static final Module ALICE = new ModuleBuilder().withName("Alice Pauline")
-            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-            .withPhone("94351253")
+            .withCode("CS1010")
+            .withCredits("0")
             .withTags("friends").build();
     public static final Module BENSON = new ModuleBuilder().withName("Benson Meier")
-            .withAddress("311, Clementi Ave 2, #02-25")
-            .withEmail("johnd@example.com").withPhone("98765432")
-            .withTags("owesMoney", "friends").build();
-    public static final Module CARL = new ModuleBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withAddress("wall street").build();
-    public static final Module DANIEL = new ModuleBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withAddress("10th street").withTags("friends").build();
-    public static final Module ELLE = new ModuleBuilder().withName("Elle Meyer").withPhone("9482224")
-            .withEmail("werner@example.com").withAddress("michegan ave").build();
-    public static final Module FIONA = new ModuleBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withAddress("little tokyo").build();
-    public static final Module GEORGE = new ModuleBuilder().withName("George Best").withPhone("9482442")
-            .withEmail("anna@example.com").withAddress("4th street").build();
+            .withCode("CS1231")
+            .withCredits("1")
+            .withTags("owesMoney", "friends")
+            .withCorequisites("CS2102")
+            .build();
+    public static final Module CARL = new ModuleBuilder().withName("Carl Kurz").withCredits("2")
+            .withCode("CS2040C").build();
+    public static final Module DANIEL = new ModuleBuilder().withName("Daniel Meier").withCredits("3")
+            .withCode("CS2100").withTags("friends").build();
+    public static final Module ELLE = new ModuleBuilder().withName("Elle Meyer").withCredits("4")
+            .withCode("CS2101").build();
+    public static final Module FIONA = new ModuleBuilder().withName("Fiona Kunz").withCredits("5")
+            .withCode("CS2102").withCorequisites("CS1231").build();
+    public static final Module GEORGE = new ModuleBuilder().withName("George Best").withCredits("6")
+            .withCode("CS2105").build();
 
     // Manually added
-    public static final Module HOON = new ModuleBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com").withAddress("little india").build();
-    public static final Module IDA = new ModuleBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com").withAddress("chicago ave").build();
+    public static final Module HOON = new ModuleBuilder().withName("Hoon Meier").withCredits("7")
+            .withCode("CS2106").build();
+    public static final Module IDA = new ModuleBuilder().withName("Ida Mueller").withCredits("8")
+            .withCode("CS2107").build();
 
     // Manually added - Module's details found in {@code CommandTestUtil}
-    public static final Module AMY = new ModuleBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Module BOB = new ModuleBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+    public static final Module AMY = new ModuleBuilder().withName(VALID_NAME_AMY).withCredits(VALID_CREDITS_AMY)
+            .withCode(VALID_CODE_AMY).withTags(VALID_TAG_FRIEND).build();
+    public static final Module BOB = new ModuleBuilder().withName(VALID_NAME_BOB).withCredits(VALID_CREDITS_BOB)
+            .withCode(VALID_CODE_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_MEIER = PREFIX_NAME + "Meier"; // A keyword that matches MEIER
 
     private TypicalModules() {} // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical modules.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static ObservableList<Module> getTypicalModuleList() {
+        AddressBook moduleList = new AddressBook();
         for (Module module : getTypicalModules()) {
-            ab.addModule(module);
+            moduleList.addModule(module);
         }
-        return ab;
+        return moduleList.getModuleList();
     }
+
 
     public static List<Module> getTypicalModules() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));

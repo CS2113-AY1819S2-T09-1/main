@@ -3,11 +3,10 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.module.Address;
-import seedu.address.model.module.Email;
+import seedu.address.model.module.Code;
+import seedu.address.model.module.Credits;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Name;
-import seedu.address.model.module.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -17,22 +16,21 @@ import seedu.address.model.util.SampleDataUtil;
 public class ModuleBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_CREDITS = "666";
+    public static final String DEFAULT_CODE = "ABC1234Z";
 
     private Name name;
-    private Phone phone;
-    private Email email;
-    private Address address;
+    private Credits credits;
+    private Code code;
     private Set<Tag> tags;
+    private Set<Code> corequisites;
 
     public ModuleBuilder() {
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
+        credits = new Credits(DEFAULT_CREDITS);
+        code = new Code(DEFAULT_CODE);
         tags = new HashSet<>();
+        corequisites = new HashSet<>();
     }
 
     /**
@@ -40,10 +38,10 @@ public class ModuleBuilder {
      */
     public ModuleBuilder(Module moduleToCopy) {
         name = moduleToCopy.getName();
-        phone = moduleToCopy.getPhone();
-        email = moduleToCopy.getEmail();
-        address = moduleToCopy.getAddress();
+        credits = moduleToCopy.getCredits();
+        code = moduleToCopy.getCode();
         tags = new HashSet<>(moduleToCopy.getTags());
+        corequisites = new HashSet<>(moduleToCopy.getCorequisites());
     }
 
     /**
@@ -63,31 +61,39 @@ public class ModuleBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Module} that we are building.
+     * Parses the {@code corequisites} into a {@code Set<Code>} and set it to the {@code Module} that we are building.
      */
-    public ModuleBuilder withAddress(String address) {
-        this.address = new Address(address);
+    public ModuleBuilder withCorequisites(String ... corequisites) {
+        this.corequisites = SampleDataUtil.getCodeSet(corequisites);
         return this;
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Module} that we are building.
+     * Sets the {@code corequisites} of the {@code Module} that we are building.
      */
-    public ModuleBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+    public ModuleBuilder withCorequisites(Set<Code> corequisites) {
+        this.corequisites = new HashSet<>(corequisites);
         return this;
     }
 
     /**
-     * Sets the {@code Email} of the {@code Module} that we are building.
+     * Sets the {@code Code} of the {@code Module} that we are building.
      */
-    public ModuleBuilder withEmail(String email) {
-        this.email = new Email(email);
+    public ModuleBuilder withCode(String code) {
+        this.code = new Code(code);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Credits} of the {@code Module} that we are building.
+     */
+    public ModuleBuilder withCredits(String credits) {
+        this.credits = new Credits(credits);
         return this;
     }
 
     public Module build() {
-        return new Module(name, phone, email, address, tags);
+        return new Module(name, credits, code, tags, corequisites);
     }
 
 }
