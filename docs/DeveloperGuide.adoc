@@ -969,7 +969,7 @@ Use case resumes at step 2.
 [none]
 ** 3b1. Application shows an error message that some of the modules specified by user do not exist in degree planner.
 +
-Use case ends.
+Use case resumes at step 2.
 
 [discrete]
 === Use case: Move module in degree planner
