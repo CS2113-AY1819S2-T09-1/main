@@ -289,13 +289,14 @@ Format: `clear`
 
 === Adding modules to the degree planner : `planner_add` `[coming in v2.0]`
 
-Adds an existing module to the degree planner. +
+Adds existing modules to the degree planner. +
 Format: `planner_add code/CODE [code/CODE]… year/YEAR sem/SEMESTER`
 
 * `CODE` indicates module code.
 * `YEAR` indicates the year.
 * `SEMESTER` indicates the semester.
 * `YEAR` and `SEMESTER` must be either 1 or 2.
+* All the modules to add must exist in the application.
 * After adding, the changes will be reflected in the degree planner accordingly.
 
 Examples:
@@ -311,6 +312,7 @@ Adds modules CS1231 and CS2040C to year 1 semester 2.
 Deletes a set of existing modules from the degree planner. +
 Format: `planner_delete code/CODE [code/CODE]…`
 
+* All the modules to delete must exist in the degree planner.
 * After deleting, the changes will be reflected in the degree planner accordingly.
 
 Examples:
