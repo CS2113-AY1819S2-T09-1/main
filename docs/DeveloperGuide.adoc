@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2113-ay1819s2-t09-1/main/tree/master
 
-By: `Team T09-1`      Since: `Feb 2019`      Licence: `MIT`
+By: `Team T09-1`      Since: `Feb 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -738,6 +738,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add modules into my degree planner |know which modules to bid/take in future
 
+|`* * *` |user |remove modules from my degree planner |ensure that the modules in my degree planner are the right ones
+
 |`* * *` |user |move my modules to other academic semester in my degree planner |update my plan if there are any
 changes
 
@@ -913,12 +915,12 @@ Use case ends.
 * None
 
 [discrete]
-=== Use case: Add a module to degree planner
+=== Use case: Add modules to degree planner
 
 *MSS*
 
-1. User requests to add a module into the Application's degree planner
-2. Application adds the module into the degree planner
+1. User requests to add a set of modules to the Application's degree planner
+2. Application adds the modules into the degree planner
 +
 Use case ends.
 
@@ -930,21 +932,21 @@ Use case ends.
 ** 1a1. Application shows an error message that given input is invalid.
 +
 Use case ends.
-* 1b. The module already exists in the degree planner.
+* 1b. The modules already exist in the degree planner.
 [none]
-** 1b1. Application shows an error message that module specified by user already exists in degree planner.
+** 1b1. Application shows an error message that modules specified by user already exists in degree planner.
 +
 Use case ends.
 
 [discrete]
-=== Use case: Delete module from degree planner
+=== Use case: Delete modules from degree planner
 
 *MSS*
 
 1.  User requests to list modules in the Application's degree planner
 2.  Application shows a list of modules in the degree planner
-3.  User requests to delete a specific module in the degree planner
-4.  Application deletes the module in the degree planner
+3.  User requests to delete a set of modules from the degree planner
+4.  Application deletes the set of modules from the degree planner
 +
 Use case ends.
 
