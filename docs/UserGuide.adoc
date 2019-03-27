@@ -446,9 +446,9 @@ e.g.`select 2`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Add module to degree planner* : `planner_add code/CODE [code/CODE]… year/YEAR sem/SEMESTER` +
-e.g.  `planner_add CS1010 CS2113T year/1 sem/2`
+e.g.  `planner_add code/CS1010 code/CS2113T year/1 sem/2`
 * *Delete module from degree planner* : `planner_delete code/CODE [code/CODE]…` +
-e.g.  `planner_delete CS1231 CS1010`
+e.g.  `planner_delete code/CS1231 code/CS1010`
 * *Move module in degree planner* : `planner_move CODE y/YEAR s/SEMESTER` +
 e.g.  `planner_move CS1231 y/1 s/2`
 * *List all degree planners* : `planner_list_all`
