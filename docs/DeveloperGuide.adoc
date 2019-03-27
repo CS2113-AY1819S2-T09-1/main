@@ -945,8 +945,8 @@ Use case ends.
 
 1.  User requests to list modules in the Application's degree planner
 2.  Application shows a list of modules in the degree planner
-3.  User requests to delete a set of modules from the degree planner
-4.  Application deletes the set of modules from the degree planner
+3.  User requests to delete modules from the degree planner
+4.  Application deletes the modules from the degree planner
 +
 Use case ends.
 
