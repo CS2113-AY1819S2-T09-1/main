@@ -3,10 +3,11 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.testutil.TypicalDegreePlanners.getTypicalDegreePlannerList;
 import static seedu.address.testutil.TypicalModules.ALICE;
-import static seedu.address.testutil.TypicalModules.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModules.getTypicalModuleList;
+import static seedu.address.testutil.TypicalRequirementCategories.getTypicalRequirementCategoriesList;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,8 +22,12 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.exceptions.DuplicateModuleException;
+import seedu.address.model.planner.DegreePlanner;
+import seedu.address.model.requirement.RequirementCategory;
+import seedu.address.storage.JsonSerializableAddressBook;
 import seedu.address.testutil.ModuleBuilder;
 
 public class AddressBookTest {
@@ -44,8 +49,9 @@ public class AddressBookTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
+    public void resetData_withValidReadOnlyAddressBook_replacesData() throws IllegalValueException {
+        AddressBook newData = new JsonSerializableAddressBook(getTypicalModuleList(), getTypicalDegreePlannerList(),
+                getTypicalRequirementCategoriesList()).toModelType();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }
@@ -53,7 +59,7 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateModules_throwsDuplicateModuleException() {
         // Two modules with the same identity fields
-        Module editedAlice = new ModuleBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Module editedAlice = new ModuleBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Module> newModules = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newModules);
@@ -82,7 +88,7 @@ public class AddressBookTest {
     @Test
     public void hasModule_moduleWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addModule(ALICE);
-        Module editedAlice = new ModuleBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Module editedAlice = new ModuleBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasModule(editedAlice));
     }
@@ -117,6 +123,8 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Module> modules = FXCollections.observableArrayList();
+        private final ObservableList<DegreePlanner> degreePlanners = FXCollections.observableArrayList();
+        private final ObservableList<RequirementCategory> requirementCategories = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Module> modules) {
             this.modules.setAll(modules);
@@ -125,6 +133,16 @@ public class AddressBookTest {
         @Override
         public ObservableList<Module> getModuleList() {
             return modules;
+        }
+
+        @Override
+        public ObservableList<DegreePlanner> getDegreePlannerList() {
+            return degreePlanners;
+        }
+
+        @Override
+        public ObservableList<RequirementCategory> getRequirementCategoryList() {
+            return requirementCategories;
         }
 
         @Override

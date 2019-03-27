@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.model.tag.Tag;
 
@@ -16,40 +17,36 @@ import seedu.address.model.tag.Tag;
 public class Module {
 
     // Identity fields
-    private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private final Code code;
 
     // Data fields
-    private final Address address;
+    private final Name name;
+    private final Credits credits;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<Code> corequisites = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Module(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Module(Name name, Credits credits, Code code, Set<Tag> tags, Set<Code> corequisites) {
+        requireAllNonNull(name, credits, code, tags, corequisites);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.credits = credits;
+        this.code = code;
         this.tags.addAll(tags);
+        this.corequisites.addAll(corequisites);
     }
 
     public Name getName() {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Credits getCredits() {
+        return credits;
     }
 
-    public Email getEmail() {
-        return email;
-    }
-
-    public Address getAddress() {
-        return address;
+    public Code getCode() {
+        return code;
     }
 
     /**
@@ -61,6 +58,14 @@ public class Module {
     }
 
     /**
+     * Returns an immutable {@code Code} set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Code> getCorequisites() {
+        return Collections.unmodifiableSet(corequisites);
+    }
+
+    /**
      * Returns true if both modules of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two modules.
      */
@@ -69,9 +74,7 @@ public class Module {
             return true;
         }
 
-        return otherModule != null
-                && otherModule.getName().equals(getName())
-                && (otherModule.getPhone().equals(getPhone()) || otherModule.getEmail().equals(getEmail()));
+        return otherModule != null && otherModule.getCode().equals(getCode());
     }
 
     /**
@@ -90,30 +93,41 @@ public class Module {
 
         Module otherModule = (Module) other;
         return otherModule.getName().equals(getName())
-                && otherModule.getPhone().equals(getPhone())
-                && otherModule.getEmail().equals(getEmail())
-                && otherModule.getAddress().equals(getAddress())
-                && otherModule.getTags().equals(getTags());
+                && otherModule.getCredits().equals(getCredits())
+                && otherModule.getCode().equals(getCode())
+                && otherModule.getTags().equals(getTags())
+                && otherModule.getCorequisites().equals(getCorequisites());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, credits, code, tags, corequisites);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Credits: ")
+                .append(getCredits())
+                .append(" Code: ")
+                .append(getCode())
                 .append(" Tags: ");
-        getTags().forEach(builder::append);
+
+        if (getTags().isEmpty()) {
+            builder.append("None");
+        } else {
+            getTags().forEach(builder::append);
+        }
+
+        builder.append(" Co-requisites: ");
+        if (getCorequisites().isEmpty()) {
+            builder.append("None");
+        } else {
+            builder.append(getCorequisites().stream().map(Code::toString).collect(Collectors.joining(", ")));
+        }
+
         return builder.toString();
     }
 

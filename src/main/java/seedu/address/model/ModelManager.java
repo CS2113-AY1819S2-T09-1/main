@@ -15,8 +15,12 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Name;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
+import seedu.address.model.planner.DegreePlanner;
+import seedu.address.model.requirement.RequirementCategory;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -26,8 +30,13 @@ public class ModelManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
+
     private final FilteredList<Module> filteredModules;
+    private final FilteredList<DegreePlanner> filteredDegreePlanners;
+    private final FilteredList<RequirementCategory> filteredRequirementCategory;
+
     private final SimpleObjectProperty<Module> selectedModule = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<RequirementCategory> selectedRequirementCategory = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -40,10 +49,18 @@ public class ModelManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+
         filteredModules = new FilteredList<>(versionedAddressBook.getModuleList());
+        filteredDegreePlanners = new FilteredList<>((versionedAddressBook.getDegreePlannerList()));
+        filteredRequirementCategory = new FilteredList<>(versionedAddressBook.getRequirementCategoryList());
+
         filteredModules.addListener(this::ensureSelectedModuleIsValid);
+        filteredRequirementCategory.addListener(this::ensureSelectedRequirementCategoryIsValid);
     }
 
+    /**
+     * ToDo: Add DegreePlannerList
+     */
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
     }
@@ -83,6 +100,28 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
+    @Override
+    public Path getDegreePlannerListFilePath() {
+        return userPrefs.getDegreePlannerListFilePath();
+    }
+
+    @Override
+    public void setDegreePlannerListFilePath(Path degreePlannerListFilePath) {
+        requireNonNull(degreePlannerListFilePath);
+        userPrefs.setDegreePlannerListFilePath(degreePlannerListFilePath);
+    }
+
+    @Override
+    public Path getRequirementCategoryListFilePath() {
+        return userPrefs.getRequirementCategoryListFilePath();
+    }
+
+    @Override
+    public void setRequirementCategoryListFilePath(Path requirementCategoryListFilePath) {
+        requireNonNull(requirementCategoryListFilePath);
+        userPrefs.setDegreePlannerListFilePath(requirementCategoryListFilePath);
+    }
+
     //=========== AddressBook ================================================================================
 
     @Override
@@ -102,6 +141,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasModuleCode(Code code) {
+        requireNonNull(code);
+        return versionedAddressBook.hasModuleCode(code);
+    }
+
+    @Override
     public void deleteModule(Module target) {
         versionedAddressBook.removeModule(target);
     }
@@ -110,6 +155,13 @@ public class ModelManager implements Model {
     public void addModule(Module module) {
         versionedAddressBook.addModule(module);
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    }
+
+    @Override
+    public void editModule(Module target, Module editedModule) {
+        requireAllNonNull(target, editedModule);
+
+        versionedAddressBook.editModule(target, editedModule);
     }
 
     @Override
@@ -229,7 +281,131 @@ public class ModelManager implements Model {
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredModules.equals(other.filteredModules)
-                && Objects.equals(selectedModule.get(), other.selectedModule.get());
+                && Objects.equals(selectedModule.get(), other.selectedModule.get())
+                && Objects.equals(selectedRequirementCategory.get(), other.selectedRequirementCategory.get());
+    }
+
+    //=========== DegreePlannerList Methods =================================================================
+
+    @Override
+    public boolean hasDegreePlanner(DegreePlanner planner) {
+        requireNonNull(planner);
+        return versionedAddressBook.hasDegreePlanner(planner);
+    }
+
+    @Override public void deleteDegreePlanner(DegreePlanner target) {
+        versionedAddressBook.removeDegreePlanner(target);
+    }
+
+    @Override public void addDegreePlanner(DegreePlanner degreePlanner) {
+        versionedAddressBook.addDegreePlanner(degreePlanner);
+    }
+
+    @Override public void setDegreePlanner(DegreePlanner target, DegreePlanner editedDegreePlanner) {
+        requireAllNonNull(target, editedDegreePlanner);
+
+        versionedAddressBook.setDegreePlanner(target, editedDegreePlanner);
+    }
+
+    @Override public ObservableList<DegreePlanner> getFilteredDegreePlannerList() {
+        return filteredDegreePlanners;
+    }
+
+    @Override public void updateFilteredDegreePlannerList(Predicate<DegreePlanner> predicate) {
+        requireNonNull(predicate);
+        filteredDegreePlanners.setPredicate(predicate);
+    }
+
+    //=========== RequirementCategoryList Methods =================================================================
+
+    @Override
+    public boolean hasRequirementCategory(Name requirementCategoryName) {
+        requireNonNull(requirementCategoryName);
+        return versionedAddressBook.hasRequirementCategory(requirementCategoryName);
+    }
+
+    @Override
+    public boolean hasRequirementCategory(RequirementCategory requirementCategory) {
+        requireNonNull(requirementCategory);
+        return versionedAddressBook.hasRequirementCategory(requirementCategory);
+    }
+
+    @Override
+    public RequirementCategory getRequirementCategory(Name requirementCategoryName) {
+        requireNonNull(requirementCategoryName);
+        return versionedAddressBook.getRequirementCategory(requirementCategoryName);
+    }
+
+    @Override public void addRequirementCategory(RequirementCategory requirementCategory) {
+        versionedAddressBook.addRequirementCategory(requirementCategory);
+        updateFilteredRequirementCategoryList(PREDICATE_SHOW_ALL_REQUIREMENT_CATEGORIES);
+    }
+
+    @Override public void setRequirementCategory(RequirementCategory target,
+            RequirementCategory editedRequirementCategory) {
+        requireAllNonNull(target, editedRequirementCategory);
+
+        versionedAddressBook.setRequirementCategory(target, editedRequirementCategory);
+    }
+
+    @Override public ObservableList<RequirementCategory> getFilteredRequirementCategoryList() {
+        return filteredRequirementCategory;
+    }
+
+    @Override public void updateFilteredRequirementCategoryList(Predicate<RequirementCategory> predicate) {
+        requireNonNull(predicate);
+        filteredRequirementCategory.setPredicate(predicate);
+    }
+
+    @Override
+    public ReadOnlyProperty<RequirementCategory> selectedRequirementCategoryProperty() {
+        return selectedRequirementCategory;
+    }
+
+    @Override
+    public RequirementCategory getSelectedRequirementCategory() {
+        return selectedRequirementCategory.getValue();
+    }
+
+    @Override
+    public void setSelectedRequirementCategory(RequirementCategory requirementCategory) {
+        if (requirementCategory != null && !filteredRequirementCategory.contains(requirementCategory)) {
+            throw new ModuleNotFoundException();
+        }
+        selectedRequirementCategory.setValue(requirementCategory);
+    }
+
+    /**
+     * Ensures {@code selectedRequirementCategory} is a valid module in {@code selectedRequirementCategory}.
+     */
+    private void ensureSelectedRequirementCategoryIsValid(
+            ListChangeListener.Change<? extends RequirementCategory> change) {
+        while (change.next()) {
+            if (selectedRequirementCategory.getValue() == null) {
+                // null is always a valid selected module, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedRequirementCategoryReplaced =
+                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                            && change.getRemoved().contains(selectedRequirementCategory.getValue());
+            if (wasSelectedRequirementCategoryReplaced) {
+                // Update selectedModule to its new value.
+                int index = change.getRemoved().indexOf(selectedRequirementCategory.getValue());
+                selectedRequirementCategory.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedRequirementCategoryRemoved = change.getRemoved().stream()
+                    .anyMatch(removedRequirementCategory -> selectedRequirementCategory.getValue()
+                            .isSameRequirementCategory(removedRequirementCategory));
+            if (wasSelectedRequirementCategoryRemoved) {
+                // Select the module that came before it in the list,
+                // or clear the selection if there is no such module.
+                selectedRequirementCategory
+                        .setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
     }
 
 }

@@ -5,27 +5,40 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showModuleAtIndex;
+import static seedu.address.testutil.TypicalDegreePlanners.getTypicalDegreePlannerList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MODULE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_MODULE;
-import static seedu.address.testutil.TypicalModules.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModules.getTypicalModuleList;
+import static seedu.address.testutil.TypicalRequirementCategories.getTypicalRequirementCategoriesList;
 
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.JsonSerializableAddressBook;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
 public class SelectCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    //ToDo: Implement getTypicalDegreePlannerList for DegreePlannerList and update the codes below
+    private Model model =
+            new ModelManager(
+                    new JsonSerializableAddressBook(getTypicalModuleList(), getTypicalDegreePlannerList(),
+                            getTypicalRequirementCategoriesList()).toModelType(), new UserPrefs());
+    private Model expectedModel =
+            new ModelManager(
+                    new JsonSerializableAddressBook(getTypicalModuleList(), getTypicalDegreePlannerList(),
+                            getTypicalRequirementCategoriesList()).toModelType(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
+
+    public SelectCommandTest() throws IllegalValueException {}
 
     @Test
     public void execute_validIndexUnfilteredList_success() {

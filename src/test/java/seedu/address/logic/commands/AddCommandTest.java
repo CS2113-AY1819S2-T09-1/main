@@ -23,7 +23,11 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Name;
+import seedu.address.model.planner.DegreePlanner;
+import seedu.address.model.requirement.RequirementCategory;
 import seedu.address.testutil.ModuleBuilder;
 
 public class AddCommandTest {
@@ -123,6 +127,27 @@ public class AddCommandTest {
         }
 
         @Override
+        public Path getDegreePlannerListFilePath() {
+            //ToDo: implement error check
+            return null;
+        }
+
+        @Override
+        public void setDegreePlannerListFilePath(Path degreePlannerListFilePath) {
+            //ToDo: implement error check
+        }
+
+        @Override
+        public Path getRequirementCategoryListFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setRequirementCategoryListFilePath(Path requirementCategoryListFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addModule(Module module) {
             throw new AssertionError("This method should not be called.");
         }
@@ -143,7 +168,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasModuleCode(Code code) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteModule(Module target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void editModule(Module target, Module editedModule) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -201,6 +236,89 @@ public class AddCommandTest {
         public void setSelectedModule(Module module) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean hasDegreePlanner(DegreePlanner degreePlanner) {
+            return false;
+        }
+
+        @Override
+        public void deleteDegreePlanner(DegreePlanner degreePlanner) {
+            //ToDo: implement AssertionError
+        }
+
+        @Override
+        public void addDegreePlanner(DegreePlanner degreePlanner) {
+            //ToDo: implement error check
+        }
+
+        @Override
+        public void setDegreePlanner(DegreePlanner target, DegreePlanner editedDegreePlanner) {
+            //ToDo: implement error check
+        }
+
+        @Override
+        public ObservableList<DegreePlanner> getFilteredDegreePlannerList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredDegreePlannerList(Predicate<DegreePlanner> predicate) {
+            //ToDo: implement error check
+        }
+
+        @Override
+        public boolean hasRequirementCategory(Name requirementCategoryName) {
+            return false;
+        }
+
+        @Override
+        public boolean hasRequirementCategory(RequirementCategory requirementCategory) {
+            return false;
+        }
+
+        @Override
+        public RequirementCategory getRequirementCategory(Name requirementCategoryName) {
+            //ToDo: implement error check
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addRequirementCategory(RequirementCategory requirementCategory) {
+            //ToDo: implement error check
+        }
+
+        @Override
+        public void setRequirementCategory(RequirementCategory target,
+                RequirementCategory editedRequirementCategory) {
+            //ToDo: implement error check
+        }
+
+        @Override
+        public ObservableList<RequirementCategory> getFilteredRequirementCategoryList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredRequirementCategoryList(Predicate<RequirementCategory> predicate) {
+            //ToDo: implement error check
+        }
+
+        @Override
+        public RequirementCategory getSelectedRequirementCategory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedRequirementCategory(RequirementCategory requirementCategory) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<RequirementCategory> selectedRequirementCategoryProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**
