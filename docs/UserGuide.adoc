@@ -60,7 +60,7 @@ which can be used as `add name/Programming Methodology`.
 ** e.g. `name/NAME [tag/TAG]` can be used as:
 .. `name/Database Systems tag/sql` (with optional `tag` parameter)
 .. `name/Database Systems` (without optional `tag` parameter)
-* Items with `…` after them are parameters that can be used multiple times (including zero times)
+* Items with `…`​ after them are parameters that can be used multiple times (including zero times)
 ** e.g. `[tag/TAG]…` can be used as:
 .. `{nbsp}` (i.e. 0 times)
 .. `tag/programming` (i.e. 1 time)
@@ -301,10 +301,10 @@ Format: `planner_add code/CODE [code/CODE]… year/YEAR sem/SEMESTER`
 
 Examples:
 
-* `planner_add CS1010 year/3 sem/2` +
+* `planner_add code/CS1010 year/3 sem/2` +
 Adds module CS1010 to year 3 semester 2.
 
-* `planner_add CS1231 CS2040C year/1 sem/2` +
+* `planner_add code/CS1231 code/CS2040C year/1 sem/2` +
 Adds modules CS1231 and CS2040C to year 1 semester 2.
 
 === Deleting modules from the degree planner : `planner_delete` `[coming in v2.0]`
@@ -317,10 +317,10 @@ Format: `planner_delete code/CODE [code/CODE]…`
 
 Examples:
 
-* `planner_delete CS1231` +
+* `planner_delete code/CS1231` +
 Deletes module CS1231 from the degree planner.
 
-* `planner_delete CS2100 CS2040C` +
+* `planner_delete code/CS2100 code/CS2040C` +
 Deletes modules CS2100 and CS2040C from the degree planner.
 
 === Moving a module in the degree planner : `planner_move` `[coming in v2.0]`
