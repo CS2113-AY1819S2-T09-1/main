@@ -736,10 +736,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |mark modules that are exempted |keep track of exempted modules
 
-|`* * *` |user |add modules into my degree planner |know which modules to bid/take in future
+|`* * *` |user |add modules into my degree plan |know which modules to bid/take in future
 
-|`* * *` |user |remove modules from my degree planner |remove modules that I am not interested in taking
-from my degree planner
+|`* * *` |user |remove modules from my degree plan |remove modules that I am not interested in taking
+from my degree plan
 
 |`* * *` |user |move my modules to other academic semester in my degree planner |update my plan if there are any
 changes
@@ -970,7 +970,7 @@ Use case ends.
 ** 3a1. Application shows an error message that given input is invalid.
 +
 Use case resumes at step 2.
-* 3b. Any of the modules do not exist in the degree plan.
+* 3b. Any of the modules does not exist in the degree plan.
 [none]
 ** 3b1. Application shows an error message that one/some of the modules specified by user do not exist in degree plan.
 +
