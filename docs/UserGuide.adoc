@@ -296,22 +296,22 @@ Format: `planner_add code/CODE [code/CODE]… year/YEAR sem/SEMESTER`
 * `YEAR` indicates the year.
 * `SEMESTER` indicates the semester.
 * `YEAR` and `SEMESTER` must be either 1, 2, 3 or 4.
-** 3 or 4 for `SEMESTER` indicates special semesters 1 and 2 respectively.
+** 3 or 4 for `SEMESTER` indicates special term semesters 1 and 2 respectively.
 * All the module/modules to add must exist in the module list.
 * After adding, the changes will be reflected in the degree plan accordingly.
 
 Examples:
 
-* `planner_add code/CS1010 year/3 sem/2` +
-Adds module CS1010 to year 3 semester 2 of the degree plan.
+* `planner_add code/CS1010 year/1 sem/3` +
+Adds module CS1010 to year 1 special term semester 1 of the degree plan.
 
 * `planner_add code/CS1231 code/CS2040C year/1 sem/4` +
 Adds modules CS1231 and CS2040C to year 1 special term semester 2 of the degree plan.
 
-* `planner_add code/CS2113T code/CS2040C code/CS2107 year/1 sem/3` +
-Adds modules CS2113T, CS2040C and CS2107 to year 3 special term semester 1 of the degree plan.
+* `planner_add code/CS2113T code/CS2107 year/1 sem/2` +
+Adds modules CS2113T and CS2107 to year 1 semester 2 of the degree plan.
 
-=== Deleting modules from the degree plan : `planner_remove` `[coming in v2.0]`
+=== Deleting one/multiple modules from the degree plan : `planner_remove` `[coming in v2.0]`
 
 Deletes one/multiple existing modules from the degree plan. +
 Format: `planner_remove code/CODE [code/CODE]…`
