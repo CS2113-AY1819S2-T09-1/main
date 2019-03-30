@@ -916,12 +916,12 @@ Use case ends.
 * None
 
 [discrete]
-=== Use case: Add modules to degree planner
+=== Use case: Add one/multiple modules to degree plan
 
 *MSS*
 
-1. User requests to add a set of modules to the Application's degree planner
-2. Application adds the modules into the degree planner
+1. User requests to add one/multiple modules to the Application's degree plan
+2. Application adds the module/modules into the degree plan
 +
 Use case ends.
 
@@ -933,21 +933,26 @@ Use case ends.
 ** 1a1. Application shows an error message that given input is invalid.
 +
 Use case ends.
-* 1b. Any of the modules already exist in the degree planner.
+* 1b. Any of the modules already exist in the degree plan.
 [none]
-** 1b1. Application shows an error message that some of the modules specified by user already exist in degree planner.
+** 1b1. Application shows an error message that one/some of the modules specified by user already exist in degree plan.
++
+Use case ends.
+* 1c. Any of the modules does not exist in the module list.
+[none]
+** 1c1. Application shows an error message that one/some of the modules specified by user do not exist in the module list.
 +
 Use case ends.
 
 [discrete]
-=== Use case: Delete modules from degree planner
+=== Use case: Delete one/multiple modules from degree plan
 
 *MSS*
 
-1.  User requests to list modules in the Application's degree planner
-2.  Application shows a list of modules in the degree planner
-3.  User requests to delete modules from the degree planner
-4.  Application deletes the modules from the degree planner
+1.  User requests to list modules in the Application's degree plan
+2.  Application shows a list of modules in the degree plan
+3.  User requests to delete one/multiple modules from the degree plan
+4.  Application deletes the module/modules from the degree plan
 +
 Use case ends.
 
@@ -965,36 +970,9 @@ Use case ends.
 ** 3a1. Application shows an error message that given input is invalid.
 +
 Use case resumes at step 2.
-* 3b. Any of the modules do not exist in the degree planner.
+* 3b. Any of the modules do not exist in the degree plan.
 [none]
-** 3b1. Application shows an error message that some of the modules specified by user do not exist in degree planner.
-+
-Use case resumes at step 2.
-
-[discrete]
-=== Use case: Move module in degree planner
-
-*MSS*
-
-1.  User requests to list modules in the Application's degree planner
-2.  Application shows a list of modules in the degree planner
-3.  User requests to move a specific module to another academic semester in the degree planner
-4.  Application update the degree planner
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-[none]
-* 3a. The given input is invalid.
-+
-[none]
-** 3a1. Application shows an error message.
+** 3b1. Application shows an error message that one/some of the modules specified by user do not exist in degree plan.
 +
 Use case resumes at step 2.
 
