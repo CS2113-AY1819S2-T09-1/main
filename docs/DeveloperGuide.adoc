@@ -990,6 +990,7 @@ Use case ends.
 
 *Extensions*
 
+[none]
 * 2a. The list is empty.
 +
 Use case ends.
@@ -999,6 +1000,8 @@ Use case ends.
 +
 [none]
 ** 3a1. Application shows an error message.
++
+Use case resumes at step 2.
 
 [discrete]
 === Use case: List all degree planners
