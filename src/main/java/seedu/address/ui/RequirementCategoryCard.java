@@ -53,12 +53,12 @@ public class RequirementCategoryCard extends UiPart<Region> {
 
         if (currentCredits == Integer.parseInt(creditsRequired)) {
             requirementCategoryCredit.getStyleClass().clear();
-            requirementCategoryCredit.getStyleClass().add("fulfilled");
+            requirementCategoryCredit.getStyleClass().add("green");
         }
 
         if (currentCredits > Integer.parseInt(creditsRequired)) {
             requirementCategoryCredit.getStyleClass().clear();
-            requirementCategoryCredit.getStyleClass().add("overAllocate");
+            requirementCategoryCredit.getStyleClass().add("red");
         }
 
         if (requirementCategory.getCodeSet().isEmpty()) {

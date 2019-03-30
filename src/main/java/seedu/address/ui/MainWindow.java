@@ -127,7 +127,8 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedModule);
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
 
-        degreePlannerListPanel = new DegreePlannerListPanel(logic.getFilteredDegreePlannerList());
+        degreePlannerListPanel = new DegreePlannerListPanel(logic.getFilteredDegreePlannerList(),
+                logic.getAddressBook().getModuleList());
         degreePlannerListPanelPlaceholder.getChildren().add(degreePlannerListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
