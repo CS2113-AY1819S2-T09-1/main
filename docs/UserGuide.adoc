@@ -306,10 +306,10 @@ Examples:
 Adds module CS1010 to year 1 semester 3 (special term semester 1) of the degree plan.
 
 * `planner_add year/1 sem/4 code/CS1231 code/CS2040C` +
-Adds module CS1231 and CS2040C to year 1 semester 4 (special term semester 2) of the degree plan.
+Adds modules CS1231 and CS2040C to year 1 semester 4 (special term semester 2) of the degree plan.
 
 * `planner_add year/1 sem/2 code/CS2113T code/CS2107` +
-Adds module CS2113T and CS2107 to year 1 semester 2 of the degree plan.
+Adds modules CS2113T and CS2107 to year 1 semester 2 of the degree plan.
 
 === Removing module(s) from degree plan : `planner_remove` `[coming in v2.0]`
 
@@ -325,7 +325,7 @@ Examples:
 Removes module CS1231 from the degree plan.
 
 * `planner_remove code/CS2100 code/CS2040C` +
-Removes module CS2100 and CS2040C from the degree plan.
+Removes modules CS2100 and CS2040C from the degree plan.
 
 === Moving a module in the degree planner : `planner_move` `[coming in v2.0]`
 
