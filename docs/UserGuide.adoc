@@ -287,9 +287,9 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the module list. +
 Format: `clear`
 
-=== Adding module code(s) to degree plan : `planner_add` `[coming in v2.0]`
+=== Adding module(s) to degree plan : `planner_add` `[coming in v2.0]`
 
-Adds module code(s) to the degree plan. +
+Adds module(s) to the degree plan. +
 Format: `planner_add year/YEAR sem/SEMESTER code/CODE [code/CODE]…`
 
 * `CODE` indicates module code.
@@ -297,35 +297,35 @@ Format: `planner_add year/YEAR sem/SEMESTER code/CODE [code/CODE]…`
 * `SEMESTER` indicates the semester.
 * `YEAR` and `SEMESTER` must be either 1, 2, 3 or 4.
 ** 3 or 4 for `SEMESTER` indicates special term semesters 1 and 2 respectively.
-* All the module code(s) to add must exist in the module list.
+* All the module(s) to add must exist in the module list.
 * After adding, the changes will be reflected in the degree plan accordingly.
 
 Examples:
 
 * `planner_add year/1 sem/3 code/CS1010` +
-Adds module code CS1010 to year 1 semester 3 (special term semester 1) of the degree plan.
+Adds module CS1010 to year 1 semester 3 (special term semester 1) of the degree plan.
 
 * `planner_add year/1 sem/4 code/CS1231 code/CS2040C` +
-Adds module codes CS1231 and CS2040C to year 1 semester 4 (special term semester 2) of the degree plan.
+Adds module CS1231 and CS2040C to year 1 semester 4 (special term semester 2) of the degree plan.
 
 * `planner_add year/1 sem/2 code/CS2113T code/CS2107` +
-Adds module codes CS2113T and CS2107 to year 1 semester 2 of the degree plan.
+Adds module CS2113T and CS2107 to year 1 semester 2 of the degree plan.
 
-=== Removing module code(s) from degree plan : `planner_remove` `[coming in v2.0]`
+=== Removing module(s) from degree plan : `planner_remove` `[coming in v2.0]`
 
-Removes module code(s) from the degree plan. +
+Removes module(s) from the degree plan. +
 Format: `planner_remove code/CODE [code/CODE]…`
 
-* All the module code(s) to remove must exist in the degree plan.
+* All the module(s) to remove must exist in the degree plan.
 * After removing, the changes will be reflected in the degree plan accordingly.
 
 Examples:
 
 * `planner_remove code/CS1231` +
-Removes module code CS1231 from the degree plan.
+Removes module CS1231 from the degree plan.
 
 * `planner_remove code/CS2100 code/CS2040C` +
-Removes module codes CS2100 and CS2040C from the degree plan.
+Removes module CS2100 and CS2040C from the degree plan.
 
 === Moving a module in the degree planner : `planner_move` `[coming in v2.0]`
 
@@ -449,9 +449,9 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Add module code(s) to degree plan* : `planner_add year/YEAR sem/SEMESTER code/CODE [code/CODE]…` +
+* *Add module(s) to degree plan* : `planner_add year/YEAR sem/SEMESTER code/CODE [code/CODE]…` +
 e.g.  `planner_add year/1 sem/2 code/CS1010 code/CS2113T`
-* *Remove module code(s) from degree plan* : `planner_remove code/CODE [code/CODE]…` +
+* *Remove module(s) from degree plan* : `planner_remove code/CODE [code/CODE]…` +
 e.g.  `planner_remove code/CS1231 code/CS1010`
 * *Move module in degree planner* : `planner_move CODE y/YEAR s/SEMESTER` +
 e.g.  `planner_move CS1231 y/1 s/2`
