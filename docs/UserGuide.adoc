@@ -302,7 +302,7 @@ Format: `planner_add year/YEAR sem/SEMESTER code/CODE [code/CODE]…`
 
 Examples:
 
-* `planner_add year/1 sem/3 code/CS1010 ` +
+* `planner_add year/1 sem/3 code/CS1010` +
 Adds module CS1010 to year 1 semester 3 (special term semester 1) of the degree plan.
 
 * `planner_add year/1 sem/4 code/CS1231 code/CS2040C` +
@@ -316,7 +316,7 @@ Adds modules CS2113T and CS2107 to year 1 semester 2 of the degree plan.
 Removes module(s) from the degree plan. +
 Format: `planner_remove code/CODE [code/CODE]…`
 
-* All the modules to remove must exist in the degree plan.
+* All the module(s) to remove must exist in the degree plan.
 * After removing, the changes will be reflected in the degree plan accordingly.
 
 Examples:
