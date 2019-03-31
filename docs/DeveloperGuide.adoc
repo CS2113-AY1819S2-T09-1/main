@@ -920,7 +920,7 @@ Use case ends.
 
 *MSS*
 
-1. User requests to add module(s) to the Application's degree plan
+1. User requests to add module(s) into the Application's degree plan
 2. Application adds the module(s) into the degree plan
 +
 Use case ends.
