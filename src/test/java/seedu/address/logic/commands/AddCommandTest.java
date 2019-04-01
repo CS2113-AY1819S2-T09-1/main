@@ -64,7 +64,7 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithModule(validModule);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_MODULE);
+        thrown.expectMessage(String.format(AddCommand.MESSAGE_DUPLICATE_MODULE, validModule.getCode()));
         addCommand.execute(modelStub, commandHistory);
     }
 
@@ -168,6 +168,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Module getModuleByCode(Code code) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasModuleCode(Code code) {
             throw new AssertionError("This method should not be called.");
         }
@@ -240,6 +245,11 @@ public class AddCommandTest {
         @Override
         public boolean hasDegreePlanner(DegreePlanner degreePlanner) {
             return false;
+        }
+
+        @Override
+        public DegreePlanner getDegreePlannerByCode(Code toCheck) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

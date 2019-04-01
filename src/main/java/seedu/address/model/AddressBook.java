@@ -103,6 +103,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns a module if there is a module with the same module code as {@code code}
+     */
+    public Module getModuleByCode(Code code) {
+        requireNonNull(code);
+        return modules.getModuleByCode(code);
+    }
+
+    /**
      * Returns true if a {@code Module} with the specified {@code Code} exists in the address book.
      */
     public boolean hasModuleCode(Code code) {
@@ -114,8 +122,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a module to the address book.
      * The module must not already exist in the address book.
      */
-    public void addModule(Module p) {
-        modules.add(p);
+    public void addModule(Module moduleToAdd) {
+        modules.add(moduleToAdd);
         indicateModified();
     }
 
@@ -140,48 +148,11 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         modules.setModule(target, editedModule);
         if (!target.getCode().equals(editedModule.getCode())) {
-            cascadeEditedModuleCode(target.getCode(), editedModule.getCode());
+            cascadeEditedCodeInDegreePlanners(target.getCode(), editedModule.getCode());
+            cascadeEditedCodeInRequirementCategories(target.getCode(), editedModule.getCode());
         }
+
         indicateModified();
-    }
-
-    /**
-     * Cascades the edited module code to {@code UniqueModuleList}, {@code UniqueDegreePlannerList},
-     * and {@code UniqueRequirementCategoryList}
-     * @param codeToEdit module code to edit/find
-     * @param editedCode module code to replace with
-     */
-    private void cascadeEditedModuleCode(Code codeToEdit, Code editedCode) {
-        cascadeEditedCodeInModules(codeToEdit, editedCode);
-        cascadeEditedCodeInDegreePlanners(codeToEdit, editedCode);
-        cascadeEditedCodeInRequirementCategories(codeToEdit, editedCode);
-    }
-
-    /**
-     * Cascades the edited module code by updating {@code UniqueModuleList} accordingly
-     * @param codeToEdit module code to edit/find
-     * @param editedCode module code to replace with
-     */
-    private void cascadeEditedCodeInModules(Code codeToEdit, Code editedCode) {
-        ObservableList<Module> modules = getModuleList();
-
-        for (Module module : modules) {
-            if (module.getCorequisites().contains(codeToEdit)) {
-                Set<Code> editedCorequisiteCodes = new HashSet<>(module.getCorequisites());
-                editedCorequisiteCodes.remove(codeToEdit);
-                editedCorequisiteCodes.add(editedCode);
-
-                Module editedModule = new Module(
-                        module.getName(),
-                        module.getCredits(),
-                        module.getCode(),
-                        module.getTags(),
-                        editedCorequisiteCodes
-                );
-
-                setModule(module, editedModule);
-            }
-        }
     }
 
     /**
@@ -240,44 +211,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeModule(Module key) {
         modules.remove(key);
-        cascadeDeletedModuleCode(key.getCode());
+        cascadeDeletedCodeInDegreePlanners(key.getCode());
+        cascadeDeletedCodeInRequirementCategories(key.getCode());
         indicateModified();
-    }
-
-    /**
-     * Cascades the deleted module code to {@code UniqueModuleList}, {@code UniqueDegreePlannerList},
-     * and {@code UniqueRequirementCategoryList}.
-     * @param codeToDelete module code to delete
-     */
-    private void cascadeDeletedModuleCode(Code codeToDelete) {
-        cascadeDeletedCodeInModules(codeToDelete);
-        cascadeDeletedCodeInDegreePlanners(codeToDelete);
-        cascadeDeletedCodeInRequirementCategories(codeToDelete);
-    }
-
-    /**
-     * Cascades the deleted module code by removing it from {@code UniqueModuleList} accordingly
-     * @param codeToDelete module code to delete
-     */
-    private void cascadeDeletedCodeInModules(Code codeToDelete) {
-        ObservableList<Module> modules = getModuleList();
-
-        for (Module module : modules) {
-            if (module.getCorequisites().contains(codeToDelete)) {
-                Set<Code> editedCorequisiteCodes = new HashSet<>(module.getCorequisites());
-                editedCorequisiteCodes.remove(codeToDelete);
-
-                Module editedModule = new Module(
-                        module.getName(),
-                        module.getCredits(),
-                        module.getCode(),
-                        module.getTags(),
-                        editedCorequisiteCodes
-                );
-
-                setModule(module, editedModule);
-            }
-        }
     }
 
     /**
@@ -333,6 +269,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasDegreePlanner(DegreePlanner degreePlanner) {
         requireNonNull(degreePlanner);
         return degreePlanners.contains(degreePlanner);
+    }
+
+    /**
+     * Return the degree planner which contains the given {@code code}, otherwise returns null.
+     */
+    public DegreePlanner getDegreePlannerByCode(Code code) {
+        requireNonNull(code);
+        return degreePlanners.getDegreePlannerByCode(code);
     }
 
     /**

@@ -58,11 +58,12 @@ public class ModelManager implements Model {
         filteredRequirementCategory.addListener(this::ensureSelectedRequirementCategoryIsValid);
     }
 
-    /**
-     * ToDo: Add DegreePlannerList
-     */
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
+    }
+
+    public ModelManager(ReadOnlyAddressBook addressBook) {
+        this(addressBook, new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -138,6 +139,12 @@ public class ModelManager implements Model {
     public boolean hasModule(Module module) {
         requireNonNull(module);
         return versionedAddressBook.hasModule(module);
+    }
+
+    @Override
+    public Module getModuleByCode(Code code) {
+        requireNonNull(code);
+        return versionedAddressBook.getModuleByCode(code);
     }
 
     @Override
@@ -299,6 +306,12 @@ public class ModelManager implements Model {
 
     @Override public void addDegreePlanner(DegreePlanner degreePlanner) {
         versionedAddressBook.addDegreePlanner(degreePlanner);
+    }
+
+    @Override
+    public DegreePlanner getDegreePlannerByCode(Code code) {
+        requireNonNull(code);
+        return versionedAddressBook.getDegreePlannerByCode(code);
     }
 
     @Override public void setDegreePlanner(DegreePlanner target, DegreePlanner editedDegreePlanner) {
