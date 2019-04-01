@@ -158,36 +158,90 @@ Edits the co-requisite of the 3rd module in the displayed module list to be `CS1
 * `edit 4 coreq/CS2105 coreq/CS2106 coreq/CS2107` +
 Edits the co-requisites of the 4rd module in the displayed module list to be `CS2105`, `CS2106` and `CS2107`. +
 
-=== Locating modules either by name, code or credits: `find`
+=== Find modules with name/code/credit: `find`
 
-Finds modules whose names, code or credits matches any of the given keywords. +
-Format: `find [name/NAME NAME…] [code/CODE CODE…] [credits/CREDITS CREDITS…]`
+Having trouble locating the modules you want?
+
+Make use of `find` command which allows you to find modules that have their names, code or credits matches the given
+search criteria +
+Format: `find [name/NAME] OPERATOR [code/CODE] OPERATOR [credits/CREDITS]`
+
+When this command is used, the application will display only those modules which satisfy the search criteria.
+
+The following table describes the valid prefixes that you can use to supply to the search criteria.
+|====
+| *Prefix* | *Description*
+| `name/NAME` | Search for any module `name` which matches `NAME`
+| `code/CODE` | Search for any module `code` which matches `CODE`
+| `credits/CREDITS` | Search for any module `credits` which has `CREDITS`
+|====
+
+The following table describes the valid operators which you can to use supply to the search criteria.
+
+|====
+| *Operator* | *Description* | *Precedence*
+| `&&` | Logical "AND" operation (both conditions A AND B must match) | Highest
+| `\|\|` | Logical "OR" operation (either conditions A OR B must match)| Lowest
+|====
+
+The following examples describes how you could form a valid search criteria for the `find` command.
+
+|====
+| *Single Prefix Usage* | *Expected Result*
+| `find name/NAME` | Returns modules containing `NAME` in their names
+| `find code/CODE` |Returns modules containing `CODE` in their codes
+| `find credits/CREDITS` | Returns modules having `CREDITS` in their credits
+|====
+
+If you need multiple prefixes, the following table shows you how you could do it.
+ +
+Note that you will need to separate multiple prefixes with an operator.
+[TIP]
+====
+You could choose which search criteria having a higher priority by specifying parenthesis
+====
+|====
+| *Multiple Prefix Usage* | *Expected Result*
+| `find name/NAME1 && name/NAME2` | Returns modules containing both `NAME1` and `NAME2 in their names.
+| `find name/NAME1 \|\| name/NAME2` | Returns modules containing both `NAME1` or `NAME2 in their names.
+| `find name/NAME && code/CODE` | Returns modules containing `NAME` in their name and `CODE` in their codes.
+| `find code/CODE \|\| (name/NAME && code/CODE2)` | Returns modules containing either `CODE` in their codes or `NAME`
+in their names and `CODE2` in their codes.
+|====
 
 ****
-
 * The search is case insensitive. e.g `security` will match `Security`
-* The order of the keywords does not matter. e.g. `Security Information` will match `Information Security`
-* The order of the prefix does not matter. +
-e.g. finding `name/NAME... code/CODE...` will have the same result as finding `code/CODE... name/NAME...`
-* Only the module name, code or credits is searched.
 * Only full words will be matched. e.g. `CS` will not match `CS1231`
-* Modules matching at least one keyword will be returned (i.e. `OR` search). +
-e.g. `Information` will return `Information Technology`, `Information Business`
+* The order of the prefixes does not matter. e.g. `find code/CODE || name/NAME` returns the same result as
+`find name/NAME ||
+code/CODE`
 ****
 Examples:
 
 * `find name/Security` +
-Returns `security` and `Information Security` in the displayed module list.
-* `find name/Security Information Computer` +
-Returns any module having names `Security`, `Information`, or `Computer` in the displayed module list.
-* `find code/CS1231 CS2040` +
-Returns any module having code `CS1231` or `CS2040` in the displayed module list.
-* `find credits/004 012` +
-Returns any module having credits `004` or `012` in the displayed module list.
-* `find name/Programming code/CS1231` +
-Returns any module having name `Programming` or code `CS1231` in the displayed module list.
-* `find code/CS2113 credits/004 name/Programming` +
-Returns any module having name `Programming` or code `CS2113` or credits `004` in the displayed module list.
+Displays any modules having the word `security` (e.g. `security` and `Information Security`) in the module list.
+* `find name/Information Security` +
+Displays any modules having name with exact match  `Information Security` in the module list.
+* `find code/CS1231 || code/CS2040`  +
+Displays any modules having code `CS1231` or `CS2040` in the module list.
+* `find credits/4 || credits/12` +
+Displays any modules having credits `4` or `12` in the module list.
+* `find name/Programming || code/CS1231` +
+Displays any modules having name `Programming` or code `CS1231` in the module list.
+* `find code/CS2113 || credits/4 && name/Programming` +
+Displays any modules having name `Programming` and credits `4` or code `CS2113` in the module list.
+* `find name/Programming && (code/CS1231 || code/CS1010)` +
+Displays any modules having name `Programming` and code `CS1231` or code `CS1010` in the module list.
+
+[TIP]
+====
+If you wish to search for module name with exact name `Information Security`, you could do so via the following command
+ `find name/information security`
+
+Do note that if you prefer to search for module name containing both `Information` and `Security` but in any order,
+you can do the following command. `find name/Information && name/Security` +
+This command will return you modules with both name keywords. (e.g. `Security in Information Privacy`)
+====
 
 === Deleting a module : `delete`
 
