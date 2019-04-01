@@ -934,13 +934,13 @@ Use case ends.
 Use case ends.
 * 1b. The module(s) already exists in the degree plan.
 [none]
-** 1b1. Application shows an error message that one(some) of the module(s) specified by user already exist in degree plan.
+** 1b1. Application shows an error message that the module(s) specified by user already exist in degree plan.
 ** 1b2. In cases where step 1b takes place simultaneously with step 1c, step 1c1 will not be triggered.
 +
 Use case ends.
 * 1c. The module(s) does not exist in the module list.
 [none]
-** 1c1. Application shows an error message that one(some) of the module(s) specified by user do not exist in the module list.
+** 1c1. Application shows an error message that the module(s) specified by user do not exist in the module list.
 ** 1c2. In cases where step 1n takes place simultaneously with step 1c, step 1c1 will not be triggered.
 +
 Use case ends.
@@ -973,7 +973,7 @@ Use case ends.
 Use case resumes at step 2.
 * 3b. The module(s) does not exist in the degree plan.
 [none]
-** 3b1. Application shows an error message that one(some) of the module(s) specified by user do not exist in degree plan.
+** 3b1. Application shows an error message that the module(s) specified by user do not exist in degree plan.
 +
 Use case resumes at step 2.
 
