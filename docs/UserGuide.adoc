@@ -297,8 +297,8 @@ Format: `planner_add year/YEAR sem/SEMESTER code/CODE [code/CODE]…`
 * `SEMESTER` indicates the semester.
 * `YEAR` and `SEMESTER` must be either 1, 2, 3 or 4.
 ** 3 or 4 for `SEMESTER` indicates special term semesters 1 and 2 respectively.
-* All the module(s) to add must exist in the module list.
-* After adding, the changes will be reflected in the degree plan accordingly.
+* All the module(s) to be added must exist in the module list.
+* After adding, the updated degree plan will be displayed.
 
 Examples:
 
@@ -317,7 +317,7 @@ Removes module(s) from the degree plan. +
 Format: `planner_remove code/CODE [code/CODE]…`
 
 * All the module(s) to remove must exist in the degree plan.
-* After removing, the changes will be reflected in the degree plan accordingly.
+* After removing, the updated degree plan will be displayed.
 
 Examples:
 
