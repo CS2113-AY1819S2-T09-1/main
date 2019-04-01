@@ -467,7 +467,7 @@ the program.
 
 Step 1 is performed by the `AddressBookParser` class, and no special actions is needed for the `find` feature.
 
-Step 3 is performed by `FindCommandParser#getKeywordsPredicate`
+Step 3 is performed by `BooleanExpression#parse`
 
 ==== Current Implementation
 
@@ -480,29 +480,78 @@ The sequence diagram below shows the interaction within the `Logic` components.
 .Find component interactions
 image::FindCommandSequenceDiagram.png[width="650"]
 
+The main implementation of this feature is split into two components. The `Tokenizer` and `BooleanExpressionParser`
+
+1. `Tokenizer` helps to split the user provided argument into tokens which could be used by `BooleanExpressionParser`.
+2. `BooleanExpressionParser` handle the high-level syntax of the find expressions and map them into
+`Predicate` which could be used by `FindCommand`
+
+==== Tokenizer
+
+This is represented by the class `seedu.address.logic.parser.BooleanExpressionTokenizer` and is designed to extract
+all argument with `PREFIX` and `OPERATOR` as a token.
+
+This class is initialized with the input argument and prefixes and can be queried for token multiple times. +
+Each query will consume the previous token and returns the next available token. +
+This is similar to how `java.util.Scanner` works.
+
+==== Operator
+
+This is represented by the class `seedu.address.logic.parser.Operator` and define all valid operators to be used in
+`BooleanExpressionParser`.
+
+To support more operators for our `BooleanExpressionParser`. The following steps should be done.
+
+1. Add the operator and give it precedence.
+2. Update the mapping between `String` and `Operator` in `Operator#getOperatorFromString`
+3. Update the logic of the new operator in `Operator#applyOperator`
+4. Update `CliSyntax.OPERATORS` to include the new operator.
+
+==== Boolean Expression Parser
+
+This is represented by the class `seedu.address.logic.parser.BooleanExpressionParser` and is designed to map user
+provided input into composite `Predicate<Module>`.
+
+The following table shows the operators currently supported by `BooleanExpressionParser`(Highest precedence
+first).
+|====
+| *Operators* | *Description*
+| `&&` | Logical AND of two predicates
+| `\|\|` | Logical OR of two predicates.
+|====
+
+Parentheses `(` and `)` are also recognized and respected, and they may be nested to arbitrary depth. This is handled by
+ https://en.wikipedia.org/wiki/Shunting-yard_algorithm[Shunting Yard] algorithm which respects the precedence of each
+ operators when parsing.
+
+The sequence diagram below shows the interactions between `FindCommandParser` and `BooleanExpressionParser`.
+
+.Parser interactions
+image::parserSequenceDiagram.png[width="650"]
+
 ==== Design Consideration
 
 ===== Aspect: How to parse composite predicates
 
 [NOTE]
-Currently we have use choice 1 mainly because of time constrains. When there is sufficient time, Alternative 2 would
-be more preferred because it provide our user with a more robust find command.
+Currently we are using choice 2 because this provide our users with a more flexible way of finding modules in our
+application.
 
-- Alternative 1 (current choice): Do an implicit boolean `OR` for every predicate.
+- Alternative 1: Do an implicit boolean `OR` for every predicate.
 
 [cols="30%,<70%"]
 |======
-|*Pros*| Very easy implementation
-|*Cons*| User will not be able to do a very accurate search. e.g. Unable to find a module's name with Presentation
-Skill.
+|*Pros*| Very easy to implementation
+|*Cons*| User will not be able to do a very detailed or complex find.
 |======
 
-- Alternative 2: Implement an algorithm that can parse complex boolean expression.
+- Alternative 2 (current choice): Implement an algorithm https://en.wikipedia.org/wiki/Shunting-yard_algorithm[Shunting Yard]
+ that can parse complex boolean expression.
 
 [cols="30%,<70%"]
 |=====
 | *Pros* | User will have very flexible searching terms
-| *Cons* | Developer will take a very long time to implement.
+| *Cons* | Developer will take a very long time to implement and test for edge cases.
 |=====
 
 
