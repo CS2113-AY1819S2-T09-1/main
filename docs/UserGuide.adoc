@@ -318,20 +318,20 @@ Examples:
 
 * `planner_delete CS1231`
 
-=== Moving a module in the degree planner : `planner_move` `[coming in v2.0]`
+=== Moving a module between academic semesters in the degree plan : `planner_move`
 
-Moves a module in the degree planner to another academic semester. +
-Format: `planner_move CODE y/YEAR s/SEMESTER`
+Moves a module in the degree plan to another academic semester. +
+Format: `planner_move year/YEAR sem/SEMESTER code/CODE`
 
-* After moving, the changes will be reflected in the degree planner accordingly.
+* After moving, the updated degree plan will be displayed.
 
 Examples:
 
-* `planner_move CS1231 y/1 s/2` +
+* `planner_move year/1 sem/2 code/CS1231` +
 Moves module CS1231 to year 1 semester 2.
 
-* `planner_move CS1231 y/1 s/4` +
-Moves module CS1231 to year 1 special semester 2.
+* `planner_move year/1 sem/4 code/CS1231` +
+Moves module CS1231 to year 1 semester 4 (special term semester 2).
 
 === Listing degree planners: `planner_list_all`
 
@@ -444,8 +444,8 @@ e.g.`select 2`
 e.g.  `planner_add CS1010 y/1 s/2`
 * *Delete module from degree planner* : `planner_delete CODE` +
 e.g.  `planner_delete CS1231`
-* *Move module in degree planner* : `planner_move CODE y/YEAR s/SEMESTER` +
-e.g.  `planner_move CS1231 y/1 s/2`
+* *Move module between academic semesters in the degree plan* : `planner_move year/YEAR sem/SEMESTER code/CODE` +
+e.g.  `planner_move year/1 sem/2 code/CS1231`
 * *List all degree planners* : `planner_list_all`
 * *List specific degree planner* : `planner_list y/YEAR s/SEMESTER` +
 e.g. `planner_list y/1 s/2`
