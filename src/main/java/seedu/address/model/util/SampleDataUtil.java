@@ -72,6 +72,18 @@ public class SampleDataUtil {
             getCodeSet()
     );
 
+    private static final DegreePlanner YEAR_1_SEMESTER_3 = new DegreePlanner(
+            new Year("1"),
+            new Semester("3"),
+            getCodeSet()
+    );
+
+    private static final DegreePlanner YEAR_1_SEMESTER_4 = new DegreePlanner(
+            new Year("1"),
+            new Semester("4"),
+            getCodeSet()
+    );
+
     private static final DegreePlanner YEAR_2_SEMESTER_1 = new DegreePlanner(
             new Year("2"),
             new Semester("1"),
@@ -81,6 +93,18 @@ public class SampleDataUtil {
     private static final DegreePlanner YEAR_2_SEMESTER_2 = new DegreePlanner(
             new Year("2"),
             new Semester("2"),
+            getCodeSet()
+    );
+
+    private static final DegreePlanner YEAR_2_SEMESTER_3 = new DegreePlanner(
+            new Year("2"),
+            new Semester("3"),
+            getCodeSet()
+    );
+
+    private static final DegreePlanner YEAR_2_SEMESTER_4 = new DegreePlanner(
+            new Year("2"),
+            new Semester("4"),
             getCodeSet()
     );
 
@@ -96,6 +120,18 @@ public class SampleDataUtil {
             getCodeSet()
     );
 
+    private static final DegreePlanner YEAR_3_SEMESTER_3 = new DegreePlanner(
+            new Year("3"),
+            new Semester("3"),
+            getCodeSet()
+    );
+
+    private static final DegreePlanner YEAR_3_SEMESTER_4 = new DegreePlanner(
+            new Year("3"),
+            new Semester("4"),
+            getCodeSet()
+    );
+
     private static final DegreePlanner YEAR_4_SEMESTER_1 = new DegreePlanner(
             new Year("4"),
             new Semester("1"),
@@ -108,12 +144,24 @@ public class SampleDataUtil {
             getCodeSet()
     );
 
+    private static final DegreePlanner YEAR_4_SEMESTER_3 = new DegreePlanner(
+            new Year("4"),
+            new Semester("3"),
+            getCodeSet()
+    );
+
+    private static final DegreePlanner YEAR_4_SEMESTER_4 = new DegreePlanner(
+            new Year("4"),
+            new Semester("4"),
+            getCodeSet()
+    );
+
     private static final RequirementCategory COMPUTING_FOUNDATION = new RequirementCategory(
             new Name("Computing Foundation"), new Credits("36"),
             getCodeSet("CS1010", "CS1231", "CS2040C", "CS2100", "CS2102")
     );
     private static final RequirementCategory INFORMATION_SECURITY_REQUIREMENTS = new RequirementCategory(
-            new Name("Information Security Requirements"), new Credits("32"), getCodeSet()
+            new Name("Information Security Requirements"), new Credits("20"), getCodeSet()
     );
 
     private static final RequirementCategory INFORMATION_SECURITY_ELECTIVES = new RequirementCategory(
@@ -150,12 +198,20 @@ public class SampleDataUtil {
         return new DegreePlanner[] {
             YEAR_1_SEMESTER_1,
             YEAR_1_SEMESTER_2,
+            YEAR_1_SEMESTER_3,
+            YEAR_1_SEMESTER_4,
             YEAR_2_SEMESTER_1,
             YEAR_2_SEMESTER_2,
+            YEAR_2_SEMESTER_3,
+            YEAR_2_SEMESTER_4,
             YEAR_3_SEMESTER_1,
             YEAR_3_SEMESTER_2,
+            YEAR_3_SEMESTER_3,
+            YEAR_3_SEMESTER_4,
             YEAR_4_SEMESTER_1,
-            YEAR_4_SEMESTER_2
+            YEAR_4_SEMESTER_2,
+            YEAR_4_SEMESTER_3,
+            YEAR_4_SEMESTER_4
         };
     }
 
