@@ -344,38 +344,55 @@ refreshed to display the full listing just to be able to iterate and delete modu
 
 // tag::requirement-add[]
 === Requirement Add command
-The `requirement_add` command in PWE is used to add module code(s) to a requirement category.
+The `requirement_add` command in PWE is used to add module code(s) to the requirement category.
 
 ==== Current implementation
 
-The `requirement_add` command requires the `RequirementAddCommandParser` class to parse the user input provided. The  parsed data will then be passed to  `RequirmentAddCommand` class. Currently, the details that are required by the user is the name of the requirement category and module code(s).
+The `requirement_add` command requires the `RequirementAddCommandParser` class to parse the user input provided. The
+ parsed data will then be passed to the `RequirmentAddCommand` class.
+
+The input should consist of the name of the requirement category and module code(s) to be added.
 
 `RequirementAddCommandParser` will throw an error if the user input does not match the command format.
 
 When `RequirementAddCommand` receives the parsed data, it will perform the following checks:
 
-- Check if the requirement category exists in PWE though `getRequirementCategory`
+- Check if the requirement category exists in PWE through `getRequirementCategory`
 - Check if the module codes provided exists in PWE through `model.hasModuleCode`
-- Check if the modules codes have already been added to this requirement category through `RequirementCategory.hasModuleCode`
+- Check if the module codes have already been added to other requirement categories
+- Check if the module codes have already been added to the specified requirement category through `RequirementCategory.hasModuleCode`
 
-`RequirementAddCommand` will throw an error any of the above check fails.
+`RequirementAddCommand` will throw an error if any of the above checks fails.
 
-After passing the checks `RequirementAddCommand` updates the context in `ModelManager` through `setRequirementCategory`.
+After passing all of the above checks, `RequirementAddCommand` updates the context in `ModelManager` through
+`setRequirementCategory`.
 
-In addition to adding module code(s) to a requirement category, the `RequirementAddCommand` class also does the following:
+In addition to adding module code(s) to the requirement category, the `RequirementAddCommand` class also saves the
+current database state through `commitAddressBook` (for undo/redo functions).
 
-- Saves the current database state through `commitAddressBook` (for undo/redo functions).
+.RequirementAddCommand component interactions
+image::RequirementAddCommandSequenceDiagram.png[width="650"]
 
 ==== Design Considerations
-===== Aspect: Choice of what is added to the requirement category
+===== Aspect: Choice of what is stored in the requirement category
 
-- **Alternative 1 (current choice):** Storing module codes only
-  ** Pros: Requires less storage, easy to maintain
-  ** Cons: Requires extra overhead to obtain additional information related to the module when needed
-- **Alternative 2:** Storing all information related to the module
-  ** Pros: All information related to the module are easily obtainable
-  ** Cons: Information stored is duplicated, additional storage space is needed
-  ** Cons: Hard to maintain information, if a module information is updated have to update data in the requirement category
+- Alternative 1 (current choice): Storing only the module codes.
+
+[cols="30%,<70%"]
+|======
+|*Pros*| Lesser storage space is required. Easy to maintain.
+|*Cons*| Extra overhead is required when additional information related to the module is needed to be retrieved.
+|======
+
+- Alternative 2: Storing all information related to the modules.
+
+[cols="30%,<70%"]
+|=====
+| *Pros* | Every information related to the modules is easily retrievable.
+| *Cons* | The stored information is duplicated, additional storage space and processing time is needed to load the requirement categories.
+           Hard to maintain the stored information, if a module information is updated, have to ensure that the
+           stored information is updated as well.
+|=====
 //end::requirement-add[]
 
 // tag::planner-move[]
@@ -455,6 +472,50 @@ the semester provided.
 |======
 
 // end::planner-move[]
+
+// tag::requirement-list[]
+=== Requirement List command
+The `requirement_list` command in PWE is used to display all requirement categories and the module code(s) that have
+been added to requirement category.
+
+==== Current implementation
+
+The `requirement_list` command requires no additional input other than the command itself.
+
+When the `RequirementListCommand` class is called, it will perform the following actions before displaying the output
+to the user:
+
+- Obtain a list of all the requirement categories in the application
+- Check if there are modules added to the requirement category
+- Calculate the current amount of credits based on the modules added to the requirement category
+
+If there are no modules added to a requirement category, the output will display `No modules in this category!` for
+ the particular requirement category. Otherwise, it will display the modules codes that have been added.
+
+.RequirmentListCommand component interactions
+image::RequirementListCommandSequenceDiagram.png[width="650"]
+
+==== Design Considerations
+===== Aspect: Tracking the current amount of credits in a requirement category
+
+- Alternative 1: Creating a new attribute to store the credits
+
+[cols="30%,<70%"]
+|=====
+| *Pros* | Current amount of credits is always available.
+| *Cons* |Hard to maintain. When a module credit is updated to a new value, the corresponding attribute has to be
+          updated as well. Additional storage space is needed to store the additional attribute.
+|=====
+
+- Alternative 2 (current choice): Calculating the credits when needed.
+
+[cols="30%,<70%"]
+|======
+|*Pros*| No maintenance needed. Able to easily calculate the credits when needed as module information are easily obtainable.
+|*Cons*| Extra overhead is required to retrieve and calculate the credits.
+|======
+
+//end::requirement-list[]
 
 // tag::planner-list[]
 === Planner List Feature
@@ -1162,9 +1223,14 @@ Use case ends.
 ** 1a1. Application shows an error message that given input is invalid.
 +
 Use case ends.
-* 1b. The module already exists in the  degree requirement category.
+* 1b. The requirement category does not exist in the Application.
 [none]
-** 1b1. Application shows an error message that module specified by user already exists in  degree requirement category.
+** 1b1. Application shows an error message that the requirement category specified by the user does not exist.
++
+Use case ends.
+* 1c. The module already exists in the degree requirement category.
+[none]
+** 1c1. Application shows an error message that module specified by user already exists in degree requirement category.
 +
 Use case ends.
 
@@ -1173,27 +1239,29 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to list modules in the Application's degree requirement category
-2.  Application shows a list of modules in the degree requirement category
-3.  User requests to delete a specific module in the degree requirement category
-4.  Application deletes the module in the degree requirement category
+1.  User requests to delete a specific module in the degree requirement category
+2.  Application deletes the module in the degree requirement category
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. The given input is invalid.
+[none]
+** 1a1. Application shows an error message that given input is invalid.
 +
 Use case ends.
-
+* 1b. The requirement category does not exist in the Application.
 [none]
-* 3a. The given input is invalid.
+** 1b1. Application shows an error message that the requirement category specified by the user does not exist.
 +
+Use case ends.
+* 1c. The module does not exists in the specified degree requirement category.
 [none]
-** 3a1. Application shows an error message that given input is invalid.
+** 1c1. Application shows an error message that module specified by user does not exist in degree requirement category.
 +
-Use case resumes at step 2.
+Use case ends.
 
 [discrete]
 === Use case: Move module in degree requirement category
