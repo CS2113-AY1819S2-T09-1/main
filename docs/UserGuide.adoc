@@ -35,7 +35,7 @@ Interested in using PWE to plan your degree easily? Jump to <<Quick Start>> to g
 .  Copy the file to the folder you want to use as the home folder for PlanWithEase.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Ui.png[width="800"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
