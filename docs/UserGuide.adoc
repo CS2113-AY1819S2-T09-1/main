@@ -296,7 +296,7 @@ Format: `planner_add year/YEAR sem/SEMESTER code/CODE [code/CODE]…`
 * `YEAR` indicates the year.
 * `SEMESTER` indicates the semester.
 * `YEAR` and `SEMESTER` must be either 1, 2, 3 or 4.
-** 3 or 4 for `SEMESTER` indicates special term semesters 1 and 2 respectively.
+** 3 and 4 for `SEMESTER` indicates special term semesters 1 and 2 respectively.
 * All the module(s) to be added must exist in the module list.
 * After adding, the updated degree plan will be displayed.
 
