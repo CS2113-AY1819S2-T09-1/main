@@ -354,49 +354,49 @@ Shows a degree planner for year 1 semester 2
 
 Displays a list of modules that can be added to the degree planner.
 
-=== Adding a module code to degree requirement category : `requirement_add`
+=== Adding a module to the degree requirement category : `requirement_add`
 
-Add module code to a degree requirement category in the application. +
-Format: `requirement_add name/NAME [code/CODE]…`
+Adds a module to the degree requirement category in the application. +
+Format: `requirement_add name/NAME code/CODE [code/CODE]…`
 
-*  After adding, the changes will be reflected in the application accordingly.
+*  After adding, the updated requirement category will be displayed.
 
 Examples:
 
 * `requirement_add name/IT Professionalism code/IS4231` +
-Add module code `IS4231` into `IT Professionalism` degree requirement category.
+Adds module `IS4231` into `IT Professionalism` degree requirement category.
 
 * `requirement_add name/Computing Foundations code/CS1231 code/CS2100` +
-Adds module codes `CS1231` and `CS2100` into `Computing Foundations` degree requirement category.
+Adds modules `CS1231` and `CS2100` into `Computing Foundations` degree requirement category.
 
-=== Deleting a module code from degree requirement category : `requirement_delete` `[coming in v2.0]`
+=== Removing a module from the degree requirement category : `requirement_remove`
 
-Deletes an existing module code from a degree requirement category. +
-Format: `requirement_delete name/NAME [code/CODE]…`
+Removes the specified module from the degree requirement category. +
+Format: `requirement_remove name/NAME code/CODE [code/CODE]…`
 
-*  After deleting, the changes will be reflected in the application accordingly.
+*  After removing, the updated requirement category will be displayed.
 
 Examples:
 
-* `requirement_delete name/Professionalism code/IS4231` +
-Deletes the module code `IS4231` from the `IT Professionalism` degree requirement category.
+* `requirement_remove name/Professionalism code/IS4231` +
+Removes the module `IS4231` from the `IT Professionalism` degree requirement category.
 
-=== Moving a module code in degree requirement category : `requirement_move` `[coming in v2.0]`
+=== Moving a module between degree requirement categories : `requirement_move` `[coming in v2.0]`
 
-Moves a module code to another degree requirement category. +
+Moves the specified module to another degree requirement category. +
 Format: `requirement_move CODE name/NAME`
 
-*  After moving, the changes will be reflected in the application accordingly.
+*  After moving, the updated requirement category will be displayed.
 
 Examples:
 
 * `requirement_move IS4231 name/IT Professionalism` +
-Moves the module code `IS4231` from to `IT Professionalism` degree requirement category.
+Moves the module `IS4231` from to `IT Professionalism` degree requirement category.
 
-=== Listing all degree requirement categories : `requirement_list` `[coming in v2.0]`
+=== Listing all degree requirement categories : `requirement_list`
 
-Shows a list of all degree requirement categories in the application and the module codes
-added into each degree requirement categories. +
+Shows a list of all degree requirement categories in the application and the modules
+added into each degree requirement category. +
 Format: `requirement_list`
 
 === Exiting the program : `exit`
@@ -450,11 +450,11 @@ e.g.  `planner_move year/1 sem/2 code/CS1231`
 * *List specific degree planner* : `planner_list y/YEAR s/SEMESTER` +
 e.g. `planner_list y/1 s/2`
 * *Using degree planner to suggest modules* : `planner_suggest`
-* *Add module code to degree requirement category* : `requirement_add name/NAME [code/CODE]…` +
+* *Add module to degree requirement category* : `requirement_add name/NAME code/CODE [code/CODE]…` +
 e.g. `requirement_add name/IT Professionalism code/IS4231`
-* *Delete module code from degree requirement category* : `requirement_delete name/NAME [code/CODE]…` +
-e.g. `requirement_delete name/IT Professionalism code/IS4231`
-* *Move module code from degree requirement category*  : `requirement_move CODE
+* *Remove module from degree requirement category* : `requirement_remove name/NAME code/CODE [code/CODE]…` +
+e.g. `requirement_remove name/IT Professionalism code/IS4231`
+* *Move module between degree requirement categories*  : `requirement_move CODE
 name/NAME` +
 e.g. `requirement_move IS4231 name/IT Professionalism`
-* *List all degree requirement category* : `requirement_list`
+* *List all degree requirement categories* : `requirement_list`
