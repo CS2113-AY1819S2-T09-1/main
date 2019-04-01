@@ -972,7 +972,6 @@ Use case resumes from step 2.
 * 3b. The module(s) does not exist in the degree plan.
 [none]
 ** 3b1. Application shows an error message that the module(s) specified by user does not exist in the degree plan.
-** 3b1. Application shows an error message that the module(s) specified by user does not exist in the degree plan.
 +
 Use case resumes from step 2.
 
