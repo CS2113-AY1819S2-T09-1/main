@@ -935,13 +935,13 @@ Use case ends.
 * 1b. The module(s) already exists in the degree plan.
 [none]
 ** 1b1. Application shows an error message that the module(s) specified by user already exists in degree plan.
-** 1b2. In cases where step 1b takes place simultaneously with step 1c, step 1c1 will not take place.
+*** 1b1a. In cases where step 1b takes place simultaneously with step 1c, step 1c1 will not take place.
 +
 Use case ends.
 * 1c. The module(s) does not exist in the module list.
 [none]
 ** 1c1. Application shows an error message that the module(s) specified by user does not exist in the module list.
-** 1c2. In cases where step 1b takes place simultaneously with step 1c, step 1c1 will not take place.
+*** 1c1a. In cases where step 1b takes place simultaneously with step 1c, step 1c1 will not take place.
 +
 Use case ends.
 
