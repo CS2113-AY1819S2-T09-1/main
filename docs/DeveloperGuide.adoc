@@ -739,7 +739,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |add modules into my degree plan |know which modules to bid/take in future
 
 |`* * *` |user |remove modules from my degree plan |remove modules that I am not interested in taking
-from my degree plan
 
 |`* * *` |user |move my modules to other academic semester in my degree planner |update my plan if there are any
 changes
