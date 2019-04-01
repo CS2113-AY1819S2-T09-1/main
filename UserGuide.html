@@ -17,15 +17,15 @@
 <li><a href="#adding-a-module-code-add-code">3.2. Adding a module: <code>add</code></a></li>
 <li><a href="#listing-all-modules-code-list-code">3.3. Listing all modules : <code>list</code></a></li>
 <li><a href="#editing-a-module-code-edit-code">3.4. Editing a module : <code>edit</code></a></li>
-<li><a href="#locating-modules-either-by-name-code-or-credits-code-find-code">3.5. Locating modules either by name, code or credits: <code>find</code></a></li>
+<li><a href="#find-modules-with-name-code-credit-code-find-code">3.5. Find modules with name/code/credit: <code>find</code></a></li>
 <li><a href="#deleting-a-module-code-delete-code">3.6. Deleting a module : <code>delete</code></a></li>
 <li><a href="#selecting-a-module-code-select-code">3.7. Selecting a module : <code>select</code></a></li>
 <li><a href="#listing-entered-commands-code-history-code">3.8. Listing entered commands : <code>history</code></a></li>
 <li><a href="#undoing-previous-command-code-undo-code">3.9. Undoing previous command : <code>undo</code></a></li>
 <li><a href="#redoing-the-previously-undone-command-code-redo-code">3.10. Redoing the previously undone command : <code>redo</code></a></li>
 <li><a href="#clearing-all-entries-code-clear-code">3.11. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#adding-a-module-to-the-degree-planner-code-planner_add-code-code-coming-in-v2-0-code">3.12. Adding a module to the degree planner : <code>planner_add</code> <code>[coming in v2.0]</code></a></li>
-<li><a href="#deleting-a-module-from-the-degree-planner-code-planner_delete-code-code-coming-in-v2-0-code">3.13. Deleting a module from the degree planner : <code>planner_delete</code> <code>[coming in v2.0]</code></a></li>
+<li><a href="#adding-module-s-to-degree-plan-code-planner_add-code">3.12. Adding module(s) to degree plan : <code>planner_add</code></a></li>
+<li><a href="#removing-module-s-from-degree-plan-code-planner_remove-code-code-coming-in-v2-0-code">3.13. Removing module(s) from degree plan : <code>planner_remove</code> <code>[coming in v2.0]</code></a></li>
 <li><a href="#moving-a-module-between-academic-semesters-in-the-degree-plan-code-planner_move-code">3.14. Moving a module between academic semesters in the degree plan : <code>planner_move</code></a></li>
 <li><a href="#listing-degree-planners-code-planner_list_all-code">3.15. Listing degree planners: <code>planner_list_all</code></a></li>
 <li><a href="#listing-a-degree-planner-code-planner_list-code-code-coming-in-v2-0-code">3.16. Listing a degree planner: <code>planner_list</code> <code>[coming in v2.0]</code></a></li>
@@ -402,11 +402,147 @@ Edits the co-requisites of the 4rd module in the displayed module list to be <co
 </div>
 </div>
 <div class="sect2">
-<h3 id="locating-modules-either-by-name-code-or-credits-code-find-code"><a class="link" href="#locating-modules-either-by-name-code-or-credits-code-find-code">3.5. Locating modules either by name, code or credits: <code>find</code></a></h3>
+<h3 id="find-modules-with-name-code-credit-code-find-code"><a class="link" href="#find-modules-with-name-code-credit-code-find-code">3.5. Find modules with name/code/credit: <code>find</code></a></h3>
 <div class="paragraph">
-<p>Finds modules whose names, code or credits matches any of the given keywords.<br>
-Format: <code>find [name/NAME NAME…] [code/CODE CODE…] [credits/CREDITS CREDITS…]</code></p>
+<p>Having trouble locating the modules you want?</p>
 </div>
+<div class="paragraph">
+<p>Make use of <code>find</code> command which allows you to find modules that have their names, code or credits matches the given
+search criteria<br>
+Format: <code>find [name/NAME] OPERATOR [code/CODE] OPERATOR [credits/CREDITS]</code></p>
+</div>
+<div class="paragraph">
+<p>When this command is used, the application will display only those modules which satisfy the search criteria.</p>
+</div>
+<div class="paragraph">
+<p>The following table describes the valid prefixes that you can use to supply to the search criteria.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Prefix</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name/NAME</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Search for any module <code>name</code> which matches <code>NAME</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code/CODE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Search for any module <code>code</code> which matches <code>CODE</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>credits/CREDITS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Search for any module <code>credits</code> which has <code>CREDITS</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The following table describes the valid operators which you can to use supply to the search criteria.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Operator</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precedence</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&amp;&amp;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical "AND" operation (both conditions A AND B must match)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Highest</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>||</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical "OR" operation (either conditions A OR B must match)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lowest</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The following examples describes how you could form a valid search criteria for the <code>find</code> command.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Single Prefix Usage</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Expected Result</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>find name/NAME</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns modules containing <code>NAME</code> in their names</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>find code/CODE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns modules containing <code>CODE</code> in their codes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>find credits/CREDITS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns modules having <code>CREDITS</code> in their credits</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If you need multiple prefixes, the following table shows you how you could do it.
+<br>
+Note that you will need to separate multiple prefixes with an operator.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You could choose which search criteria having a higher priority by specifying parenthesis</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Multiple Prefix Usage</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Expected Result</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>find name/NAME1 &amp;&amp; name/NAME2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns modules containing both <code>NAME1</code> and `NAME2 in their names.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>find name/NAME1 || name/NAME2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns modules containing both <code>NAME1</code> or `NAME2 in their names.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>find name/NAME &amp;&amp; code/CODE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns modules containing <code>NAME</code> in their name and <code>CODE</code> in their codes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>find code/CODE || (name/NAME &amp;&amp; code/CODE2)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns modules containing either <code>CODE</code> in their codes or <code>NAME</code>
+in their names and <code>CODE2</code> in their codes.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
@@ -415,21 +551,12 @@ Format: <code>find [name/NAME NAME…] [code/CODE CODE…] [credits/CREDITS CRED
 <p>The search is case insensitive. e.g <code>security</code> will match <code>Security</code></p>
 </li>
 <li>
-<p>The order of the keywords does not matter. e.g. <code>Security Information</code> will match <code>Information Security</code></p>
-</li>
-<li>
-<p>The order of the prefix does not matter.<br>
-e.g. finding <code>name/NAME&#8230;&#8203; code/CODE&#8230;&#8203;</code> will have the same result as finding <code>code/CODE&#8230;&#8203; name/NAME&#8230;&#8203;</code></p>
-</li>
-<li>
-<p>Only the module name, code or credits is searched.</p>
-</li>
-<li>
 <p>Only full words will be matched. e.g. <code>CS</code> will not match <code>CS1231</code></p>
 </li>
 <li>
-<p>Modules matching at least one keyword will be returned (i.e. <code>OR</code> search).<br>
-e.g. <code>Information</code> will return <code>Information Technology</code>, <code>Information Business</code></p>
+<p>The order of the prefixes does not matter. e.g. <code>find code/CODE || name/NAME</code> returns the same result as
+<code>find name/NAME ||
+code/CODE</code></p>
 </li>
 </ul>
 </div>
@@ -442,29 +569,53 @@ e.g. <code>Information</code> will return <code>Information Technology</code>, <
 <ul>
 <li>
 <p><code>find name/Security</code><br>
-Returns <code>security</code> and <code>Information Security</code> in the displayed module list.</p>
+Displays any modules having the word <code>security</code> (e.g. <code>security</code> and <code>Information Security</code>) in the module list.</p>
 </li>
 <li>
-<p><code>find name/Security Information Computer</code><br>
-Returns any module having names <code>Security</code>, <code>Information</code>, or <code>Computer</code> in the displayed module list.</p>
+<p><code>find name/Information Security</code><br>
+Displays any modules having name with exact match  <code>Information Security</code> in the module list.</p>
 </li>
 <li>
-<p><code>find code/CS1231 CS2040</code><br>
-Returns any module having code <code>CS1231</code> or <code>CS2040</code> in the displayed module list.</p>
+<p><code>find code/CS1231 || code/CS2040</code> <br>
+Displays any modules having code <code>CS1231</code> or <code>CS2040</code> in the module list.</p>
 </li>
 <li>
-<p><code>find credits/004 012</code><br>
-Returns any module having credits <code>004</code> or <code>012</code> in the displayed module list.</p>
+<p><code>find credits/4 || credits/12</code><br>
+Displays any modules having credits <code>4</code> or <code>12</code> in the module list.</p>
 </li>
 <li>
-<p><code>find name/Programming code/CS1231</code><br>
-Returns any module having name <code>Programming</code> or code <code>CS1231</code> in the displayed module list.</p>
+<p><code>find name/Programming || code/CS1231</code><br>
+Displays any modules having name <code>Programming</code> or code <code>CS1231</code> in the module list.</p>
 </li>
 <li>
-<p><code>find code/CS2113 credits/004 name/Programming</code><br>
-Returns any module having name <code>Programming</code> or code <code>CS2113</code> or credits <code>004</code> in the displayed module list.</p>
+<p><code>find code/CS2113 || credits/4 &amp;&amp; name/Programming</code><br>
+Displays any modules having name <code>Programming</code> and credits <code>4</code> or code <code>CS2113</code> in the module list.</p>
+</li>
+<li>
+<p><code>find name/Programming &amp;&amp; (code/CS1231 || code/CS1010)</code><br>
+Displays any modules having name <code>Programming</code> and code <code>CS1231</code> or code <code>CS1010</code> in the module list.</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you wish to search for module name with exact name <code>Information Security</code>, you could do so via the following command
+ <code>find name/information security</code></p>
+</div>
+<div class="paragraph">
+<p>Do note that if you prefer to search for module name containing both <code>Information</code> and <code>Security</code> but in any order,
+you can do the following command. <code>find name/Information &amp;&amp; name/Security</code><br>
+This command will return you modules with both name keywords. (e.g. <code>Security in Information Privacy</code>)</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -684,10 +835,10 @@ Format: <code>clear</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-a-module-to-the-degree-planner-code-planner_add-code-code-coming-in-v2-0-code"><a class="link" href="#adding-a-module-to-the-degree-planner-code-planner_add-code-code-coming-in-v2-0-code">3.12. Adding a module to the degree planner : <code>planner_add</code> <code>[coming in v2.0]</code></a></h3>
+<h3 id="adding-module-s-to-degree-plan-code-planner_add-code"><a class="link" href="#adding-module-s-to-degree-plan-code-planner_add-code">3.12. Adding module(s) to degree plan : <code>planner_add</code></a></h3>
 <div class="paragraph">
-<p>Adds an existing module to the degree planner.<br>
-Format: <code>planner_add CODE y/YEAR s/SEMESTER</code></p>
+<p>Adds module(s) to the degree plan.<br>
+Format: <code>planner_add year/YEAR sem/SEMESTER code/CODE [code/CODE]…</code></p>
 </div>
 <div class="ulist">
 <ul>
@@ -705,13 +856,16 @@ Format: <code>planner_add CODE y/YEAR s/SEMESTER</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>3 or 4 for <code>SEMESTER</code> indicates special semesters 1 and 2 respectively.</p>
+<p>3 and 4 for <code>SEMESTER</code> indicates special term semesters 1 and 2 respectively.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>After adding, the changes will be reflected in the degree planner accordingly.</p>
+<p>All the module(s) to be added must exist in the module list.</p>
+</li>
+<li>
+<p>After adding, the updated degree plan will be displayed.</p>
 </li>
 </ul>
 </div>
@@ -721,26 +875,33 @@ Format: <code>planner_add CODE y/YEAR s/SEMESTER</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>planner_add CS1231 y/1 s/2</code><br>
-Adds module CS1231 to year 1 semester 2.</p>
+<p><code>planner_add year/1 sem/3 code/CS1010</code><br>
+Adds module CS1010 to year 1 semester 3 (special term semester 1) of the degree plan.</p>
 </li>
 <li>
-<p><code>planner_add CS1010 y/1 s/3</code><br>
-Adds module CS1010 to year 1 special semester 1.</p>
+<p><code>planner_add year/1 sem/4 code/CS1231 code/CS2040C</code><br>
+Adds modules CS1231 and CS2040C to year 1 semester 4 (special term semester 2) of the degree plan.</p>
+</li>
+<li>
+<p><code>planner_add year/1 sem/2 code/CS2113T code/CS2107</code><br>
+Adds modules CS2113T and CS2107 to year 1 semester 2 of the degree plan.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-module-from-the-degree-planner-code-planner_delete-code-code-coming-in-v2-0-code"><a class="link" href="#deleting-a-module-from-the-degree-planner-code-planner_delete-code-code-coming-in-v2-0-code">3.13. Deleting a module from the degree planner : <code>planner_delete</code> <code>[coming in v2.0]</code></a></h3>
+<h3 id="removing-module-s-from-degree-plan-code-planner_remove-code-code-coming-in-v2-0-code"><a class="link" href="#removing-module-s-from-degree-plan-code-planner_remove-code-code-coming-in-v2-0-code">3.13. Removing module(s) from degree plan : <code>planner_remove</code> <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
-<p>Deletes an existing module from the degree planner.<br>
-Format: <code>planner_delete CODE</code></p>
+<p>Removes module(s) from the degree plan.<br>
+Format: <code>planner_remove code/CODE [code/CODE]…</code></p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>After deleting, the changes will be reflected in the degree planner accordingly.</p>
+<p>All the module(s) to remove must exist in the degree plan.</p>
+</li>
+<li>
+<p>After removing, the updated degree plan will be displayed.</p>
 </li>
 </ul>
 </div>
@@ -750,7 +911,12 @@ Format: <code>planner_delete CODE</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>planner_delete CS1231</code></p>
+<p><code>planner_remove code/CS1231</code><br>
+Removes module CS1231 from the degree plan.</p>
+</li>
+<li>
+<p><code>planner_remove code/CS2100 code/CS2040C</code><br>
+Removes modules CS2100 and CS2040C from the degree plan.</p>
 </li>
 </ul>
 </div>
@@ -985,12 +1151,12 @@ e.g.<code>select 2</code></p>
 <p><strong>Redo</strong> : <code>redo</code></p>
 </li>
 <li>
-<p><strong>Add module to degree planner</strong> : <code>planner_add CODE y/YEAR s/SEMESTER</code><br>
-e.g.  <code>planner_add CS1010 y/1 s/2</code></p>
+<p><strong>Add module(s) to degree plan</strong> : <code>planner_add year/YEAR sem/SEMESTER code/CODE [code/CODE]…</code><br>
+e.g.  <code>planner_add year/1 sem/2 code/CS1010 code/CS2113T</code></p>
 </li>
 <li>
-<p><strong>Delete module from degree planner</strong> : <code>planner_delete CODE</code><br>
-e.g.  <code>planner_delete CS1231</code></p>
+<p><strong>Remove module(s) from degree plan</strong> : <code>planner_remove code/CODE [code/CODE]…</code><br>
+e.g.  <code>planner_remove code/CS1231 code/CS1010</code></p>
 </li>
 <li>
 <p><strong>Move module between academic semesters in the degree plan</strong> : <code>planner_move year/YEAR sem/SEMESTER code/CODE</code><br>
@@ -1025,4 +1191,4 @@ e.g. <code>requirement_move IS4231 name/IT Professionalism</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-01 12:44:21 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-01 15:38:41 UTC</div></div></div></body></html>
