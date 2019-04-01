@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -15,13 +16,13 @@ import seedu.address.model.module.Name;
 import seedu.address.model.requirement.RequirementCategory;
 
 /**
- * Adds a module to the address book.
+ * Adds a module to a requirement category.
  */
 public class RequirementAddCommand extends Command {
 
     public static final String COMMAND_WORD = "requirement_add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module to a requirement category. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module to a requirement category.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + "[" + PREFIX_CODE + "CODE]...\n"
@@ -29,13 +30,15 @@ public class RequirementAddCommand extends Command {
             + PREFIX_NAME + "IT Professionalism "
             + PREFIX_CODE + "IS4231 ";
 
-    public static final String MESSAGE_SUCCESS = "Module added to requirement category: %1$s ";
+    public static final String MESSAGE_SUCCESS = "Module added to requirement category: %1$s";
     public static final String MESSAGE_NONEXISTENT_REQUIREMENT_CATEGORY =
-            "The requirement category: %1$s does not exist!";
+            "The requirement category (%1$s) does not exist!";
     public static final String MESSAGE_NONEXISTENT_CODE =
             "The module to be added to the requirement category does not exists in the module list!";
     public static final String MESSAGE_DUPLICATE_CODE =
             "The module has already been added to %1$s ";
+    public static final String MESSAGE_EXISTING_CODE =
+            "The module to be added already exists in another requirement category!";
 
     private final Name toFind;
     private final Set<Code> toAdd = new HashSet<>();
@@ -50,14 +53,14 @@ public class RequirementAddCommand extends Command {
         this.toAdd.addAll(codeSet);
     }
 
-    @Override public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    @Override
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         RequirementCategory currentRequirementCategory = model.getRequirementCategory(toFind);
 
         if (currentRequirementCategory == null) {
-            throw new CommandException(
-                    String.format(MESSAGE_NONEXISTENT_REQUIREMENT_CATEGORY, toFind));
+            throw new CommandException(String.format(MESSAGE_NONEXISTENT_REQUIREMENT_CATEGORY, toFind));
         }
 
         if (toAdd.stream().anyMatch(code -> !model.hasModuleCode(code))) {
@@ -65,8 +68,17 @@ public class RequirementAddCommand extends Command {
         }
 
         if (currentRequirementCategory.hasModuleCode(toAdd)) {
-            throw new CommandException(
-                    String.format(MESSAGE_DUPLICATE_CODE, toFind));
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_CODE, toFind));
+        }
+
+        Stream<RequirementCategory> requirementCategories = model.getAddressBook()
+                .getRequirementCategoryList().stream();
+
+        boolean isAnyCodeInRequirementCategories = requirementCategories.anyMatch(reqCat -> toAdd.stream()
+                .anyMatch(code -> reqCat.getCodeSet().contains(code)));
+
+        if (isAnyCodeInRequirementCategories) {
+            throw new CommandException(MESSAGE_EXISTING_CODE);
         }
 
         Set<Code> newCodeSet = new HashSet<>(currentRequirementCategory.getCodeSet());

@@ -2,10 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -14,6 +12,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Credits;
 import seedu.address.model.module.Name;
+import seedu.address.model.planner.Semester;
+import seedu.address.model.planner.Year;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -53,25 +53,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String... name} into a {@code List<Name>}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code name} is invalid.
-     */
-    public static List<Name> parseMultiNames(String... names) throws ParseException {
-        List<Name> result = new ArrayList<>();
-        requireNonNull(names);
-        for (String name : names) {
-            String trimmedName = name.trim();
-            if (!Name.isValidName(trimmedName)) {
-                throw new ParseException(Name.MESSAGE_CONSTRAINTS);
-            }
-            result.add(new Name(trimmedName));
-        }
-        return result;
-    }
-
-    /**
      * Parses a {@code String credits} into a {@code Credits}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -86,24 +67,6 @@ public class ParserUtil {
         return new Credits(trimmedCredits);
     }
 
-    /**
-     * Parses a {@code String... credits} into a {@code List<Credits>}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code credits} is invalid.
-     */
-    public static List<Credits> parseMultiCredits(String... credits) throws ParseException {
-        List<Credits> result = new ArrayList<>();
-        requireNonNull(credits);
-        for (String credit : credits) {
-            String trimmedCredits = credit.trim();
-            if (!Credits.isValidCredits(trimmedCredits)) {
-                throw new ParseException(Credits.MESSAGE_CONSTRAINTS);
-            }
-            result.add(new Credits(trimmedCredits));
-        }
-        return result;
-    }
 
     /**
      * Parses a {@code String code} into an {@code Code}.
@@ -121,22 +84,33 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String... code} into an {@code List<Code>}.
+     * Parses a {@code String year} into an {@code Year}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code code} is invalid.
+     * @throws ParseException if the given {@code year} is invalid.
      */
-    public static List<Code> parseMultiCodes(String... codes) throws ParseException {
-        List<Code> result = new ArrayList<>();
-        requireNonNull(codes);
-        for (String code : codes) {
-            String trimmedCode = code.trim();
-            if (!Code.isValidCode(trimmedCode)) {
-                throw new ParseException(Code.MESSAGE_CONSTRAINTS);
-            }
-            result.add(new Code(trimmedCode));
+    public static Year parseYear(String year) throws ParseException {
+        requireNonNull(year);
+        String trimmedYear = year.trim();
+        if (!Year.isValidYear(trimmedYear)) {
+            throw new ParseException(Year.MESSAGE_YEAR_CONSTRAINTS);
         }
-        return result;
+        return new Year(trimmedYear);
+    }
+
+    /**
+     * Parses a {@code String semester} into an {@code Semester}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code year} is invalid.
+     */
+    public static Semester parseSemester(String semester) throws ParseException {
+        requireNonNull(semester);
+        String trimmedSemester = semester.trim();
+        if (!Semester.isValidSemester(trimmedSemester)) {
+            throw new ParseException(Semester.MESSAGE_SEMESTER_CONSTRAINTS);
+        }
+        return new Semester(trimmedSemester);
     }
 
     /**
@@ -188,5 +162,26 @@ public class ParserUtil {
             corequisitesSet.add(parseCode(corequisite));
         }
         return corequisitesSet;
+    }
+
+    /**
+     * Checks if the {@code keyword} is a word of {@code compareTo},
+     * or if {@code keyword} contain multiple words, checks whether {@code keyword} is equals to {@code compareTo}
+     * Ignore cases.
+     * If keyword do not contain any space. We will check if its part of a word.
+     * Else we check for a full match.
+     * <br>examples: <pre>
+     *     keyword = "abc"
+     *     Returns true since "abc" is part of "abc xyz 123"
+     *     keyword = "abc xyz
+     *     Returns true since "abc xyz" is equal to "abc xyz"
+     * </pre>
+     */
+    public static boolean parseKeyword(String keyword, String compareTo) {
+        if (keyword.split("\\s+").length == 1) {
+            return StringUtil.containsWordIgnoreCase(compareTo, keyword);
+        } else {
+            return StringUtil.compareEqualsIgnoreCase(compareTo, keyword);
+        }
     }
 }
