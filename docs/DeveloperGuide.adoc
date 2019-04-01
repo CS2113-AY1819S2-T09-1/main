@@ -940,7 +940,6 @@ Use case ends.
 * 1c. The module(s) does not exist in the module list.
 [none]
 ** 1c1. Application shows an error message that the module(s) specified by user does not exist in the module list.
-*** 1c1a. In cases where step 1b takes place simultaneously with step 1c, step 1c1 will not take place.
 +
 Use case ends.
 
