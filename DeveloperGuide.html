@@ -29,15 +29,15 @@
 </li>
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
-<li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
+<li><a href="#undo-redo-feature">3.1. Undo/Redo Feature</a></li>
 <li><a href="#module-co-requisites">3.2. Module co-requisites</a></li>
-<li><a href="#requirement-add-command">3.3. Requirement Add command</a></li>
-<li><a href="#planner-move-feature">3.4. Planner Move Feature</a></li>
-<li><a href="#requirement-list-command">3.5. Requirement List command</a></li>
-<li><a href="#planner-list-feature">3.6. Planner List Feature</a></li>
-<li><a href="#logging">3.7. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.8. Configuration</a></li>
-<li><a href="#find-feature">3.9. Find Feature</a></li>
+<li><a href="#find-feature">3.3. Find Feature</a></li>
+<li><a href="#requirement-add-feature">3.4. Requirement Add Feature</a></li>
+<li><a href="#requirement-list-feature">3.5. Requirement List Feature</a></li>
+<li><a href="#planner-move-feature">3.6. Planner Move Feature</a></li>
+<li><a href="#planner-list-feature">3.7. Planner List Feature</a></li>
+<li><a href="#logging">3.8. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.9. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -547,7 +547,7 @@ The following class plays an important role at the architecture level:</p>
 <p>This section describes some noteworthy details on how certain features are implemented.</p>
 </div>
 <div class="sect2">
-<h3 id="undo-redo-feature"><a class="link" href="#undo-redo-feature">3.1. Undo/Redo feature</a></h3>
+<h3 id="undo-redo-feature"><a class="link" href="#undo-redo-feature">3.1. Undo/Redo Feature</a></h3>
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">3.1.1. Current Implementation</a></h4>
 <div class="paragraph">
@@ -826,12 +826,226 @@ refreshed to display the full listing just to be able to iterate and delete modu
 </div>
 </div>
 <div class="sect2">
-<h3 id="requirement-add-command"><a class="link" href="#requirement-add-command">3.3. Requirement Add command</a></h3>
+<h3 id="find-feature"><a class="link" href="#find-feature">3.3. Find Feature</a></h3>
+<div class="paragraph">
+<p>The find feature aims to help users to be able to locate any module in our application easily. We support
+the finding of module&#8217;s name, code and credits. This enable our users to be able to find for any modules with partial
+ information.</p>
+</div>
+<div class="sect3">
+<h4 id="overview"><a class="link" href="#overview">3.3.1. Overview</a></h4>
+<div class="paragraph">
+<p>When a user invokes the <code>find</code> command. (e.g. find name/Programming code/CS1231), the following steps are taken by
+the program.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Extract out the text related to <code>find</code> command</p>
+</li>
+<li>
+<p>Parse the text related to each <code>PREFIX</code> individually.</p>
+</li>
+<li>
+<p>Return a composite predicate for all attributes.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Step 1 is performed by the <code>AddressBookParser</code> class, and no special actions is needed for the <code>find</code> feature.</p>
+</div>
+<div class="paragraph">
+<p>Step 3 is performed by <code>BooleanExpression#parse</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.2. Current Implementation</a></h4>
+<div class="paragraph">
+<p>The <code>FindCommandParser</code> parses the strings of arguments provided by the user to retrieve a composite <code>Predicate</code>
+which is used by <code>FindCommand</code>. A <code>ParseException</code> is thrown when if the input provided by the user does not conform
+to the expected format.</p>
+</div>
+<div class="paragraph">
+<p>The sequence diagram below shows the interaction within the <code>Logic</code> components.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/FindCommandSequenceDiagram.png" alt="FindCommandSequenceDiagram" width="650">
+</div>
+<div class="title">Figure 9. Find component interactions</div>
+</div>
+<div class="paragraph">
+<p>The main implementation of this feature is split into two components. The <code>Tokenizer</code> and <code>BooleanExpressionParser</code></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>Tokenizer</code> helps to split the user provided argument into tokens which could be used by <code>BooleanExpressionParser</code>.</p>
+</li>
+<li>
+<p><code>BooleanExpressionParser</code> handle the high-level syntax of the find expressions and map them into
+<code>Predicate</code> which could be used by <code>FindCommand</code></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="tokenizer"><a class="link" href="#tokenizer">3.3.3. Tokenizer</a></h4>
+<div class="paragraph">
+<p>This is represented by the class <code>seedu.address.logic.parser.BooleanExpressionTokenizer</code> and is designed to extract
+all argument with <code>PREFIX</code> and <code>OPERATOR</code> as a token.</p>
+</div>
+<div class="paragraph">
+<p>This class is initialized with the input argument and prefixes and can be queried for token multiple times.<br>
+Each query will consume the previous token and returns the next available token.<br>
+This is similar to how <code>java.util.Scanner</code> works.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="operator"><a class="link" href="#operator">3.3.4. Operator</a></h4>
+<div class="paragraph">
+<p>This is represented by the class <code>seedu.address.logic.parser.Operator</code> and define all valid operators to be used in
+<code>BooleanExpressionParser</code>.</p>
+</div>
+<div class="paragraph">
+<p>To support more operators for our <code>BooleanExpressionParser</code>. The following steps should be done.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add the operator and give it precedence.</p>
+</li>
+<li>
+<p>Update the mapping between <code>String</code> and <code>Operator</code> in <code>Operator#getOperatorFromString</code></p>
+</li>
+<li>
+<p>Update the logic of the new operator in <code>Operator#applyOperator</code></p>
+</li>
+<li>
+<p>Update <code>CliSyntax.OPERATORS</code> to include the new operator.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="boolean-expression-parser"><a class="link" href="#boolean-expression-parser">3.3.5. Boolean Expression Parser</a></h4>
+<div class="paragraph">
+<p>This is represented by the class <code>seedu.address.logic.parser.BooleanExpressionParser</code> and is designed to map user
+provided input into composite <code>Predicate&lt;Module&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>The following table shows the operators currently supported by <code>BooleanExpressionParser</code>(Highest precedence
+first).</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Operators</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&amp;&amp;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical AND of two predicates</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>||</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical OR of two predicates.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Parentheses <code>(</code> and <code>)</code> are also recognized and respected, and they may be nested to arbitrary depth. This is handled by
+ <a href="https://en.wikipedia.org/wiki/Shunting-yard_algorithm">Shunting Yard</a> algorithm which respects the precedence of each
+ operators when parsing.</p>
+</div>
+<div class="paragraph">
+<p>The sequence diagram below shows the interactions between <code>FindCommandParser</code> and <code>BooleanExpressionParser</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/parserSequenceDiagram.png" alt="parserSequenceDiagram" width="650">
+</div>
+<div class="title">Figure 10. Parser interactions</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-consideration"><a class="link" href="#design-consideration">3.3.6. Design Consideration</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-to-parse-composite-predicates"><a class="link" href="#aspect-how-to-parse-composite-predicates">Aspect: How to parse composite predicates</a></h5>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Currently we are using choice 2 because this provide our users with a more flexible way of finding modules in our
+application.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternative 1: Do an implicit boolean <code>OR</code> for every predicate.</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Very easy to implementation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User will not be able to do a very detailed or complex find.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternative 2 (current choice): Implement an algorithm <a href="https://en.wikipedia.org/wiki/Shunting-yard_algorithm">Shunting Yard</a>
+that can parse complex boolean expression.</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User will have very flexible searching terms</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Developer will take a very long time to implement and test for edge cases.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="requirement-add-feature"><a class="link" href="#requirement-add-feature">3.4. Requirement Add Feature</a></h3>
 <div class="paragraph">
 <p>The <code>requirement_add</code> command in PWE is used to add module code(s) to the requirement category.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.1. Current implementation</a></h4>
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.4.1. Current implementation</a></h4>
 <div class="paragraph">
 <p>The <code>requirement_add</code> command requires the <code>RequirementAddCommandParser</code> class to parse the user input provided. The
  parsed data will then be passed to the <code>RequirmentAddCommand</code> class.</p>
@@ -876,11 +1090,11 @@ current database state through <code>commitAddressBook</code> (for undo/redo fun
 <div class="content">
 <img src="images/RequirementAddCommandSequenceDiagram.png" alt="RequirementAddCommandSequenceDiagram" width="650">
 </div>
-<div class="title">Figure 9. RequirementAddCommand component interactions</div>
+<div class="title">Figure 11. RequirementAddCommand component interactions</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.2. Design Considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.4.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-choice-of-what-is-stored-in-the-requirement-category"><a class="link" href="#aspect-choice-of-what-is-stored-in-the-requirement-category">Aspect: Choice of what is stored in the requirement category</a></h5>
 <div class="ulist">
@@ -935,13 +1149,106 @@ current database state through <code>commitAddressBook</code> (for undo/redo fun
 </div>
 </div>
 <div class="sect2">
-<h3 id="planner-move-feature"><a class="link" href="#planner-move-feature">3.4. Planner Move Feature</a></h3>
+<h3 id="requirement-list-feature"><a class="link" href="#requirement-list-feature">3.5. Requirement List Feature</a></h3>
+<div class="paragraph">
+<p>The <code>requirement_list</code> command in PWE is used to display all requirement categories and the module code(s) that have
+been added to requirement category.</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current implementation</a></h4>
+<div class="paragraph">
+<p>The <code>requirement_list</code> command requires no additional input other than the command itself.</p>
+</div>
+<div class="paragraph">
+<p>When the <code>RequirementListCommand</code> class is called, it will perform the following actions before displaying the output
+to the user:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Obtain a list of all the requirement categories in the application</p>
+</li>
+<li>
+<p>Check if there are modules added to the requirement category</p>
+</li>
+<li>
+<p>Calculate the current amount of credits based on the modules added to the requirement category</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If there are no modules added to a requirement category, the output will display <code>No modules in this category!</code> for
+ the particular requirement category. Otherwise, it will display the modules codes that have been added.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/RequirementListCommandSequenceDiagram.png" alt="RequirementListCommandSequenceDiagram" width="650">
+</div>
+<div class="title">Figure 12. RequirmentListCommand component interactions</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.5.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-tracking-the-current-amount-of-credits-in-a-requirement-category"><a class="link" href="#aspect-tracking-the-current-amount-of-credits-in-a-requirement-category">Aspect: Tracking the current amount of credits in a requirement category</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternative 1: Creating a new attribute to store the credits</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Current amount of credits is always available.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hard to maintain. When a module credit is updated to a new value, the corresponding attribute has to be
+          updated as well. Additional storage space is needed to store the additional attribute.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternative 2 (current choice): Calculating the credits when needed.</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No maintenance needed. Able to easily calculate the credits when needed as module information are easily obtainable.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extra overhead is required to retrieve and calculate the credits.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="planner-move-feature"><a class="link" href="#planner-move-feature">3.6. Planner Move Feature</a></h3>
 <div class="paragraph">
 <p>The <code>planner_move</code> command provides functionality for users to move a module between academic semesters in the degree
 plan.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.4.1. Current Implementation</a></h4>
+<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.6.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The user input provided will be parsed by the <code>PlannerMoveCommandParser</code> class.
 Then, the parsed input will be passed to <code>PlannerMoveCommand</code> class to execute the <code>planner_move</code> command.</p>
@@ -988,11 +1295,11 @@ undo/redo functions).</p>
 <div class="content">
 <img src="images/PlannerMoveComponentSequenceDiagram.png" alt="PlannerMoveComponentSequenceDiagram" width="650">
 </div>
-<div class="title">Figure 10. PlannerMove component interactions</div>
+<div class="title">Figure 13. PlannerMove component interactions</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.4.2. Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.6.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-should-searching-of-the-degree-plan-based-on-the-year-and-the-semester-provided-to-be-done"><a class="link" href="#aspect-how-should-searching-of-the-degree-plan-based-on-the-year-and-the-semester-provided-to-be-done">Aspect: How should searching of the degree plan based on the year and the semester provided to be done</a></h5>
 <div class="ulist">
@@ -1096,107 +1403,14 @@ the semester provided.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="requirement-list-command"><a class="link" href="#requirement-list-command">3.5. Requirement List command</a></h3>
-<div class="paragraph">
-<p>The <code>requirement_list</code> command in PWE is used to display all requirement categories and the module code(s) that have
-been added to requirement category.</p>
-</div>
-<div class="sect3">
-<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current implementation</a></h4>
-<div class="paragraph">
-<p>The <code>requirement_list</code> command requires no additional input other than the command itself.</p>
-</div>
-<div class="paragraph">
-<p>When the <code>RequirementListCommand</code> class is called, it will perform the following actions before displaying the output
-to the user:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Obtain a list of all the requirement categories in the application</p>
-</li>
-<li>
-<p>Check if there are modules added to the requirement category</p>
-</li>
-<li>
-<p>Calculate the current amount of credits based on the modules added to the requirement category</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>If there are no modules added to a requirement category, the output will display <code>No modules in this category!</code> for
- the particular requirement category. Otherwise, it will display the modules codes that have been added.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/RequirementListCommandSequenceDiagram.png" alt="RequirementListCommandSequenceDiagram" width="650">
-</div>
-<div class="title">Figure 11. RequirmentListCommand component interactions</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.5.2. Design Considerations</a></h4>
-<div class="sect4">
-<h5 id="aspect-tracking-the-current-amount-of-credits-in-a-requirement-category"><a class="link" href="#aspect-tracking-the-current-amount-of-credits-in-a-requirement-category">Aspect: Tracking the current amount of credits in a requirement category</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p>Alternative 1: Creating a new attribute to store the credits</p>
-</li>
-</ul>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 30%;">
-<col style="width: 70%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Current amount of credits is always available.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Hard to maintain. When a module credit is updated to a new value, the corresponding attribute has to be
-          updated as well. Additional storage space is needed to store the additional attribute.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="ulist">
-<ul>
-<li>
-<p>Alternative 2 (current choice): Calculating the credits when needed.</p>
-</li>
-</ul>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 30%;">
-<col style="width: 70%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No maintenance needed. Able to easily calculate the credits when needed as module information are easily obtainable.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Extra overhead is required to retrieve and calculate the credits.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="planner-list-feature"><a class="link" href="#planner-list-feature">3.6. Planner List Feature</a></h3>
+<h3 id="planner-list-feature"><a class="link" href="#planner-list-feature">3.7. Planner List Feature</a></h3>
 <div class="paragraph">
 <p>Planner list feature aims to help users to be able to locate any degree planner(s) based on certain condition(s) in our
 application easily. We support the listing of degree planners based on year and semester. This enable a user to be able
 to list any degree planner(s) with partial information.</p>
 </div>
 <div class="sect3">
-<h4 id="overview"><a class="link" href="#overview">3.6.1. Overview</a></h4>
+<h4 id="overview-2"><a class="link" href="#overview-2">3.7.1. Overview</a></h4>
 <div class="paragraph">
 <p>When a user invokes the <code>planner_list</code> command. (e.g. planner_list y/YEAR s/SEMESTER), the following steps
 are taken by the program.</p>
@@ -1218,11 +1432,11 @@ are taken by the program.</p>
 <div class="content">
 <img src="images/PlannerListComponentSequenceDiagram.png" alt="PlannerListComponentSequenceDiagram" width="650">
 </div>
-<div class="title">Figure 12. PlannerList component interactions</div>
+<div class="title">Figure 14. PlannerList component interactions</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.6.2. Current Implementation</a></h4>
+<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">3.7.2. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Planner List is able to:</p>
 </div>
@@ -1247,7 +1461,7 @@ returns module having its year or semester matches the given year and semester</
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.6.3. Design Considerations</a></h4>
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.7.3. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-to-parse-multiple-attributes"><a class="link" href="#aspect-how-to-parse-multiple-attributes">Aspect: How to parse multiple attributes</a></h5>
 <div class="ulist">
@@ -1284,14 +1498,14 @@ returns module having its year or semester matches the given year and semester</
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.7. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.8. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.8, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.9, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1322,223 +1536,9 @@ returns module having its year or semester matches the given year and semester</
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.8. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.9. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="find-feature"><a class="link" href="#find-feature">3.9. Find Feature</a></h3>
-<div class="paragraph">
-<p>The find feature aims to help users to be able to locate any module in our application easily. We support
-the finding of module&#8217;s name, code and credits. This enable our users to be able to find for any modules with partial
- information.</p>
-</div>
-<div class="sect3">
-<h4 id="overview-2"><a class="link" href="#overview-2">3.9.1. Overview</a></h4>
-<div class="paragraph">
-<p>When a user invokes the <code>find</code> command. (e.g. find name/Programming code/CS1231), the following steps are taken by
-the program.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Extract out the text related to <code>find</code> command</p>
-</li>
-<li>
-<p>Parse the text related to each <code>PREFIX</code> individually.</p>
-</li>
-<li>
-<p>Return a composite predicate for all attributes.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Step 1 is performed by the <code>AddressBookParser</code> class, and no special actions is needed for the <code>find</code> feature.</p>
-</div>
-<div class="paragraph">
-<p>Step 3 is performed by <code>BooleanExpression#parse</code></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">3.9.2. Current Implementation</a></h4>
-<div class="paragraph">
-<p>The <code>FindCommandParser</code> parses the strings of arguments provided by the user to retrieve a composite <code>Predicate</code>
-which is used by <code>FindCommand</code>. A <code>ParseException</code> is thrown when if the input provided by the user does not conform
-to the expected format.</p>
-</div>
-<div class="paragraph">
-<p>The sequence diagram below shows the interaction within the <code>Logic</code> components.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/FindCommandSequenceDiagram.png" alt="FindCommandSequenceDiagram" width="650">
-</div>
-<div class="title">Figure 13. Find component interactions</div>
-</div>
-<div class="paragraph">
-<p>The main implementation of this feature is split into two components. The <code>Tokenizer</code> and <code>BooleanExpressionParser</code></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><code>Tokenizer</code> helps to split the user provided argument into tokens which could be used by <code>BooleanExpressionParser</code>.</p>
-</li>
-<li>
-<p><code>BooleanExpressionParser</code> handle the high-level syntax of the find expressions and map them into
-<code>Predicate</code> which could be used by <code>FindCommand</code></p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="tokenizer"><a class="link" href="#tokenizer">3.9.3. Tokenizer</a></h4>
-<div class="paragraph">
-<p>This is represented by the class <code>seedu.address.logic.parser.BooleanExpressionTokenizer</code> and is designed to extract
-all argument with <code>PREFIX</code> and <code>OPERATOR</code> as a token.</p>
-</div>
-<div class="paragraph">
-<p>This class is initialized with the input argument and prefixes and can be queried for token multiple times.<br>
-Each query will consume the previous token and returns the next available token.<br>
-This is similar to how <code>java.util.Scanner</code> works.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="operator"><a class="link" href="#operator">3.9.4. Operator</a></h4>
-<div class="paragraph">
-<p>This is represented by the class <code>seedu.address.logic.parser.Operator</code> and define all valid operators to be used in
-<code>BooleanExpressionParser</code>.</p>
-</div>
-<div class="paragraph">
-<p>To support more operators for our <code>BooleanExpressionParser</code>. The following steps should be done.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Add the operator and give it precedence.</p>
-</li>
-<li>
-<p>Update the mapping between <code>String</code> and <code>Operator</code> in <code>Operator#getOperatorFromString</code></p>
-</li>
-<li>
-<p>Update the logic of the new operator in <code>Operator#applyOperator</code></p>
-</li>
-<li>
-<p>Update <code>CliSyntax.OPERATORS</code> to include the new operator.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="boolean-expression-parser"><a class="link" href="#boolean-expression-parser">3.9.5. Boolean Expression Parser</a></h4>
-<div class="paragraph">
-<p>This is represented by the class <code>seedu.address.logic.parser.BooleanExpressionParser</code> and is designed to map user
-provided input into composite <code>Predicate&lt;Module&gt;</code>.</p>
-</div>
-<div class="paragraph">
-<p>The following table shows the operators currently supported by <code>BooleanExpressionParser</code>(Highest precedence
-first).</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Operators</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&amp;&amp;</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Logical AND of two predicates</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>||</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Logical OR of two predicates.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>Parentheses <code>(</code> and <code>)</code> are also recognized and respected, and they may be nested to arbitrary depth. This is handled by
- <a href="https://en.wikipedia.org/wiki/Shunting-yard_algorithm">Shunting Yard</a> algorithm which respects the precedence of each
- operators when parsing.</p>
-</div>
-<div class="paragraph">
-<p>The sequence diagram below shows the interactions between <code>FindCommandParser</code> and <code>BooleanExpressionParser</code>.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/parserSequenceDiagram.png" alt="parserSequenceDiagram" width="650">
-</div>
-<div class="title">Figure 14. Parser interactions</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="design-consideration"><a class="link" href="#design-consideration">3.9.6. Design Consideration</a></h4>
-<div class="sect4">
-<h5 id="aspect-how-to-parse-composite-predicates"><a class="link" href="#aspect-how-to-parse-composite-predicates">Aspect: How to parse composite predicates</a></h5>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Currently we are using choice 2 because this provide our users with a more flexible way of finding modules in our
-application.
-</td>
-</tr>
-</table>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Alternative 1: Do an implicit boolean <code>OR</code> for every predicate.</p>
-</li>
-</ul>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 30%;">
-<col style="width: 70%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Very easy to implementation</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">User will not be able to do a very detailed or complex find.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="ulist">
-<ul>
-<li>
-<p>Alternative 2 (current choice): Implement an algorithm <a href="https://en.wikipedia.org/wiki/Shunting-yard_algorithm">Shunting Yard</a>
-that can parse complex boolean expression.</p>
-</li>
-</ul>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 30%;">
-<col style="width: 70%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">User will have very flexible searching terms</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Developer will take a very long time to implement and test for edge cases.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
 </div>
 </div>
 </div>
@@ -3052,4 +3052,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-01 15:54:42 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-02 05:39:03 UTC</div></div></div></body></html>
