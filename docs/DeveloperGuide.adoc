@@ -226,7 +226,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== Undo/Redo feature
+=== Undo/Redo Feature
 ==== Current Implementation
 
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
@@ -342,248 +342,7 @@ corequisites. The user will have to delete the invalid co-requisite manually aft
 refreshed to display the full listing just to be able to iterate and delete modules co-requisites accordingly.
 // end::corequisites[]
 
-// tag::requirement-add[]
-=== Requirement Add command
-The `requirement_add` command in PWE is used to add module code(s) to the requirement category.
-
-==== Current implementation
-
-The `requirement_add` command requires the `RequirementAddCommandParser` class to parse the user input provided. The
- parsed data will then be passed to the `RequirmentAddCommand` class.
-
-The input should consist of the name of the requirement category and module code(s) to be added.
-
-`RequirementAddCommandParser` will throw an error if the user input does not match the command format.
-
-When `RequirementAddCommand` receives the parsed data, it will perform the following checks:
-
-- Check if the requirement category exists in PWE through `getRequirementCategory`
-- Check if the module codes provided exists in PWE through `model.hasModuleCode`
-- Check if the module codes have already been added to other requirement categories
-- Check if the module codes have already been added to the specified requirement category through `RequirementCategory.hasModuleCode`
-
-`RequirementAddCommand` will throw an error if any of the above checks fails.
-
-After passing all of the above checks, `RequirementAddCommand` updates the context in `ModelManager` through
-`setRequirementCategory`.
-
-In addition to adding module code(s) to the requirement category, the `RequirementAddCommand` class also saves the
-current database state through `commitAddressBook` (for undo/redo functions).
-
-.RequirementAddCommand component interactions
-image::RequirementAddCommandSequenceDiagram.png[width="650"]
-
-==== Design Considerations
-===== Aspect: Choice of what is stored in the requirement category
-
-- Alternative 1 (current choice): Storing only the module codes.
-
-[cols="30%,<70%"]
-|======
-|*Pros*| Lesser storage space is required. Easy to maintain.
-|*Cons*| Extra overhead is required when additional information related to the module is needed to be retrieved.
-|======
-
-- Alternative 2: Storing all information related to the modules.
-
-[cols="30%,<70%"]
-|=====
-| *Pros* | Every information related to the modules is easily retrievable.
-| *Cons* | The stored information is duplicated, additional storage space and processing time is needed to load the requirement categories.
-           Hard to maintain the stored information, if a module information is updated, have to ensure that the
-           stored information is updated as well.
-|=====
-//end::requirement-add[]
-
-// tag::planner-move[]
-=== Planner Move Feature
-The `planner_move` command provides functionality for users to move a module between academic semesters in the degree
-plan.
-
-==== Current Implementation
-The user input provided will be parsed by the `PlannerMoveCommandParser` class.
-Then, the parsed input will be passed to `PlannerMoveCommand` class to execute the `planner_move` command.
-
-The input should consist of the year and the semester of the degree plan that the user wants to move to and the module
-code that the user want to move.
-
-`PlannerMoveCommandParser` will throw an error if the user input does not match the command format.
-
-When `PlannerMoveCommand` receives the parsed data, it will perform the following checks in order:
-
-- Check if there exists any academic semester in degree plan that has the module code provided through the user input.
-- Check if there exists any academic semester in degree plan that has the corresponding year and the semester provided
-through the user input.
-- Check if the academic semester in degree plan that the user is trying to move the module from is not same as the
-academic semester that the user is trying to move the module to.
-
-`PlannerMoveCommand` will throw an error if any of the first two check fails.
-
-If the last check fails, `PlannerMoveCommand` will not update the degree plan since there is nothing to be changed.
-
-If all checks pass, `PlannerMoveCommand` will update the context in `ModelManager` through `setDegreePlanner`.
-
-In addition, the `PlannerMoveCommand` class also saves the current database state through `commitAddressBook` (for
-undo/redo functions).
-
-.PlannerMove component interactions
-image::PlannerMoveComponentSequenceDiagram.png[width="650"]
-
-==== Design Considerations
-===== Aspect: How should searching of the degree plan based on the year and the semester provided to be done
-
-* **Alternative 1 (current choice):** Construct `DegreePlanner` object with the year and the semester provided and use
-`DegreePlanner#isSameDegreePlanner` to compare and search for the corresponding degree plan.
-
-[cols="30%,<70%"]
-|======
-|*Pros*| There is no need to create any method that may create unnecessary coupling.
-|*Cons*| There is a need to create a `DegreePlanner` object in order to use `DegreePlanner#isSameDegreePlanner`.
-|======
-
-* **Alternative 2:** Create `getDegreePlanner` method which retrieves `DegreePlanner` object based on the year and
-the semester provided.
-
-[cols="30%,<70%"]
-|======
-|*Cons*| The method will create unnecessary couplings between `AddressBook` and `Year` as well as between `AddressBook`
- and `Semester`.
-|======
-
-===== Aspect: How should moving of the module code provided from the academic semester to the same academic semester to be done
-
-* **Alternative 1 (current choice):** Do not update the degree plan
-
-[cols="30%,<70%"]
-|======
-|*Pros*|Minimize any overhead trying to attempt moving of the module code from and to the same degree plan.
-|*Cons*|Extra check is needed to determine if the module that the user is trying to move belongs to the same academic
- semester as the academic semester the user wants to move to.
-|======
-
-* **Alternative 2:** Modify `setDegreePlanner` to not throw `DuplicateDegreePlannerException` when `target` is same as
-`editedDegreePlanner`
-
-[cols="30%,<70%"]
-|======
-|*Pros*|Easy to implement as just needs to remove the `if` condition for the check in `setDegreePlanner` method.
-|*Cons*|Simply modifying it to not throw the error will potentially break many other parts of codes. In this case, it
- is not easy to implement anymore.
-|======
-
-// end::planner-move[]
-
-// tag::requirement-list[]
-=== Requirement List command
-The `requirement_list` command in PWE is used to display all requirement categories and the module code(s) that have
-been added to requirement category.
-
-==== Current implementation
-
-The `requirement_list` command requires no additional input other than the command itself.
-
-When the `RequirementListCommand` class is called, it will perform the following actions before displaying the output
-to the user:
-
-- Obtain a list of all the requirement categories in the application
-- Check if there are modules added to the requirement category
-- Calculate the current amount of credits based on the modules added to the requirement category
-
-If there are no modules added to a requirement category, the output will display `No modules in this category!` for
- the particular requirement category. Otherwise, it will display the modules codes that have been added.
-
-.RequirmentListCommand component interactions
-image::RequirementListCommandSequenceDiagram.png[width="650"]
-
-==== Design Considerations
-===== Aspect: Tracking the current amount of credits in a requirement category
-
-- Alternative 1: Creating a new attribute to store the credits
-
-[cols="30%,<70%"]
-|=====
-| *Pros* | Current amount of credits is always available.
-| *Cons* |Hard to maintain. When a module credit is updated to a new value, the corresponding attribute has to be
-          updated as well. Additional storage space is needed to store the additional attribute.
-|=====
-
-- Alternative 2 (current choice): Calculating the credits when needed.
-
-[cols="30%,<70%"]
-|======
-|*Pros*| No maintenance needed. Able to easily calculate the credits when needed as module information are easily obtainable.
-|*Cons*| Extra overhead is required to retrieve and calculate the credits.
-|======
-
-//end::requirement-list[]
-
-// tag::planner-list[]
-=== Planner List Feature
-
-Planner list feature aims to help users to be able to locate any degree planner(s) based on certain condition(s) in our
-application easily. We support the listing of degree planners based on year and semester. This enable a user to be able
-to list any degree planner(s) with partial information.
-
-==== Overview
-
-When a user invokes the `planner_list` command. (e.g. planner_list y/YEAR s/SEMESTER), the following steps
-are taken by the program.
-
-1. Extract out the text related to `planner_list` command
-2. Parse the text related to each `PREFIX` individually.
-3. Return a composite predicate for all attributes.
-
-.PlannerList component interactions
-image::PlannerListComponentSequenceDiagram.png[width="650"]
-
-==== Current Implementation
-
-Planner List is able to:
-
-* list degree planner(s) by year
-i.e. `planner_list y/YEAR`
-returns degree planner(s) having its year matches the year given
-
-* list degree planner(s) by semester
-i.e. `planner_list s/SEMESTER`
-returns degree planner(s) having its semester matches the semester given
-
-* include `year` and `semester` attributes in one `planner_list` command and list degree planner(s)
-i.e. `planner_list y/YEAR s/SEMESTER`
-returns module having its year or semester matches the given year and semester
-
-==== Design Considerations
-===== Aspect: How to parse multiple attributes
-
-- Alternative 1 (current choice): Parse the text related to each `PREFIX` individually
-** Pros: User is able to have more flexible search
-** Cons: More time and work needed for developer to implement
-
-- Alternative 2: Parse the text related to each `PREFIX` at one go
-** Pros: Easy to implement
-** Cons: Additional overhead needed
-// end::planner-list[]
-
-=== Logging
-
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
-
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
-
-*Logging Levels*
-
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
-
-[[Implementation-Configuration]]
-=== Configuration
-
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
-
+// tag::find[]
 ===  Find Feature
 
 The find feature aims to help users to be able to locate any module in our application easily. We support
@@ -687,9 +446,249 @@ application.
 | *Pros* | User will have very flexible searching terms
 | *Cons* | Developer will take a very long time to implement and test for edge cases.
 |=====
+//end::find[]
 
+// tag::requirement-add[]
+=== Requirement Add Feature
+The `requirement_add` command in PWE is used to add module code(s) to the requirement category.
 
+==== Current implementation
 
+The `requirement_add` command requires the `RequirementAddCommandParser` class to parse the user input provided. The
+ parsed data will then be passed to the `RequirmentAddCommand` class.
+
+The input should consist of the name of the requirement category and module code(s) to be added.
+
+`RequirementAddCommandParser` will throw an error if the user input does not match the command format.
+
+When `RequirementAddCommand` receives the parsed data, it will perform the following checks:
+
+- Check if the requirement category exists in PWE through `getRequirementCategory`
+- Check if the module codes provided exists in PWE through `model.hasModuleCode`
+- Check if the module codes have already been added to other requirement categories
+- Check if the module codes have already been added to the specified requirement category through `RequirementCategory.hasModuleCode`
+
+`RequirementAddCommand` will throw an error if any of the above checks fails.
+
+After passing all of the above checks, `RequirementAddCommand` updates the context in `ModelManager` through
+`setRequirementCategory`.
+
+In addition to adding module code(s) to the requirement category, the `RequirementAddCommand` class also saves the
+current database state through `commitAddressBook` (for undo/redo functions).
+
+.RequirementAddCommand component interactions
+image::RequirementAddCommandSequenceDiagram.png[width="650"]
+
+==== Design Considerations
+===== Aspect: Choice of what is stored in the requirement category
+
+- Alternative 1 (current choice): Storing only the module codes.
+
+[cols="30%,<70%"]
+|======
+|*Pros*| Lesser storage space is required. Easy to maintain.
+|*Cons*| Extra overhead is required when additional information related to the module is needed to be retrieved.
+|======
+
+- Alternative 2: Storing all information related to the modules.
+
+[cols="30%,<70%"]
+|=====
+| *Pros* | Every information related to the modules is easily retrievable.
+| *Cons* | The stored information is duplicated, additional storage space and processing time is needed to load the requirement categories.
+           Hard to maintain the stored information, if a module information is updated, have to ensure that the
+           stored information is updated as well.
+|=====
+//end::requirement-add[]
+
+// tag::requirement-list[]
+=== Requirement List Feature
+The `requirement_list` command in PWE is used to display all requirement categories and the module code(s) that have
+been added to requirement category.
+
+==== Current implementation
+
+The `requirement_list` command requires no additional input other than the command itself.
+
+When the `RequirementListCommand` class is called, it will perform the following actions before displaying the output
+to the user:
+
+- Obtain a list of all the requirement categories in the application
+- Check if there are modules added to the requirement category
+- Calculate the current amount of credits based on the modules added to the requirement category
+
+If there are no modules added to a requirement category, the output will display `No modules in this category!` for
+ the particular requirement category. Otherwise, it will display the modules codes that have been added.
+
+.RequirmentListCommand component interactions
+image::RequirementListCommandSequenceDiagram.png[width="650"]
+
+==== Design Considerations
+===== Aspect: Tracking the current amount of credits in a requirement category
+
+- Alternative 1: Creating a new attribute to store the credits
+
+[cols="30%,<70%"]
+|=====
+| *Pros* | Current amount of credits is always available.
+| *Cons* |Hard to maintain. When a module credit is updated to a new value, the corresponding attribute has to be
+          updated as well. Additional storage space is needed to store the additional attribute.
+|=====
+
+- Alternative 2 (current choice): Calculating the credits when needed.
+
+[cols="30%,<70%"]
+|======
+|*Pros*| No maintenance needed. Able to easily calculate the credits when needed as module information are easily obtainable.
+|*Cons*| Extra overhead is required to retrieve and calculate the credits.
+|======
+
+//end::requirement-list[]
+
+// tag::planner-move[]
+=== Planner Move Feature
+The `planner_move` command provides functionality for users to move a module between academic semesters in the degree
+plan.
+
+==== Current Implementation
+The user input provided will be parsed by the `PlannerMoveCommandParser` class.
+Then, the parsed input will be passed to `PlannerMoveCommand` class to execute the `planner_move` command.
+
+The input should consist of the year and the semester of the degree plan that the user wants to move to and the module
+code that the user want to move.
+
+`PlannerMoveCommandParser` will throw an error if the user input does not match the command format.
+
+When `PlannerMoveCommand` receives the parsed data, it will perform the following checks in order:
+
+- Check if there exists any academic semester in degree plan that has the module code provided through the user input.
+- Check if there exists any academic semester in degree plan that has the corresponding year and the semester provided
+through the user input.
+- Check if the academic semester in degree plan that the user is trying to move the module from is not same as the
+academic semester that the user is trying to move the module to.
+
+`PlannerMoveCommand` will throw an error if any of the first two check fails.
+
+If the last check fails, `PlannerMoveCommand` will not update the degree plan since there is nothing to be changed.
+
+If all checks pass, `PlannerMoveCommand` will update the context in `ModelManager` through `setDegreePlanner`.
+
+In addition, the `PlannerMoveCommand` class also saves the current database state through `commitAddressBook` (for
+undo/redo functions).
+
+.PlannerMove component interactions
+image::PlannerMoveComponentSequenceDiagram.png[width="650"]
+
+==== Design Considerations
+===== Aspect: How should searching of the degree plan based on the year and the semester provided to be done
+
+* **Alternative 1 (current choice):** Construct `DegreePlanner` object with the year and the semester provided and use
+`DegreePlanner#isSameDegreePlanner` to compare and search for the corresponding degree plan.
+
+[cols="30%,<70%"]
+|======
+|*Pros*| There is no need to create any method that may create unnecessary coupling.
+|*Cons*| There is a need to create a `DegreePlanner` object in order to use `DegreePlanner#isSameDegreePlanner`.
+|======
+
+* **Alternative 2:** Create `getDegreePlanner` method which retrieves `DegreePlanner` object based on the year and
+the semester provided.
+
+[cols="30%,<70%"]
+|======
+|*Cons*| The method will create unnecessary couplings between `AddressBook` and `Year` as well as between `AddressBook`
+ and `Semester`.
+|======
+
+===== Aspect: How should moving of the module code provided from the academic semester to the same academic semester to be done
+
+* **Alternative 1 (current choice):** Do not update the degree plan
+
+[cols="30%,<70%"]
+|======
+|*Pros*|Minimize any overhead trying to attempt moving of the module code from and to the same degree plan.
+|*Cons*|Extra check is needed to determine if the module that the user is trying to move belongs to the same academic
+ semester as the academic semester the user wants to move to.
+|======
+
+* **Alternative 2:** Modify `setDegreePlanner` to not throw `DuplicateDegreePlannerException` when `target` is same as
+`editedDegreePlanner`
+
+[cols="30%,<70%"]
+|======
+|*Pros*|Easy to implement as just needs to remove the `if` condition for the check in `setDegreePlanner` method.
+|*Cons*|Simply modifying it to not throw the error will potentially break many other parts of codes. In this case, it
+ is not easy to implement anymore.
+|======
+
+// end::planner-move[]
+
+// tag::planner-list[]
+=== Planner List Feature
+
+Planner list feature aims to help users to be able to locate any degree planner(s) based on certain condition(s) in our
+application easily. We support the listing of degree planners based on year and semester. This enable a user to be able
+to list any degree planner(s) with partial information.
+
+==== Overview
+
+When a user invokes the `planner_list` command. (e.g. planner_list y/YEAR s/SEMESTER), the following steps
+are taken by the program.
+
+1. Extract out the text related to `planner_list` command
+2. Parse the text related to each `PREFIX` individually.
+3. Return a composite predicate for all attributes.
+
+.PlannerList component interactions
+image::PlannerListComponentSequenceDiagram.png[width="650"]
+
+==== Current Implementation
+
+Planner List is able to:
+
+* list degree planner(s) by year
+i.e. `planner_list y/YEAR`
+returns degree planner(s) having its year matches the year given
+
+* list degree planner(s) by semester
+i.e. `planner_list s/SEMESTER`
+returns degree planner(s) having its semester matches the semester given
+
+* include `year` and `semester` attributes in one `planner_list` command and list degree planner(s)
+i.e. `planner_list y/YEAR s/SEMESTER`
+returns module having its year or semester matches the given year and semester
+
+==== Design Considerations
+===== Aspect: How to parse multiple attributes
+
+- Alternative 1 (current choice): Parse the text related to each `PREFIX` individually
+** Pros: User is able to have more flexible search
+** Cons: More time and work needed for developer to implement
+
+- Alternative 2: Parse the text related to each `PREFIX` at one go
+** Pros: Easy to implement
+** Cons: Additional overhead needed
+// end::planner-list[]
+
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Configuration]]
+=== Configuration
+
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 
