@@ -77,7 +77,6 @@ public class ParserUtil {
         return new Credits(trimmedCredits);
     }
 
-
     /**
      * Parses a {@code String code} into an {@code Code}.
      * Leading and trailing whitespaces will be trimmed.
@@ -163,15 +162,11 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> corequisites} into a {@code Set<Code>}.
+     * Parses {@code Collection<String> corequisites} into a {@code Set<Code>}.<br>
+     * Syntactic sugar for {@link #parseCodes} method.
      */
     public static Set<Code> parseCorequisites(Collection<String> corequisites) throws ParseException {
-        requireNonNull(corequisites);
-        final Set<Code> corequisitesSet = new HashSet<>();
-        for (String corequisite : corequisites) {
-            corequisitesSet.add(parseCode(corequisite));
-        }
-        return corequisitesSet;
+        return parseCodes(corequisites);
     }
 
     /**
