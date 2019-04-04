@@ -360,13 +360,16 @@ refreshed to display the full listing just to be able to iterate and delete modu
 // tag::find[]
 ===  Find Feature
 
-The find feature aims to help users to be able to locate any module in our application easily. We support
-the finding of module's name, code and credits. This enable our users to be able to find for any modules with partial
- information.
+The `find` feature aims to help users to be able to easily locate any modules in our application. With a large number
+of modules available to our users, `find` feature is essential. Currently, the `find` feature only supports searching
+ of module's name, code, credits, tags and the semesters it is offered in.
+
+This section shares the implementation and the design considerations gone through while enhancing the find feature.
+Details on how the find feature is implemented and how it supports more search parameters are also shared.
 
 ==== Overview
 
-When a user invokes the `find` command. (e.g. find name/Programming code/CS1231), the following steps are taken by
+When a user invokes the `find` command. (e.g. find name/Programming || code/CS1231), the following steps are taken by
 the program.
 
 1. Extract out the text related to `find` command
@@ -375,24 +378,68 @@ the program.
 
 Step 1 is performed by the `ApplicationParser` class, and no special actions is needed for the `find` feature.
 
-Step 3 is performed by `BooleanExpression#parse`
+Step 2 and 3 are performed by `BooleanExpressionParser#parse`
+
+The class diagram below shows the different components and constraints for `find` feature.
+
+.Class diagram for `find` feature
+ifdef::env-github[]
+image::FindCommandClassDiagram.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::FindCommandClassDiagram.png[width="970"]
+endif::[]
+
 
 ==== Current Implementation
 
 The `FindCommandParser` parses the strings of arguments provided by the user to retrieve a composite `Predicate`
-which is used by `FindCommand`. A `ParseException` is thrown when if the input provided by the user does not conform
-to the expected format.
+which is used by `FindCommand`. A `ParseException` is thrown in the case if the input provided by the user does not
+conform to the expected format.
 
 The sequence diagram below shows the interaction within the `Logic` components.
 
 .Find component interactions
-image::FindCommandSequenceDiagram.png[width="650"]
+ifdef::env-github[]
+image::FindCommandSequenceDiagram.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::FindCommandSequenceDiagram.png[width="970"]
+endif::[]
+
 
 The main implementation of this feature is split into two components. The `Tokenizer` and `BooleanExpressionParser`
 
-1. `Tokenizer` helps to split the user provided argument into tokens which could be used by `BooleanExpressionParser`.
-2. `BooleanExpressionParser` handle the high-level syntax of the find expressions and map them into
-`Predicate` which could be used by `FindCommand`
+. `Tokenizer` helps to split the user provided argument into tokens which could be used by `BooleanExpressionParser`.
+. `BooleanExpressionParser` simply performs Shunting-Yard algorithm on the boolean expression tokens provided by the
+`Tokenizer`  and maps them into `Predicate` which could be used by `FindCommand`.
+
+`FindCommandParser` calls `BooleanExpressionParser#parse` which handles the evaluation of the expression. +
+This process is achieved by the code snippet shown below.
+
+```java
+String trimmedArgs = args.trim();
+if (trimmedArgs.isEmpty()) {
+    throw new ParseException(
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+}
+Predicate<Module> predicate = BooleanExpressionParser.parse(args, PREFIXES);
+return new FindCommand(predicate);
+```
+
+
+
+To support more parameters for our `find` feature. You can do the following steps.
+
+. Create a new `Predicate` class (e.g. `NameContainsKeywordsPredicate`) and define your expected behaviour in it.
+. Ensure your `Predicate` class extends `KeywordsPredicate`.
+. Update `BooleanExpressionParser#getKeywordsPredicate` to handle the creation of the `Predicate`.
+. Update `CliSyntax` on the new prefix you would like for the new parameter.
+. Update `FindCommandParser` to take in the new `PREFIX`.
+
+Your new parameter will now be supported after the above steps!
 
 ==== Tokenizer
 
@@ -403,17 +450,54 @@ This class is initialized with the input argument and prefixes and can be querie
 Each query will consume the previous token and returns the next available token. +
 This is similar to how `java.util.Scanner` works.
 
+===== Design Consideration
+
+After many rounds of experiment with `StringTokenizer` that is provided by native Java and `ArgumentMultimap`. +
+We found three main issues which could not be satisfied by either `StringTokenizer` or `ArgumentMultimap`.
+
+. `ArgumentMultimap` does not keep track of the order of each delimiter. They will only track if the delimiter exists.
+. `StringTokenizer` has a default delimiter as a whitespace, although we could change the delimiter and parse multiple
+delimiters. It does not suit our situation. +
+e.g. `find name/AAAA code/BBBB`. +
+This will return us 1 token. `name/AAAA code/BBBB`, which we cannot use to check due to the missing `operator`. +
+We need the tokenizer to return us 2 tokens `name/AAAA` and `code/BBBB` in order for us to know that the expression
+was invalid due to the missing `operator`.
+. `StringTokenizer` can take in `PREFIX` as delimiter, however, this will split the argument (i.e. `code/CS1231`) into
+two tokens, `code/` and `CS1231`. +
+Additional parsing is required before we are able to pass it to `BooleanExpressionParser`. This parsing creates more
+overhead as we have to ensure that the proper checks are done.
+
+As such, our custom `Tokenizer` aims to solve these three issues.
+
+The table below shows the differences among our `Tokenizer`, `StringTokenizer` and `ArgumentMultimap`
+|====
+| *`Tokenizer`* | *`StringTokenizer`* | *`ArgumentMultimap`*
+| Respect the order of delimiters. | Respect the order of delimiters | Only keep track which delimiters are present.
+| Support multiple delimiters. | Support multiple delimiters. | Support multiple delimiters.
+| Splitting tokens is more flexible | Only split token based on delimiters | Does not split into token.
+|====
+
 ==== Operator
 
-This is represented by the class `pwe.planner.logic.parser.Operator` and define all valid operators to be used in
+This is represented by the class `pwe.planner.logic.parser.Operator` and defines all valid operators to be used in
 `BooleanExpressionParser`.
 
-To support more operators for our `BooleanExpressionParser`. The following steps should be done.
+The table below shows the valid operators that our application currently supports.
 
-1. Add the operator and give it precedence.
-2. Update the mapping between `String` and `Operator` in `Operator#getOperatorFromString`
-3. Update the logic of the new operator in `Operator#applyOperator`
-4. Update `CliSyntax.OPERATORS` to include the new operator.
+|====
+| *Operator* | *Description* | *Precedence*
+| `&&` | Logical "AND" operation (both conditions A AND B must match) | Highest
+| `\|\|` | Logical "OR" operation (either conditions A OR B must match)| Lowest
+| `(` and `)` | Search term surrounded by parenthesis will always be evaluated first. If there is a tie, the logical
+operator precedence will be taken into consideration. | N.A
+|====
+
+To support more operators for our `BooleanExpressionParser`. The following steps should be performed.
+
+. Add the operator and give it precedence.
+. Update the mapping between `String` and `Operator` in `Operator#getOperatorFromString`
+. Update the logic of the new operator in `Operator#applyOperator`
+. Update `CliSyntax.OPERATORS` to include the new operator.
 
 ==== Boolean Expression Parser
 
@@ -435,32 +519,77 @@ Parentheses `(` and `)` are also recognized and respected, and they may be neste
 The sequence diagram below shows the interactions between `FindCommandParser` and `BooleanExpressionParser`.
 
 .Parser interactions
-image::parserSequenceDiagram.png[width="650"]
+.Find component interactions
+ifdef::env-github[]
+image::parserSequenceDiagram.png[width="800"]
+endif::[]
 
-==== Design Consideration
+ifndef::env-github[]
+image::parserSequenceDiagram.png[width="970"]
+endif::[]
 
-===== Aspect: How to parse composite predicates
 
-[NOTE]
-Currently we are using choice 2 because this provide our users with a more flexible way of finding modules in our
-application.
+When `FindCommandParser` receives the provided user argument, it will carry out checks and pass the argument to
+ `BooleanExpressionParser` which will initialize a new `Tokenizer` that extracts the arguments as tokens. +
+`BooleanExpressionParser` will create a `Predicate` based on the `Prefix` in each token. If the token is an `Operator`,
+`BooleanExpressionParser` will apply the operator on two `Predicate` to combine them into a composite `Predicate`.
 
-- Alternative 1: Do an implicit boolean `OR` for every predicate.
+[TIP]
+====
+See <<Tokenizer>> for more details regarding the tokenizer.
+====
 
-[cols="30%,<70%"]
-|======
-|*Pros*| Very easy to implementation
-|*Cons*| User will not be able to do a very detailed or complex find.
-|======
 
-- Alternative 2 (current choice): Implement an algorithm https://en.wikipedia.org/wiki/Shunting-yard_algorithm[Shunting Yard]
- that can parse complex boolean expression.
+The process of how the predicate for each prefix is created is shown in the code snippet below.
 
-[cols="30%,<70%"]
+```java
+ArgumentMultimap argMultimap =
+        ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CODE, PREFIX_CREDITS);
+KeywordsPredicate predicate = null;
+if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+    String nameKeyword = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()).toString();
+    predicate = new NameContainsKeywordsPredicate(List.of(nameKeyword));
+} else if (argMultimap.getValue(PREFIX_CODE).isPresent()) {
+    String codeKeyword = ParserUtil.parseCode(argMultimap.getValue(PREFIX_CODE).get()).toString();
+    predicate = new CodeContainsKeywordsPredicate(List.of(codeKeyword));
+} else if (argMultimap.getValue(PREFIX_CREDITS).isPresent()) {
+    String creditKeyword = ParserUtil.parseCredits(argMultimap.getValue(PREFIX_CREDITS).get()).toString();
+    predicate = new CreditsContainsKeywordsPredicate(List.of(creditKeyword));
+} else {
+    throw new ParseException(
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+}
+return predicate;
+```
+
+==== Design Considerations
+
+This section shares the design considerations we went through during the enhancing the existing `find` feature.
+
+===== Aspect: Parsing of composite predicate
+The table below shows comparisons between the two approaches.
+
+[cols="30%,35%,35%"]
 |=====
-| *Pros* | User will have very flexible searching terms
-| *Cons* | Developer will take a very long time to implement and test for edge cases.
+|*Approach* | *Pros* | *Cons*|
+*1.* Implement an algorithm https://en.wikipedia.org/wiki/Shunting-yard_algorithm[Shunting Yard] that parses the complex
+boolean expression and returns a composite predicate. |
+Find command can be very flexible. It can work with multiple parameters to search for the specific modules that the
+user wants.
+a|
+* Requires many tests to ensure expected behaviours
+* Extra work is required to integrate a new logic parser into `FindCommandParser`. It may result in  build problems if
+ it is not implemented properly.
+ |*2.* Do an implicit logical `OR` for every predicate.
+ |Very easy to implement a|
+* Returns a very huge set of results when the number of keywords increase.
+* Find command will be restricted to logical `OR` results.
 |=====
+
+After weighing both pros and cons, we decided to go with *approach 1*. +
+As we are expecting many similar names between modules in the university curriculum, if the user could only search
+with an implicit logical `OR`, the user would not be able to find the desired modules effectively. This can drastically
+ reduce the effectiveness of the `find` command.
 //end::find[]
 
 // tag::requirement-add[]
@@ -1416,6 +1545,66 @@ _{ more test cases ... }_
    Expected: Similar to previous.
 
 _{ more test cases ... }_
+
+=== Find modules
+
+. Find modules in the module list using one parameter.
+
+.. Prerequisites: Populate module list with sample data using `reset` command, then list all modules using the `list`
+command.
+.. Test case: `find name/programming` +
+Expected: Module list will displays all the modules whose name contains `programming`. +
+Number of modules found is shown in the *result box*
+.. Test case: `find name/PROGRAMMING` +
+Expected: Module list will displays all the modules whose name contains `programming`. +
+Number of modules found is shown in the *result box*. +
+This will have the same results as the previous test case.
+.. Test case: `find code/CS1231` +
+Expected: Module list will displays all the modules whose code matches `CS1231`. +
+Number of modules found is shown in the *result box*. +
+.. Test case: `find credits/4` +
+Expected: Module list will displays all the modules which assigned `4` modular credits. +
+Number of modules found is shown in the *result box*. +
+.. Test case: `find tag/algorithm` +
+Expected: Module list will displays all the modules which has the tag `algorithm`. +
+Number of modules found is shown in the *result box*.
+.. Test case: `find sem/2` +
+Expected: Module list will displays all modules offered in semesters `2`. +
+Number of modules found is shown in the *result box*.
+
+. Find modules in the module list using multiple parameters.
+
+.. Prerequisites: Populate module list with sample data using `reset` command, then list all modules using the `list`
+command.
+.. Test case: `find name/programming || name/discrete` +
+Expected: Module list will displays all the modules whose name contains `programming` or `discrete`. +
+ Number of modules found is shown in the *result box*.
+.. Test case: `find name/discrete || name/programming` +
+Expected: Module list will displays all the modules whose name contains `programming` or `discrete`. +
+ Number of modules found is shown in the *result box*. +
+This will have the same results as the previous test case.
+.. Test case: `find name/programming && name/methodology` +
+Expected: Module list will displays all the modules whose name contains `programming` and `methodology`. +
+Number of modules found is shown in the *result box*.
+.. Test case: `find name/programming && sem/2` +
+Expected: Module list will displays all the modules whose name contains `programming` and is offered in semester 2 only.
+.. Test case: `find (name/programming || name/algorithm) && sem/2`
+Expected: Module list will displays all the module whose name contains either `programming` or `algorithm` and is
+offered in semesters 2. +
+Number of modules found is shown in the *result box*.
+
+. Find modules with bad parameters.
+.. Prerequisites: Populate module list with sample data using `reset` command, then list all modules using the `list`
+command.
+.. Test case: `find nonExist/` +
+Expected: Invalid command format! +
+A guide on how to use the command will be displayed in the *result box*.
+
+. Find modules with invalid values.
+.. Prerequisites: Populate module list with sample data using `reset` command, then list all modules using the `list`
+command.
+.. Test case: `find code/ZZZZZZ` +
+Expected: A guide on how the accepted value for `code` will be displayed in the *result box*.
 
 === Saving data
 
