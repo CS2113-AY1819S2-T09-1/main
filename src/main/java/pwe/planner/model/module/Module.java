@@ -116,11 +116,11 @@ public class Module {
     public String toString() {
         final String allCorequisites = corequisites.isEmpty()
                 ? "None"
-                : corequisites.stream().map(Code::toString).collect(Collectors.joining(", "));
+                : corequisites.stream().sorted().map(Code::toString).collect(Collectors.joining(", "));
 
         final String allTags = tags.isEmpty()
                 ? "None"
-                : tags.stream().map(Tag::toString).collect(Collectors.joining(", "));
+                : tags.stream().sorted().map(Tag::toString).collect(Collectors.joining(", "));
 
         return String.format(STRING_REPRESENTATION, code, name, credits, allCorequisites, allTags);
     }

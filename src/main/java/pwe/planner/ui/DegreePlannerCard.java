@@ -72,7 +72,7 @@ public class DegreePlannerCard extends UiPart<Region> {
             credits.getStyleClass().add("red");
         }
 
-        modulesInDegreePlanner.stream().sorted(Comparator.comparing(module -> module.getCode().toString()))
+        modulesInDegreePlanner.stream().sorted(Comparator.comparing(Module::getCode))
                 .forEach(module -> {
                     VBox vbox = new VBox();
                     VBox.setMargin(vbox, new Insets(1, 1, 1, 1));
