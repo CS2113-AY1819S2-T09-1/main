@@ -110,12 +110,12 @@ ifndef::env-github[]
 image::Ui.png[width="970"]
 endif::[]
 +
-.  You can now try entering commands in the *Command Box* and press kbd:[Enter] to execute it! +
+.  You can now try entering commands in the *command box* and press kbd:[Enter] to execute it! +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Below are some example commands you can try:
-* *`list`* : list and displays all modules in the *Module List*.
+* *`list`* : list and displays all modules in the *module list*.
 * **`add`**`name/Programming Methodology code/CS1010 credits/4` : adds a module named `Programming Methodology` with module code `CS1010`, which is assigned `4` modular credits, to the module list.
-* **`delete`**`3` : deletes the 3^rd^ module shown in the *Module List*.
+* **`delete`**`3` : deletes the 3^rd^ module shown in the *module list*.
 * *`exit`* : exits the application
 
 .  Refer to <<Features>> for details of each command.
@@ -150,15 +150,15 @@ which can be used as `add name/Programming Methodology`.
 
 === General Commands
 
-==== Viewing help : `help`
+==== Viewing help : `help` image:https://img.shields.io/badge/general-help-8774C1.svg[]
 
-You can use the `help` command to access the *User Guide* in *PlanWithEase*.
+Don't worry if you are feeling lost! You can use this User Guide document to gain a better understanding of *PlanWithEase*'s commands.
 
-Format: `help`
+To open this User Guide document, simply enter `help` in the *command box*.
 
 [TIP]
 ====
-Alternatively, you can access the `help` page via kbd:[F1] or from the menu bar, as shown below.
+Alternatively, you can access this User Guide document by pressing kbd:[F1] or via the menu bar (as shown below).
 
 [[f1-help]]
 .Accessing help from menu bar
@@ -166,25 +166,29 @@ image::helpLabelled.png[width=400]
 ====
 
 
-==== Listing entered commands : `history`
+==== Listing entered commands : `history` image:https://img.shields.io/badge/general-history-8774C1.svg[]
 
-Lists all the commands that you have entered in reverse chronological order (from most recent to earliest). +
-Format: `history`
+Want to check what commands you have entered previously? Simply enter `history` in the *command box*!
+
+The list of commands will be displayed in reverse chronological order (from most recent to earliest). +
 
 [TIP]
 ====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+You can press the kbd:[&uarr;] and kbd:[&darr;] arrows to display the previous and next input respectively in the *command box*.
 ====
 
 // tag::undoredo[]
-==== Undoing previous command : `undo`
+==== Undoing previous command: `undo` image:https://img.shields.io/badge/general-undo-8774C1.svg[]
 
-Restores *PlanWithEase*'s data to the state before the previous _undoable_ command was executed. +
-Format: `undo`
+Made a critical mistake such as accidentally clearing all modules from *PlanWithEase* and you want to get the data
+back? +
+No problem! You can simply enter `undo` in the *command box* to restore PlanWithEase's data to the state before the
+previous _undoable_ command was executed!
 
-Undoable commands: those commands that modify the contents of PlanWithEase's data.
-
-The table below shows commands that is undoable.
+[NOTE]
+====
+_Undoable_ commands are commands that modifies the contents of PlanWithEase's data. +
+Below is a list of all _undoable_ commands in *PlanWithEase*.
 
 |====
 | *Module Management* | *Requirement Tracker* | *Degree Plan Management*
@@ -200,9 +204,9 @@ a|
  * `planner_remove`
  * `planner_move`
 |====
+====
 
-
-Examples:
+*Examples:*
 
 * `delete 1` (Delete first module in the displayed module list) +
 `list` (Displays all modules in the module list) +
@@ -219,12 +223,20 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-==== Redoing the previously undone command : `redo`
+==== Redoing previously undone command : `redo` image:https://img.shields.io/badge/general-redo-8774C1.svg[]
 
-Reverses the most recent `undo` command. +
-Format: `redo`
+Took too many steps back in time using the `undo` command and want to move forward in time again? +
+Use the `redo` command to reverses the most recent `undo` command!
 
-Examples:
+[WARNING]
+====
+Be careful when time travelling using the `undo` and `redo` command! +
+You may end up being stuck in the present and can't go back into the future using the `redo` command.
+
+This can happen if you you run an _undoable_ command (excluding `undo` and `redo`) when going back in time using the `undo` command!
+====
+
+*Examples:*
 
 * `delete 1` (Delete first module in the displayed module list) +
 `undo` (reverses the `delete 1` command) +
@@ -242,20 +254,30 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-==== Clearing modules : `clear`
+// tag::clear[]
+==== Clearing modules : `clear` image:https://img.shields.io/badge/general-clear-8774C1.svg[]
 
-This command allows you to remove all modules from the section specified. +
-If no parameters are given, all modules will be removed from the *module list*, *requirement categories* and *degree
-plan*.
+Want to clear all the modules in the *module list*, *requirement categories* or *degree plan*? You'll definitely
+want to use the `clear` command!
 
-Format: `clear [requirement] [planner]`
+The `clear` command allows you to remove all modules from the specified section (i.e. *module list*, *requirement categories*, *degree plan*).
+
+*Command Format:* `clear [requirement or planner]` +
+[NOTE]
+====
+If no parameters are specified, all modules in the *module list*, *requirement categories* and *degree plan* will be
+deleted.
+====
 
 [TIP]
 ====
-If you want to remove all *requirement categories* or *degree plan* quickly, use this command instead!
+If you want to delete all modules in the *module list* quickly, simply enter the `clear` command in the *command box*
+without specifying any parameters! +
+
 ====
 
-Command Usage:
+*Command Usage:*
+[cols="20%,35%,45%"]
 |====
 |*Input* | *Behaviour* | *Expected Results*
 | `clear` | Clears all *modules* from the application  | The *module list* will be emptied. Additionally, all
@@ -264,6 +286,8 @@ modules in the *requirement categories* and *degree plan* will be removed.
 emptied.
 |`clear planner`| Clears all *modules*  in all  *degree plan* | The *degree plan* will be emptied.
 |====
+
+*Example:*
 
 Here's an example of how *PlanWithEase* would look like after executing the `clear` command. +
 You can see a success message will be shown as shown by the images below.
@@ -279,10 +303,7 @@ ifndef::env-github[]
 image::clearbefore.png[width=970]
 endif::[]
 
-
-After entering `clear` and pressing kbd:[enter]:
-
-
+After entering `clear` and pressing kbd:[Enter]:
 [[afterClear]]
 .After executing the `clear` command.
 ifdef::env-github[]
@@ -292,20 +313,15 @@ endif::[]
 ifndef::env-github[]
 image::clearafter.png[width=970]
 endif::[]
+// end::clear[]
 
+==== Exiting the program : `exit` image:https://img.shields.io/badge/general-exit-8774C1.svg[]
 
-==== Exiting the program : `exit`
+If you want to exit *PlanWithEase*, you can enter `exit` in the *command box*. +
+Hope you had a wonderful experience using *PlanWithEase*. Do come back soon!
 
-Exits the program. +
-Format: `exit`
-
-==== Saving the data
-
-*PlanWithEase* data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
+// tag::module_management[]
 === Module Management
-
 
 The following table describes the parameters you may use for commands in this section.
 [cols="<20%,40%,35%"]
@@ -332,29 +348,17 @@ The following table describes the parameters you may use for commands in this se
 
 | `SEMESTER` | indicates the semesters which offers the module | `SEMESTERS` should be between 1 to 4.
 |======
+// end::module_management[]
 
+// tag::module_add[]
+==== Adding modules : `add` image:https://img.shields.io/badge/module-add-blue.svg[]
 
-==== Adding a module: `add`
+Before you can add modules to the degree plan, you'll need to add modules into the *module list* first. +
+Here's how you can use the `add` command
 
-Adds a module to the module list. +
+Adds a new module to the module list. +
 Format: `add code/CODE name/NAME credits/CREDITS [coreq/COREQUISITE]… [tag/TAG]…`
 
-* `CODE` indicates the module code (e.g. `CS1010`).
-* `NAME` indicates the name of the module (e.g. `Programming Methodology`).
-* `CREDITS` indicates the modular credits assigned to the module (e.g. `004`).
-* `COREQUISITE` indicates the module code that is a co-requisite of the module to be added.
-* `TAG` indicates the extra information to associate the module with (e.g. `programming`, `loops`).
-
-[WARNING]
-====
-`CODE`, `NAME`, `CREDITS`, and `TAG`/`COREQUISITE` (if specified) must not be empty. +
-`CODE` should begin with two alphabets, followed by four digits, and may optionally end with an alphabet. +
-`CODE` is case insensitive, and is treated as uppercase (e.g. `cs1010` is treated as `CS1010`), and should be unique. +
-`NAME` should only contain alphanumeric characters and spaces +
-`CREDITS` should only contain whole numbers between 0 and 999 (both inclusive). +
-`TAG` should only a single word containing alphanumeric characters. +
-`COREQUISITE` follows the same format as `CODE`.
-====
 
 Example:
 
@@ -380,13 +384,10 @@ Adds a module named `Software Engineering and Object-Oriented Programming` with 
 assigned `4` modular credits and has module code `CS2101` as a corequisite, to the module list. This module also has
 the tags `sweng`, `java`. +
 Both `CS2113T` and `CS2101` will be updated to be co-requisites.
+// tag::module_add[]
 
-==== Listing all modules : `list`
-
-Shows a list of all modules in the module list. +
-Format: `list`
-
-==== Editing a module : `edit`
+// tag::module_edit[]
+==== Editing modules : `edit` image:https://img.shields.io/badge/module-edit-blue.svg[]
 
 Edits an existing module in the module list. +
 Format: `edit INDEX [name/NAME] [code/CODE] [credits/CREDITS] [tag/TAG]… [coreq/COREQUISITE]…`
@@ -412,8 +413,44 @@ Edits the code of the 2nd module in the displayed module list to be `CS2040C` an
 Edits the co-requisite of the 3rd module in the displayed module list to be `CS1010`. +
 * `edit 4 coreq/CS2105 coreq/CS2106 coreq/CS2107` +
 Edits the co-requisites of the 4rd module in the displayed module list to be `CS2105`, `CS2106` and `CS2107`. +
+// tag::module_edit[]
 
-==== Find modules with name/code/credit: `find`
+// tag::module_delete[]
+==== Deleting modules : `delete` image:https://img.shields.io/badge/module-delete-blue.svg[]
+
+Deletes the specified module from the module list. +
+Format: `delete INDEX`
+
+[NOTE]
+====
+* Deletes the module at the specified `INDEX`.
+* The index refers to the index number shown in the displayed module list.
+* The index *must be a positive integer* 1, 2, 3, …
+====
+
+[WARNING]
+====
+* The deleted module will be removed from both the requirement category assigned and (where applicable).
+* When deleting a module, any modules with the deleted module as its co-requisite will be updated
+accordingly (i.e. deleted module is removed from the respective module's co-requisite list).
+====
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd module in the module list.
+* `find Programming` +
+`delete 1` +
+Deletes the 1st module in the results of the `find` command.
+// tag::module_delete[]
+
+==== Listing all modules : `list` image:https://img.shields.io/badge/module-list-blue.svg[]
+
+Shows a list of all modules in the module list. +
+Format: `list`
+
+==== Finding modules : `find` image:https://img.shields.io/badge/module-find-blue.svg[]
 
 Having trouble locating the modules you want?
 
@@ -497,35 +534,7 @@ you can do the following command. `find name/Information && name/Security` +
 This command will return you modules with both name keywords. (e.g. `Security in Information Privacy`)
 ====
 
-==== Deleting a module : `delete`
-
-Deletes the specified module from the module list. +
-Format: `delete INDEX`
-
-[NOTE]
-====
-* Deletes the module at the specified `INDEX`.
-* The index refers to the index number shown in the displayed module list.
-* The index *must be a positive integer* 1, 2, 3, …
-====
-
-[WARNING]
-====
-* The deleted module will be removed from both the requirement category assigned and (where applicable).
-* When deleting a module, any modules with the deleted module as its co-requisite will be updated
-accordingly (i.e. deleted module is removed from the respective module's co-requisite list).
-====
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd module in the module list.
-* `find Programming` +
-`delete 1` +
-Deletes the 1st module in the results of the `find` command.
-
-==== Selecting a module : `select`
+==== Selecting modules : `select` image:https://img.shields.io/badge/module-select-blue.svg[]
 
 Selects the module identified by the index number used in the displayed module list. +
 Format: `select INDEX`
@@ -567,7 +576,7 @@ The following table describes the parameters you may use for commands in this se
 `CODE` should not be blank.
 |======
 
-==== Adding a module to the degree requirement category : `requirement_add`
+==== Adding modules : `requirement_add` image:https://img.shields.io/badge/requirement-add-8AB702.svg[]
 
 Adds a module to the degree requirement category in the application. +
 Format: `requirement_add name/NAME code/CODE [code/CODE]…`
@@ -582,7 +591,7 @@ Adds module `IS4231` into `IT Professionalism` degree requirement category.
 * `requirement_add name/Computing Foundation code/CS1231 code/CS2100` +
 Adds modules `CS1231` and `CS2100` into `Computing Foundation` degree requirement category.
 
-==== Removing a module from the degree requirement category : `requirement_remove`
+==== Removing modules : `requirement_remove`  image:https://img.shields.io/badge/requirement-remove-8AB702.svg[]
 
 Removes the specified module from the degree requirement category. +
 Format: `requirement_remove name/NAME code/CODE [code/CODE]…`
@@ -594,7 +603,7 @@ Examples:
 * `requirement_remove name/Professionalism code/IS4231` +
 Removes the module `IS4231` from the `IT Professionalism` degree requirement category.
 
-==== Listing all degree requirement categories : `requirement_list`
+==== Listing all requirement categories : `requirement_list` image:https://img.shields.io/badge/requirement-list-8AB702.svg[]
 
 Shows a list of all degree requirement categories in the application and the modules
 added into each degree requirement category. +
@@ -616,7 +625,7 @@ The following table describes the parameters you may use for commands in this se
 `SEMESTER` follow the same format as `YEAR`
 |======
 
-==== Adding module(s) to degree plan : `planner_add`
+==== Adding modules : `planner_add` image:https://img.shields.io/badge/planner-add-F17D3F.svg[]
 
 Adds module(s) to the degree plan. +
 Format: `planner_add year/YEAR sem/SEMESTER code/CODE [code/CODE]…`
@@ -640,9 +649,7 @@ Adds modules CS1231 and CS2040C to year 1 semester 4 (special term semester 2) o
 * `planner_add year/1 sem/2 code/CS2113T code/CS2107` +
 Adds modules CS2113T and CS2107 to year 1 semester 2 of the degree plan.
 
-
-
-==== Moving a module between academic semesters in the degree plan : `planner_move`
+==== Moving modules between semesters : `planner_move` image:https://img.shields.io/badge/planner-move-F17D3F.svg[]
 
 Moves a module in the degree plan to another academic semester. +
 Format: `planner_move year/YEAR sem/SEMESTER code/CODE`
@@ -657,15 +664,15 @@ Moves module CS1231 to year 1 semester 2.
 * `planner_move year/1 sem/4 code/CS1231` +
 Moves module CS1231 to year 1 semester 4 (special term semester 2).
 
-==== Listing degree planners: `planner_list`
+==== Listing all semesters : `planner_list` image:https://img.shields.io/badge/planner-list-F17D3F.svg[]
 
-Shows a list of all degree planners. +
+Shows a list of all semesters in the degree plan. +
+
 Format: `planner_list`
 
+== Future Enhancements `[coming in v2.0]`
 
-== Future Enhancements
-
-=== Removing module(s) from degree plan : `planner_remove` `[coming in v2.0]`
+=== Removing module(s) : `planner_remove`
 
 Coming in v2.0 you will be able to removes module(s) from the degree plan. +
 Format: `planner_remove code/CODE [code/CODE]…`
@@ -681,7 +688,7 @@ Removes module CS1231 from the degree plan.
 * `planner_remove code/CS2100 code/CS2040C` +
 Removes modules CS2100 and CS2040C from the degree plan.
 
-=== Listing a degree planner: `planner_list` `[coming in v2.0]`
+=== Listing a degree planner : `planner_list`
 
 Shows a list of a specific degree planner. +
 Format: `planner_list y/YEAR s/SEMESTER`
@@ -693,11 +700,11 @@ Shows a degree planner for year 1 semester 1.
 * `planner_list y/1 s/2` +
 Shows a degree planner for year 1 semester 2
 
-=== Using degree planner to suggest modules: `planner_suggest` `[coming in v2.0]`
+=== Using degree planner to suggest modules : `planner_suggest`
 
 Displays a list of modules that can be added to the degree planner.
 
-=== Moving a module between degree requirement categories : `requirement_move` `[coming in v2.0]`
+=== Moving a module between degree requirement categories : `requirement_move`
 
 Moves the specified module to another degree requirement category. +
 Format: `requirement_move CODE name/NAME`
@@ -712,8 +719,7 @@ Moves the module `IS4231` from to `IT Professionalism` degree requirement catego
 == FAQ
 
 *Q*: How do I save my data in the application? +
-*A*: The application saves your data automatically whenever you make any changes. You will not need to save the data
-manually. The application will save the data at the specified storage location.
+*A*: You do need to save the data manually. Whenever you run any commands that makes changes, *PlanWithEase*'s data are saved automatically in the `data` directory.
 
 == Command Summary
 This section provides a quick references for all commands available in *PlanWithEase*.
