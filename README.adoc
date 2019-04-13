@@ -20,7 +20,7 @@ endif::[]
 interactions happen
 using a CLI
 (Command Line Interface).
-* PWE is designed to help students in National University of Singapore(NUS) Information Security freshmen in creating a
+* PWE is designed to help students in National University of Singapore (NUS) Information Security freshmen in creating a
  comprehensive degree plan according to the degree requirements.
 * PWE is optimized for those who prefer using a CLI. The commands used to interact with PWE
 are designed to be simple and intuitive, so even those who are unfamiliar with CLI can use PWE with ease.
