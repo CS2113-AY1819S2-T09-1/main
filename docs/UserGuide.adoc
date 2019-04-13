@@ -640,9 +640,9 @@ Want to see if you have fulfilled a particular degree requirement category?​
 
 Simply add the module code to a degree requirement category using the `requirement_add` command to find out.
 
-Format: `requirement_add name/NAME code/CODE [code/CODE]…`
+*Command Format:* `requirement_add name/NAME code/CODE [code/CODE]…`
 
-Examples:
+*Examples:*
 
 * `requirement_add name/IT Professionalism code/IS4231` +
 Adds the module code `IS4231` to the degree requirement category `IT Professionalism`.
@@ -663,7 +663,7 @@ Want to remove a module code from the degree requirement category?
 
 `requirement_remove` will help you to remove the specified module code from the degree requirement category.
 
-Format: `requirement_remove code/CODE [code/CODE]…`
+*Command Format:* `requirement_remove code/CODE [code/CODE]…`
 
 [TIP]
 ====
@@ -671,7 +671,7 @@ If you want to delete the module entirely, simply use the `delete` command inste
 the degree requirement category as well.
 ====
 
-Examples:
+*Examples:*
 
 * `requirement_remove code/IS4231` +
 Removes the module code `IS4231` from the degree requirement category.
@@ -695,7 +695,7 @@ Or simply added the module code to the wong degree requirement category?
 
 No worries, `requirement_move` will allow you to move the specified module to another degree requirement category.
 
-Format: `requirement_move name/NAME code/CODE [code/CODE]…`
+*Command Format:* `requirement_move name/NAME code/CODE [code/CODE]…`
 
 [WARNING]
 ====
@@ -707,7 +707,7 @@ The `CODE` specified must be already added to a degree requirement category!
 Unlike the `planner_move` command, modules that are co-requisites will not be moved together.
 ====
 
-Examples:
+*Examples:*
 
 * `requirement_move name/Computing Breadth code/IS4231` +
 Moves the module code `IS4231` to the degree requirement category `Computing Breadth.
@@ -728,44 +728,46 @@ Moves module codes `CS1231` and `CS2100` to the degree requirement category `Com
 Shows a list of all degree requirement categories in the application and the module codes added into each degree
 requirement category.
 
-Format: `requirement_list`
+*Command Format:* `requirement_list`
 
-Examples:
+*Examples:*
 
-*`requirement_list`
+* `requirement_list`
 
 The image below this command describes what you should see when you execute the above command
 
 image::RequirementListCommand.png[]
 // end::requirementlist[]
 
+//tag::degreeplanmanagement[]
 === Degree Plan Management
 
 The following table describes the parameters you may use for commands in this section.
 [cols="<20%,35%,35%"]
 |======
 |*Parameter*| *Description* | *Acceptable Range of Values*
-| `CODE` | Indicates the module code (e.g. `CS2101`). |
-`CODE` should begin with two or three alphabets, followed by four digits, and may optionally end with an alphabet.
- +
-`CODE` should not be blank.
-| `YEAR` | Indicates the year. |
-`YEAR` should be an integer between 1 and 4
-| `SEMESTER` | Indicates the semester. |
-`SEMESTER` follow the same format as `YEAR`.
-| `CREDITS` | Indicates the desirable credits of the modules to suggest |
-`CREDITS` should be an integer between 0 to 999.
-| `TAG` | Indicates the desirable tags of the modules to suggest |
-`TAG` should only contain alphanumeric characters.
-`TAG` should not be blank unless otherwise specified.
+| `CODE` | Indicates the module code +
+(e.g. `CS2101`). | `CODE` should begin with two alphabets, followed by four digits, and may optionally end with an alphabet.
+| `YEAR` | Indicates the year of one of the semesters in the degree plan. +
+(e.g. `1`) | `YEAR` should only be either 1, 2, 3 or 4. +
+| `SEMESTER` | Indicates the semester of one of the semesters in the degree plan. +
+(e.g. `1`) | `SEMESTER` should only be either 1, 2, 3 or 4. +
+3 and 4 indicates special term semesters 1 and 2 respectively.
 |======
+
+[WARNING]
+====
+* `YEAR`, `SEMESTER` and `CODE` (if specified) must not be empty. +
+* `CODE` is case insensitive, and is treated as uppercase (e.g. `cs1010` is treated as `CS1010`), and should be unique.
+====
+//end::degreeplanmanagement[]
 
 ==== Adding modules : `planner_add` image:https://img.shields.io/badge/planner-add-F17D3F.svg[]
 
 Want to add modules to the *degree plan*? +
 Make use of the `planner_add` command to add one or multiple modules to the *degree plan*.
 
-Format: `planner_add year/YEAR sem/SEMESTER code/CODE [code/CODE]…`
+*Command Format:* `planner_add year/YEAR sem/SEMESTER code/CODE [code/CODE]…`
 
 [NOTE]
 ====
@@ -779,7 +781,7 @@ The semesters in which module(s) are offered should contain the semester to whic
 * After adding, the updated *degree plan* will be displayed.
 ====
 
-Examples:
+*Examples:*
 
 * `planner_add year/1 sem/3 code/CS1010` +
 Adds module `CS1010` to year 1 semester 3 (special term semester 1) of the *degree plan*.
@@ -790,12 +792,12 @@ Adds modules `CS1231` and `CS2040C` to year 1 semester 4 (special term semester 
 * `planner_add year/1 sem/2 code/CS2113T code/CS2107` +
 Adds modules `CS2113T` and `CS2107` to year 1 semester 2 of the *degree plan*.
 
-==== Removing modules : `planner_remove`
+==== Removing modules : `planner_remove` image:https://img.shields.io/badge/planner-remove-F17D3F.svg[]
 
 Want to remove modules from the *degree plan*? +
 Make use of `planner_remove` command to remove one or multiple modules from the *degree plan*. +
 
-Format: `planner_remove code/CODE [code/CODE]…`
+*Command Format:* `planner_remove code/CODE [code/CODE]…`
 
 [NOTE]
 ====
@@ -803,7 +805,7 @@ Format: `planner_remove code/CODE [code/CODE]…`
 * After removing, the updated *degree plan* will be displayed.
 ====
 
-Examples:
+*Examples:*
 
 * `planner_remove code/CS1231` +
 Removes module `CS1231` from the *degree plan*.
@@ -811,33 +813,171 @@ Removes module `CS1231` from the *degree plan*.
 * `planner_remove code/CS2100 code/CS2040C` +
 Removes modules `CS2100` and `CS2040C` from the *degree plan*.
 
-==== Moving modules between semesters : `planner_move` image:https://img.shields.io/badge/planner-move-F17D3F.svg[]
+//tag::plannermove[]
+==== Moving a module between semesters: `planner_move` image:https://img.shields.io/badge/planner-move-F17D3F.svg[]
 
-Moves a module in the degree plan to another academic semester. +
-Format: `planner_move year/YEAR sem/SEMESTER code/CODE`
+Any change in your decision? Want to take your module in other semester instead? +
+No worry! Simply use `planner_move` command to move your module in the degree plan along with its co-requisite(s)
+between the semesters by providing your module code and a semester you want to move your module to. +
 
-* After moving, the updated degree plan will be displayed.
+*Command Format:* `planner_move year/YEAR sem/SEMESTER code/CODE`
 
-Examples:
+[NOTE]
+====
+When moving a module with co-requisites, if the module is moved successfully, the co-requisite modules will be moved as
+well.
+====
+
+*Examples:*
 
 * `planner_move year/1 sem/2 code/CS1231` +
-Moves module CS1231 to year 1 semester 2.
+Moves module CS1231 along with its co-requisite(s) to year 1 semester 2.
 
-* `planner_move year/1 sem/4 code/CS1231` +
-Moves module CS1231 to year 1 semester 4 (special term semester 2).
+* `planner_move year/2 sem/1 code/CS1231` +
+Moves module CS1231 along with its co-requisite(s) to year 2 semester 1.
 
-==== Listing all semesters : `planner_list` image:https://img.shields.io/badge/planner-list-F17D3F.svg[]
+Before the `planner_move` command:
+[[beforePlannerMove]]
+.Before executing the `planner_move` command.
+ifdef::env-github[]
+image::plannermove1.png[width=800]
+endif::[]
 
-Shows a list of all semesters in the degree plan. +
+ifndef::env-github[]
+image::plannermove1.png[width=970]
+endif::[]
 
-Format: `planner_list`
+After entering `planner_move` and pressing kbd:[Enter]:
+[[afterClear]]
+.After executing the `planner_move` command.
+ifdef::env-github[]
+image::plannermove2.png[width=800]
+endif::[]
 
-==== Using degree plan to suggest modules : `planner_suggest`
+ifndef::env-github[]
+image::plannermove2.png[width=970]
+endif::[]
+
+Note that co-requste of the module is moved too:
+[[afterClear]]
+.After executing the `planner_move` command.
+ifdef::env-github[]
+image::plannermove3.png[width=800]
+endif::[]
+
+ifndef::env-github[]
+image::plannermove3.png[width=970]
+endif::[]
+//end::plannermove[]
+
+//tag::plannershow[]
+==== Showing semesters based on year/semester: `planner_show` image:https://img.shields.io/badge/planner-show-F17D3F.svg[]
+
+Having trouble locating semesters you want? +
+Simply use `planner_show` command. It will only show you the semesters you want to see. +
+
+*Command Format:* `planner_list [y/YEAR] OPERATOR [s/SEMESTER`]
+
+When this command is used, the application will display only those semesters which satisfy the search criteria.
+
+The following table describes the valid prefixes that you can use to supply to the search criteria.
+|====
+| *Prefix* | *Description*
+| `year/YEAR` | Search for any semester `year` which matches `YEAR`
+| `sem/SEMESTER` | Search for any semester `sem` which matches `SEMESTER`
+|====
+
+The following table describes the valid operators which you can to use supply to the search criteria.
+
+|====
+| *Operator* | *Description* | *Precedence*
+| `&&` | Logical "AND" operation (both conditions A AND B must match) | Highest
+| `\|\|` | Logical "OR" operation (either conditions A OR B must match)| Lowest
+|====
+
+The following examples describes how you could form a valid search criteria for the `planner_show` command.
+
+|====
+| *Single Prefix Usage* | *Expected Result*
+| `planner_show year/YEAR` | Shows only semesters that are in year `YEAR`
+| `planner_show sem/SEMESTER` | Shows only semesters that are in semester `SEMESTER`
+|====
+
+If you need multiple prefixes, the following table shows you how you could do it.
+ +
+Note that you will need to separate multiple prefixes with an operator.
+[TIP]
+====
+You could choose which search criteria having a higher priority by specifying parenthesis
+====
+|====
+| *Multiple Prefix Usage* | *Expected Result*
+| `planner_show year/YEAR1 \|\| year/YEAR2` | Shows only semesters that are in years `YEAR1` or `YEAR2`.
+| `planner_show sem/SEMESTER1 \|\| sem/SEMESTER2` | Shows only semesters that are in semester `SEMESTER1`
+or `SEMESTER`.
+| `planner_show sem/SEMESTER && (year/YEAR1 \|\| year/YEAR2)` | Shows only semesters that are in year `YEAR1`
+semester `SEMESTER` or `YEAR2` semester `SEMESTER`.
+|====
+
+****
+* The order of the prefixes does not matter. e.g. `planner_show sem/SEMESTER || year/YEAR` returns the same result as
+`planner_show year/YEAR || sem/SEMESTER`
+****
+*Examples:*
+
+* `planner_show year/1` +
+Shows any semesters having the year `1` (e.g. `Year 1 Semester 1`, `Year 1 Semester 2` ...) in the degree plan.
+* `planner_show sem/1` +
+Shows any semesters having the year `1` (e.g. `Year 1 Semester 1`, `Year 2 Semester 1` ...) in the degree plan.
+* `planner_show year/1 || year/2`  +
+Shows any semesters having the year `1` or year `2` in the degree plan.
+* `planner_show sem/1 || sem/2` +
+Shows any semesters having the semester `1` or semester `2` in the degree plan.
+* `planner_show year/1 && sem/1` +
+Shows a semester having the year `1` and semester `1` (e.g. `Year 1 Semester 1`)in the degree plan.
+* `planner_show sem/1 && (year/1 || year/2)` +
+Shows a semester having the year `1` semester `1` and  year `2` semester `1` (e.g. `Year 1 Semester 1` and `Year 2
+Semester 2`) in the degree plan.
+
+Before the `planner_show` command:
+[[beforePlannerMove]]
+.Before executing the `planner_show` command.
+ifdef::env-github[]
+image::plannershow1.png[width=800]
+endif::[]
+
+ifndef::env-github[]
+image::plannershow1.png[width=970]
+endif::[]
+
+After entering `planner_show` and pressing kbd:[Enter]:
+[[afterClear]]
+.After executing the `planner_show` command.
+ifdef::env-github[]
+image::plannershow2.png[width=800]
+endif::[]
+
+ifndef::env-github[]
+image::plannershow2.png[width=970]
+endif::[]
+//end::plannershow[]
+
+//tag::plannerlist[]
+==== Listing all semesters: `planner_list` image:https://img.shields.io/badge/planner-list-F17D3F.svg[]
+
+Maybe you need to list all your semesters back after using `planner_show`? +
+Simply enter `planner_list` into the application! +
+It wil show you a list of all semesters in degree plan.
+
+*Command Format:* `planner_list`
+//end::plannerlist[]
+
+==== Using degree plan to suggest modules : `planner_suggest` image:https://img.shields.io/badge/planner-suggest-F17D3F.svg[]
 
 Having trouble identifying modules to add to the *degree plan*? +
 Make use of `planner_suggest` command to find out recommended modules to add to the *degree plan*. +
 
-Format: `planner_suggest credits/CREDITS [tag/TAG]…`
+*Command Format:* `planner_suggest credits/CREDITS [tag/TAG]…`
 
 When this command is successfully executed, the *result box* will display modules recommended.
 
@@ -857,7 +997,7 @@ order.
 * All modules in the recommendation list and the two additional lists are modules not found in the degree plan.
 ====
 
-Examples:
+*Examples:*
 
 * `planner_suggest credits/4` +
 Suggests maximum 10 modules not found in the degree plan, prioritizing modules with credits closer to 4. If tie,
@@ -867,18 +1007,8 @@ prioritizes according to alphabetical order.
 Suggests maximum 10 modules not found in the degree plan, prioritizing modules with tag `algorithms`. If tie, prioritizes
 according to credits closer to 2. If tie again, prioritizes according to alphabetical order.
 
+
 == Future Enhancements `[coming in v2.0]`
-=== Listing a degree planner : `planner_list`
-
-Shows a list of a specific degree planner. +
-Format: `planner_list y/YEAR s/SEMESTER`
-
-Examples:
-
-* `planner_list y/1 s/1` +
-Shows a degree planner for year 1 semester 1.
-* `planner_list y/1 s/2` +
-Shows a degree planner for year 1 semester 2
 
 == FAQ
 
@@ -910,12 +1040,12 @@ a| `planner_add year/1 sem/2 code/CS1010 code/CS2113T`
 |*Remove module(s) from degree plan*| Remove module(s) from degree plan based on the module code
 a| `planner_remove code/CODE [code/CODE]…`
 a| `planner_remove code/CS1231 code/CS1010`
-| *Move module between academic semesters in the degree plan* | Move module between the academic semesters based on
-module code and academic semesters.
+| *Move module between semesters in the degree plan* | Move module between the semesters based on year and
+semester.
 a| `planner_move year/YEAR sem/SEMESTER code/CODE`
 a| `planner_move year/1 sem/2 code/CS1231`
-|*List all degree plans* | List all degree plans a| `planner_list` a| `planner_list`
-|*List specific degree plans* | List specific degree plans based on your search term.
+|*List all semesters in the degree plan* | List all semesters in the degree plan a| `planner_list` a| `planner_list`
+|*List specific semesters in the degree plan* | List specific semesters in the degree plan based on your search term.
 a| `planner_show [year/YEAR] OPERATOR [sem/SEMESTER]`
 a| `planner_show sem/2 && ( year/1 \|\|year/2 )`
 | *Suggest available modules* | Suggest available modules from the module lists based on input argument.
