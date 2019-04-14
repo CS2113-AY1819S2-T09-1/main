@@ -50,18 +50,18 @@
 <li><a href="#degree-plan-management">4.4. Degree Plan Management</a>
 <ul class="sectlevel3">
 <li><a href="#adding-modules-code-planner_add-code-span-class-image-img-src-https-img-shields-io-badge-planner-add-f17d3f-svg-alt-planner-add-f17d3f-span">4.4.1. Adding modules : <code>planner_add</code> <span class="image"><img src="https://img.shields.io/badge/planner-add-F17D3F.svg" alt="planner add F17D3F"></span></a></li>
-<li><a href="#moving-modules-between-semesters-code-planner_move-code-span-class-image-img-src-https-img-shields-io-badge-planner-move-f17d3f-svg-alt-planner-move-f17d3f-span">4.4.2. Moving modules between semesters : <code>planner_move</code> <span class="image"><img src="https://img.shields.io/badge/planner-move-F17D3F.svg" alt="planner move F17D3F"></span></a></li>
-<li><a href="#listing-all-semesters-code-planner_list-code-span-class-image-img-src-https-img-shields-io-badge-planner-list-f17d3f-svg-alt-planner-list-f17d3f-span">4.4.3. Listing all semesters : <code>planner_list</code> <span class="image"><img src="https://img.shields.io/badge/planner-list-F17D3F.svg" alt="planner list F17D3F"></span></a></li>
+<li><a href="#removing-modules-code-planner_remove-code">4.4.2. Removing modules : <code>planner_remove</code></a></li>
+<li><a href="#moving-modules-between-semesters-code-planner_move-code-span-class-image-img-src-https-img-shields-io-badge-planner-move-f17d3f-svg-alt-planner-move-f17d3f-span">4.4.3. Moving modules between semesters : <code>planner_move</code> <span class="image"><img src="https://img.shields.io/badge/planner-move-F17D3F.svg" alt="planner move F17D3F"></span></a></li>
+<li><a href="#listing-all-semesters-code-planner_list-code-span-class-image-img-src-https-img-shields-io-badge-planner-list-f17d3f-svg-alt-planner-list-f17d3f-span">4.4.4. Listing all semesters : <code>planner_list</code> <span class="image"><img src="https://img.shields.io/badge/planner-list-F17D3F.svg" alt="planner list F17D3F"></span></a></li>
+<li><a href="#using-degree-plan-to-suggest-modules-code-planner_suggest-code">4.4.5. Using degree plan to suggest modules : <code>planner_suggest</code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a href="#future-enhancements-code-coming-in-v2-0-code">5. Future Enhancements <code>[coming in v2.0]</code></a>
 <ul class="sectlevel2">
-<li><a href="#removing-module-s-code-planner_remove-code">5.1. Removing module(s) : <code>planner_remove</code></a></li>
-<li><a href="#listing-a-degree-planner-code-planner_list-code">5.2. Listing a degree planner : <code>planner_list</code></a></li>
-<li><a href="#using-degree-planner-to-suggest-modules-code-planner_suggest-code">5.3. Using degree planner to suggest modules : <code>planner_suggest</code></a></li>
-<li><a href="#moving-a-module-between-degree-requirement-categories-code-requirement_move-code">5.4. Moving a module between degree requirement categories : <code>requirement_move</code></a></li>
+<li><a href="#listing-a-degree-planner-code-planner_list-code">5.1. Listing a degree planner : <code>planner_list</code></a></li>
+<li><a href="#moving-a-module-between-degree-requirement-categories-code-requirement_move-code">5.2. Moving a module between degree requirement categories : <code>requirement_move</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">6. FAQ</a></li>
@@ -1433,49 +1433,71 @@ Format: <code>requirement_list</code></p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>YEAR</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Indicates the year.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>YEAR</code> should be between 1 and 4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>YEAR</code> should be an integer between 1 and 4</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>SEMESTER</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Indicates the semester.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SEMESTER</code> follow the same format as <code>YEAR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SEMESTER</code> follow the same format as <code>YEAR</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CREDITS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates the desirable credits of the modules to suggest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CREDITS</code> should be an integer between 0 to 999.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>TAG</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates the desirable tags of the modules to suggest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>TAG</code> should only contain alphanumeric characters.
+<code>TAG</code> should not be blank unless otherwise specified.</p></td>
 </tr>
 </tbody>
 </table>
 <div class="sect3">
 <h4 id="adding-modules-code-planner_add-code-span-class-image-img-src-https-img-shields-io-badge-planner-add-f17d3f-svg-alt-planner-add-f17d3f-span"><a class="link" href="#adding-modules-code-planner_add-code-span-class-image-img-src-https-img-shields-io-badge-planner-add-f17d3f-svg-alt-planner-add-f17d3f-span">4.4.1. Adding modules : <code>planner_add</code> <span class="image"><img src="https://img.shields.io/badge/planner-add-F17D3F.svg" alt="planner add F17D3F"></span></a></h4>
 <div class="paragraph">
-<p>Adds module(s) to the degree plan.<br>
-Format: <code>planner_add year/YEAR sem/SEMESTER code/CODE [code/CODE]…</code></p>
+<p>Want to add modules to the <strong>degree plan</strong>?<br>
+Make use of the <code>planner_add</code> command to add one or multiple modules to the <strong>degree plan</strong>.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>CODE</code> indicates module code.</p>
-</li>
-<li>
-<p><code>YEAR</code> indicates the year.</p>
-</li>
-<li>
-<p><code>SEMESTER</code> indicates the semester.</p>
-</li>
-<li>
-<p><code>YEAR</code> and <code>SEMESTER</code> must be either 1, 2, 3 or 4.</p>
+<div class="paragraph">
+<p>Format: <code>planner_add year/YEAR sem/SEMESTER code/CODE [code/CODE]…</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="ulist">
 <ul>
 <li>
 <p>3 and 4 for <code>SEMESTER</code> indicates special term semesters 1 and 2 respectively.</p>
 </li>
+<li>
+<p>All the module(s) to be added <strong>must exist in the module list</strong>.</p>
+</li>
+<li>
+<p>All the module(s) to add <strong>must not have duplicate(s)</strong> in the <strong>degree plan</strong>.</p>
+</li>
+<li>
+<p>For the following two points, <code>added to the valid semester</code> is defined as:
+The semesters in which module(s) are offered should contain the semester to which the module(s) are added.</p>
+</li>
+<li>
+<p>The module(s) <strong>must be added to the valid semester</strong>.</p>
+</li>
+<li>
+<p>The co-requisite(s) of the module(s) added <strong>must be added to the valid semester</strong>.</p>
+</li>
+<li>
+<p>After adding, the updated <strong>degree plan</strong> will be displayed.</p>
+</li>
 </ul>
 </div>
-</li>
-<li>
-<p>All the module(s) to be added must exist in the module list.</p>
-</li>
-<li>
-<p>After adding, the updated degree plan will be displayed.</p>
-</li>
-</ul>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -1484,21 +1506,67 @@ Format: <code>planner_add year/YEAR sem/SEMESTER code/CODE [code/CODE]…</code>
 <ul>
 <li>
 <p><code>planner_add year/1 sem/3 code/CS1010</code><br>
-Adds module CS1010 to year 1 semester 3 (special term semester 1) of the degree plan.</p>
+Adds module <code>CS1010</code> to year 1 semester 3 (special term semester 1) of the <strong>degree plan</strong>.</p>
 </li>
 <li>
 <p><code>planner_add year/1 sem/4 code/CS1231 code/CS2040C</code><br>
-Adds modules CS1231 and CS2040C to year 1 semester 4 (special term semester 2) of the degree plan.</p>
+Adds modules <code>CS1231</code> and <code>CS2040C</code> to year 1 semester 4 (special term semester 2) of the <strong>degree plan</strong>.</p>
 </li>
 <li>
 <p><code>planner_add year/1 sem/2 code/CS2113T code/CS2107</code><br>
-Adds modules CS2113T and CS2107 to year 1 semester 2 of the degree plan.</p>
+Adds modules <code>CS2113T</code> and <code>CS2107</code> to year 1 semester 2 of the <strong>degree plan</strong>.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="moving-modules-between-semesters-code-planner_move-code-span-class-image-img-src-https-img-shields-io-badge-planner-move-f17d3f-svg-alt-planner-move-f17d3f-span"><a class="link" href="#moving-modules-between-semesters-code-planner_move-code-span-class-image-img-src-https-img-shields-io-badge-planner-move-f17d3f-svg-alt-planner-move-f17d3f-span">4.4.2. Moving modules between semesters : <code>planner_move</code> <span class="image"><img src="https://img.shields.io/badge/planner-move-F17D3F.svg" alt="planner move F17D3F"></span></a></h4>
+<h4 id="removing-modules-code-planner_remove-code"><a class="link" href="#removing-modules-code-planner_remove-code">4.4.2. Removing modules : <code>planner_remove</code></a></h4>
+<div class="paragraph">
+<p>Want to remove modules from the <strong>degree plan</strong>?<br>
+Make use of <code>planner_remove</code> command to remove one or multiple modules from the <strong>degree plan</strong>.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>planner_remove code/CODE [code/CODE]…</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>All the module(s) to remove <strong>must exist in the degree plan</strong>.</p>
+</li>
+<li>
+<p>After removing, the updated <strong>degree plan</strong> will be displayed.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>planner_remove code/CS1231</code><br>
+Removes module <code>CS1231</code> from the <strong>degree plan</strong>.</p>
+</li>
+<li>
+<p><code>planner_remove code/CS2100 code/CS2040C</code><br>
+Removes modules <code>CS2100</code> and <code>CS2040C</code> from the <strong>degree plan</strong>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="moving-modules-between-semesters-code-planner_move-code-span-class-image-img-src-https-img-shields-io-badge-planner-move-f17d3f-svg-alt-planner-move-f17d3f-span"><a class="link" href="#moving-modules-between-semesters-code-planner_move-code-span-class-image-img-src-https-img-shields-io-badge-planner-move-f17d3f-svg-alt-planner-move-f17d3f-span">4.4.3. Moving modules between semesters : <code>planner_move</code> <span class="image"><img src="https://img.shields.io/badge/planner-move-F17D3F.svg" alt="planner move F17D3F"></span></a></h4>
 <div class="paragraph">
 <p>Moves a module in the degree plan to another academic semester.<br>
 Format: <code>planner_move year/YEAR sem/SEMESTER code/CODE</code></p>
@@ -1527,12 +1595,89 @@ Moves module CS1231 to year 1 semester 4 (special term semester 2).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="listing-all-semesters-code-planner_list-code-span-class-image-img-src-https-img-shields-io-badge-planner-list-f17d3f-svg-alt-planner-list-f17d3f-span"><a class="link" href="#listing-all-semesters-code-planner_list-code-span-class-image-img-src-https-img-shields-io-badge-planner-list-f17d3f-svg-alt-planner-list-f17d3f-span">4.4.3. Listing all semesters : <code>planner_list</code> <span class="image"><img src="https://img.shields.io/badge/planner-list-F17D3F.svg" alt="planner list F17D3F"></span></a></h4>
+<h4 id="listing-all-semesters-code-planner_list-code-span-class-image-img-src-https-img-shields-io-badge-planner-list-f17d3f-svg-alt-planner-list-f17d3f-span"><a class="link" href="#listing-all-semesters-code-planner_list-code-span-class-image-img-src-https-img-shields-io-badge-planner-list-f17d3f-svg-alt-planner-list-f17d3f-span">4.4.4. Listing all semesters : <code>planner_list</code> <span class="image"><img src="https://img.shields.io/badge/planner-list-F17D3F.svg" alt="planner list F17D3F"></span></a></h4>
 <div class="paragraph">
 <p>Shows a list of all semesters in the degree plan.<br></p>
 </div>
 <div class="paragraph">
 <p>Format: <code>planner_list</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using-degree-plan-to-suggest-modules-code-planner_suggest-code"><a class="link" href="#using-degree-plan-to-suggest-modules-code-planner_suggest-code">4.4.5. Using degree plan to suggest modules : <code>planner_suggest</code></a></h4>
+<div class="paragraph">
+<p>Having trouble identifying modules to add to the <strong>degree plan</strong>?<br>
+Make use of <code>planner_suggest</code> command to find out recommended modules to add to the <strong>degree plan</strong>.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>planner_suggest credits/CREDITS [tag/TAG]…</code></p>
+</div>
+<div class="paragraph">
+<p>When this command is successfully executed, the <strong>result box</strong> will display modules recommended.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Maximum 10</strong> modules are recommended in the recommendation list.</p>
+</li>
+<li>
+<p>In addition to the recommendation list, supplementary information on the specific modules with matching tags and credits
+is given as two additional lists. The modules in the two additional lists are all from the recommendation list.</p>
+</li>
+<li>
+<p>Modules recommended in all 3 aforementioned lists are sorted according to the following criteria:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For modules with different number of tags that match the desirable tags (matching tags), modules with more matching
+tags will be sorted to the front of the list.</p>
+</li>
+<li>
+<p>If modules have the same number of matching tags but different credits, modules with the credits closer to the
+desirable credits will be sorted to the front of the list.</p>
+</li>
+<li>
+<p>If modules have the same number of matching tags and credits, they will be sorted according to alphabetical
+order.</p>
+</li>
+<li>
+<p>If <code>tag/TAG</code> is not supplied as a parameter in the command, modules will be sorted according to credits and alphabetical order only.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>All modules in the recommendation list and the two additional lists are modules not found in the degree plan.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>planner_suggest credits/4</code><br>
+Suggests maximum 10 modules not found in the degree plan, prioritizing modules with credits closer to 4. If tie,
+prioritizes according to alphabetical order.</p>
+</li>
+<li>
+<p><code>planner_suggest credits/2 tag/algorithms</code><br>
+Suggests maximum 10 modules not found in the degree plan, prioritizing modules with tag <code>algorithms</code>. If tie, prioritizes
+according to credits closer to 2. If tie again, prioritizes according to alphabetical order.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -1542,39 +1687,7 @@ Moves module CS1231 to year 1 semester 4 (special term semester 2).</p>
 <h2 id="future-enhancements-code-coming-in-v2-0-code"><a class="link" href="#future-enhancements-code-coming-in-v2-0-code">5. Future Enhancements <code>[coming in v2.0]</code></a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="removing-module-s-code-planner_remove-code"><a class="link" href="#removing-module-s-code-planner_remove-code">5.1. Removing module(s) : <code>planner_remove</code></a></h3>
-<div class="paragraph">
-<p>Coming in v2.0 you will be able to removes module(s) from the degree plan.<br>
-Format: <code>planner_remove code/CODE [code/CODE]…</code></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>All the module(s) to remove must exist in the degree plan.</p>
-</li>
-<li>
-<p>After removing, the updated degree plan will be displayed.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>planner_remove code/CS1231</code><br>
-Removes module CS1231 from the degree plan.</p>
-</li>
-<li>
-<p><code>planner_remove code/CS2100 code/CS2040C</code><br>
-Removes modules CS2100 and CS2040C from the degree plan.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="listing-a-degree-planner-code-planner_list-code"><a class="link" href="#listing-a-degree-planner-code-planner_list-code">5.2. Listing a degree planner : <code>planner_list</code></a></h3>
+<h3 id="listing-a-degree-planner-code-planner_list-code"><a class="link" href="#listing-a-degree-planner-code-planner_list-code">5.1. Listing a degree planner : <code>planner_list</code></a></h3>
 <div class="paragraph">
 <p>Shows a list of a specific degree planner.<br>
 Format: <code>planner_list y/YEAR s/SEMESTER</code></p>
@@ -1596,13 +1709,7 @@ Shows a degree planner for year 1 semester 2</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="using-degree-planner-to-suggest-modules-code-planner_suggest-code"><a class="link" href="#using-degree-planner-to-suggest-modules-code-planner_suggest-code">5.3. Using degree planner to suggest modules : <code>planner_suggest</code></a></h3>
-<div class="paragraph">
-<p>Displays a list of modules that can be added to the degree planner.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="moving-a-module-between-degree-requirement-categories-code-requirement_move-code"><a class="link" href="#moving-a-module-between-degree-requirement-categories-code-requirement_move-code">5.4. Moving a module between degree requirement categories : <code>requirement_move</code></a></h3>
+<h3 id="moving-a-module-between-degree-requirement-categories-code-requirement_move-code"><a class="link" href="#moving-a-module-between-degree-requirement-categories-code-requirement_move-code">5.2. Moving a module between degree requirement categories : <code>requirement_move</code></a></h3>
 <div class="paragraph">
 <p>Moves the specified module to another degree requirement category.<br>
 Format: <code>requirement_move CODE name/NAME</code></p>
@@ -1769,10 +1876,10 @@ module code and academic semesters.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Suggest available modules</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Suggest available modules from the module lists based on input argument.</p></td>
 <td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p><code>planner_suggest&#8230;&#8203;</code></p>
+<p><code>planner_suggest credits/CREDITS [tag/TAG]…</code></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p><code>planner_suggest&#8230;&#8203;</code></p>
+<p><code>planner_suggest credits/4 tag/maths</code></p>
 </div></div></td>
 </tr>
 </tbody>
@@ -1832,4 +1939,4 @@ requirement categories to a chosen requirement categories.</p></td>
 </table>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 13:14:14 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 14:00:16 UTC</div></div></div></body></html>
