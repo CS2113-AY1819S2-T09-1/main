@@ -977,7 +977,6 @@ the semester provided.
 |*Cons*| The method will create unnecessary couplings between `Application` and `Year` as well as between `Application`
  and `Semester`.
 |======
-
 // end::planner-move[]
 
 // tag::planner-show[]
@@ -1032,9 +1031,7 @@ returns module having its year or semester matches the given year and semester
 |*Pros*|Easy to implement.
 |*Cons*|Additional overhead needed and inconsistent in the application's commands since `find` utilises `BooleanExpressionParser`.
 |======
-
-
-// end::planner-list[]
+// end::planner-show[]
 
 === Logging
 
