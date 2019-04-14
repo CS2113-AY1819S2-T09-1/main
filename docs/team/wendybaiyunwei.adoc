@@ -16,17 +16,16 @@ endif::[]
 
 == PROJECT: PlanWithEase
 
-Hi! I am Yunwei. I am currently a student at the National University of Singapore +
-(NUS) studying Information Security. I love to build applications that improves people's lives.
+Hi! I am Yunwei, a student from the National University of Singapore (NUS). I love to build
+applications that improve people's lives.
 
-This portfolio documents my involvement in the PlanWithEase (PWE), a degree planner
-application.
-
-My team-mates, Ahn Taegyu, Ngo Wei Lin, Lee Yu Choy, Yeo Cheng Hong and me completed the software-engineering project within one school semester. This portfolio shows what the project is about and my contribution to the project.
+This portfolio documents my involvement in a software development project, through which my teammates
+and me created a degree planner application within one school semester. This portfolio shows
+ what the project is about and my contribution to the project.
 
 == Overview
 
-For this project, we aim to simplify the process of degree-planning for NUS information security students.
+For this project, we aim to simplify the process of degree-planning among NUS information security students.
 
 ifdef::env-github[]
 image::Ui.png[width="800"]
@@ -37,35 +36,11 @@ image::Ui.png[width="970"]
 endif::[]
 
 
-My role as a developer in this project involves designing and writing code to allow users to:
+As a developer, my role in the project was writing codes to enable users to:
 
 * Add modules to the degree plan.
 * Remove modules from the degree plan.
 * Know the modules suggested to put inside the degree plan.
-
-== Understanding This Project Portfolio
-
-The following symbols are used throughout this project portfolio:
-[NOTE]
-====
-This symbol denotes information that you may want to take note of when using the application.
-====
-[TIP]
-====
-This symbol denotes a tip which you may find useful when using the application.
-====
-[WARNING]
-====
-This symbol denotes a warning message which you need to be careful of when using the application.
-====
-
-Additionally, you may also encounter the following text styles:
-====
-* Commands or parameters will be in this `format`.
-* Important messages will be *bold*.
-* Undoable command will be in _italics_.
-* Keyboard buttons will be referred to as such: kbd:[F1].
-====
 
 == Summary of contributions
 
@@ -75,9 +50,8 @@ Additionally, you may also encounter the following text styles:
 
 * *Major enhancement*: added *the ability to add/remove module codes to/from the degree plan*
 ** What it does: allows the user to add module codes to the degree plan, and remove the codes from the degree plan.
-** Justification: This feature can be important because the degree plan is an important section that enables the users to plan well. Therefore, adding and removing the module codes are essential operations to make PWE fulfill its purpose.
+** Justification: This feature can be crucial because the degree plan is an important section that enables the users to plan well. Therefore, adding and removing the module codes are essential features that make PWE fulfill its purpose.
 ** Highlights: This enhancement aims to prevent possible errors, including the hidden ones that may occur when other parts of the software get modified. Besides, the model and logic implementation for the feature is kept as minimalistic as possible to reduce unnecessary coupling.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
 * *Minor enhancement*: added a command to suggest modules to put inside the degree plan.
 
@@ -86,7 +60,6 @@ Additionally, you may also encounter the following text styles:
 ** Project management:
 *** Assigned and managed "issues" for "planner_add", "planner_remove" and "planner_suggest" commands.
 *** PR reviewed: https://github.com/CS2113-AY1819S2-T09-1/main/pull/146
-
 
 == Contributions to the User Guide
 
