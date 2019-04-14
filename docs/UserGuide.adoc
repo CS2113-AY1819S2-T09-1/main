@@ -55,10 +55,10 @@ This symbol denotes a warning message which you need to be careful of when using
 
 Additionally, you may also encounter the following text styles:
 ====
-* Commands or parameters will be in this `format`.
-* Important messages will be *bold*.
-* Undoable command will be in _italics_.
-* Buttons on your keyboard will be referred as such: kbd:[F1].
+* Commands, parameters and file paths will be in this `format`
+* Important messages will be *bold*
+* Undoable command will be in _italics_
+* Keyboard buttons will be referred to as such: kbd:[F1]
 ====
 
 === Navigating Around Our Application
@@ -96,7 +96,7 @@ to make changes to the *Degree Plan*.
 
 == Quick Start
 
-.  Ensure you have Java version `9` installed in your Computer.
+.  Ensure you have *Java version 9* installed in your Computer.
 .  Download the latest `PWE.jar` link:{repoURL}/releases/latest[here].
 .  Copy the file to the folder you want to use as the home folder for *PlanWithEase*.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
@@ -122,11 +122,22 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[Features]]
 == Features
+
+In this section, the expected command format will be introduced, and you can expect to learn the various commands you can use.
+
+[NOTE]
+====
+Don't worry if you don't understand everything at once. +
+There are plentiful examples provided to aid your understanding of the commands' usage better.
+====
+
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user
-.. e.g. in `add name/NAME`, `NAME` is a parameter
-which can be used as `add name/Programming Methodology`.
+** e.g. in `add name/NAME`, `NAME` is a parameter
+which can be used as:
+.. `add name/Programming Methodology`
+.. `add name/Web Security`
 * Items in square brackets are optional parameters
 ** e.g. `name/NAME [tag/TAG]` can be used as:
 .. `name/Database Systems tag/sql` (with optional `tag` parameter)
@@ -142,8 +153,13 @@ which can be used as `add name/Programming Methodology`.
 .. `name/Programming Methodology`, etc.  (i.e. many times)
 * Prefixed-parameters can be arranged in any order after all non-prefixed parameters (if any)
 ** e.g. if the command specifies `INDEX name/NAME code/CODE`:
-.. entering `INDEX code/CODE name/NAME` is also acceptable
-.. entering `name/NAME INDEX code/CODE` is not acceptable
+.. entering `INDEX code/CODE name/NAME` is also acceptable, but
+.. entering `name/NAME INDEX code/CODE` is *not acceptable*
+
+[WARNING]
+====
+Parameter values cannot be empty (unless otherwise stated).
+====
 
 === General Commands
 
@@ -188,7 +204,12 @@ _Undoable_ commands are commands that modifies the contents of PlanWithEase's da
 Below is a list of all _undoable_ commands in *PlanWithEase*.
 
 |====
-| *Module Management* | *Requirement Tracker* | *Degree Plan Management*
+| *General* | *Module Management* | *Requirement Tracker* | *Degree Plan Management*
+a|
+* `undo`
+* `redo`
+* `clear`
+* `reset`
 a|
 * `add`
 * `edit`
@@ -205,25 +226,24 @@ a|
 
 *Examples:*
 
-* `delete 1` (Delete first module in the displayed module list) +
-`list` (Displays all modules in the module list) +
+* `delete 1` (deletes first module in the displayed module list) +
+`list` (displays all modules in the module list) +
 `undo` (reverses the `delete 1` command) +
 
-* `find name/Programming` (Find modules with name containing the word `Programming` and display them in the module
+* `find name/Programming` (finds modules with name containing the word `Programming` and displays them in the module
 list) +
-`list` (Displays all modules in the module list) +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
+`list` (displays all modules in the module list) +
+`undo` (the `undo` command fails as there are no undoable commands executed previously)
 
-* `delete 1` (Delete first module in the displayed module list) +
-`clear` (clear all application data) +
+* `delete 1` (deletes first module in the displayed module list) +
+`clear` (clears all application data) +
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
 ==== Redoing previously undone command : `redo` image:https://img.shields.io/badge/general-redo-8774C1.svg[]
 
 Took too many steps back in time using the `undo` command and want to move forward in time again? +
-Use the `redo` command to reverses the most recent `undo` command!
+Use the `redo` command to reverse the most recent `undo` command!
 
 [WARNING]
 ====
@@ -235,16 +255,15 @@ This can happen if you you run an _undoable_ command (excluding `undo` and `redo
 
 *Examples:*
 
-* `delete 1` (Delete first module in the displayed module list) +
+* `delete 1` (deletes first module in the displayed module list) +
 `undo` (reverses the `delete 1` command) +
 `redo` (reapplies the `delete 1` command) +
 
-* `delete 1`  (Delete first module in the displayed module list)+
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
+* `delete 1`  (deletes first module in the displayed module list) +
+`redo` (the `redo` command fails as there are no `undo` commands executed previously)
 
-* `delete 1` (Delete first module in the displayed module list) +
-`clear` (Clear all modules from the application) +
+* `delete 1` (deletes first module in the displayed module list) +
+`clear` (clears all modules from the application) +
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 `redo` (reapplies the `delete 1` command) +
@@ -287,9 +306,9 @@ emptied.
 *Example:*
 
 Here's an example of how *PlanWithEase* would look like after executing the `clear` command. +
-You can see a success message will be shown as shown by the images below.
+Notice that a success message will be displayed after clearing all modules from *PlanWithEase*.
 
-Before the `clear` command:
+Before running the `clear` command:
 [[beforeClear]]
 .Before executing the `clear` command.
 ifdef::env-github[]
@@ -323,10 +342,10 @@ This will *discard* all changes you have made and populate the program with our 
 ====
 [TIP]
 ====
-If you unintentionally used this command, do use the undo command to revert back the changes
+If you unintentionally used this command, do use the `undo` command to revert back the changes
 ====
 
-==== Exiting the program : `exit` image:https://img.shields.io/badge/general-exit-8774C1.svg[]
+==== Exiting PlanWithEase : `exit` image:https://img.shields.io/badge/general-exit-8774C1.svg[]
 
 If you want to exit *PlanWithEase*, you can enter `exit` in the *command box*. +
 Hope you had a wonderful experience using *PlanWithEase*. Do come back soon!
@@ -334,140 +353,172 @@ Hope you had a wonderful experience using *PlanWithEase*. Do come back soon!
 // tag::module_management[]
 === Module Management
 
-The following table describes the parameters you may use for commands in this section.
-[cols="<20%,40%,35%"]
+In this section, you'll be introduced to commands that helps you to manage modules in *PlanWithEase*.
+
+Below is a list of command parameters that you can expect to use for commands in this section.
+
+[cols="18%,37%,45%"]
 |======
 |*Parameter*| *Description* | *Acceptable Range of Values*
-| `NAME` | Indicates the name of the module (e.g. `Effective Communication for Computing Professionals`). |
-`NAME` should only contain alphanumeric characters and spaces.
-  +
-`NAME` should not be blank.
-| `CODE` | Indicates the module code (e.g. `CS2101`). |
-`CODE` should begin with two or three alphabets, followed by four digits, and may optionally end with an alphabet.
- +
-`CODE` should not be blank.
-| `CREDITS` | Indicates the modular credits assigned to the module (e.g. `4`). |
-`CREDITS` should be between 0 to 999.
-| `TAG` | Indicates the extra information to associate the module with (e.g. `Presentation`, `Email`). |
-`TAG` should only contain alphanumeric characters.
- +
-`TAG` should not be blank unless otherwise specified.
-| `COREQUISITE` | indicates the module code that is a co-requisite of the module to be added. |
-`COREQUISITE` follow the same format as `CODE`
- +
-`COREQUISITE` should not be blank unless otherwise specified.
-
-| `SEMESTER` | indicates the semesters which offers the module | `SEMESTERS` should be between 1 to 4.
+| `CODE` | Indicates the module code +
+(e.g. `CS2101`). | `CODE` should begin with two alphabets, followed by four digits, and may optionally end with an alphabet. +
+| `NAME` | Indicates the name of the module +
+(e.g. `Effective Communication for Computing Professionals`). | +
+`NAME` should only contain alphanumeric characters, punctuations (excluding "(", ")", "&", "\|") and spaces. +
+Note that if you are using punctuations, you may want to consider replacing "()" with "[]", "&" with "and", and "\|" with "l" (lowercase L) instead! +
+| `CREDITS` | Indicates the modular credits assigned to the module +
+(e.g. `4` Modular Credits). | `CREDITS` should be whole numbers between 0 to 999 (both inclusive).
+| `SEMESTER` | Indicates the semester which the module is offered in. +
+(e.g. Semester `1`) | `SEMESTER` should only be either `1`, `2`, `3` or `4`. +
+`3` and `4` indicates special term semesters 1 and 2 respectively.
+| `COREQUISITE` | Indicates the module code of a co-requisite module. +
+(e.g. `CS2101` is a co-requisite module of `CS2113T`) | `COREQUISITE` follow the same format as `CODE`.
+| `TAG` | Indicates the extra information to associate the module with (e.g. `Presentation`, `Email`). | `TAG` should only contain alphabets and numbers.
 |======
 // end::module_management[]
 
 // tag::module_add[]
 ==== Adding modules : `add` image:https://img.shields.io/badge/module-add-blue.svg[]
 
-Before you can add modules to the degree plan, you'll need to add modules into the *module list* first. +
-Here's how you can use the `add` command
+Before you can add modules to the *degree plan*, you'll need to add modules into the *module list* first. +
+It's easy to add a module into the *module list*! Here's how you can use the `add` command.
 
-Adds a new module to the module list. +
-Format: `add code/CODE name/NAME credits/CREDITS [coreq/COREQUISITE]… [tag/TAG]…`
-
-
-Example:
-
-* `add code/CS1010 name/Programming Methodology credits/4 tag/programming tag/algorithms tag/c tag/imperative` +
-Adds a module named `Programming Methodology` with module code `CS1010`, which is assigned `4` modular credits, to the module list. This module also has the tags `programming`, `algorithms`, `c`, `imperative`.
-
-[TIP]
-A module can have any number of tags (including 0)
-
-Example: +
-
-* `add code/CS1231 credits/4 name/Discrete Structures`
+*Command Format:* `add code/CODE name/NAME credits/CREDITS [sem/SEMESTER]… [coreq/COREQUISITE]… [tag/TAG]…`
 
 [WARNING]
+====
+Please note that you cannot add a new module which has a co-requisite module already existing in the *degree plan*. +
+You'll need to remove the module from the *degree plan* first before you can add the new module in with the co-requisite module specified.
+====
+
+*Example:*
+
+* `add code/GEH1074 name/Luck credits/4 sem/1 sem/2` +
+Adds a module named `Luck` with module code `GEH1074`, which is assigned `4` modular credits and is offered in semesters `1` and `2`, to the *module list*.
+
+.New module "GEH1074 Luck" added to *module list* successfully
+ifdef::env-github[]
+image::module_add_luck.png[width=800]
+endif::[]
+
+ifndef::env-github[]
+image::module_add_luck.png[width=970]
+endif::[]
+
+[NOTE]
 ====
 When adding a module with a corequisite, if the module is added successfully, the co-requisite modules will be updated as well.
 ====
 
-Example: +
+*Example:* +
 
-* `add code/CS2113T name/Software Engineering and Object-Oriented Programming credits/4 coreq/CS2101` +
-Adds a module named `Software Engineering and Object-Oriented Programming` with module code `CS2113T`, which is
-assigned `4` modular credits and has module code `CS2101` as a corequisite, to the module list. This module also has
-the tags `sweng`, `java`. +
-Both `CS2113T` and `CS2101` will be updated to be co-requisites.
-// tag::module_add[]
+* `add name/Skills code/GEH1074T credits/4 sem/1 sem/2 coreq/GEH1074 tag/GEM tag/economics` +
+Adds a module named `Skills` with module code `GEH1074T`, which is assigned `4` modular credits and has module code `GEH1074` as a corequisite, to the module list. +
+Both modules (`GEH1074T` and `GEH1074`) will be updated to be co-requisites as shown below.
+
+.Module GEH1074T is added successfully; GEH1074T and GEH1074 are now co-requisites.
+ifdef::env-github[]
+image::module_add_coreq.png[width=800]
+endif::[]
+
+ifndef::env-github[]
+image::module_add_coreq.png[width=970]
+endif::[]
+
+// end::module_add[]
 
 // tag::module_edit[]
 ==== Editing modules : `edit` image:https://img.shields.io/badge/module-edit-blue.svg[]
 
-Edits an existing module in the module list. +
-Format: `edit INDEX [name/NAME] [code/CODE] [credits/CREDITS] [tag/TAG]… [coreq/COREQUISITE]…`
+Want to change the module details? No problem! +
+You can use this handy `edit` command to update the module details to your liking.
+
+*Command Format:* `edit INDEX [name/NAME] [code/CODE] [credits/CREDITS] [sem/SEMESTER]… [coreq/COREQUISITE]… [tag/TAG]…`
 
 [NOTE]
 ====
 * Edits the module at the specified `INDEX`. The index refers to the index number (beside the module code) shown in the displayed module list.
 * You need to provide at least one of the optional fields to edit.
 * Existing values will be updated to the input values.
-* When editing tags/corequisites, the existing tags/corequisites of the module will be removed (i.e adding of tags is not cumulative.)
+* When editing semesters/corequisites/tags, the existing semesters/corequisites/tags of the module will be removed (i.e adding of semesters/corequisites/tags is not cumulative.)
 * You can remove all the module's tags by typing `tag/` without specifying any tags after it.
-* Likewise, you can remove all module's co-requisites by typing `coreq/` without specifying any codes after it.
+* Likewise, you can remove all module's co-requisites or semesters by typing `coreq/` and `sem/` respectively without
+ specifying any values after the parameter prefix.
 ====
 
 Examples:
 
 * `edit 1 name/Data Structures and Algorithms code/CS2040C` +
-Edits the name and code of the 1st module in the displayed module list to be `Data Structures and Algorithms` and `CS2040C` respectively. +
+Edits the name and code of the 1^st^ module in the displayed module list to be `Data Structures and Algorithms` and
+`CS2040C` respectively. +
 * `edit 2 code/CS2040C tag/` +
-Edits the code of the 2nd module in the displayed module list to be `CS2040C` and clears all existing tags associated
+Edits the code of the 2^nd^ module in the displayed module list to be `CS2040C` and clears all existing tags associated
  with the module. +
-* `edit 3 coreq/CS1010` +
-Edits the co-requisite of the 3rd module in the displayed module list to be `CS1010`. +
-* `edit 4 coreq/CS2105 coreq/CS2106 coreq/CS2107` +
-Edits the co-requisites of the 4rd module in the displayed module list to be `CS2105`, `CS2106` and `CS2107`. +
-// tag::module_edit[]
+* `edit 3 coreq/CS2105 coreq/CS2106 coreq/CS2107` +
+ Edits the co-requisites of the 3^rd^ module in the displayed module list to be `CS2105`, `CS2106` and `CS2107`. +
+
+[NOTE]
+====
+Just like the `add` command, when editing the co-requisites of a module, the co-requisite modules will be updated as well.
+====
+
+*Example:* If `GEH1074` and `GEH1074T` are not co-requisites, running the command `edit 24 coreq/GEH1074T` will
+result in GEH1074 and GEH1074T being co-requisites.
+
+.GEH1074 and GEH1074T are being edited to be co-requisites.
+ifdef::env-github[]
+image::module_edit_coreq.png[width=800]
+endif::[]
+
+ifndef::env-github[]
+image::module_edit_coreq.png[width=970]
+endif::[]
+
+// end::module_edit[]
 
 // tag::module_delete[]
 ==== Deleting modules : `delete` image:https://img.shields.io/badge/module-delete-blue.svg[]
 
-Deletes the specified module from the module list. +
-Format: `delete INDEX`
+Want to delete a module from the *module list*? Simply locate the module to be deleted in the *module list*, and
+then use the `delete` command!
+
+*Command Format:* `delete INDEX`
 
 [NOTE]
 ====
-* Deletes the module at the specified `INDEX`.
-* The index refers to the index number shown in the displayed module list.
-* The index *must be a positive integer* 1, 2, 3, …
+To choose which module you want to delete, include the index number (beside the module code) in the displayed module list.
 ====
 
 [WARNING]
 ====
-* The deleted module will be removed from both the requirement category assigned and (where applicable).
-* When deleting a module, any modules with the deleted module as its co-requisite will be updated
-accordingly (i.e. deleted module is removed from the respective module's co-requisite list).
+* The deleted module will be removed from both the requirement category assigned and the degree plan (where applicable).
+* Any modules with the deleted module as a co-requisite will be updated accordingly (i.e. deleted module is removed from the respective module's co-requisite list).
 ====
 
-Examples:
+*Example:*
+If `GET1074T` and `GET1074` are co-requisite modules, deleting `GET1074` will cause `GET1074` 's list of co-requisite
+ modules to be updated as well.
 
-* `list` +
-`delete 2` +
-Deletes the 2nd module in the module list.
-* `find Programming` +
-`delete 1` +
-Deletes the 1st module in the results of the `find` command.
-// tag::module_delete[]
+.`GET1074` is removed from `GET1074` 's list of co-requisites.
+ifdef::env-github[]
+image::module_delete_coreq.png[width=800]
+endif::[]
 
-==== Listing all modules : `list` image:https://img.shields.io/badge/module-list-blue.svg[]
+ifndef::env-github[]
+image::module_delete_coreq.png[width=970]
+endif::[]
 
-Shows a list of all modules in the module list. +
-Format: `list`
+// end::module_delete[]
 
+// tag::find[]
 ==== Finding modules : `find` image:https://img.shields.io/badge/module-find-blue.svg[]
 
 Having trouble locating the modules you want?
 
-Make use of `find` command which allows you to find modules that have their names, code or credits matches the given
-search criteria +
-Format: `find [name/NAME] OPERATOR [code/CODE] OPERATOR [credits/CREDITS]`
+Make use of `find` command which allows you to find modules that have their names, code or credits matching the given
+search criteria.
+
+*Command Format:* `find [name/NAME] OPERATOR [code/CODE] OPERATOR [credits/CREDITS]`
 
 When this command is used, the application will display only those modules which satisfy the search criteria.
 
@@ -571,11 +622,33 @@ Do note that if you prefer to search for module name containing both `Informatio
 you can do the following command. `find name/Information && name/Security` +
 This command will return you modules with both name keywords. (e.g. `Security in Information Privacy`)
 ====
+// end::find[]
+
+==== Listing all modules : `list` image:https://img.shields.io/badge/module-list-blue.svg[]
+
+Shows a list of all modules in the *module list*. +
+*Command Format:* `list`
+
+[TIP]
+====
+This command is useful if you want to display all modules in the *module list* after doing a `find` command.
+====
+
+*Example:* Running the `list` command:
+
+.All modules are displayed in the *module list*.
+ifdef::env-github[]
+image::module_list.png[width=800]
+endif::[]
+
+ifndef::env-github[]
+image::module_list.png[width=970]
+endif::[]
 
 ==== Selecting modules : `select` image:https://img.shields.io/badge/module-select-blue.svg[]
 
 Selects the module identified by the index number used in the displayed module list. +
-Format: `select INDEX`
+*Command Format:* `select INDEX`
 
 ****
 * Selects the module at the specified `INDEX`.
@@ -588,7 +661,7 @@ Examples:
 * `list` +
 `select 2` +
 Selects the 2nd module in the displayed module list.
-* `find Betsy` +
+* `find Programming` +
 `select 1` +
 Selects the 1st module in the results of the `find` command.
 
