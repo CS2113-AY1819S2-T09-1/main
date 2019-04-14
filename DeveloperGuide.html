@@ -35,10 +35,13 @@
 <li><a href="#requirement-add-feature">3.4. Requirement Add Feature</a></li>
 <li><a href="#requirement-move-feature">3.5. Requirement Move Feature</a></li>
 <li><a href="#requirement-list-feature">3.6. Requirement List Feature</a></li>
-<li><a href="#planner-move-feature">3.7. Planner Move Feature</a></li>
-<li><a href="#planner-show-feature">3.8. Planner Show Feature</a></li>
-<li><a href="#logging">3.9. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.10. Configuration</a></li>
+<li><a href="#planner-add-feature">3.7. Planner Add Feature</a></li>
+<li><a href="#planner-remove-feature">3.8. Planner Remove Feature</a></li>
+<li><a href="#planner-move-feature">3.9. Planner Move Feature</a></li>
+<li><a href="#planner-show-feature">3.10. Planner Show Feature</a></li>
+<li><a href="#planner-suggest-feature">3.11. Planner Suggest Feature</a></li>
+<li><a href="#logging">3.12. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.13. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -77,12 +80,15 @@
 <ul class="sectlevel2">
 <li><a href="#launch-and-shutdown">F.1. Launch and Shutdown</a></li>
 <li><a href="#deleting-a-module">F.2. Deleting a module</a></li>
-<li><a href="#find-modules">F.3. Find modules</a></li>
-<li><a href="#moving-a-module-in-the-degree-plan">F.4. Moving a module in the degree plan</a></li>
-<li><a href="#showing-the-academic-semesters-in-the-degree-plan">F.5. Showing the academic semesters in the degree plan</a></li>
-<li><a href="#listing-all-the-academic-semesters-in-the-degree-plan">F.6. Listing all the academic semesters in the degree plan</a></li>
-<li><a href="#degree-requirement-category">F.7. Degree Requirement Category</a></li>
-<li><a href="#saving-data">F.8. Saving data</a></li>
+<li><a href="#adding-module-s-to-the-degree-plan">F.3. Adding module(s) to the degree plan</a></li>
+<li><a href="#removing-module-s-from-the-degree-plan">F.4. Removing module(s) from the degree plan</a></li>
+<li><a href="#using-the-degree-plan-to-suggest-module-s-to-take">F.5. Using the degree plan to suggest module(s) to take</a></li>
+<li><a href="#find-modules">F.6. Find modules</a></li>
+<li><a href="#moving-a-module-in-the-degree-plan">F.7. Moving a module in the degree plan</a></li>
+<li><a href="#showing-the-academic-semesters-in-the-degree-plan">F.8. Showing the academic semesters in the degree plan</a></li>
+<li><a href="#listing-all-the-academic-semesters-in-the-degree-plan">F.9. Listing all the academic semesters in the degree plan</a></li>
+<li><a href="#degree-requirement-category">F.10. Degree Requirement Category</a></li>
+<li><a href="#saving-data">F.11. Saving data</a></li>
 </ul>
 </li>
 </ul>
@@ -1790,7 +1796,220 @@ containing the module code must first be retrieved for the attribute to be updat
 </div>
 </div>
 <div class="sect2">
-<h3 id="planner-move-feature"><a class="link" href="#planner-move-feature">3.7. Planner Move Feature</a></h3>
+<h3 id="planner-add-feature"><a class="link" href="#planner-add-feature">3.7. Planner Add Feature</a></h3>
+<div class="paragraph">
+<p>The <code>planner_add</code> command in PWE is used to add module code(s) to the degree plan.</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">3.7.1. Current implementation</a></h4>
+<div class="paragraph">
+<p>The <code>planner_add</code> command requires the <code>PlannerAddCommandParser</code> class to parse the user input provided. The
+ parsed data will then be passed to the <code>PlannerAddCommand</code> class.</p>
+</div>
+<div class="paragraph">
+<p>The input should contain the year and semester of the degree plan as well as the module code(s) to be added.</p>
+</div>
+<div class="paragraph">
+<p><code>PlannerAddCommandParser</code> will throw an error if the user input does not match the command format.</p>
+</div>
+<div class="paragraph">
+<p>When <code>PlannerAddCommand</code> receives the parsed data, it will perform the following checks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Check if the year and semester exist in the degree plan</p>
+</li>
+<li>
+<p>Check if the module codes provided exist in PWE through <code>model.hasModuleCode</code></p>
+</li>
+<li>
+<p>Check if the module codes have already been added to the degree plan</p>
+</li>
+<li>
+<p>Check if the co-requisites of modules provided already exist in other semesters of the degree plan</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>PlannerAddCommand</code> will throw an error if any of the above checks fails.</p>
+</div>
+<div class="paragraph">
+<p>After passing all of the above checks, <code>PlannerAddCommand</code> updates the context in <code>ModelManager</code> through
+<code>setDegreePlanner</code>.</p>
+</div>
+<div class="paragraph">
+<p>In addition to adding module code(s) to the degree plan, the <code>PlannerAddCommand</code> class also saves the
+current database state through <code>commitApplication</code> (for undo/redo functions).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/PlannerAddCommandSequenceDiagram1.png" alt="PlannerAddCommandSequenceDiagram1" width="650">
+</div>
+<div class="title">Figure 17. PlannerAddCommand component interactions part 1</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/PlannerAddCommandSequenceDiagram2.png" alt="PlannerAddCommandSequenceDiagram2" width="650">
+</div>
+<div class="title">Figure 18. PlannerAddCommand component interactions part 2</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.7.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-choice-of-whether-to-deal-with-certain-possible-errors-when-the-application-gets-modified"><a class="link" href="#aspect-choice-of-whether-to-deal-with-certain-possible-errors-when-the-application-gets-modified">Aspect: Choice of whether to deal with certain possible errors when the application gets modified.</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternative 1 (current choice): Checking for invalid co-requisites as well as non-existent year and semester in degree plan.</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Software is more secure against possible errors.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Harder to maintain.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternative 2: Skipping checks for invalid co-requisites as well as non-existent year and semester in degree plan.</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Easier to maintain.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When certain parts of the software get modified, some errors may occur with this command. For instance, a user may use <code>EditCommand</code> to edit co-requisites. If the check was not in place and the edit command fails to add the edited co-requisites to the degree plan, the user will then be able to add the co-requisites to invalid semesters of the degree plan.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="planner-remove-feature"><a class="link" href="#planner-remove-feature">3.8. Planner Remove Feature</a></h3>
+<div class="paragraph">
+<p>The <code>planner_remove</code> command in PWE is used to remove module code(s) from the degree plan.</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation-8"><a class="link" href="#current-implementation-8">3.8.1. Current implementation</a></h4>
+<div class="paragraph">
+<p>The <code>planner_remove</code> command requires the <code>PlannerRemoveCommandParser</code> class to parse the user input provided. The
+ parsed data will then be passed to the <code>PlannerRemoveCommand</code> class.</p>
+</div>
+<div class="paragraph">
+<p>The input should contain the module code(s) to be removed.</p>
+</div>
+<div class="paragraph">
+<p><code>PlannerRemoveCommandParser</code> will throw an error if the user input does not match the command format.</p>
+</div>
+<div class="paragraph">
+<p>When <code>PlannerRemoveCommand</code> receives the parsed data, it will perform the following checks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Check if the module codes to remove exist in the degree plan.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>PlannerRemoveCommand</code> will throw an error if any of the above checks fails.</p>
+</div>
+<div class="paragraph">
+<p>After passing all of the above checks, <code>PlannerRemoveCommand</code> updates the context in <code>ModelManager</code> through
+<code>setDegreePlanner</code>.</p>
+</div>
+<div class="paragraph">
+<p>In addition to removing module code(s) from the degree plan, the <code>PlannerRemoveCommand</code> class also saves the
+current database state through <code>commitApplication</code> (for undo/redo functions).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/PlannerRemoveCommandClassDiagram.png" alt="PlannerRemoveCommandClassDiagram" width="650">
+</div>
+<div class="title">Figure 19. PlannerRemoveCommand class diagram</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-8"><a class="link" href="#design-considerations-8">3.8.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-choice-of-whether-to-use-code-getdegreeplannerbycode-code-method-for-removing-module-codes"><a class="link" href="#aspect-choice-of-whether-to-use-code-getdegreeplannerbycode-code-method-for-removing-module-codes">Aspect: Choice of whether to use <code>getDegreePlannerByCode</code> method for removing module codes.</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternative 1 (current choice): Looping through all semesters of the degree plan instead of using <code>getDegreePlannerByCode</code> to identify the relevant semesters of the codes to remove.</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Simpler code.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">May loop through extra semesters when there are few module codes to remove.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternative 2: Using <code>getDegreePlannerByCode</code> method to identify the relevant semesters containing the code to remove. Removing the codes in the selected semester only.</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When there are few module codes to remove, the method may incur in slightly less overhead.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When there are N modules to remove, while the current method only needs 16 (total number of semesters) outer loops,
+ this alternative method needs N outer loops. Moreover, <code>getDegreePlannerByCode</code> method itself also needs to loop through
+  the DegreePlanner List to find out the right semester. The time complexity for both methods can be the same.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="planner-move-feature"><a class="link" href="#planner-move-feature">3.9. Planner Move Feature</a></h3>
 <div class="paragraph">
 <p>The <code>planner_move</code> command aims to provide functionality for users to move a module between academic semesters in the
 degree plan along with its co-requisites.</p>
@@ -1800,7 +2019,7 @@ degree plan along with its co-requisites.</p>
 feature.</p>
 </div>
 <div class="sect3">
-<h4 id="overview-2"><a class="link" href="#overview-2">3.7.1. Overview</a></h4>
+<h4 id="overview-2"><a class="link" href="#overview-2">3.9.1. Overview</a></h4>
 <div class="paragraph">
 <p>As the users often encounter situations where they decide to take the modules in other semesters after they have
 completed their degree planning, the <code>planner_move</code> feature is essential to have.</p>
@@ -1811,7 +2030,7 @@ its co-requisites are offered in the semester the users wants to move to.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">3.7.2. Current Implementation</a></h4>
+<h4 id="current-implementation-9"><a class="link" href="#current-implementation-9">3.9.2. Current Implementation</a></h4>
 <div class="paragraph">
 <p>When a user execute the <code>planner_move</code> command (e.g. <code>planner_move year/1 sem/2 code/CS1010</code>), the following steps
 are taken by the application.</p>
@@ -1824,7 +2043,7 @@ are taken by the application.</p>
 <div class="content">
 <img src="images/PlannerMoveComponentSequenceDiagram.png" alt="PlannerMoveComponentSequenceDiagram" width="650">
 </div>
-<div class="title">Figure 17. PlannerMove component interactions</div>
+<div class="title">Figure 20. PlannerMove component interactions</div>
 </div>
 <div class="paragraph">
 <p>Step 1. The <code>PlannerMoveCommandParser#parse</code> method is invoked. The <code>PlannerMoveCommandParser</code> receives the command with
@@ -1871,7 +2090,7 @@ code that the user want to move.</p>
 <div class="content">
 <img src="images/PlannerMoveCommandSequenceDiagramDetail.png" alt="PlannerMoveCommandSequenceDiagramDetail" width="650">
 </div>
-<div class="title">Figure 18. PlannerMoveCommand in detail interactions</div>
+<div class="title">Figure 21. PlannerMoveCommand in detail interactions</div>
 </div>
 <div class="paragraph">
 <p>During this step, the following methods are carried out in the order:</p>
@@ -1967,7 +2186,7 @@ the`moveModuleBetweenPlanner` method which will call <code>setDegreePlanner</cod
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.7.3. Design Considerations</a></h4>
+<h4 id="design-considerations-9"><a class="link" href="#design-considerations-9">3.9.3. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-should-searching-of-the-degree-plan-based-on-the-year-and-the-semester-provided-to-be-done"><a class="link" href="#aspect-how-should-searching-of-the-degree-plan-based-on-the-year-and-the-semester-provided-to-be-done">Aspect: How should searching of the degree plan based on the year and the semester provided to be done</a></h5>
 <div class="ulist">
@@ -2023,14 +2242,14 @@ the semester provided.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="planner-show-feature"><a class="link" href="#planner-show-feature">3.8. Planner Show Feature</a></h3>
+<h3 id="planner-show-feature"><a class="link" href="#planner-show-feature">3.10. Planner Show Feature</a></h3>
 <div class="paragraph">
 <p>Planner show feature aims to help users to be able to easily locate and display any academic semesters in the degree
 plan which is in our application. We support the displaying of degree planners based on year, semester and boolean
 expressions. This enables our users to display only specific academic semesters in the degree plan that they want.</p>
 </div>
 <div class="sect3">
-<h4 id="overview-3"><a class="link" href="#overview-3">3.8.1. Overview</a></h4>
+<h4 id="overview-3"><a class="link" href="#overview-3">3.10.1. Overview</a></h4>
 <div class="paragraph">
 <p>When a user invokes the <code>planner_show</code> command. (e.g. <code>planner_show y/YEAR &amp;&amp; s/SEMESTER</code>), the following steps
 are taken by the program.</p>
@@ -2056,7 +2275,7 @@ are taken by the program.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-8"><a class="link" href="#current-implementation-8">3.8.2. Current Implementation</a></h4>
+<h4 id="current-implementation-10"><a class="link" href="#current-implementation-10">3.10.2. Current Implementation</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2078,7 +2297,7 @@ returns module having its year or semester matches the given year and semester</
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-8"><a class="link" href="#design-considerations-8">3.8.3. Design Considerations</a></h4>
+<h4 id="design-considerations-10"><a class="link" href="#design-considerations-10">3.10.3. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-to-parse-multiple-attributes"><a class="link" href="#aspect-how-to-parse-multiple-attributes">Aspect: How to parse multiple attributes</a></h5>
 <div class="ulist">
@@ -2131,14 +2350,102 @@ returns module having its year or semester matches the given year and semester</
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.9. Logging</a></h3>
+<h3 id="planner-suggest-feature"><a class="link" href="#planner-suggest-feature">3.11. Planner Suggest Feature</a></h3>
+<div class="paragraph">
+<p>The <code>planner_suggest</code> command in PWE is used to suggest module code(s) to add to the degree plan.</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation-11"><a class="link" href="#current-implementation-11">3.11.1. Current implementation</a></h4>
+<div class="paragraph">
+<p>The <code>planner_suggest</code> command requires the <code>PlannerSuggestCommandParser</code> class to parse the user input provided. The
+ parsed data will then be passed to the <code>PlannerSuggestCommand</code> class.</p>
+</div>
+<div class="paragraph">
+<p>The input should contain the desirable credits. Another optional input is the desirable tags.</p>
+</div>
+<div class="paragraph">
+<p><code>PlannerSuggestCommandParser</code> will throw an error if the user input does not match the command format.</p>
+</div>
+<div class="paragraph">
+<p>After passing the above check, <code>PlannerSuggestCommand</code> will make the result box display 3 lists of modules. The first list
+is the main recommendation list that sorts the modules in a specific way and displays maximum 10 most recommended modules.
+The second and the third list respectively displays the modules with matching tags and modules with matching credits. The
+modules in the two lists should also exist in the main recommendation list.</p>
+</div>
+<div class="paragraph">
+<p>If <code>tag</code> is supplied as a parameter in input, modules will be sorted according to tags first. Modules with greater number
+of tags that match the desirable tags will be prioritized. If tie, modules with credits closer to the desirable credits
+will be prioritized. If tie again, modules will be sorted according to alphabetical order.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/PlannerSuggestCommandActivityDiagram.png" alt="PlannerSuggestCommandActivityDiagram" width="650">
+</div>
+<div class="title">Figure 22. PlannerSuggestCommand activity diagram</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-11"><a class="link" href="#design-considerations-11">3.11.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-choice-of-where-to-put-code-moduletosuggest-code-class"><a class="link" href="#aspect-choice-of-where-to-put-code-moduletosuggest-code-class">Aspect: Choice of where to put <code>ModuleToSuggest</code> class.</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternative 1 (current choice): Put <code>ModuleToSuggest</code> as inner class of <code>PlannerSuggestCommand</code> class.</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cleaner model for the Application.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The inner class has access to the private and protected members of the outer class, which can be unnecessary.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternative 2: Put <code>ModuleToSuggest</code> as a separate class apart from <code>PlannerSuggestCommand</code> class.</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Better encapsulation for <code>PlannerSuggestCommand</code> class.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">As no other class needs to access the <code>ModuleToSuggest</code> class, making it a separate class is unnecessary and makes the model more complex.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="logging"><a class="link" href="#logging">3.12. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.10, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.13, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -2169,7 +2476,7 @@ returns module having its year or semester matches the given year and semester</
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.10. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.13. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -2235,7 +2542,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 19. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 23. Saving documentation as PDF files in Chrome</div>
 </div>
 </div>
 <div class="sect2">
@@ -2522,7 +2829,7 @@ e.g. <code>pwe.planner.logic.LogicManagerTest</code></p>
 <div class="content">
 <img src="images/testfx-idea-accessibility-permissions.png" alt="testfx idea accessibility permissions" width="600">
 </div>
-<div class="title">Figure 20. <code>Accessibility</code> permission is granted to <code>IntelliJ IDEA</code></div>
+<div class="title">Figure 24. <code>Accessibility</code> permission is granted to <code>IntelliJ IDEA</code></div>
 </div>
 </div>
 </div>
@@ -2773,6 +3080,12 @@ categories</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">choose to overload/underload modules in a semester</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">manage my workload better</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">know the modules to put inside the degree plan</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">find out the suitable modules to take easily</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
@@ -3343,6 +3656,54 @@ plan.</p>
 </li>
 </ul>
 </div>
+<h3 id="use-case-identify-modules-to-add-to-degree-plan" class="discrete">Use case: Identify modules to add to degree plan</h3>
+<div class="paragraph">
+<p><strong>Guarantee(s):</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>Modules will be listed if the input from the user is valid and can match the existing entries in the module list.<br></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to find modules to put inside the degree plan with their criteria of choice.</p>
+</li>
+<li>
+<p>Application shows a list of modules sorted according to the given criteria, filtering off the modules already existing
+inside the degree plan.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1a. The given input is invalid.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1a1. Application shows an error message that given input is invalid.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 <h3 id="use-case-add-a-module-to-degree-requirement-category" class="discrete">Use case: Add a module to degree requirement category</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
@@ -3711,7 +4072,116 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-modules"><a class="link" href="#find-modules">F.3. Find modules</a></h3>
+<h3 id="adding-module-s-to-the-degree-plan"><a class="link" href="#adding-module-s-to-the-degree-plan">F.3. Adding module(s) to the degree plan</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Adding valid module(s).</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Populate module list with sample data using <code>reset</code> command, then list all modules using the <code>list</code> command.</p>
+</li>
+<li>
+<p>Test case: <code>planner_add year/1 sem/1 code/CS1010 code/CS1231</code><br>
+Expected: Module codes <code>CS1010</code> and <code>CS1231</code> will be added to year 1 semester 1 of the degree plan.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Adding module(s) with bad bad parameters.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Populate module list with sample data using <code>reset</code> command, then list all modules using the <code>list</code> command.</p>
+</li>
+<li>
+<p>Test case: <code>planner_add invalid/1 sem/1 code/CS1010 code/CS1231</code><br>
+Expected: Invalid command format.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Adding module(s) with invalid values.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Populate module list with sample data using <code>reset</code> command, then list all modules using the <code>list</code> command.</p>
+</li>
+<li>
+<p>Test case: <code>planner_add year/-1 sem/1 code/CS1010 code/CS1231</code><br>
+Expected: A message that indicates the valid value range of year.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="removing-module-s-from-the-degree-plan"><a class="link" href="#removing-module-s-from-the-degree-plan">F.4. Removing module(s) from the degree plan</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Removing valid module(s).</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: List all academic semesters using the <code>planner_list</code> command.</p>
+</li>
+<li>
+<p>Test case: <code>planner_remove code/CS1010 code/CS1231</code><br>
+Expected: Module codes <code>CS1010</code> and <code>CS1231</code> will be removed from the degree plan.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Removing module(s) with bad bad parameters.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: List all academic semesters using the <code>planner_list</code> command.</p>
+</li>
+<li>
+<p>Test case: <code>planner_remove invalid/CS1010 code/CS1231</code><br>
+Expected: Invalid command format.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using-the-degree-plan-to-suggest-module-s-to-take"><a class="link" href="#using-the-degree-plan-to-suggest-module-s-to-take">F.5. Using the degree plan to suggest module(s) to take</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Suggesting valid module(s).</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Populate module list with sample data using <code>reset</code> command, then list all modules using the <code>list</code> command.</p>
+</li>
+<li>
+<p>Test case: <code>planner_suggest credits/1</code><br>
+Expected: Maximum 10 modules recommended in a specially sorted order.</p>
+</li>
+<li>
+<p>Test case: <code>planner_suggest credits/1 tag/maths</code><br>
+Expected: Maximum 10 modules recommended in a specially sorted order.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find-modules"><a class="link" href="#find-modules">F.6. Find modules</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3828,7 +4298,7 @@ Expected: A guide on how the accepted value for <code>code</code> will be displa
 </div>
 </div>
 <div class="sect2">
-<h3 id="moving-a-module-in-the-degree-plan"><a class="link" href="#moving-a-module-in-the-degree-plan">F.4. Moving a module in the degree plan</a></h3>
+<h3 id="moving-a-module-in-the-degree-plan"><a class="link" href="#moving-a-module-in-the-degree-plan">F.7. Moving a module in the degree plan</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3876,7 +4346,7 @@ Expected: Error message is displayed since CS2101 module is not offered in semes
 </div>
 </div>
 <div class="sect2">
-<h3 id="showing-the-academic-semesters-in-the-degree-plan"><a class="link" href="#showing-the-academic-semesters-in-the-degree-plan">F.5. Showing the academic semesters in the degree plan</a></h3>
+<h3 id="showing-the-academic-semesters-in-the-degree-plan"><a class="link" href="#showing-the-academic-semesters-in-the-degree-plan">F.8. Showing the academic semesters in the degree plan</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3944,7 +4414,7 @@ Expected: Error message is displayed.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-all-the-academic-semesters-in-the-degree-plan"><a class="link" href="#listing-all-the-academic-semesters-in-the-degree-plan">F.6. Listing all the academic semesters in the degree plan</a></h3>
+<h3 id="listing-all-the-academic-semesters-in-the-degree-plan"><a class="link" href="#listing-all-the-academic-semesters-in-the-degree-plan">F.9. Listing all the academic semesters in the degree plan</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3966,7 +4436,7 @@ Expected: All the academic semesters are listed in the degree plan.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="degree-requirement-category"><a class="link" href="#degree-requirement-category">F.7. Degree Requirement Category</a></h3>
+<h3 id="degree-requirement-category"><a class="link" href="#degree-requirement-category">F.10. Degree Requirement Category</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4106,7 +4576,7 @@ and the module code(s) added to the degree requirement categories is listed in t
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">F.8. Saving data</a></h3>
+<h3 id="saving-data"><a class="link" href="#saving-data">F.11. Saving data</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4126,4 +4596,4 @@ and the module code(s) added to the degree requirement categories is listed in t
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 17:29:01 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 18:12:59 UTC</div></div></div></body></html>
