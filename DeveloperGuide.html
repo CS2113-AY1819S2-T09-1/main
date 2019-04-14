@@ -76,7 +76,8 @@
 <ul class="sectlevel2">
 <li><a href="#launch-and-shutdown">F.1. Launch and Shutdown</a></li>
 <li><a href="#deleting-a-module">F.2. Deleting a module</a></li>
-<li><a href="#saving-data">F.3. Saving data</a></li>
+<li><a href="#find-modules">F.3. Find modules</a></li>
+<li><a href="#saving-data">F.4. Saving data</a></li>
 </ul>
 </li>
 </ul>
@@ -843,14 +844,18 @@ refreshed to display the full listing just to be able to iterate and delete modu
 <div class="sect2">
 <h3 id="find-feature"><a class="link" href="#find-feature">3.3. Find Feature</a></h3>
 <div class="paragraph">
-<p>The find feature aims to help users to be able to locate any module in our application easily. We support
-the finding of module&#8217;s name, code and credits. This enable our users to be able to find for any modules with partial
- information.</p>
+<p>The <code>find</code> feature aims to help users to be able to easily locate any modules in our application. With a large number
+of modules available to our users, <code>find</code> feature is essential. Currently, the <code>find</code> feature only supports searching
+ of module&#8217;s name, code, credits, tags and the semesters it is offered in.</p>
+</div>
+<div class="paragraph">
+<p>This section shares the implementation and the design considerations gone through while enhancing the find feature.
+Details on how the find feature is implemented and how it supports more search parameters are also shared.</p>
 </div>
 <div class="sect3">
 <h4 id="overview"><a class="link" href="#overview">3.3.1. Overview</a></h4>
 <div class="paragraph">
-<p>When a user invokes the <code>find</code> command. (e.g. find name/Programming code/CS1231), the following steps are taken by
+<p>When a user invokes the <code>find</code> command. (e.g. find name/Programming || code/CS1231), the following steps are taken by
 the program.</p>
 </div>
 <div class="olist arabic">
@@ -870,24 +875,33 @@ the program.</p>
 <p>Step 1 is performed by the <code>ApplicationParser</code> class, and no special actions is needed for the <code>find</code> feature.</p>
 </div>
 <div class="paragraph">
-<p>Step 3 is performed by <code>BooleanExpression#parse</code></p>
+<p>Step 2 and 3 are performed by <code>BooleanExpressionParser#parse</code></p>
+</div>
+<div class="paragraph">
+<p>The class diagram below shows the different components and constraints for <code>find</code> feature.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/FindCommandClassDiagram.png" alt="FindCommandClassDiagram" width="970">
+</div>
+<div class="title">Figure 9. Class diagram for <code>find</code> feature</div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.2. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The <code>FindCommandParser</code> parses the strings of arguments provided by the user to retrieve a composite <code>Predicate</code>
-which is used by <code>FindCommand</code>. A <code>ParseException</code> is thrown when if the input provided by the user does not conform
-to the expected format.</p>
+which is used by <code>FindCommand</code>. A <code>ParseException</code> is thrown in the case if the input provided by the user does not
+conform to the expected format.</p>
 </div>
 <div class="paragraph">
 <p>The sequence diagram below shows the interaction within the <code>Logic</code> components.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/FindCommandSequenceDiagram.png" alt="FindCommandSequenceDiagram" width="650">
+<img src="images/FindCommandSequenceDiagram.png" alt="FindCommandSequenceDiagram" width="970">
 </div>
-<div class="title">Figure 9. Find component interactions</div>
+<div class="title">Figure 10. Find component interactions</div>
 </div>
 <div class="paragraph">
 <p>The main implementation of this feature is split into two components. The <code>Tokenizer</code> and <code>BooleanExpressionParser</code></p>
@@ -898,10 +912,50 @@ to the expected format.</p>
 <p><code>Tokenizer</code> helps to split the user provided argument into tokens which could be used by <code>BooleanExpressionParser</code>.</p>
 </li>
 <li>
-<p><code>BooleanExpressionParser</code> handle the high-level syntax of the find expressions and map them into
-<code>Predicate</code> which could be used by <code>FindCommand</code></p>
+<p><code>BooleanExpressionParser</code> simply performs Shunting-Yard algorithm on the boolean expression tokens provided by the
+<code>Tokenizer</code>  and maps them into <code>Predicate</code> which could be used by <code>FindCommand</code>.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p><code>FindCommandParser</code> calls <code>BooleanExpressionParser#parse</code> which handles the evaluation of the expression.<br>
+This process is achieved by the code snippet shown below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="predefined-type">String</span> trimmedArgs = args.trim();
+<span class="keyword">if</span> (trimmedArgs.isEmpty()) {
+    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">ParseException</span>(
+            <span class="predefined-type">String</span>.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+}
+<span class="predefined-type">Predicate</span>&lt;Module&gt; predicate = BooleanExpressionParser.parse(args, PREFIXES);
+<span class="keyword">return</span> <span class="keyword">new</span> FindCommand(predicate);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To support more parameters for our <code>find</code> feature. You can do the following steps.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a new <code>Predicate</code> class (e.g. <code>NameContainsKeywordsPredicate</code>) and define your expected behaviour in it.</p>
+</li>
+<li>
+<p>Ensure your <code>Predicate</code> class extends <code>KeywordsPredicate</code>.</p>
+</li>
+<li>
+<p>Update <code>BooleanExpressionParser#getKeywordsPredicate</code> to handle the creation of the <code>Predicate</code>.</p>
+</li>
+<li>
+<p>Update <code>CliSyntax</code> on the new prefix you would like for the new parameter.</p>
+</li>
+<li>
+<p>Update <code>FindCommandParser</code> to take in the new <code>PREFIX</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Your new parameter will now be supported after the above steps!</p>
 </div>
 </div>
 <div class="sect3">
@@ -915,15 +969,111 @@ all argument with <code>PREFIX</code> and <code>OPERATOR</code> as a token.</p>
 Each query will consume the previous token and returns the next available token.<br>
 This is similar to how <code>java.util.Scanner</code> works.</p>
 </div>
+<div class="sect4">
+<h5 id="design-consideration"><a class="link" href="#design-consideration">Design Consideration</a></h5>
+<div class="paragraph">
+<p>After many rounds of experiment with <code>StringTokenizer</code> that is provided by native Java and <code>ArgumentMultimap</code>.<br>
+We found three main issues which could not be satisfied by either <code>StringTokenizer</code> or <code>ArgumentMultimap</code>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>ArgumentMultimap</code> does not keep track of the order of each delimiter. They will only track if the delimiter exists.</p>
+</li>
+<li>
+<p><code>StringTokenizer</code> has a default delimiter as a whitespace, although we could change the delimiter and parse multiple
+delimiters. It does not suit our situation.<br>
+e.g. <code>find name/AAAA code/BBBB</code>.<br>
+This will return us 1 token. <code>name/AAAA code/BBBB</code>, which we cannot use to check due to the missing <code>operator</code>.<br>
+We need the tokenizer to return us 2 tokens <code>name/AAAA</code> and <code>code/BBBB</code> in order for us to know that the expression
+was invalid due to the missing <code>operator</code>.</p>
+</li>
+<li>
+<p><code>StringTokenizer</code> can take in <code>PREFIX</code> as delimiter, however, this will split the argument (i.e. <code>code/CS1231</code>) into
+two tokens, <code>code/</code> and <code>CS1231</code>.<br>
+Additional parsing is required before we are able to pass it to <code>BooleanExpressionParser</code>. This parsing creates more
+overhead as we have to ensure that the proper checks are done.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>As such, our custom <code>Tokenizer</code> aims to solve these three issues.</p>
+</div>
+<div class="paragraph">
+<p>The table below shows the differences among our <code>Tokenizer</code>, <code>StringTokenizer</code> and <code>ArgumentMultimap</code></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>Tokenizer</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>StringTokenizer</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>ArgumentMultimap</code></strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Respect the order of delimiters.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Respect the order of delimiters</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Only keep track which delimiters are present.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Support multiple delimiters.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Support multiple delimiters.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Support multiple delimiters.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Splitting tokens is more flexible</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Only split token based on delimiters</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Does not split into token.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="sect3">
 <h4 id="operator"><a class="link" href="#operator">3.3.4. Operator</a></h4>
 <div class="paragraph">
-<p>This is represented by the class <code>pwe.planner.logic.parser.Operator</code> and define all valid operators to be used in
+<p>This is represented by the class <code>pwe.planner.logic.parser.Operator</code> and defines all valid operators to be used in
 <code>BooleanExpressionParser</code>.</p>
 </div>
 <div class="paragraph">
-<p>To support more operators for our <code>BooleanExpressionParser</code>. The following steps should be done.</p>
+<p>The table below shows the valid operators that our application currently supports.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Operator</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precedence</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&amp;&amp;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical "AND" operation (both conditions A AND B must match)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Highest</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>||</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical "OR" operation (either conditions A OR B must match)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lowest</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(</code> and <code>)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Search term surrounded by parenthesis will always be evaluated first. If there is a tie, the logical
+operator precedence will be taken into consideration.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N.A</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>To support more operators for our <code>BooleanExpressionParser</code>. The following steps should be performed.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -982,75 +1132,116 @@ first).</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/parserSequenceDiagram.png" alt="parserSequenceDiagram" width="650">
+<img src="images/parserSequenceDiagram.png" alt="parserSequenceDiagram" width="970">
 </div>
-<div class="title">Figure 10. Parser interactions</div>
+<div class="title">Figure 11. Find component interactions</div>
 </div>
+<div class="paragraph">
+<p>When <code>FindCommandParser</code> receives the provided user argument, it will carry out checks and pass the argument to
+ <code>BooleanExpressionParser</code> which will initialize a new <code>Tokenizer</code> that extracts the arguments as tokens.<br>
+<code>BooleanExpressionParser</code> will create a <code>Predicate</code> based on the <code>Prefix</code> in each token. If the token is an <code>Operator</code>,
+<code>BooleanExpressionParser</code> will apply the operator on two <code>Predicate</code> to combine them into a composite <code>Predicate</code>.</p>
 </div>
-<div class="sect3">
-<h4 id="design-consideration"><a class="link" href="#design-consideration">3.3.6. Design Consideration</a></h4>
-<div class="sect4">
-<h5 id="aspect-how-to-parse-composite-predicates"><a class="link" href="#aspect-how-to-parse-composite-predicates">Aspect: How to parse composite predicates</a></h5>
-<div class="admonitionblock note">
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Currently we are using choice 2 because this provide our users with a more flexible way of finding modules in our
-application.
+<div class="paragraph">
+<p>See <a href="#tokenizer">Section 3.3.3, &#8220;Tokenizer&#8221;</a> for more details regarding the tokenizer.</p>
+</div>
 </td>
 </tr>
 </table>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Alternative 1: Do an implicit boolean <code>OR</code> for every predicate.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>The process of how the predicate for each prefix is created is shown in the code snippet below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">ArgumentMultimap argMultimap =
+        ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CODE, PREFIX_CREDITS);
+KeywordsPredicate predicate = <span class="predefined-constant">null</span>;
+<span class="keyword">if</span> (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+    <span class="predefined-type">String</span> nameKeyword = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()).toString();
+    predicate = <span class="keyword">new</span> NameContainsKeywordsPredicate(<span class="predefined-type">List</span>.of(nameKeyword));
+} <span class="keyword">else</span> <span class="keyword">if</span> (argMultimap.getValue(PREFIX_CODE).isPresent()) {
+    <span class="predefined-type">String</span> codeKeyword = ParserUtil.parseCode(argMultimap.getValue(PREFIX_CODE).get()).toString();
+    predicate = <span class="keyword">new</span> CodeContainsKeywordsPredicate(<span class="predefined-type">List</span>.of(codeKeyword));
+} <span class="keyword">else</span> <span class="keyword">if</span> (argMultimap.getValue(PREFIX_CREDITS).isPresent()) {
+    <span class="predefined-type">String</span> creditKeyword = ParserUtil.parseCredits(argMultimap.getValue(PREFIX_CREDITS).get()).toString();
+    predicate = <span class="keyword">new</span> CreditsContainsKeywordsPredicate(<span class="predefined-type">List</span>.of(creditKeyword));
+} <span class="keyword">else</span> {
+    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">ParseException</span>(
+            <span class="predefined-type">String</span>.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+}
+<span class="keyword">return</span> predicate;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.6. Design Considerations</a></h4>
+<div class="paragraph">
+<p>This section shares the design considerations we went through during the enhancing the existing <code>find</code> feature.</p>
+</div>
+<div class="sect4">
+<h5 id="aspect-parsing-of-composite-predicate"><a class="link" href="#aspect-parsing-of-composite-predicate">Aspect: Parsing of composite predicate</a></h5>
+<div class="paragraph">
+<p>The table below shows comparisons between the two approaches.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 30%;">
-<col style="width: 70%;">
+<col style="width: 35%;">
+<col style="width: 35%;">
 </colgroup>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Approach</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Very easy to implementation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">User will not be able to do a very detailed or complex find.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="ulist">
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>1.</strong> Implement an algorithm <a href="https://en.wikipedia.org/wiki/Shunting-yard_algorithm">Shunting Yard</a> that parses the complex
+boolean expression and returns a composite predicate.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Find command can be very flexible. It can work with multiple parameters to search for the specific modules that the
+user wants.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
 <ul>
 <li>
-<p>Alternative 2 (current choice): Implement an algorithm <a href="https://en.wikipedia.org/wiki/Shunting-yard_algorithm">Shunting Yard</a>
-that can parse complex boolean expression.</p>
+<p>Requires many tests to ensure expected behaviours</p>
+</li>
+<li>
+<p>Extra work is required to integrate a new logic parser into <code>FindCommandParser</code>. It may result in  build problems if
+it is not implemented properly.</p>
 </li>
 </ul>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 30%;">
-<col style="width: 70%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">User will have very flexible searching terms</p></td>
+</div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Developer will take a very long time to implement and test for edge cases.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2.</strong> Do an implicit logical <code>OR</code> for every predicate.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Very easy to implement</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Returns a very huge set of results when the number of keywords increase.</p>
+</li>
+<li>
+<p>Find command will be restricted to logical <code>OR</code> results.</p>
+</li>
+</ul>
+</div></div></td>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>After weighing both pros and cons, we decided to go with <strong>approach 1</strong>.<br>
+As we are expecting many similar names between modules in the university curriculum, if the user could only search
+with an implicit logical <code>OR</code>, the user would not be able to find the desired modules effectively. This can drastically
+ reduce the effectiveness of the <code>find</code> command.</p>
+</div>
 </div>
 </div>
 </div>
@@ -1105,11 +1296,11 @@ current database state through <code>commitApplication</code> (for undo/redo fun
 <div class="content">
 <img src="images/RequirementAddCommandSequenceDiagram.png" alt="RequirementAddCommandSequenceDiagram" width="650">
 </div>
-<div class="title">Figure 11. RequirementAddCommand component interactions</div>
+<div class="title">Figure 12. RequirementAddCommand component interactions</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.4.2. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.4.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-choice-of-what-is-stored-in-the-requirement-category"><a class="link" href="#aspect-choice-of-what-is-stored-in-the-requirement-category">Aspect: Choice of what is stored in the requirement category</a></h5>
 <div class="ulist">
@@ -1199,11 +1390,11 @@ to the user:</p>
 <div class="content">
 <img src="images/RequirementListCommandSequenceDiagram.png" alt="RequirementListCommandSequenceDiagram" width="650">
 </div>
-<div class="title">Figure 12. RequirmentListCommand component interactions</div>
+<div class="title">Figure 13. RequirmentListCommand component interactions</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.5.2. Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.5.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-tracking-the-current-amount-of-credits-in-a-requirement-category"><a class="link" href="#aspect-tracking-the-current-amount-of-credits-in-a-requirement-category">Aspect: Tracking the current amount of credits in a requirement category</a></h5>
 <div class="ulist">
@@ -1310,11 +1501,11 @@ undo/redo functions).</p>
 <div class="content">
 <img src="images/PlannerMoveComponentSequenceDiagram.png" alt="PlannerMoveComponentSequenceDiagram" width="650">
 </div>
-<div class="title">Figure 13. PlannerMove component interactions</div>
+<div class="title">Figure 14. PlannerMove component interactions</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.6.2. Design Considerations</a></h4>
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.6.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-should-searching-of-the-degree-plan-based-on-the-year-and-the-semester-provided-to-be-done"><a class="link" href="#aspect-how-should-searching-of-the-degree-plan-based-on-the-year-and-the-semester-provided-to-be-done">Aspect: How should searching of the degree plan based on the year and the semester provided to be done</a></h5>
 <div class="ulist">
@@ -1447,7 +1638,7 @@ are taken by the program.</p>
 <div class="content">
 <img src="images/PlannerListComponentSequenceDiagram.png" alt="PlannerListComponentSequenceDiagram" width="650">
 </div>
-<div class="title">Figure 14. PlannerList component interactions</div>
+<div class="title">Figure 15. PlannerList component interactions</div>
 </div>
 </div>
 <div class="sect3">
@@ -1476,7 +1667,7 @@ returns module having its year or semester matches the given year and semester</
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.7.3. Design Considerations</a></h4>
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.7.3. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-to-parse-multiple-attributes"><a class="link" href="#aspect-how-to-parse-multiple-attributes">Aspect: How to parse multiple attributes</a></h5>
 <div class="ulist">
@@ -1617,7 +1808,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 15. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 16. Saving documentation as PDF files in Chrome</div>
 </div>
 </div>
 <div class="sect2">
@@ -1904,7 +2095,7 @@ e.g. <code>pwe.planner.logic.LogicManagerTest</code></p>
 <div class="content">
 <img src="images/testfx-idea-accessibility-permissions.png" alt="testfx idea accessibility permissions" width="600">
 </div>
-<div class="title">Figure 16. <code>Accessibility</code> permission is granted to <code>IntelliJ IDEA</code></div>
+<div class="title">Figure 17. <code>Accessibility</code> permission is granted to <code>IntelliJ IDEA</code></div>
 </div>
 </div>
 </div>
@@ -3093,7 +3284,124 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">F.3. Saving data</a></h3>
+<h3 id="find-modules"><a class="link" href="#find-modules">F.3. Find modules</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Find modules in the module list using one parameter.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Populate module list with sample data using <code>reset</code> command, then list all modules using the <code>list</code>
+command.</p>
+</li>
+<li>
+<p>Test case: <code>find name/programming</code><br>
+Expected: Module list will displays all the modules whose name contains <code>programming</code>.<br>
+Number of modules found is shown in the <strong>result box</strong></p>
+</li>
+<li>
+<p>Test case: <code>find name/PROGRAMMING</code><br>
+Expected: Module list will displays all the modules whose name contains <code>programming</code>.<br>
+Number of modules found is shown in the <strong>result box</strong>.<br>
+This will have the same results as the previous test case.</p>
+</li>
+<li>
+<p>Test case: <code>find code/CS1231</code><br>
+Expected: Module list will displays all the modules whose code matches <code>CS1231</code>.<br>
+Number of modules found is shown in the <strong>result box</strong>.<br></p>
+</li>
+<li>
+<p>Test case: <code>find credits/4</code><br>
+Expected: Module list will displays all the modules which assigned <code>4</code> modular credits.<br>
+Number of modules found is shown in the <strong>result box</strong>.<br></p>
+</li>
+<li>
+<p>Test case: <code>find tag/algorithm</code><br>
+Expected: Module list will displays all the modules which has the tag <code>algorithm</code>.<br>
+Number of modules found is shown in the <strong>result box</strong>.</p>
+</li>
+<li>
+<p>Test case: <code>find sem/2</code><br>
+Expected: Module list will displays all modules offered in semesters <code>2</code>.<br>
+Number of modules found is shown in the <strong>result box</strong>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Find modules in the module list using multiple parameters.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Populate module list with sample data using <code>reset</code> command, then list all modules using the <code>list</code>
+command.</p>
+</li>
+<li>
+<p>Test case: <code>find name/programming || name/discrete</code><br>
+Expected: Module list will displays all the modules whose name contains <code>programming</code> or <code>discrete</code>.<br>
+ Number of modules found is shown in the <strong>result box</strong>.</p>
+</li>
+<li>
+<p>Test case: <code>find name/discrete || name/programming</code><br>
+Expected: Module list will displays all the modules whose name contains <code>programming</code> or <code>discrete</code>.<br>
+ Number of modules found is shown in the <strong>result box</strong>.<br>
+This will have the same results as the previous test case.</p>
+</li>
+<li>
+<p>Test case: <code>find name/programming &amp;&amp; name/methodology</code><br>
+Expected: Module list will displays all the modules whose name contains <code>programming</code> and <code>methodology</code>.<br>
+Number of modules found is shown in the <strong>result box</strong>.</p>
+</li>
+<li>
+<p>Test case: <code>find name/programming &amp;&amp; sem/2</code><br>
+Expected: Module list will displays all the modules whose name contains <code>programming</code> and is offered in semester 2 only.</p>
+</li>
+<li>
+<p>Test case: <code>find (name/programming || name/algorithm) &amp;&amp; sem/2</code>
+Expected: Module list will displays all the module whose name contains either <code>programming</code> or <code>algorithm</code> and is
+offered in semesters 2.<br>
+Number of modules found is shown in the <strong>result box</strong>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Find modules with bad parameters.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Populate module list with sample data using <code>reset</code> command, then list all modules using the <code>list</code>
+command.</p>
+</li>
+<li>
+<p>Test case: <code>find nonExist/</code><br>
+Expected: Invalid command format!<br>
+A guide on how to use the command will be displayed in the <strong>result box</strong>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Find modules with invalid values.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Populate module list with sample data using <code>reset</code> command, then list all modules using the <code>list</code>
+command.</p>
+</li>
+<li>
+<p>Test case: <code>find code/ZZZZZZ</code><br>
+Expected: A guide on how the accepted value for <code>code</code> will be displayed in the <strong>result box</strong>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="saving-data"><a class="link" href="#saving-data">F.4. Saving data</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3113,4 +3421,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 15:14:01 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 15:16:08 UTC</div></div></div></body></html>
