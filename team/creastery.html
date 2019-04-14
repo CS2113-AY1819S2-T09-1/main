@@ -4,51 +4,153 @@
 <h2 id="project-planwithease"><a class="link" href="#project-planwithease">PROJECT: PlanWithEase</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>{The dummy content given below serves as a placeholder to be updated in the future.}</em><br></p>
+<p>Hello there, I am <em>Wei Lin</em>. I am currently pursuing a degree in Information Security at National University of Singapore (NUS).<br>
+I love to build and break applications!</p>
 </div>
-<hr>
+<div class="paragraph">
+<p>This portfolio serves to document my involvements in a team-based project CS2113T (Software Engineering &amp; Object-Oriented Programming) module by NUS.
+The project spans over a period of eight weeks, and was completed by a team of five members (consisting of <a href="truegitnovice.html">Ahn TaeGyu</a>, <a href="wendybaiyunwei.html">Bai YunWei</a>, <a href="lycjackie.html">Lee Yu Choy</a>, <a href="chyeo.html">Yeo Cheng Hong</a> and myself) over the span of 8 weeks.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.</p>
+<p>In this project, our aim was to simplify the process of planning a degree, and ensure that the degree plan fulfills the
+degree requirements.</p>
+</div>
+<div class="paragraph">
+<p>Planning a degree is certainly not an easy task, and can be very time-consuming. Furthermore, there are many considerations to make, making it difficult to create the perfect degree plan.</p>
+</div>
+<div class="paragraph">
+<p>With this goal in mind, we developed PlanWithEase (PWE), a degree planner application designed to help NUS
+Information Security freshmen in creating a comprehensive degree plan according to the degree requirements effortlessly.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Ui.png" alt="Ui" width="970">
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
+<h2 id="understanding-this-project-portfolio"><a class="link" href="#understanding-this-project-portfolio">Understanding This Project Portfolio</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The following symbols are used throughout this project portfolio:</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This symbol denotes information that you may want to take note of when using the application.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This symbol denotes a tip which you may find useful when using the application.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This symbol denotes a warning message which you need to be careful of when using the application.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additionally, you may also encounter the following text styles:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Major enhancement</strong>: added <strong>the ability to undo/redo previous commands</strong></p>
-<div class="ulist">
-<ul>
-<li>
-<p>What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.</p>
+<p>Commands or parameters will be in this <code>format</code>.</p>
 </li>
 <li>
-<p>Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.</p>
+<p>Important messages will be <strong>bold</strong>.</p>
 </li>
 <li>
-<p>Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.</p>
+<p>Undoable command will be in <em>italics</em>.</p>
 </li>
 <li>
-<p>Credits: <em>{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}</em></p>
+<p>Keyboard buttons will be referred to as such: <kbd>F1</kbd>.</p>
 </li>
 </ul>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of Contributions</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>This section provides a summary on the contributions I made to this project.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="strong-major-enhancement-strong-module-management"><a class="link" href="#strong-major-enhancement-strong-module-management"><strong>Major Enhancement</strong>: Module Management</a></h3>
+<div class="sect3">
+<h4 id="add-edit-delete-modules"><a class="link" href="#add-edit-delete-modules">Add, Edit &amp; Delete Modules</a></h4>
+<div class="paragraph">
+<p>This feature allows the user to manage modules in PlanWithEase easily using the <code>add</code>, <code>edit</code> and <code>delete</code> commands.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Justification: Users can keep track of module details (such as module co-requisites, the semesters the modules are offered in, etc.) within PlanWithEase to facilitate their planning.</p>
 </li>
 <li>
-<p><strong>Minor enhancement</strong>: added a history command that allows the user to navigate to previous commands using up/down keys.</p>
+<p>Highlights: This enhancement performs numerous validation checks to ensure that the degree plan created by the user remains sound after users edit module details, which is crucial in enabling the whole application to function correctly. The module management commands also provide tips on how to resolve any errors encountered by the users.</p>
 </li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="strong-code-contributed-strong"><a class="link" href="#strong-code-contributed-strong"><strong>Code Contributed</strong>:</a></h3>
+<div class="ulist">
+<ul>
 <li>
-<p><strong>Code contributed</strong>: [<a href="https://github.com">Functional code</a>] [<a href="https://github.com">Test code</a>] <em>{give links to collated code files}</em></p>
+<p>[<a href="https://github.com/CS2113-AY1819S2-T09-1/main/commits?author=creastery">Commits</a>] [<a href="https://github.com/CS2113-AY1819S2-T09-1/main/pulls?q=is%3Apr+is%3Amerged+author%3Acreastery">Pull Requests</a>] [<a href="https://nuscs2113-ay1819s2.github.io/dashboard-beta/#=undefined&amp;search=creastery">RepoSense Code Contribution Dashboard</a>]</p>
 </li>
-<li>
-<p><strong>Other contributions</strong>:</p>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="strong-other-contributions-strong"><a class="link" href="#strong-other-contributions-strong"><strong>Other Contributions</strong>:</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -56,20 +158,32 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Managed releases <code>v1.3</code> - <code>v1.5rc</code> (3 releases) on GitHub</p>
+<p>Managed releases <code>v1.1</code>, <code>v1.2</code>, <code>v1.2.1</code> and <code>v1.3</code> (4 releases) on <a href="https://github.com/CS2113-AY1819S2-T09-1/main/releases">GitHub</a></p>
+</li>
+<li>
+<p>Reviewed about one-third of the team&#8217;s Pull Requests (PRs) and gave non-trivial review comments (examples: PRs <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/43">#43</a>, <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/64">#64</a>, <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/69">#69</a>)</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Enhancements to existing features:</p>
+<p>Notable Enhancements/Modifications to Existing Features:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Updated the GUI color scheme (Pull requests <a href="https://github.com">#33</a>, <a href="https://github.com">#34</a>)</p>
+<p>Collaborated with a team mate (<a href="lycjackie.html">Lee Yu Choy</a>) to implement a <strong>custom string tokenizer</strong> <code>BooleanExpressionTokenizer</code>, which was pivotal in enabling users to be able to use complex search conditions to narrow down their search when using the <code>find</code> and <code>planner_show</code> commands (PR <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/119">#119</a>)</p>
 </li>
 <li>
-<p>Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests <a href="https://github.com">#36</a>, <a href="https://github.com">#38</a>)</p>
+<p>Introduced <strong>data integrity validations</strong> for Storage component (PRs <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/122">#122</a>, <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/204">#204</a>, <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/222">#222</a>)</p>
+</li>
+<li>
+<p>Performed surgical <strong>refactoring</strong> of the original <a href="https://github.com/se-edu/addressbook-level4">Address Book (Level 4)</a> codebase to fit our requirements (example: PRs <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/18">#18</a>, <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/27">#27</a>, <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/30">#30</a>)</p>
+</li>
+<li>
+<p>Populated <strong>sample data</strong> used to guide new users in using the application (examples: PRs <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/45">#45</a>, <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/146">#146</a>)</p>
+</li>
+<li>
+<p>Implemented <strong>precondition checks</strong> to all functional code to follow defensive programming practices (example: PR <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/170">#170</a>)</p>
 </li>
 </ul>
 </div>
@@ -79,7 +193,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Did cosmetic tweaks to existing contents of the User Guide: <a href="https://github.com">#14</a></p>
+<p>Performed <strong>cosmetic tweaks</strong> to existing contents of the User Guide: (examples: PRs <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/147">#147</a>, <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/218">#218</a>)</p>
 </li>
 </ul>
 </div>
@@ -89,16 +203,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com">#12</a>, <a href="https://github.com">#32</a>, <a href="https://github.com">#19</a>, <a href="https://github.com">#42</a></p>
+<p>Contributed to <strong>forum discussions</strong> (examples: PRs <a href="https://github.com/nusCS2113-AY1819S2/forum/issues/14">#14</a>, <a href="https://github.com/nusCS2113-AY1819S2/forum/issues/15">#15</a>, <a href="https://github.com/nusCS2113-AY1819S2/forum/issues/23">#23</a>, <a href="https://github.com/nusCS2113-AY1819S2/forum/issues/24">#24</a>)</p>
 </li>
 <li>
-<p>Contributed to forum discussions (examples:  <a href="https://github.com">1</a>, <a href="https://github.com">2</a>, <a href="https://github.com">3</a>, <a href="https://github.com">4</a>)</p>
-</li>
-<li>
-<p>Reported bugs and suggestions for other teams in the class (examples:  <a href="https://github.com">1</a>, <a href="https://github.com">2</a>, <a href="https://github.com">3</a>)</p>
-</li>
-<li>
-<p>Some parts of the history feature I added was adopted by several other class mates (<a href="https://github.com">1</a>, <a href="https://github.com">2</a>)</p>
+<p>Reported <strong>numerous bugs</strong> in another team&#8217;s project, <a href="https://github.com/CS2113-AY1819S2-T11-3/main">Budgeter</a> (examples: Issues <a href="https://github.com/CS2113-AY1819S2-T11-3/main/issues/71">#71</a>, <a href="https://github.com/CS2113-AY1819S2-T11-3/main/issues/78">#78</a>, <a href="https://github.com/CS2113-AY1819S2-T11-3/main/issues/84">#84</a>, <a href="https://github.com/CS2113-AY1819S2-T11-3/main/issues/88">#88</a>)</p>
 </li>
 </ul>
 </div>
@@ -108,21 +216,19 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Integrated a third party library (Natty) to the project (<a href="https://github.com">#42</a>)</p>
+<p>Integrated <a href="https://travis-ci.org/CS2113-AY1819S2-T09-1/main">Travis</a> &amp; <a href="https://ci.appveyor.com/project/Creastery/main">AppVeyor</a> <strong>Continuous Integration (CI)</strong> tools, <a href="https://coveralls.io/github/CS2113-AY1819S2-T09-1/main?branch=master">Coveralls</a> <strong>code coverage</strong> tool, <a href="https://www.codacy.com/app/cs2113-ay1819s2-t09-1/main">Codacy</a> <strong>code analytics</strong> tool, <a href="https://app.netlify.com/sites/cs2113-ay1819s2-t09-1/deploys">Netlify</a> <strong>deployment preview</strong> tool to the team&#8217;s repository (examples: PRs <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/4">#4</a>, <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/23">#23</a>)</p>
 </li>
 <li>
-<p>Integrated a new Github plugin (CircleCI) to the team repo</p>
+<p>Updated <strong>Gradle build configuration</strong> to automate and simplify the build process (examples: PRs <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/107">#107</a>, <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/201">#201</a>)</p>
+</li>
+<li>
+<p>Added a new <strong>Github plugin</strong> (<a href="https://github.com/apps/project-bot">project-bot</a>) to automate triaging of issues in the team&#8217;s <a href="https://github.com/CS2113-AY1819S2-T09-1/main/projects/6">Project Board</a></p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
 </div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><em>{you can add/remove categories in the list above}</em></p>
 </div>
 </div>
 </div>
@@ -135,133 +241,79 @@
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>The following sections illustrate my ability in writing documentation targeting end-users to guide them in using the various features of the application.</em></p></td>
 </tr>
 </tbody>
 </table>
-<div class="sect3">
-<h4 id="undoing-previous-command-code-undo-code-span-class-image-img-src-https-img-shields-io-badge-general-undo-8774c1-svg-alt-general-undo-8774c1-span"><a class="link" href="#undoing-previous-command-code-undo-code-span-class-image-img-src-https-img-shields-io-badge-general-undo-8774c1-svg-alt-general-undo-8774c1-span">Undoing previous command: <code>undo</code> <span class="image"><img src="https://img.shields.io/badge/general-undo-8774C1.svg" alt="general undo 8774C1"></span></a></h4>
+<div class="sect2">
+<h3 id="module-management"><a class="link" href="#module-management">Module Management</a></h3>
 <div class="paragraph">
-<p>Made a critical mistake such as accidentally clearing all modules from <strong>PlanWithEase</strong> and you want to get the data
-back?<br>
-No problem! You can simply enter <code>undo</code> in the <strong>command box</strong> to restore PlanWithEase&#8217;s data to the state before the
-previous <em>undoable</em> command was executed!</p>
+<p>In this section, you&#8217;ll be introduced to commands that helps you to manage modules in <strong>PlanWithEase</strong>.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
 <div class="paragraph">
-<p><em>Undoable</em> commands are commands that modifies the contents of PlanWithEase&#8217;s data.<br>
-Below is a list of all <em>undoable</em> commands in <strong>PlanWithEase</strong>.</p>
+<p>Below is a list of command parameters that you can expect to use for commands in this section.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
+<col style="width: 18%;">
+<col style="width: 37%;">
+<col style="width: 45%;">
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>General</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Module Management</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Requirement Tracker</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Degree Plan Management</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Parameter</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Acceptable Range of Values</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div><div class="ulist">
-<ul>
-<li>
-<p><code>undo</code></p>
-</li>
-<li>
-<p><code>redo</code></p>
-</li>
-<li>
-<p><code>clear</code></p>
-</li>
-<li>
-<p><code>reset</code></p>
-</li>
-</ul>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="ulist">
-<ul>
-<li>
-<p><code>add</code></p>
-</li>
-<li>
-<p><code>edit</code></p>
-</li>
-<li>
-<p><code>delete</code></p>
-</li>
-</ul>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="ulist">
-<ul>
-<li>
-<p><code>requirement_add</code></p>
-</li>
-<li>
-<p><code>requirement_move</code></p>
-</li>
-</ul>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="ulist">
-<ul>
-<li>
-<p><code>planner_add</code></p>
-</li>
-<li>
-<p><code>planner_remove</code></p>
-</li>
-<li>
-<p><code>planner_move</code></p>
-</li>
-</ul>
-</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CODE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates the module code<br>
+(e.g. <code>CS2101</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CODE</code> should begin with two alphabets, followed by four digits, and may optionally end with an
+alphabet.<br>
+<code>CODE</code> is insensitive and must be unique</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>NAME</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates the name of the module<br>
+(e.g. <code>Effective Communication for Computing Professionals</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>NAME</code> should only contain alphanumeric characters, punctuations (excluding "(", ")", "&amp;", "|") and spaces.<br>
+Note that if you are using punctuations, you may want to consider replacing "()" with "[]", "&amp;" with "and", and "|" with "l" (lowercase L) instead!<br></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CREDITS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates the modular credits assigned to the module<br>
+(e.g. <code>4</code> Modular Credits).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CREDITS</code> should be whole numbers between 0 to 999 (both inclusive).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SEMESTER</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates the semester which the module is offered in.<br>
+(e.g. Semester <code>1</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SEMESTER</code> should only be either <code>1</code>, <code>2</code>, <code>3</code> or <code>4</code>.<br>
+<code>3</code> and <code>4</code> indicates special term semesters 1 and 2 respectively.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>COREQUISITE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates the module code of a co-requisite module.<br>
+(e.g. <code>CS2101</code> is a co-requisite module of <code>CS2113T</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>COREQUISITE</code> follow the same format as <code>CODE</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>TAG</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates the extra information to associate the module with (e.g. <code>Presentation</code>, <code>Email</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>TAG</code> should only contain alphabets and numbers.</p></td>
 </tr>
 </tbody>
 </table>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><strong>Examples:</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>delete 1</code> (deletes first module in the displayed module list)<br>
-<code>list</code> (displays all modules in the module list)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
-</li>
-<li>
-<p><code>find name/Programming</code> (finds modules with name containing the word <code>Programming</code> and displays them in the module
-list)<br>
-<code>list</code> (displays all modules in the module list)<br>
-<code>undo</code> (the <code>undo</code> command fails as there are no undoable commands executed previously)</p>
-</li>
-<li>
-<p><code>delete 1</code> (deletes first module in the displayed module list)<br>
-<code>clear</code> (clears all application data)<br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
-</li>
-</ul>
-</div>
-</div>
 <div class="sect3">
-<h4 id="redoing-previously-undone-command-code-redo-code-span-class-image-img-src-https-img-shields-io-badge-general-redo-8774c1-svg-alt-general-redo-8774c1-span"><a class="link" href="#redoing-previously-undone-command-code-redo-code-span-class-image-img-src-https-img-shields-io-badge-general-redo-8774c1-svg-alt-general-redo-8774c1-span">Redoing previously undone command : <code>redo</code> <span class="image"><img src="https://img.shields.io/badge/general-redo-8774C1.svg" alt="general redo 8774C1"></span></a></h4>
+<h4 id="adding-modules-code-add-code-span-class-image-img-src-https-img-shields-io-badge-module-add-blue-svg-alt-module-add-blue-span"><a class="link" href="#adding-modules-code-add-code-span-class-image-img-src-https-img-shields-io-badge-module-add-blue-svg-alt-module-add-blue-span">Adding modules : <code>add</code> <span class="image"><img src="https://img.shields.io/badge/module-add-blue.svg" alt="module add blue"></span></a></h4>
 <div class="paragraph">
-<p>Took too many steps back in time using the <code>undo</code> command and want to move forward in time again?<br>
-Use the <code>redo</code> command to reverse the most recent <code>undo</code> command!</p>
+<p>Before you can add modules to the <strong>degree plan</strong>, you&#8217;ll need to add modules into the <strong>module list</strong> first.<br>
+It&#8217;s easy to add a module into the <strong>module list</strong>! Here&#8217;s how you can use the <code>add</code> command.</p>
+</div>
+<div class="paragraph">
+<p><strong>Command Format:</strong> <code>add code/CODE name/NAME credits/CREDITS [sem/SEMESTER]… [coreq/COREQUISITE]… [tag/TAG]…</code></p>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -271,39 +323,151 @@ Use the <code>redo</code> command to reverse the most recent <code>undo</code> c
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Be careful when time travelling using the <code>undo</code> and <code>redo</code> command!<br>
-You may end up being stuck in the present and can&#8217;t go back into the future using the <code>redo</code> command.</p>
-</div>
-<div class="paragraph">
-<p>This can happen if you you run an <em>undoable</em> command (excluding <code>undo</code> and <code>redo</code>) when going back in time using the <code>undo</code> command!</p>
+<p>Please note that you cannot add a new module which has a co-requisite module already existing in the <strong>degree plan</strong>.<br>
+You&#8217;ll need to remove the module from the <strong>degree plan</strong> first before you can add the new module in with the co-requisite module specified.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p><strong>Examples:</strong></p>
+<p><strong>Example:</strong></p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>delete 1</code> (deletes first module in the displayed module list)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br></p>
-</li>
-<li>
-<p><code>delete 1</code>  (deletes first module in the displayed module list)<br>
-<code>redo</code> (the <code>redo</code> command fails as there are no <code>undo</code> commands executed previously)</p>
-</li>
-<li>
-<p><code>delete 1</code> (deletes first module in the displayed module list)<br>
-<code>clear</code> (clears all modules from the application)<br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>clear</code> command)<br></p>
+<p><code>add code/GEH1074 name/Luck credits/4 sem/1 sem/2</code><br>
+Adds a module named <code>Luck</code> with module code <code>GEH1074</code>, which is assigned <code>4</code> modular credits and is offered in semesters <code>1</code> and <code>2</code>, to the <strong>module list</strong>.</p>
 </li>
 </ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/module_add_luck.png" alt="module add luck" width="970">
+</div>
+<div class="title">Figure 1. New module "GEH1074 Luck" added to <strong>module list</strong> successfully</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When adding a module with a corequisite, if the module is added successfully, the co-requisite modules will be updated as well.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong><br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add name/Skills code/GEH1074T credits/4 sem/1 sem/2 coreq/GEH1074 tag/GEM tag/economics</code><br>
+Adds a module named <code>Skills</code> with module code <code>GEH1074T</code>, which is assigned <code>4</code> modular credits and has module code <code>GEH1074</code> as a corequisite, to the module list.<br>
+Both modules (<code>GEH1074T</code> and <code>GEH1074</code>) will be updated to be co-requisites as shown below.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/module_add_coreq.png" alt="module add coreq" width="970">
+</div>
+<div class="title">Figure 2. Module GEH1074T is added successfully; GEH1074T and GEH1074 are now co-requisites.</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="editing-modules-code-edit-code-span-class-image-img-src-https-img-shields-io-badge-module-edit-blue-svg-alt-module-edit-blue-span"><a class="link" href="#editing-modules-code-edit-code-span-class-image-img-src-https-img-shields-io-badge-module-edit-blue-svg-alt-module-edit-blue-span">Editing modules : <code>edit</code> <span class="image"><img src="https://img.shields.io/badge/module-edit-blue.svg" alt="module edit blue"></span></a></h4>
+<div class="paragraph">
+<p>Want to change the module details? No problem!<br>
+You can use this handy <code>edit</code> command to update the module details to your liking.</p>
+</div>
+<div class="paragraph">
+<p><strong>Command Format:</strong> <code>edit INDEX [name/NAME] [code/CODE] [credits/CREDITS] [sem/SEMESTER]… [coreq/COREQUISITE]… [tag/TAG]…</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Edits the module at the specified <code>INDEX</code>. The index refers to the index number (beside the module code) shown in the displayed module list.</p>
+</li>
+<li>
+<p>You need to provide at least one of the optional fields to edit.</p>
+</li>
+<li>
+<p>Existing values will be updated to the input values.</p>
+</li>
+<li>
+<p>When editing semesters/corequisites/tags, the existing semesters/corequisites/tags of the module will be removed (i.e adding of semesters/corequisites/tags is not cumulative.)</p>
+</li>
+<li>
+<p>You can remove all the module&#8217;s tags by typing <code>tag/</code> without specifying any tags after it.</p>
+</li>
+<li>
+<p>Likewise, you can remove all module&#8217;s co-requisites or semesters by typing <code>coreq/</code> and <code>sem/</code> respectively without
+specifying any values after the parameter prefix.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>edit 1 name/Data Structures and Algorithms code/CS2040C</code><br>
+Edits the name and code of the 1<sup>st</sup> module in the displayed module list to be <code>Data Structures and Algorithms</code> and
+<code>CS2040C</code> respectively.<br></p>
+</li>
+<li>
+<p><code>edit 2 code/CS2040C tag/</code><br>
+Edits the code of the 2<sup>nd</sup> module in the displayed module list to be <code>CS2040C</code> and clears all existing tags associated
+ with the module.<br></p>
+</li>
+<li>
+<p><code>edit 3 coreq/CS2105 coreq/CS2106 coreq/CS2107</code><br>
+Edits the co-requisites of the 3<sup>rd</sup> module in the displayed module list to be <code>CS2105</code>, <code>CS2106</code> and <code>CS2107</code>.<br></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Just like the <code>add</code> command, when editing the co-requisites of a module, the co-requisite modules will be updated as well.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong> If <code>GEH1074</code> and <code>GEH1074T</code> are not co-requisites, running the command <code>edit 24 coreq/GEH1074T</code> will
+result in GEH1074 and GEH1074T being co-requisites.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/module_edit_coreq.png" alt="module edit coreq" width="970">
+</div>
+<div class="title">Figure 3. GEH1074 and GEH1074T are being edited to be co-requisites.</div>
+</div>
 </div>
 </div>
 </div>
@@ -317,231 +481,10 @@ You may end up being stuck in the present and can&#8217;t go back into the futur
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>The following sections illustrate my ability in writing documentation to provide developers insights on the design
+of the application. It also showcase the technical depth of my contributions to the project.</em></p></td>
 </tr>
 </tbody>
 </table>
-<div class="sect2">
-<h3 id="undo-redo-feature"><a class="link" href="#undo-redo-feature">Undo/Redo Feature</a></h3>
-<div class="sect3">
-<h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
-<div class="paragraph">
-<p>The undo/redo mechanism is facilitated by <code>VersionedApplication</code>.
-It extends <code>application</code> with an undo/redo history, stored internally as an <code>applicationStateList</code> and <code>currentStatePointer</code>.
-Additionally, it implements the following operations:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>VersionedApplication#commit()</code>&#8201;&#8212;&#8201;Saves the current application state in its history.</p>
-</li>
-<li>
-<p><code>VersionedApplication#undo()</code>&#8201;&#8212;&#8201;Restores the previous application state from its history.</p>
-</li>
-<li>
-<p><code>VersionedApplication#redo()</code>&#8201;&#8212;&#8201;Restores a previously undone application state from its history.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>These operations are exposed in the <code>Model</code> interface as <code>Model#commitApplication()</code>, <code>Model#undoApplication()</code> and
-<code>Model#redoApplication()</code> respectively.</p>
-</div>
-<div class="paragraph">
-<p>Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.</p>
-</div>
-<div class="paragraph">
-<p>Step 1. The user launches the application for the first time. The <code>VersionedApplication</code> will be initialized with the
- initial application state, and the <code>currentStatePointer</code> pointing to that single application state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoStartingStateListDiagram.png" alt="UndoRedoStartingStateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 2. The user executes <code>delete 5</code> command to delete the 5th module in the application. The <code>delete</code> command calls
- <code>Model#commitApplication()</code>, causing the modified state of the application after the <code>delete 5</code> command executes to be saved in the <code>applicationStateList</code>, and the <code>currentStatePointer</code> is shifted to the newly inserted application state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoNewCommand1StateListDiagram.png" alt="UndoRedoNewCommand1StateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 3. The user executes <code>add n/David &#8230;&#8203;</code> to add a new module. The <code>add</code> command also calls
-<code>Model#commitApplication()</code>, causing another modified application state to be saved into the <code>applicationStateList</code>.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoNewCommand2StateListDiagram.png" alt="UndoRedoNewCommand2StateListDiagram" width="800">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If a command fails its execution, it will not call <code>Model#commitApplication()</code>, so the application state will not be
- saved into the <code>applicationStateList</code>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Step 4. The user now decides that adding the module was a mistake, and decides to undo that action by executing the
-<code>undo</code> command. The <code>undo</code> command will call <code>Model#undoApplication()</code>, which will shift the <code>currentStatePointer</code> once to the left, pointing it to the previous application state, and restores the application to that state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoExecuteUndoStateListDiagram.png" alt="UndoRedoExecuteUndoStateListDiagram" width="800">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>currentStatePointer</code> is at index 0, pointing to the initial application state, then there are no previous
-application states to restore. The <code>undo</code> command uses <code>Model#canUndoApplication()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The following sequence diagram shows how the undo operation works:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoSequenceDiagram.png" alt="UndoRedoSequenceDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>redo</code> command does the opposite&#8201;&#8212;&#8201;it calls <code>Model#redoApplication()</code>, which shifts the <code>currentStatePointer</code>
-once to the right, pointing to the previously undone state, and restores the application to that state.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>currentStatePointer</code> is at index <code>applicationStateList.size() - 1</code>, pointing to the latest application
-state, then there are no undone application states to restore. The <code>redo</code> command uses <code>Model#canRedoapplication()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Step 5. The user then decides to execute the command <code>list</code>. Commands that do not modify the application, such as <code>list</code>, will usually not call <code>Model#commitapplication()</code>, <code>Model#undoapplication()</code> or <code>Model#redoapplication()</code>. Thus, the <code>applicationStateList</code> remains unchanged.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoNewCommand3StateListDiagram.png" alt="UndoRedoNewCommand3StateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 6. The user executes <code>clear</code>, which calls <code>Model#commitApplication()</code>. Since the <code>currentStatePointer</code> is not
-pointing at the end of the <code>applicationStateList</code>, all application states after the <code>currentStatePointer</code> will be purged. We designed it this way because it no longer makes sense to redo the <code>add n/David &#8230;&#8203;</code> command. This is the behavior that most modern desktop applications follow.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoNewCommand4StateListDiagram.png" alt="UndoRedoNewCommand4StateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>The following activity diagram summarizes what happens when a user executes a new command:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoActivityDiagram.png" alt="UndoRedoActivityDiagram" width="650">
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
-<div class="sect4">
-<h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Saves the entire application.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy to implement.</p>
-</li>
-<li>
-<p>Cons: May have performance issues in terms of memory usage.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Individual command knows how to undo/redo by itself.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Will use less memory (e.g. for <code>delete</code>, just save the module being deleted).</p>
-</li>
-<li>
-<p>Cons: We must ensure that the implementation of each individual command are correct.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="aspect-data-structure-to-support-the-undo-redo-commands"><a class="link" href="#aspect-data-structure-to-support-the-undo-redo-commands">Aspect: Data structure to support the undo/redo commands</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Use a list to store the history of application states.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.</p>
-</li>
-<li>
-<p>Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both
-<code>HistoryManager</code> and <code>VersionedApplication</code>.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Use <code>HistoryManager</code> for undo/redo</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.</p>
-</li>
-<li>
-<p>Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as <code>HistoryManager</code> now needs to do two different things.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="project-powerpointlabs"><a class="link" href="#project-powerpointlabs">PROJECT: PowerPointLabs</a></h2>
-<div class="sectionbody">
-<hr>
-<div class="paragraph">
-<p><em>{Optionally, you may include other projects in your portfolio.}</em></p>
-</div>
-</div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 15:36:29 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 15:41:46 UTC</div></div></div></body></html>
