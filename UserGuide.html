@@ -43,8 +43,9 @@
 <li><a href="#requirement-tracker">4.3. Requirement Tracker</a>
 <ul class="sectlevel3">
 <li><a href="#adding-modules-code-requirement_add-code-span-class-image-img-src-https-img-shields-io-badge-requirement-add-8ab702-svg-alt-requirement-add-8ab702-span">4.3.1. Adding modules : <code>requirement_add</code> <span class="image"><img src="https://img.shields.io/badge/requirement-add-8AB702.svg" alt="requirement add 8AB702"></span></a></li>
-<li><a href="#removing-modules-code-requirement_remove-code-span-class-image-img-src-https-img-shields-io-badge-requirement-remove-8ab702-svg-alt-requirement-remove-8ab702-span">4.3.2. Removing modules : <code>requirement_remove</code>  <span class="image"><img src="https://img.shields.io/badge/requirement-remove-8AB702.svg" alt="requirement remove 8AB702"></span></a></li>
-<li><a href="#listing-all-requirement-categories-code-requirement_list-code-span-class-image-img-src-https-img-shields-io-badge-requirement-list-8ab702-svg-alt-requirement-list-8ab702-span">4.3.3. Listing all requirement categories : <code>requirement_list</code> <span class="image"><img src="https://img.shields.io/badge/requirement-list-8AB702.svg" alt="requirement list 8AB702"></span></a></li>
+<li><a href="#removing-modules-code-requirement_remove-code-span-class-image-img-src-https-img-shields-io-badge-requirement-remove-8ab702-svg-alt-requirement-remove-8ab702-span">4.3.2. Removing modules : <code>requirement_remove</code> <span class="image"><img src="https://img.shields.io/badge/requirement-remove-8AB702.svg" alt="requirement remove 8AB702"></span></a></li>
+<li><a href="#moving-modules-between-requirement-categories-code-requirement_move-code-span-class-image-img-src-https-img-shields-io-badge-requirement-move-8ab702-svg-alt-requirement-move-8ab702-span">4.3.3. Moving modules between requirement categories : <code>requirement_move</code> <span class="image"><img src="https://img.shields.io/badge/requirement-move-8AB702.svg" alt="requirement move 8AB702"></span></a></li>
+<li><a href="#listing-all-requirement-categories-code-requirement_list-code-span-class-image-img-src-https-img-shields-io-badge-requirement-list-8ab702-svg-alt-requirement-list-8ab702-span">4.3.4. Listing all requirement categories : <code>requirement_list</code> <span class="image"><img src="https://img.shields.io/badge/requirement-list-8AB702.svg" alt="requirement list 8AB702"></span></a></li>
 </ul>
 </li>
 <li><a href="#degree-plan-management">4.4. Degree Plan Management</a>
@@ -61,7 +62,6 @@
 <li><a href="#future-enhancements-code-coming-in-v2-0-code">5. Future Enhancements <code>[coming in v2.0]</code></a>
 <ul class="sectlevel2">
 <li><a href="#listing-a-degree-planner-code-planner_list-code">5.1. Listing a degree planner : <code>planner_list</code></a></li>
-<li><a href="#moving-a-module-between-degree-requirement-categories-code-requirement_move-code">5.2. Moving a module between degree requirement categories : <code>requirement_move</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">6. FAQ</a></li>
@@ -69,7 +69,7 @@
 <ul class="sectlevel2">
 <li><a href="#general-commands-2">7.1. General Commands</a></li>
 <li><a href="#degree-plan-commands">7.2. Degree Plan Commands</a></li>
-<li><a href="#requirement-categories-commands">7.3. Requirement Categories Commands</a></li>
+<li><a href="#requirement-tracker-commands">7.3. Requirement Tracker Commands</a></li>
 </ul>
 </li>
 </ul>
@@ -295,8 +295,6 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="sect1">
 <h2 id="Features"><a class="link" href="#Features">4. Features</a></h2>
 <div class="sectionbody">
-<div class="exampleblock">
-<div class="content">
 <div class="paragraph">
 <p><strong>Command Format</strong></p>
 </div>
@@ -393,8 +391,6 @@ which can be used as <code>add name/Programming Methodology</code>.</p>
 </div>
 </li>
 </ul>
-</div>
-</div>
 </div>
 <div class="sect2">
 <h3 id="general-commands"><a class="link" href="#general-commands">4.1. General Commands</a></h3>
@@ -1307,7 +1303,15 @@ Selects the 1st module in the results of the <code>find</code> command.</p>
 <div class="sect2">
 <h3 id="requirement-tracker"><a class="link" href="#requirement-tracker">4.3. Requirement Tracker</a></h3>
 <div class="paragraph">
-<p>The following table describes the parameters you may use for commands in this section.</p>
+<p>The requirement tracker allows you to manage and and track your degree requirements so that you are always on-track for
+ graduation!</p>
+</div>
+<div class="paragraph">
+<p>This section contains the various commands that you can use in this application to add, remove, move and list modules
+ to and from the specified requirement categories in this application.</p>
+</div>
+<div class="paragraph">
+<p>The following table describes the parameters you may use for the commands in this section.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -1324,7 +1328,7 @@ Selects the 1st module in the results of the <code>find</code> command.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>NAME</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Indicates the name of degree requirement category (e.g. <code>IT Professionalism</code>).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>NAME</code> should be either one of the following:<br>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>NAME</code> must be one of the following values:<br>
 1. <code>Computing Foundation</code><br>
 2. <code>Information Security Requirements</code><br>
 3. <code>Information Security Electives</code><br>
@@ -1337,24 +1341,59 @@ Selects the 1st module in the results of the <code>find</code> command.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CODE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Indicates the module code (e.g. <code>CS2101</code>).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CODE</code> should begin with two or three alphabets, followed by four digits, and may optionally end with an alphabet.
-<br>
-<code>CODE</code> should not be blank.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CODE</code> must begin with two or three alphabets, followed by four digits, and may optionally end with an alphabet.</p></td>
 </tr>
 </tbody>
 </table>
-<div class="sect3">
-<h4 id="adding-modules-code-requirement_add-code-span-class-image-img-src-https-img-shields-io-badge-requirement-add-8ab702-svg-alt-requirement-add-8ab702-span"><a class="link" href="#adding-modules-code-requirement_add-code-span-class-image-img-src-https-img-shields-io-badge-requirement-add-8ab702-svg-alt-requirement-add-8ab702-span">4.3.1. Adding modules : <code>requirement_add</code> <span class="image"><img src="https://img.shields.io/badge/requirement-add-8AB702.svg" alt="requirement add 8AB702"></span></a></h4>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>Adds a module to the degree requirement category in the application.<br>
-Format: <code>requirement_add name/NAME code/CODE [code/CODE]…</code></p>
+<p><code>NAME</code> and <code>CODE</code> (where applicable) must not be empty or blank.</p>
 </div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>After adding, the updated requirement category will be displayed.</p>
+<p>Both <code>NAME</code> and <code>CODE</code> parameters are case insensitive. (e.g. <code>computing foundation</code> will match <code>Computing
+Foundation</code>)</p>
+</li>
+<li>
+<p><code>CODE</code> is treated as uppercase (e.g. cs1010 is treated as CS1010), and should be unique.</p>
+</li>
+<li>
+<p>Only full words will be matched. (e.g. <code>foundation</code> will not match <code>Computing Foundation</code>)</p>
 </li>
 </ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="adding-modules-code-requirement_add-code-span-class-image-img-src-https-img-shields-io-badge-requirement-add-8ab702-svg-alt-requirement-add-8ab702-span"><a class="link" href="#adding-modules-code-requirement_add-code-span-class-image-img-src-https-img-shields-io-badge-requirement-add-8ab702-svg-alt-requirement-add-8ab702-span">4.3.1. Adding modules : <code>requirement_add</code> <span class="image"><img src="https://img.shields.io/badge/requirement-add-8AB702.svg" alt="requirement add 8AB702"></span></a></h4>
+<div class="paragraph">
+<p>Want to see if you have fulfilled a particular degree requirement category?​</p>
+</div>
+<div class="paragraph">
+<p>Simply add the module code to a degree requirement category using the <code>requirement_add</code> command to find out.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>requirement_add name/NAME code/CODE [code/CODE]…</code></p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -1363,27 +1402,57 @@ Format: <code>requirement_add name/NAME code/CODE [code/CODE]…</code></p>
 <ul>
 <li>
 <p><code>requirement_add name/IT Professionalism code/IS4231</code><br>
-Adds module <code>IS4231</code> into <code>IT Professionalism</code> degree requirement category.</p>
+Adds the module code <code>IS4231</code> to the degree requirement category <code>IT Professionalism</code>.</p>
 </li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The two images below this command describes what you should see when you execute the above command</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/RequirementAddCommand.png" alt="RequirementAddCommand">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/RequirementAddCommandAfter.png" alt="RequirementAddCommandAfter">
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p><code>requirement_add name/Computing Foundation code/CS1231 code/CS2100</code><br>
-Adds modules <code>CS1231</code> and <code>CS2100</code> into <code>Computing Foundation</code> degree requirement category.</p>
+Adds module codes <code>CS1231</code> and <code>CS2100</code> to the degree requirement category <code>Computing Foundation</code>.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="removing-modules-code-requirement_remove-code-span-class-image-img-src-https-img-shields-io-badge-requirement-remove-8ab702-svg-alt-requirement-remove-8ab702-span"><a class="link" href="#removing-modules-code-requirement_remove-code-span-class-image-img-src-https-img-shields-io-badge-requirement-remove-8ab702-svg-alt-requirement-remove-8ab702-span">4.3.2. Removing modules : <code>requirement_remove</code>  <span class="image"><img src="https://img.shields.io/badge/requirement-remove-8AB702.svg" alt="requirement remove 8AB702"></span></a></h4>
+<h4 id="removing-modules-code-requirement_remove-code-span-class-image-img-src-https-img-shields-io-badge-requirement-remove-8ab702-svg-alt-requirement-remove-8ab702-span"><a class="link" href="#removing-modules-code-requirement_remove-code-span-class-image-img-src-https-img-shields-io-badge-requirement-remove-8ab702-svg-alt-requirement-remove-8ab702-span">4.3.2. Removing modules : <code>requirement_remove</code> <span class="image"><img src="https://img.shields.io/badge/requirement-remove-8AB702.svg" alt="requirement remove 8AB702"></span></a></h4>
 <div class="paragraph">
-<p>Removes the specified module from the degree requirement category.<br>
-Format: <code>requirement_remove name/NAME code/CODE [code/CODE]…</code></p>
+<p>Want to remove a module code from the degree requirement category?</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>After removing, the updated requirement category will be displayed.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p><code>requirement_remove</code> will help you to remove the specified module code from the degree requirement category.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>requirement_remove code/CODE [code/CODE]…</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you want to delete the module entirely, simply use the <code>delete</code> command instead! The changes will be reflected in
+the degree requirement category as well.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -1391,18 +1460,130 @@ Format: <code>requirement_remove name/NAME code/CODE [code/CODE]…</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>requirement_remove name/Professionalism code/IS4231</code><br>
-Removes the module <code>IS4231</code> from the <code>IT Professionalism</code> degree requirement category.</p>
+<p><code>requirement_remove code/IS4231</code><br>
+Removes the module code <code>IS4231</code> from the degree requirement category.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The two images below this command describes what you should see when you execute the above command</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/RequirementRemoveCommand.png" alt="RequirementRemoveCommand">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/RequirementRemoveCommandAfter.png" alt="RequirementRemoveCommandAfter">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>requirement_remove code/CS1231 code/CS2100</code><br>
+Removes module codes <code>CS1231</code> and <code>CS2100</code> from the degree requirement category.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="listing-all-requirement-categories-code-requirement_list-code-span-class-image-img-src-https-img-shields-io-badge-requirement-list-8ab702-svg-alt-requirement-list-8ab702-span"><a class="link" href="#listing-all-requirement-categories-code-requirement_list-code-span-class-image-img-src-https-img-shields-io-badge-requirement-list-8ab702-svg-alt-requirement-list-8ab702-span">4.3.3. Listing all requirement categories : <code>requirement_list</code> <span class="image"><img src="https://img.shields.io/badge/requirement-list-8AB702.svg" alt="requirement list 8AB702"></span></a></h4>
+<h4 id="moving-modules-between-requirement-categories-code-requirement_move-code-span-class-image-img-src-https-img-shields-io-badge-requirement-move-8ab702-svg-alt-requirement-move-8ab702-span"><a class="link" href="#moving-modules-between-requirement-categories-code-requirement_move-code-span-class-image-img-src-https-img-shields-io-badge-requirement-move-8ab702-svg-alt-requirement-move-8ab702-span">4.3.3. Moving modules between requirement categories : <code>requirement_move</code> <span class="image"><img src="https://img.shields.io/badge/requirement-move-8AB702.svg" alt="requirement move 8AB702"></span></a></h4>
 <div class="paragraph">
-<p>Shows a list of all degree requirement categories in the application and the modules
-added into each degree requirement category.<br>
-Format: <code>requirement_list</code></p>
+<p>Having seconds thoughts about which degree requirement category the module code should be classified under?</p>
+</div>
+<div class="paragraph">
+<p>Or simply added the module code to the wong degree requirement category?</p>
+</div>
+<div class="paragraph">
+<p>No worries, <code>requirement_move</code> will allow you to move the specified module to another degree requirement category.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>requirement_move name/NAME code/CODE [code/CODE]…</code></p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <code>CODE</code> specified must be already added to a degree requirement category!</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Unlike the <code>planner_move</code> command, modules that are co-requisites will not be moved together.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>requirement_move name/Computing Breadth code/IS4231</code><br>
+Moves the module code <code>IS4231</code> to the degree requirement category `Computing Breadth.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The two images below this command describes what you should see when you execute the above command</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/RequirementMoveCommand.png" alt="RequirementMoveCommand">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/RequirementMoveCommandAfter.png" alt="RequirementMoveCommandAfter">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>requirement_move name/Computing Foundation code/CS1231 code/CS2100</code><br>
+Moves module codes <code>CS1231</code> and <code>CS2100</code> to the degree requirement category <code>Computing Foundation</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="listing-all-requirement-categories-code-requirement_list-code-span-class-image-img-src-https-img-shields-io-badge-requirement-list-8ab702-svg-alt-requirement-list-8ab702-span"><a class="link" href="#listing-all-requirement-categories-code-requirement_list-code-span-class-image-img-src-https-img-shields-io-badge-requirement-list-8ab702-svg-alt-requirement-list-8ab702-span">4.3.4. Listing all requirement categories : <code>requirement_list</code> <span class="image"><img src="https://img.shields.io/badge/requirement-list-8AB702.svg" alt="requirement list 8AB702"></span></a></h4>
+<div class="paragraph">
+<p>Shows a list of all degree requirement categories in the application and the module codes added into each degree
+requirement category.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>requirement_list</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="paragraph">
+<p>*<code>requirement_list</code></p>
+</div>
+<div class="paragraph">
+<p>The image below this command describes what you should see when you execute the above command</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/RequirementListCommand.png" alt="RequirementListCommand">
+</div>
 </div>
 </div>
 </div>
@@ -1708,31 +1889,6 @@ Shows a degree planner for year 1 semester 2</p>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="moving-a-module-between-degree-requirement-categories-code-requirement_move-code"><a class="link" href="#moving-a-module-between-degree-requirement-categories-code-requirement_move-code">5.2. Moving a module between degree requirement categories : <code>requirement_move</code></a></h3>
-<div class="paragraph">
-<p>Moves the specified module to another degree requirement category.<br>
-Format: <code>requirement_move CODE name/NAME</code></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>After moving, the updated requirement category will be displayed.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>requirement_move IS4231 name/IT Professionalism</code><br>
-Moves the module <code>IS4231</code> from to <code>IT Professionalism</code> degree requirement category.</p>
-</li>
-</ul>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -1886,9 +2042,9 @@ module code and academic semesters.</p></td>
 </table>
 </div>
 <div class="sect2">
-<h3 id="requirement-categories-commands"><a class="link" href="#requirement-categories-commands">7.3. Requirement Categories Commands</a></h3>
+<h3 id="requirement-tracker-commands"><a class="link" href="#requirement-tracker-commands">7.3. Requirement Tracker Commands</a></h3>
 <div class="paragraph">
-<p>The table below shows a list of command which helps you to manage track your requirements</p>
+<p>The table below shows a list of command which helps you to manage and track your degree requirements.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -1905,8 +2061,9 @@ module code and academic semesters.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Example</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Add module(s) to degree requirement category</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Add module(s) based on the module code to the chosen category.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Add module(s) to a requirement category</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add module(s) to the specified requirement category based
+ on the module code provided.</p></td>
 <td class="tableblock halign-left valign-top"><div><div class="paragraph">
 <p><code>requirement_add name/NAME code/CODE [code/CODE]…</code></p>
 </div></div></td>
@@ -1915,28 +2072,39 @@ module code and academic semesters.</p></td>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Remove module from degree requirement category</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Remove module from requirement category based on module code.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Remove module(s) from the requirement category</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remove module(s) from the requirement category
+based on the module code provided.</p></td>
 <td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p><code>requirement_remove name/NAME code/CODE [code/CODE]…</code></p>
+<p><code>requirement_remove code/CODE [code/CODE]…</code></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p><code>requirement_remove name/IT Professionalism code/IS4231</code></p>
+<p><code>requirement_remove code/IS4231</code></p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Move module(s) between degree requirement categories</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Move module(s) between the requirement categories from any
-requirement categories to a chosen requirement categories.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Move module(s) between requirement categories</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Move module(s) between the requirement categories from
+ any requirement categories to a specified requirement categories.</p></td>
 <td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p><code>requirement_move code/CODE</code></p>
+<p><code>requirement_move name/NAME code/CODE [code/CODE]…</code></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p><code>requirement_move code/IS4231 name/IT Professionalism</code></p>
+<p><code>requirement_move name/IT Professionalism code/IS4231</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>List all requirement categories in the application</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List all requirement categories in the application and the module(s) added to each requirement categories</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>requirement_list</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>requirement_list</code></p>
 </div></div></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 14:00:16 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 14:23:40 UTC</div></div></div></body></html>
