@@ -33,11 +33,12 @@
 <li><a href="#module-co-requisites">3.2. Module co-requisites</a></li>
 <li><a href="#find-feature">3.3. Find Feature</a></li>
 <li><a href="#requirement-add-feature">3.4. Requirement Add Feature</a></li>
-<li><a href="#requirement-list-feature">3.5. Requirement List Feature</a></li>
-<li><a href="#planner-move-feature">3.6. Planner Move Feature</a></li>
-<li><a href="#planner-list-feature">3.7. Planner List Feature</a></li>
-<li><a href="#logging">3.8. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.9. Configuration</a></li>
+<li><a href="#requirement-move-feature">3.5. Requirement Move Feature</a></li>
+<li><a href="#requirement-list-feature">3.6. Requirement List Feature</a></li>
+<li><a href="#planner-move-feature">3.7. Planner Move Feature</a></li>
+<li><a href="#planner-list-feature">3.8. Planner List Feature</a></li>
+<li><a href="#logging">3.9. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.10. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -78,6 +79,7 @@
 <li><a href="#deleting-a-module">F.2. Deleting a module</a></li>
 <li><a href="#find-modules">F.3. Find modules</a></li>
 <li><a href="#saving-data">F.4. Saving data</a></li>
+<li><a href="#degree-requirement-category">F.5. Degree Requirement Category</a></li>
 </ul>
 </li>
 </ul>
@@ -516,7 +518,7 @@ are in the <code>src/main/resources/view</code> folder. For example, the layout 
 <h3 id="Design-Storage"><a class="link" href="#Design-Storage">2.5. Storage component</a></h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/StorageClassDiagram.png" alt="StorageClassDiagram" width="800">
+<img src="images/StorageComponentDiagram.png" alt="StorageComponentDiagram" width="800">
 </div>
 <div class="title">Figure 8. Structure of the Storage Component</div>
 </div>
@@ -1248,49 +1250,98 @@ with an implicit logical <code>OR</code>, the user would not be able to find the
 <div class="sect2">
 <h3 id="requirement-add-feature"><a class="link" href="#requirement-add-feature">3.4. Requirement Add Feature</a></h3>
 <div class="paragraph">
-<p>The <code>requirement_add</code> command in PWE is used to add module code(s) to the requirement category.</p>
+<p>The requirement add feature in the application aims to help users to keep track and check if they have fulfilled a
+particular degree requirement category by adding module code(s) to the specified requirement category.</p>
 </div>
 <div class="sect3">
 <h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.4.1. Current implementation</a></h4>
 <div class="paragraph">
-<p>The <code>requirement_add</code> command requires the <code>RequirementAddCommandParser</code> class to parse the user input provided. The
- parsed data will then be passed to the <code>RequirmentAddCommand</code> class.</p>
+<p>When the user invokes the <code>requirement_add</code> command, e.g. (requirement_add name/Mathematics code/MA1531).<br>
+The following steps are taken by the application.</p>
 </div>
 <div class="paragraph">
-<p>The input should consist of the name of the requirement category and module code(s) to be added.</p>
+<p><strong>1.</strong> The <code>CommandParser</code> invokes the <code>RequirementAddCommandParser</code> class to parse the user input provided.
+ The parsed data will then be used to create a <code>RequirementAddCommand</code> object and will be returned to
+ <code>LogicManager</code>.</p>
 </div>
-<div class="paragraph">
-<p><code>RequirementAddCommandParser</code> will throw an error if the user input does not match the command format.</p>
-</div>
-<div class="paragraph">
-<p>When <code>RequirementAddCommand</code> receives the parsed data, it will perform the following checks:</p>
-</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>Check if the requirement category exists in PWE through <code>getRequirementCategory</code></p>
+<p>The input should only consist of the <code>name</code> of the requirement category and module <code>code</code>(s) to be added</p>
 </li>
 <li>
-<p>Check if the module codes provided exists in PWE through <code>model.hasModuleCode</code></p>
-</li>
-<li>
-<p>Check if the module codes have already been added to other requirement categories</p>
-</li>
-<li>
-<p>Check if the module codes have already been added to the specified requirement category through <code>RequirementCategory.hasModuleCode</code></p>
+<p><code>RequirementAddCommandParser</code> will throw an error if the user input does not match the command format</p>
 </li>
 </ul>
 </div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>2.</strong> Upon receiving the <code>RequirementAddCommand</code> object, <code>LogicManager</code> would then invoke the <code>RequirementAddCommand</code>
+ class to pass the object received.</p>
+</div>
+<div class="paragraph">
+<p>Once invoked, <code>RequirementAddCommand</code> will perform the following checks on the object received:<br>
+ * Check if the degree requirement category exists in the application through <code>getRequirementCategory</code><br>
+ * Check if the module codes provided exists in the application through <code>model.hasModuleCode</code><br>
+ * Check if the module codes have already been added to other degree requirement categories<br>
+ * Check if the module codes have already been added to the specified degree requirement category through
+   <code>RequirementCategory.hasModuleCode</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
 <p><code>RequirementAddCommand</code> will throw an error if any of the above checks fails.</p>
 </div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
-<p>After passing all of the above checks, <code>RequirementAddCommand</code> updates the context in <code>ModelManager</code> through
+<p><strong>3.</strong> After passing all of the above checks, <code>RequirementAddCommand</code> updates the context in <code>Model</code> through
 <code>setRequirementCategory</code>.</p>
 </div>
 <div class="paragraph">
-<p>In addition to adding module code(s) to the requirement category, the <code>RequirementAddCommand</code> class also saves the
-current database state through <code>commitApplication</code> (for undo/redo functions).</p>
+<p><strong>4.</strong> In addition to adding module code(s) to the specified degree requirement category, the <code>RequirementAddCommand</code>
+class also saves the current database state through <code>commitApplication</code> (for undo/redo functions).</p>
+</div>
+<div class="paragraph">
+<p>The sequence diagram below shows how this command interacts with the <code>Logic</code> components as described above.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>You can click on the image below, so that it is enlarged in a new tab (only works on github)</p>
+</li>
+<li>
+<p>The sequence diagram has been extracted into 2 sub-diagrams to better illustrate the component interactions</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1298,163 +1349,451 @@ current database state through <code>commitApplication</code> (for undo/redo fun
 </div>
 <div class="title">Figure 12. RequirementAddCommand component interactions</div>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="images/RequirementAddCommandSequenceDiagramExtracted.png" alt="RequirementAddCommandSequenceDiagramExtracted" width="650">
+</div>
+<div class="title">Figure 13. Component interactions of the checks performed by RequirementAddCommand class</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.4.2. Design Considerations</a></h4>
+<div class="paragraph">
+<p>This section describes the various design considerations the taken when implementing the <code>requirement_add</code>
+feature.</p>
+</div>
 <div class="sect4">
-<h5 id="aspect-choice-of-what-is-stored-in-the-requirement-category"><a class="link" href="#aspect-choice-of-what-is-stored-in-the-requirement-category">Aspect: Choice of what is stored in the requirement category</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p>Alternative 1 (current choice): Storing only the module codes.</p>
-</li>
-</ul>
+<h5 id="aspect-choice-of-what-is-stored-in-the-requirement-category-storage-file"><a class="link" href="#aspect-choice-of-what-is-stored-in-the-requirement-category-storage-file">Aspect: Choice of what is stored in the requirement category storage file</a></h5>
+<div class="paragraph">
+<p>The table below shows a comparison between the two approaches that could have been implemented.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 30%;">
-<col style="width: 70%;">
+<col style="width: 35%;">
+<col style="width: 35%;">
 </colgroup>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Approach</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Lesser storage space is required. Easy to maintain.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Extra overhead is required when additional information related to the module is needed to be retrieved.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="ulist">
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>1.</strong> Storing only the module codes in the requirement category storage file</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
 <ul>
 <li>
-<p>Alternative 2: Storing all information related to the modules.</p>
+<p>Lesser storage space is required as only the module code is being stored</p>
+</li>
+<li>
+<p>Easy to maintain, as only one information is being stored</p>
 </li>
 </ul>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 30%;">
-<col style="width: 70%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Every information related to the modules is easily retrievable.</p></td>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Extra overhead is required when additional information related to the module is retrieved</p>
+</li>
+</ul>
+</div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The stored information is duplicated, additional storage space and processing time is needed to load the requirement categories.
-           Hard to maintain the stored information, if a module information is updated, have to ensure that the
-           stored information is updated as well.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2.</strong> Storing all information related to the modules but only the module code is displayed</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Any information related to the modules is easily retrievable</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>The module information is duplicated, additional storage space and processing time is needed to load the
+entire requirement category</p>
+</li>
+<li>
+<p>Hard to maintain and manage the stored information. If a module information is updated the information in the
+requirement category storage needs to be updated as well.</p>
+</li>
+</ul>
+</div></div></td>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>After evaluating the pros and cons of both approaches, we have decided to implement <strong>Approach 1</strong>.</p>
+</div>
+<div class="paragraph">
+<p>The main reason is that all module information would be duplicated again in the requirement category storage file.
+This would effectively make the module storage file redundant as the information can be found in the requirement
+category storage file.</p>
+</div>
+<div class="paragraph">
+<p>In addition, when a module information is updated, we have to ensure that the information in both storage files are
+updated and consistent to avoid any conflicting information.</p>
+</div>
+<div class="paragraph">
+<p>Another factor that heavily impacted the decision would be that each module is uniquely identified by a module code.
+Hence, by storing the module code only, the module&#8217;s information can be easily obtained.</p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="requirement-list-feature"><a class="link" href="#requirement-list-feature">3.5. Requirement List Feature</a></h3>
+<h3 id="requirement-move-feature"><a class="link" href="#requirement-move-feature">3.5. Requirement Move Feature</a></h3>
 <div class="paragraph">
-<p>The <code>requirement_list</code> command in PWE is used to display all requirement categories and the module code(s) that have
-been added to requirement category.</p>
+<p>The requirement move feature in the application aims to help users to be able to move module code(s) from any degree
+requirement category to the specified requirement category.</p>
 </div>
 <div class="sect3">
 <h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current implementation</a></h4>
 <div class="paragraph">
-<p>The <code>requirement_list</code> command requires no additional input other than the command itself.</p>
+<p>When the user invokes the <code>requirement_move</code> command, e.g. (requirement_move name/Mathematics code/CS1231).<br>
+The following steps are taken by the application.</p>
 </div>
 <div class="paragraph">
-<p>When the <code>RequirementListCommand</code> class is called, it will perform the following actions before displaying the output
-to the user:</p>
+<p><strong>1.</strong> The <code>CommandParser</code> invokes the <code>RequirementMoveCommandParser</code> class to parse the user input provided.
+ The parsed data will then be used to create a <code>RequirementMoveCommand</code> object. The <code>RequirementMoveCommand</code> object
+ will then be returned to <code>LogicManager</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The input should only consist of the <code>name</code> of the requirement category and module <code>code</code>(s) to be moved</p>
+</li>
+<li>
+<p><code>RequirementMoveCommandParser</code> will throw an error if the user input does not match the command format</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>2.</strong> Upon receiving the <code>RequirementMoveCommand</code> object, <code>LogicManager</code> would then invoke the <code>RequirementMoveCommand</code>
+ class to pass the object received.<br></p>
+</div>
+<div class="paragraph">
+<p>Once invoked, <code>RequirementMoveCommand</code> will perform the following checks on the
+ object received:<br>
+* Check if the degree requirement category specified exists in the application through <code>getRequirementCategory</code><br>
+* Check if the module code(s) provided exists in the application through <code>model.hasModuleCode</code><br>
+* Check if the module code(s) provided already been added to the degree requirement category<br></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>RequirementMoveCommand</code> will throw an error if any of the above checks fails.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>3.</strong> After passing all of the above checks, <code>RequirementMoveCommand</code> determines if the modules code(s) to be moved
+belongs
+ to a single degree requirement category or from multiple degree requirement categories</p>
+</div>
+<div class="paragraph">
+<p><strong>4.</strong> If the module code(s) belongs to a <strong>single</strong> degree requirement category, <code>RequirementMoveCommand</code> will move all the
+ module code(s) specified at once.<br>
+If the module code(s) belong to <strong>multiple</strong> degree requirement categories, <code>RequirementMoveCommand</code> will move the
+module code(s) specified at one by one</p>
+</div>
+<div class="paragraph">
+<p><strong>5.</strong> In addition to adding module code(s) to the specified degree requirement category, the <code>RequirementMoveCommand</code>
+class
+also saves the current database state through <code>commitApplication</code> (for undo/redo functions).</p>
+</div>
+<div class="paragraph">
+<p>The sequence diagram below shows how this command interacts with the <code>Logic</code> components as described above.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>You can click on the image below, so that it is enlarged in a new tab (only works on github)</p>
+</li>
+<li>
+<p>The sequence diagram has been extracted into 2 sub-diagrams to better illustrate the component interactions</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/RequirementMoveCommandSequenceDiagram.png" alt="RequirementMoveCommandSequenceDiagram" width="650">
+</div>
+<div class="title">Figure 14. RequirementMoveCommand component interactions</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/RequirementMoveCommandSequenceDiagramExtracted.png" alt="RequirementMoveCommandSequenceDiagramExtracted" width="650">
+</div>
+<div class="title">Figure 15. Component interactions of the checks performed by RequirementMoveCommand class</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.5.2. Design Considerations</a></h4>
+<div class="paragraph">
+<p>This section describes the various design considerations the taken when implementing the <code>requirement_move</code>
+feature.</p>
+</div>
+<div class="sect4">
+<h5 id="aspect-to-include-a-check-to-determine-if-the-module-code-s-specified-come-froms-a-single-source-degree-requirement-category"><a class="link" href="#aspect-to-include-a-check-to-determine-if-the-module-code-s-specified-come-froms-a-single-source-degree-requirement-category">Aspect: To include a check to determine if the module code(s) specified come froms a single source degree requirement category</a></h5>
+<div class="paragraph">
+<p>The table below shows a comparison between the two approaches that could have been implemented.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 35%;">
+<col style="width: 35%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Approach</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>1.</strong> Implementing to check if the module code(s) comes from a single source</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Able to move all modules at once</p>
+</li>
+<li>
+<p>Reduce overhead</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Extra checks are required in the application</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2.</strong> Not implementing to check if the module code(s) comes from a single source</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Lesser checks needs to be implemented</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>More overhead is needed when handling the moving of the module code(s)</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>After evaluating the pros and cons of both approaches, we have decided to implement <strong>Approach 1</strong>.</p>
+</div>
+<div class="paragraph">
+<p>The main reason is that it has a slight performance boost for the application as all the module code(s) can be moved
+together at once, reducing the overall overhead.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="requirement-list-feature"><a class="link" href="#requirement-list-feature">3.6. Requirement List Feature</a></h3>
+<div class="paragraph">
+<p>The requirement list feature in the application allow users to display all requirement categories and the module code(s)
+ that have been added to the requirement categories.</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.6.1. Current implementation</a></h4>
+<div class="paragraph">
+<p>The <code>requirement_list</code> command requires no additional input other than the command itself.
+When the user executes the <code>requirement_list</code> command, the following steps are taken by the the application.</p>
+</div>
+<div class="paragraph">
+<p><strong>1.</strong> The <code>CommandParser</code> invokes the <code>RequirementListCommand</code> class</p>
+</div>
+<div class="paragraph">
+<p><strong>2.</strong> When the <code>RequirementListCommand</code> class is invoked, it will perform the following actions before displaying the
+output to the user:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Obtain a list of all the requirement categories in the application</p>
+<p>Obtain a list of all the requirement categories and the modules added to each requirement category in the application
+through <code>getFilteredRequirementCategoryList</code></p>
 </li>
 <li>
-<p>Check if there are modules added to the requirement category</p>
-</li>
-<li>
-<p>Calculate the current amount of credits based on the modules added to the requirement category</p>
+<p>Obtain the module credit information for every module added into each requirement category through <code>getModuleByCode</code></p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>If there are no modules added to a requirement category, the output will display <code>No modules in this category!</code> for
- the particular requirement category. Otherwise, it will display the modules codes that have been added.</p>
+<p><strong>3.</strong> Once the information has been populated, the application will then display all requirement categories, the current
+ credit count for each requirement category as well as the module(s) added to each requirement category.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If there are no modules added to a requirement category, the application will display <code>No modules in this category!</code>
+ for that particular requirement category.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The sequence diagram below shows the interaction with the <code>Logic</code> components as described above.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can click on the image below, so that it is enlarged in a new tab (only works on github)</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/RequirementListCommandSequenceDiagram.png" alt="RequirementListCommandSequenceDiagram" width="650">
 </div>
-<div class="title">Figure 13. RequirmentListCommand component interactions</div>
+<div class="title">Figure 16. RequirmentListCommand component interactions</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.5.2. Design Considerations</a></h4>
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.6.2. Design Considerations</a></h4>
+<div class="paragraph">
+<p>This section describes the various design considerations the taken when implementing the <code>requirement_list</code>
+feature.</p>
+</div>
 <div class="sect4">
 <h5 id="aspect-tracking-the-current-amount-of-credits-in-a-requirement-category"><a class="link" href="#aspect-tracking-the-current-amount-of-credits-in-a-requirement-category">Aspect: Tracking the current amount of credits in a requirement category</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p>Alternative 1: Creating a new attribute to store the credits</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>The table below shows a comparison between the two approaches that could have been implemented.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 30%;">
-<col style="width: 70%;">
+<col style="width: 35%;">
+<col style="width: 35%;">
 </colgroup>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Approach</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Current amount of credits is always available.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Hard to maintain. When a module credit is updated to a new value, the corresponding attribute has to be
-          updated as well. Additional storage space is needed to store the additional attribute.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="ulist">
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>1.</strong> Creating a dedicated attribute to track the current amount credits of a requirement category</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
 <ul>
 <li>
-<p>Alternative 2 (current choice): Calculating the credits when needed.</p>
+<p>Current amount of credits is always available and easily obtainable</p>
 </li>
 </ul>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 30%;">
-<col style="width: 70%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No maintenance needed. Able to easily calculate the credits when needed as module information are easily obtainable.</p></td>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Hard to maintain. When a module credit is updated to a new value, the attribute has to be updated as well to
+prevent conflicting information.</p>
+</li>
+</ul>
+</div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Extra overhead is required to retrieve and calculate the credits.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2.</strong> Calculating the current amount of credits of a requirement category when needed</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Any information related to the modules is easily retrievable as each module is uniquely identified by the module
+code</p>
+</li>
+<li>
+<p>No extra maintenance of information needed</p>
+</li>
+<li>
+<p>Able to easily calculate the credits when needed as module information
+are easily obtainable.</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Extra overhead is required to retrieve the module&#8217;s information and compute the current amount of credits</p>
+</li>
+</ul>
+</div></div></td>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>After evaluating the pros and cons of both approaches, the group decided that <strong>Approach 2</strong> was to be implemented.</p>
+</div>
+<div class="paragraph">
+<p>The determining factor was that the module&#8217;s credits can be easily obtain. Hence the current amount of credits for a
+particular requirement category can be easily calculated as and when needed.</p>
+</div>
+<div class="paragraph">
+<p>Furthermore, when a module&#8217;s credits is changed, we have to ensure that the information in the
+requirement category storage file is updated as well. Which is hard to maintain as the requirement category
+containing the module code must first be retrieved for the attribute to be updated.</p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="planner-move-feature"><a class="link" href="#planner-move-feature">3.6. Planner Move Feature</a></h3>
+<h3 id="planner-move-feature"><a class="link" href="#planner-move-feature">3.7. Planner Move Feature</a></h3>
 <div class="paragraph">
 <p>The <code>planner_move</code> command provides functionality for users to move a module between academic semesters in the degree
 plan.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.6.1. Current Implementation</a></h4>
+<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">3.7.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The user input provided will be parsed by the <code>PlannerMoveCommandParser</code> class.
 Then, the parsed input will be passed to <code>PlannerMoveCommand</code> class to execute the <code>planner_move</code> command.</p>
@@ -1501,11 +1840,11 @@ undo/redo functions).</p>
 <div class="content">
 <img src="images/PlannerMoveComponentSequenceDiagram.png" alt="PlannerMoveComponentSequenceDiagram" width="650">
 </div>
-<div class="title">Figure 14. PlannerMove component interactions</div>
+<div class="title">Figure 17. PlannerMove component interactions</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.6.2. Design Considerations</a></h4>
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.7.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-should-searching-of-the-degree-plan-based-on-the-year-and-the-semester-provided-to-be-done"><a class="link" href="#aspect-how-should-searching-of-the-degree-plan-based-on-the-year-and-the-semester-provided-to-be-done">Aspect: How should searching of the degree plan based on the year and the semester provided to be done</a></h5>
 <div class="ulist">
@@ -1609,14 +1948,14 @@ the semester provided.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="planner-list-feature"><a class="link" href="#planner-list-feature">3.7. Planner List Feature</a></h3>
+<h3 id="planner-list-feature"><a class="link" href="#planner-list-feature">3.8. Planner List Feature</a></h3>
 <div class="paragraph">
 <p>Planner list feature aims to help users to be able to locate any degree planner(s) based on certain condition(s) in our
 application easily. We support the listing of degree planners based on year and semester. This enable a user to be able
 to list any degree planner(s) with partial information.</p>
 </div>
 <div class="sect3">
-<h4 id="overview-2"><a class="link" href="#overview-2">3.7.1. Overview</a></h4>
+<h4 id="overview-2"><a class="link" href="#overview-2">3.8.1. Overview</a></h4>
 <div class="paragraph">
 <p>When a user invokes the <code>planner_list</code> command. (e.g. planner_list y/YEAR s/SEMESTER), the following steps
 are taken by the program.</p>
@@ -1638,11 +1977,11 @@ are taken by the program.</p>
 <div class="content">
 <img src="images/PlannerListComponentSequenceDiagram.png" alt="PlannerListComponentSequenceDiagram" width="650">
 </div>
-<div class="title">Figure 15. PlannerList component interactions</div>
+<div class="title">Figure 18. PlannerList component interactions</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">3.7.2. Current Implementation</a></h4>
+<h4 id="current-implementation-8"><a class="link" href="#current-implementation-8">3.8.2. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Planner List is able to:</p>
 </div>
@@ -1667,7 +2006,7 @@ returns module having its year or semester matches the given year and semester</
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.7.3. Design Considerations</a></h4>
+<h4 id="design-considerations-8"><a class="link" href="#design-considerations-8">3.8.3. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-to-parse-multiple-attributes"><a class="link" href="#aspect-how-to-parse-multiple-attributes">Aspect: How to parse multiple attributes</a></h5>
 <div class="ulist">
@@ -1704,14 +2043,14 @@ returns module having its year or semester matches the given year and semester</
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.8. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.9. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.9, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.10, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1742,7 +2081,7 @@ returns module having its year or semester matches the given year and semester</
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.9. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.10. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -1808,7 +2147,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 16. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 19. Saving documentation as PDF files in Chrome</div>
 </div>
 </div>
 <div class="sect2">
@@ -2095,7 +2434,7 @@ e.g. <code>pwe.planner.logic.LogicManagerTest</code></p>
 <div class="content">
 <img src="images/testfx-idea-accessibility-permissions.png" alt="testfx idea accessibility permissions" width="600">
 </div>
-<div class="title">Figure 17. <code>Accessibility</code> permission is granted to <code>IntelliJ IDEA</code></div>
+<div class="title">Figure 20. <code>Accessibility</code> permission is granted to <code>IntelliJ IDEA</code></div>
 </div>
 </div>
 </div>
@@ -3420,5 +3759,145 @@ Expected: A guide on how the accepted value for <code>code</code> will be displa
 <p><em>{ more test cases &#8230;&#8203; }</em></p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="degree-requirement-category"><a class="link" href="#degree-requirement-category">F.5. Degree Requirement Category</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Adding a module to a degree requirement category</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Create a new module using the <code>add</code> command with the modular code of <code>CS9999</code></p>
+</li>
+<li>
+<p>Ensure that the newly created module does not have corequisite of another module</p>
+</li>
+<li>
+<p>The newly created module do not belong to any degree requirement categories</p>
+</li>
+</ol>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 15:34:45 UTC</div></div></div></body></html>
+</li>
+<li>
+<p>Test case: <code>requirement_add name/Computing Foundation code/CS9999</code><br>
+Expected: The module is added to the specified degree requirement category.<br>
+Details of the module added to the degree requirement category is shown in the application result box.</p>
+</li>
+<li>
+<p>Test case: <code>requirement_add name/Computing Foundation code/CS9999</code><br>
+<strong>This test case is to be tested after the above test case</strong><br>
+Expected: Application displays an error message saying that the module is already in the degree requirement
+category<br>
+Details of the error message is shown in the application result box.</p>
+</li>
+<li>
+<p>Test case: <code>requirement_add name/Computing ddddd code/CS9999</code><br>
+Expected: Application displays an error message saying that the specified degree requirement category does not
+exist<br>
+Details of the error message is shown in the application result box.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Removing a module from the degree requirement category</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Create a new module using the <code>add</code> command with the modular code of <code>CS9999</code></p>
+</li>
+<li>
+<p>Ensure that the newly created module does not have corequisite of another module</p>
+</li>
+<li>
+<p>Add the newly created module to a degree requirement category</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Test case: <code>requirement_remove code/CS9999</code><br>
+Expected: The module is removed from the degree requirement category. Details of the deleted module is shown in
+the application result box.</p>
+</li>
+<li>
+<p>Test case: <code>requirement_remove code/CS9999</code><br>
+<strong>This test case is to be tested after the above test case</strong><br>
+Expected: Application displays an error message saying that the module does not exist in the degree requirement
+category<br>
+Details of the error message is shown in the application result box.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Moving a module to a degree requirement category</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Module to be moved must already be added to a degree requirement category.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Create a new module using the <code>add</code> command with the modular code of <code>CS9999</code></p>
+</li>
+<li>
+<p>Ensure that there no modules with the modular code of <code>CS9998</code> in the application</p>
+</li>
+<li>
+<p>Ensure that the newly created module does not have corequisite of another module</p>
+</li>
+<li>
+<p>Add the newly created module to a degree requirement category</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Test case: <code>requirement_move name/Computing Breadth code/CS9999</code><br>
+Expected: The module is moved to the specified degree requirement category. Details of the moved module is shown in
+the application result box.</p>
+</li>
+<li>
+<p>Test case: <code>requirement_move name/Computing ddddd code/CS9999</code><br>
+Expected: Application displays an error message saying that the specified degree requirement category does not
+exist<br>
+Details of the error message is shown in the application result box.</p>
+</li>
+<li>
+<p>Test case: <code>requirement_move name/Computing Breadth code/CS9998</code><br>
+Expected: Application displays an error message saying that no such module exists in the application<br>
+Details of the error message is shown in the application result box.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Listing all the degree requirement category in the application</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: NIL.</p>
+</li>
+<li>
+<p>Test case: <code>requirement_list</code><br>
+Expected: All the degree requirement categories in the applications, including the current modular credit count
+and the module code(s) added to the degree requirement categories is listed in the application result box.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 15:36:29 UTC</div></div></div></body></html>
