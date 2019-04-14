@@ -320,20 +320,115 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::editing_module[]
+=== Edit Module Feature
+The `edit` feature aims to help users update module details in our application. When there are changes to be made to
+the module (e.g. semesters which modules are offered in have changed), users will want to be able to update the
+module details easily without going through the hassle of deleting and adding the new module.
+
+This section describes the implementation and the design considerations of the `edit` feature, and how the `edit`
+feature is capable of cascading the updated module code from the module list to the requirement categories and degree
+ plan.
+
+==== Current Implementation
+When the user invokes the `edit` command, e.g. (`edit 1 code/CS1231`), the following steps are taken by the
+application.
+
+. The `CommandParser` invokes the `EditCommandParser` class to parse the user input provided. The parsed data will
+then be used to create a `EditCommand` object and will be returned to `CommandParser` and subsequently `LogicManager`.
+
+. `LogicManager` would then invoke the `EditCommand#execute(...)`, which performs the following validation checks to ensure that the edited module details are valid.
+* Ensures that the edited module does not exists in module list (non-duplicate module) +
+* Ensures that the edited module is not updated to be a co-requisite of itself (no self-referencing) +
+* Ensures that the edited module's co-requisite exists in the module list +
+* Ensures that the edited module's co-requisites can be taken in the same semester +
+* Ensures that the edited module can be taken in the same semester as the edited module's co-requisites +
+* Ensures that the updated semesters which the edited module is offered in allows the module to remain in the current semester of the degree plan.
+
+. Once the validation checks are complete, `EditCommand` will invoke `Model#editModule(...)`, which will be
+discussed later.
+
+. `EditCommand` will then invoke `Model#updateFilteredModuleList(...)` to display all modules in the filtered module list.
+
+. Finally, a success message will be displayed to the user.
+
+The high-level overview sequence diagram for the `edit` feature is shown below.
+
+[NOTE]
+====
+`errorChecks(...)` does not actually exists in `EditCommand`. +
+It is used below as a representation of all the validation checks (discussed above) present in `EditCommand.execute(...)`.
+====
+
+.High-level overview sequence diagram for `edit` feature
+ifdef::env-github[]
+image::SD_Edit_Overview.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::SD_Edit_Overview.png[width="970"]
+endif::[]
+
+If there are any changes made to the module's code, `Model#editModule(...)` will cascade the edited module code to the rest of the Model objects (namely `UniqueModuleList`, `UniqueDegreePlannerList`, `UniqueRequirementCategoryList`) through `Application`.
+
+. When `Model#editModule(...)` is invoked, `Application#editModule(...)` will be called.
+. `Application#setModule(...)` is invoked to replace the original module with the edited module in `UniqueModuleList`.
+. When setting the edited module in `UniqueModuleList`, `UniqueModuleList` will cascade the edited module code to all modules' co-requisites
+. The edited module code is cascaded to `UniqueDegreePlanner` as `Application#setModule(...)` checks if the original module code exists in the degree planner, and if so, updates it accordingly.
+. Similarly, `Application#setModule(...)` also checks if the original module code exists in the requirement categories, and if so, updates it accordingly.
+
+.Sequence diagram for `edit` feature illustrating cascading of edited module code
+ifdef::env-github[]
+image::SD_Edit_Detailed.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::SD_Edit_Detailed.png[width="970"]
+endif::[]
+
+==== Design Considerations
+
+===== Aspect: How should edited module code be cascaded down to other Model objects?
+
+The table below shows comparisons between the two approaches.
+
+[cols="30%,35%,35%"]
+|=====
+|*Approach* | *Pros* | *Cons*|
+*1.* Implement cascading of edited module code in `EditCommand` |
+It makes sense for a class in Logic component to handle logic-related matters.
+a|
+* It creates coupling between `EditCommand` and the various Model objects (i.e. `UniqueModuleList`,
+`UniqueDegreePlannerList` and `UniqueRequirementCategoryList`.|
+ *2.* Implement cascading of edited module code in `Application`
+ |It doesn't create additional coupling with other Model components
+a|
+* Implementing logic (cascading effect) in `Application` (a class in Model component) may contradict Separation of Concerns Principle.
+|=====
+
+After weighing the pros and cons, *approach 2* was chosen. +
+
+Firstly, doing so will reduce the need for additional coupling with other Model components (as compared to approach
+1). Although it may seem strange to implement logic checks to achieve the desired cascading effect of the edited module
+code in `Application` (a class in the Model component), implementing logic checks in Model can also be seen as a way
+of maintaining data integrity. One such example is Java's `Set` interface (Model), where each implementing class
+ensures that there are no duplicate elements in the collection of data (i.e. implementing logic in model).
+
+Similarly, implementing cascading of edited module code in `Application` is deemed to be similar to implement logic
+in model for maintaining data integrity. As such, *approach 2* is more suitable and was chosen.
+// end::editing_module[]
+
 // tag::corequisites[]
 === Module co-requisites
 ==== Current Implementation
 
 Module co-requisites are stored internally as `Set<Code>` within `Module`.
 
-A `Set<Code>` is used instead of a `List<Code>` to ensure uniqueness and prevents duplicate pre-requisites
-module codes.
+A `Set<Code>` is used instead of a `List<Code>` to ensure uniqueness and prevents duplicate co-requisites module codes.
 
-Notice that `Code` is used in place of `Module`. This is to prevent storage of duplicated information when
-serializing `UniqueModuleList`.
+Notice that `Code` is used in place of `Module`. This is to prevent storage of duplicated information when serializing `UniqueModuleList`.
 
-`AddCommand` handles invalid cases by preventing adding a co-requisite module code that does not exists in the module
-list. +
+`AddCommand` handles invalid cases by preventing adding a co-requisite module code that does not exists in the module list. +
 `EditCommand` handles invalid cases by ensuring that:
 
 * the edited co-requisite module code is not equivalent to the `Code` of the edited module +
@@ -345,16 +440,28 @@ When a module is deleted, it is cascaded down to other modules, and is removed f
 
 ===== Aspect: How should deletion of a module be cascaded down to other modules
 
-* **Alternative 1 (current choice):** Delete module code from other modules' corequisites in `application` class
-** Pros: Implementing the cascading effect in `Application#removeModule()` protects tampering of `application` data
-** Cons: Requires extra overhead to obtain an immutable list of modules to update and modify existing modules in the
-`UniqueModuleList`
-* **Alternative 2:** Delete module code from other modules' corequisites in `DeleteCommand` class
-** Pros: Convenient to implement.
-** Cons: Deleting a module via `Application#removeModule()` does not have any cascading effect on other modules'
-corequisites. The user will have to delete the invalid co-requisite manually afterwards.
-** Cons: Can only interact with a filtered list of modules, and as such, the displayed list of modules need to be
-refreshed to display the full listing just to be able to iterate and delete modules co-requisites accordingly.
+The table below shows comparisons between the two approaches.
+
+[cols="30%,35%,35%"]
+|=====
+|*Approach* | *Pros* | *Cons*|
+*1.* Delete module code from other modules' corequisites in `Application` class |
+Implementing the cascading effect in `Application#removeModule()` protects data
+a|
+* Requires extra overhead to obtain an immutable list of modules to update and modify existing modules in the `UniqueModuleList` +
+* `Application` class needs to handle logic checks to ensure data interity
+ |*2.* Delete module code from other modules' corequisites in `DeleteCommand` class
+ |Convenient to implement.
+a|
+* Deleting a module via `Application#removeModule()` does not have any cascading effect on other modules'
+  corequisites. The user will have to delete the invalid co-requisite manually afterwards.
+|=====
+
+After weighing the pros and cons, *approach 1* was chosen. +
+As we are expecting many similar names between modules in the university curriculum, if the user could only search
+with an implicit logical `OR`, the user would not be able to find the desired modules effectively. This can drastically
+ reduce the effectiveness of the `find` command.
+
 // end::corequisites[]
 
 // tag::find[]
@@ -1475,8 +1582,6 @@ categories
 
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Use Cases
 
@@ -1883,8 +1988,6 @@ Use case ends.
 .  The application should have good developer documentation to allow new developers to understand the design of the application easily.
 .  The application's functionalities should be easily testable.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
@@ -1925,21 +2028,47 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding a module
+
+. Adding a module while all modules are listed
+
+.. Prerequisites: Populate module list with sample data using `reset` command, then list all modules using the `list` command.
+.. Test case: `add code/AA1111 name/ABC credits/4` +
+   Expected: New module (AA1111 ABC) is added into the module list. Details of the added module shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `add code/CS1010 name/DEF credits/4` +
+   Expected: Module is *not* added into the module list (Module `CS1010` already exists in the module list). Error details shown in the status message. Status bar remains the same.
+.. Test case: `add code/AA1111 name/DEF credits/4` +
+   Expected: Module is *not* added into the module list (Module `AA1111` already exists in the module list). Error details shown in the status message. Status bar remains the same.
+
+=== Editing a module
+
+. Editing a module while all modules are listed
+
+.. Prerequisites: Populate module list with sample data using `reset` command, then list all modules using the `list` command.
+.. Test case: `edit 1 code/CS1111` +
+   Expected: Module code CS1010 is edited to CS1111 in the module list, requirement categories, degree plan. Details of the edited module shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `edit 2 name/ABC` +
+   Expected: Module name of 2nd module in module list (CS1231 Discrete Structures) is edited to ABC in the module list and degree plan. Details of the edited module shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `edit 5 coreq/` +
+   Expected: Module name of 5th module in module list (CS2101 Effective Communications for Computing Professionals) is edited to None in the module list. CS2113T's co-requisites will also be updated to None. Details of the edited module shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `edit 1 coreq/CS1231` +
+   Expected: Module is *not* edited, as module `CS1010` and `CS1231` are in different semesters of the degree plan,
+   and hence cannot be updated to be co-requisites. Error details shown in the status message. Status bar remains the same.
 
 === Deleting a module
 
 . Deleting a module while all modules are listed
 
-.. Prerequisites: List all modules using the `list` command. Multiple modules in the list.
+.. Prerequisites: Populate module list with sample data using `reset` command, then list all modules using the `list` command.
 .. Test case: `delete 1` +
-   Expected: First module is deleted from the list. Details of the deleted module shown in the status message. Timestamp in the status bar is updated.
+   Expected: First module (CS1010) is deleted from the module list and year 1 semester 1 of the degree plan. Details of the deleted module shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete 5` +
+   Expected: Fifth module (CS2101) module is deleted from the module list and year 2 semester 1 of the degree plan.
+   CS2113T module co-requisites is updated to None. Error details shown in the status message. Status bar remains the same.
 .. Test case: `delete 0` +
    Expected: No module is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Adding module(s) to the degree plan
 
@@ -2066,7 +2195,6 @@ Expected: Error message is displayed.
 * `planner_move year/1 sem/3 code/CS2101` +
 Expected: Error message is displayed since CS2101 module is not offered in semester 3 based on the module list.
 
-
 === Showing the academic semesters in the degree plan
 
 . Showing some academic semesters in the degree plan based on the condition
@@ -2174,12 +2302,3 @@ academic semesters present in the degree plan.
 .. Test case: `requirement_list` +
    Expected: All the degree requirement categories in the applications, including the current modular credit count
    and the module code(s) added to the degree requirement categories is listed in the application result box.
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
-
