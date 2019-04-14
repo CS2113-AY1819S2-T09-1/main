@@ -4,48 +4,177 @@
 <h2 id="project-planwithease"><a class="link" href="#project-planwithease">PROJECT: PlanWithEase</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>{The dummy content given below serves as a placeholder to be updated in the future.}</em><br></p>
+<p>Hello there! I am Jackie. I am currently a student at the National University of Singapore<br>
+(NUS) studying Information Security. I love to build application that could simplify our life then break it down to make
+it better again!</p>
 </div>
-<hr>
+<div class="paragraph">
+<p>This portfolio documents my involvement in the PlanWithEase, a degree planner
+application which is morphed from <a href="https://github.com/se-edu/addressbook-level4">AddressBook Level 4</a>.</p>
+</div>
+<div class="paragraph">
+<p>PlanWithEase is developed by my team (consisting of <a href="truegitnovice.html">Ahn TaeGyu</a>, <a href="wendybaiyunwei.html">Bai YunWei</a>, <a href="creastery.html">Ngo Wei Lin</a>,
+ <a href="chyeo.html">Yeo Cheng Hong</a> and myself) under the CS2113T (Software Engineering &amp; Object-Oriented Programming) module
+taken in NUS over the span of 8 weeks.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.</p>
+<p>For this project, we aim to simplify the process of planning a degree, and ensure that the degree plan fulfills the
+degree requirements for graduation.</p>
+</div>
+<div class="paragraph">
+<p>With this goal in mind, we developed PlanWithEase (PWE), degree planner desktop application designed to help
+National University of Singapore (NUS) Information Security freshmen in creating a comprehensive degree plan with ease
+according to their degree requirements.</p>
+</div>
+<div class="paragraph">
+<p>We understand that planning a degree is not an easy task,and can be very time-consuming. Further more there are much
+considerations to make, making it confusing, troublesome and difficult to create the perfect degree plan.</p>
+</div>
+<div class="paragraph">
+<p>With this goal in mind, we developed PlanWithEase (PWE), a degree planner application designed to help NUS
+Information Security freshmen in creating a comprehensive degree plan according to the degree requirements effortlessly.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Ui.png" alt="Ui" width="970">
+</div>
+</div>
+<div class="paragraph">
+<p>My role as a developer in this project involves designing and write code to enhance our existing <code>find</code> features
+which enables our users to do the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Finding modules</strong> with either its name, code or credits.</p>
+</li>
+<li>
+<p><strong>Complex search terms</strong> to narrow down the find results.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="understanding-this-project-portfolio"><a class="link" href="#understanding-this-project-portfolio">Understanding This Project Portfolio</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following symbols are used throughout this project portfolio:</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This symbol denotes information that you may want to take note of when using the application.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This symbol denotes a tip which you may find useful when using the application.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This symbol denotes a warning message which you need to be careful of when using the application.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additionally, you may also encounter the following text styles:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Commands or parameters will be in this <code>format</code>.</p>
+</li>
+<li>
+<p>Important messages will be <strong>bold</strong>.</p>
+</li>
+<li>
+<p>Undoable command will be in <em>italics</em>.</p>
+</li>
+<li>
+<p>Keyboard buttons will be referred to as such: <kbd>F1</kbd>.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
 <div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>This section details the main enhancements as well as other contributions I have made in the project.</em></p></td>
+</tr>
+</tbody>
+</table>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Major enhancement</strong>: added <strong>the ability to undo/redo previous commands</strong></p>
+<p><strong>Main enhancement</strong>: added <strong>the ability to perform complex find command</strong></p>
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.</p>
+<p>What it does: allows the user to find modules via more complex find criteria. Find criteria can be composed from
+mixed of logical AND (<code>&amp;&amp;</code>) and logical OR (<code>||</code>), users can optionally specify parenthesis to denote the expression
+to be evaluated first.</p>
 </li>
 <li>
-<p>Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.</p>
+<p>Justification: With a expected large number of modules available in our application, users needs to be able to
+find a small subset of modules which are of interest to them. The ability of performing complex find commands give users
+the flexibility of finding a smaller subset of modules which are relevant to them.</p>
 </li>
 <li>
-<p>Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.</p>
-</li>
-<li>
-<p>Credits: <em>{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}</em></p>
+<p>Highlights: The algorithm for this enhancement was generalized not only to suit my own features, but also my team
+mate&#8217;s features. My team mate (<a href="truegitnovice.html">Ahn TaeGyu</a>) has managed to make use of this generalized class I created for his own
+features. The implementation of this enhancement required some research on the different ways of parsing a boolean
+expression, as there are many parsing algorithms available. After deciding on the algorithm to be used, I had to
+implement the said algorithm in code using an Object-Orientated style, while trying to abstract the algorithm as much
+ as possible as per the requirements of Object-Oriented Programming.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Minor enhancement</strong>: added a history command that allows the user to navigate to previous commands using up/down keys.</p>
-</li>
-<li>
-<p><strong>Code contributed</strong>: [<a href="https://github.com">Functional code</a>] [<a href="https://github.com">Test code</a>] <em>{give links to collated code files}</em></p>
+<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2113-AY1819S2-T09-1/main/commits?author=lycjackie">Commits</a>] [<a href="https://github.com/CS2113-AY1819S2-T09-1/main/pulls?q=is%3Apr+author%3Alycjackie+is%3Amerged">Pull Requests</a>] [<a href="https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=lycjackie">RepoSense Code Contribution Dashboard</a>]</p>
 </li>
 <li>
 <p><strong>Other contributions</strong>:</p>
@@ -56,7 +185,14 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Managed releases <code>v1.3</code> - <code>v1.5rc</code> (3 releases) on GitHub</p>
+<p>Set up the organization and main repository.</p>
+</li>
+<li>
+<p>Managed release <code>v1.4</code> on <a href="https://github.com/CS2113-AY1819S2-T09-1/main/releases">GitHub</a></p>
+</li>
+<li>
+<p>Contributed to user stories on Github issue tracker <a href="https://github.com/CS2113-AY1819S2-T09-1/main/issues/66">#66</a>
+and help to create issues label on Github.</p>
 </li>
 </ul>
 </div>
@@ -66,10 +202,15 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Updated the GUI color scheme (Pull requests <a href="https://github.com">#33</a>, <a href="https://github.com">#34</a>)</p>
+<p>Sourced for new application icon and update the application accordingly. <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/110">#110</a></p>
 </li>
 <li>
-<p>Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests <a href="https://github.com">#36</a>, <a href="https://github.com">#38</a>)</p>
+<p>Updated the GUI color scheme. <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/144">#144</a></p>
+</li>
+<li>
+<p>Collaborated with a team mate (<a href="creastery.html">Ngo Wei Lin</a>) to implement a custom string tokenizer
+<code>BooleanExpressionTokenizer</code>, which enables the users to be able to use complex search conditions to narrow down
+their search when using <code>find</code> and <code>planner_show</code> commands. (<a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/119">#119</a>)</p>
 </li>
 </ul>
 </div>
@@ -79,7 +220,8 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Did cosmetic tweaks to existing contents of the User Guide: <a href="https://github.com">#14</a></p>
+<p>Modify the structure and did clean up to existing contents of the User Guide:  <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/1">#1</a>,
+<a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/207">#207</a></p>
 </li>
 </ul>
 </div>
@@ -89,29 +231,14 @@
 <div class="ulist">
 <ul>
 <li>
-<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com">#12</a>, <a href="https://github.com">#32</a>, <a href="https://github.com">#19</a>, <a href="https://github.com">#42</a></p>
+<p>Reviewed about one-third of the team&#8217;s Pull Requests(PRs) and gave non-trivial review comments :
+<a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/82">#82</a>, <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/109">#109</a>, <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/136">#136</a></p>
 </li>
 <li>
-<p>Contributed to forum discussions (examples:  <a href="https://github.com">1</a>, <a href="https://github.com">2</a>, <a href="https://github.com">3</a>, <a href="https://github.com">4</a>)</p>
+<p>Contributed to forum discussions <a href="https://github.com/nusCS2113-AY1819S2/forum/issues/14">#14</a></p>
 </li>
 <li>
-<p>Reported bugs and suggestions for other teams in the class (examples:  <a href="https://github.com">1</a>, <a href="https://github.com">2</a>, <a href="https://github.com">3</a>)</p>
-</li>
-<li>
-<p>Some parts of the history feature I added was adopted by several other class mates (<a href="https://github.com">1</a>, <a href="https://github.com">2</a>)</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Tools:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Integrated a third party library (Natty) to the project (<a href="https://github.com">#42</a>)</p>
-</li>
-<li>
-<p>Integrated a new Github plugin (CircleCI) to the team repo</p>
+<p>Reported bugs and suggestions for other teams in the class (<a href="https://github.com/CS2113-AY1819S2-M11-2/main/issues/127">1</a>, <a href="https://github.com/CS2113-AY1819S2-M11-2/main/issues/131">2</a>, <a href="https://github.com/CS2113-AY1819S2-M11-2/main/issues/144">3</a>)</p>
 </li>
 </ul>
 </div>
@@ -120,9 +247,6 @@
 </div>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p><em>{you can add/remove categories in the list above}</em></p>
 </div>
 </div>
 </div>
@@ -135,175 +259,255 @@
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write
+documentation targeting end-users to facilitate mastering of <strong>PlanWithEase</strong>'s features. .</em></p></td>
 </tr>
 </tbody>
 </table>
 <div class="sect3">
-<h4 id="undoing-previous-command-code-undo-code-span-class-image-img-src-https-img-shields-io-badge-general-undo-8774c1-svg-alt-general-undo-8774c1-span"><a class="link" href="#undoing-previous-command-code-undo-code-span-class-image-img-src-https-img-shields-io-badge-general-undo-8774c1-svg-alt-general-undo-8774c1-span">Undoing previous command: <code>undo</code> <span class="image"><img src="https://img.shields.io/badge/general-undo-8774C1.svg" alt="general undo 8774C1"></span></a></h4>
+<h4 id="finding-modules-code-find-code-span-class-image-img-src-https-img-shields-io-badge-module-find-blue-svg-alt-module-find-blue-span"><a class="link" href="#finding-modules-code-find-code-span-class-image-img-src-https-img-shields-io-badge-module-find-blue-svg-alt-module-find-blue-span">Finding modules : <code>find</code> <span class="image"><img src="https://img.shields.io/badge/module-find-blue.svg" alt="module find blue"></span></a></h4>
 <div class="paragraph">
-<p>Made a critical mistake such as accidentally clearing all modules from <strong>PlanWithEase</strong> and you want to get the data
-back?<br>
-No problem! You can simply enter <code>undo</code> in the <strong>command box</strong> to restore PlanWithEase&#8217;s data to the state before the
-previous <em>undoable</em> command was executed!</p>
+<p>Having trouble locating the modules you want?</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
 <div class="paragraph">
-<p><em>Undoable</em> commands are commands that modifies the contents of PlanWithEase&#8217;s data.<br>
-Below is a list of all <em>undoable</em> commands in <strong>PlanWithEase</strong>.</p>
+<p>Make use of <code>find</code> command which allows you to find modules that have their names, code or credits matching the given
+search criteria.</p>
+</div>
+<div class="paragraph">
+<p><strong>Command Format:</strong> <code>find [name/NAME] OPERATOR [code/CODE] OPERATOR [credits/CREDITS]</code></p>
+</div>
+<div class="paragraph">
+<p>When this command is used, the application will display only those modules which satisfy the search criteria.</p>
+</div>
+<div class="paragraph">
+<p>The following table describes the valid prefixes that you can supply to the search criteria.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
+<col style="width: 50%;">
+<col style="width: 50%;">
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>General</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Module Management</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Requirement Tracker</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Degree Plan Management</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Prefix</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div><div class="ulist">
-<ul>
-<li>
-<p><code>undo</code></p>
-</li>
-<li>
-<p><code>redo</code></p>
-</li>
-<li>
-<p><code>clear</code></p>
-</li>
-<li>
-<p><code>reset</code></p>
-</li>
-</ul>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="ulist">
-<ul>
-<li>
-<p><code>add</code></p>
-</li>
-<li>
-<p><code>edit</code></p>
-</li>
-<li>
-<p><code>delete</code></p>
-</li>
-</ul>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="ulist">
-<ul>
-<li>
-<p><code>requirement_add</code></p>
-</li>
-<li>
-<p><code>requirement_move</code></p>
-</li>
-</ul>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="ulist">
-<ul>
-<li>
-<p><code>planner_add</code></p>
-</li>
-<li>
-<p><code>planner_remove</code></p>
-</li>
-<li>
-<p><code>planner_move</code></p>
-</li>
-</ul>
-</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name/NAME</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Search for any module <code>name</code> which matches <code>NAME</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code/CODE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Search for any module <code>code</code> which matches <code>CODE</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>credits/CREDITS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Search for any module <code>credits</code> which has <code>CREDITS</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tag/TAG</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Search for any module <code>tag</code> which matches <code>TAG</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sem/SEMESTER</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Search for any module that is being offered in <code>SEMESTER</code></p></td>
 </tr>
 </tbody>
 </table>
-</td>
+<div class="paragraph">
+<p>The following table describes the valid operators which you can supply to the search criteria.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Operator</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precedence</strong></p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&amp;&amp;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical "AND" operation (both conditions A AND B must match)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Highest</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>||</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical "OR" operation (either conditions A OR B must match)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lowest</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>(</code> and <code>)</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Search term surrounded by parenthesis will always be evaluated first. If there is a tie, the logical
+operator precedence will be taken into consideration.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N.A</p></td>
+</tr>
+</tbody>
 </table>
-</div>
 <div class="paragraph">
-<p><strong>Examples:</strong></p>
+<p>The following examples describes how you could form a valid search criteria for the <code>find</code> command.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>delete 1</code> (deletes first module in the displayed module list)<br>
-<code>list</code> (displays all modules in the module list)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
-</li>
-<li>
-<p><code>find name/Programming</code> (finds modules with name containing the word <code>Programming</code> and displays them in the module
-list)<br>
-<code>list</code> (displays all modules in the module list)<br>
-<code>undo</code> (the <code>undo</code> command fails as there are no undoable commands executed previously)</p>
-</li>
-<li>
-<p><code>delete 1</code> (deletes first module in the displayed module list)<br>
-<code>clear</code> (clears all application data)<br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="redoing-previously-undone-command-code-redo-code-span-class-image-img-src-https-img-shields-io-badge-general-redo-8774c1-svg-alt-general-redo-8774c1-span"><a class="link" href="#redoing-previously-undone-command-code-redo-code-span-class-image-img-src-https-img-shields-io-badge-general-redo-8774c1-svg-alt-general-redo-8774c1-span">Redoing previously undone command : <code>redo</code> <span class="image"><img src="https://img.shields.io/badge/general-redo-8774C1.svg" alt="general redo 8774C1"></span></a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Single Prefix Usage</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Expected Result</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>find name/NAME</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns modules containing <code>NAME</code> in their names</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>find code/CODE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns modules containing <code>CODE</code> in their codes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>find credits/CREDITS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns modules having <code>CREDITS</code> in their credits</p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
-<p>Took too many steps back in time using the <code>undo</code> command and want to move forward in time again?<br>
-Use the <code>redo</code> command to reverse the most recent <code>undo</code> command!</p>
+<p>If you need multiple prefixes, the following table shows some examples on how it can be done.
+<br>
+Note that you will need to separate multiple prefixes with an operator.</p>
 </div>
-<div class="admonitionblock warning">
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Be careful when time travelling using the <code>undo</code> and <code>redo</code> command!<br>
-You may end up being stuck in the present and can&#8217;t go back into the future using the <code>redo</code> command.</p>
-</div>
-<div class="paragraph">
-<p>This can happen if you you run an <em>undoable</em> command (excluding <code>undo</code> and <code>redo</code>) when going back in time using the <code>undo</code> command!</p>
+<p>You could choose which search criteria having a higher priority by specifying parenthesis</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Multiple Prefix Usage</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Expected Result</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>find name/NAME1 &amp;&amp; name/NAME2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns modules containing both <code>NAME1</code> and <code>NAME2</code> in their names.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>find name/NAME1 || name/NAME2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns modules containing both <code>NAME1</code> or <code>NAME2</code> in their names.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>find name/NAME &amp;&amp; code/CODE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns modules containing <code>NAME</code> in their name and <code>CODE</code> in their codes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>find code/CODE || (name/NAME &amp;&amp; code/CODE2)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns modules containing either <code>CODE</code> in their codes or <code>NAME</code>
+in their names and <code>CODE2</code> in their codes.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The search is case insensitive. e.g <code>security</code> will match <code>Security</code></p>
+</li>
+<li>
+<p>Only full words will be matched. e.g. <code>CS</code> will not match <code>CS1231</code></p>
+</li>
+<li>
+<p>The order of the prefixes does not matter. e.g. <code>find code/CODE || name/NAME</code> returns the same result as
+<code>find name/NAME || code/CODE</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="paragraph">
-<p><strong>Examples:</strong></p>
+<p>Examples:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>delete 1</code> (deletes first module in the displayed module list)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br></p>
-</li>
-<li>
-<p><code>delete 1</code>  (deletes first module in the displayed module list)<br>
-<code>redo</code> (the <code>redo</code> command fails as there are no <code>undo</code> commands executed previously)</p>
-</li>
-<li>
-<p><code>delete 1</code> (deletes first module in the displayed module list)<br>
-<code>clear</code> (clears all modules from the application)<br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>clear</code> command)<br></p>
+<p><code>find name/computer</code><br>
+Displays all modules with names containing the word <code>computer</code> (e.g. <code>computer</code> and <code>Computer Security</code>) in the module
+list.</p>
 </li>
 </ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/find1.png" alt="find1" width="970">
+</div>
+<div class="title">Figure 1. Finding modules with name contains <code>computer</code></div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>find name/computer &amp;&amp; name/Security</code>
+Displays all modules with names containing the word <code>computer</code> and <code>security</code> in the module list.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/find2.png" alt="find2" width="970">
+</div>
+<div class="title">Figure 2. Finding modules with name contains <code>computer</code> and <code>security</code>.</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>find (sem/1 || sem/4) &amp;&amp; name/Programming</code><br>
+Displays all modules with names containing <code>programming</code> and is offered in either semester <code>1</code> or <code>4</code> in the module
+list.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/find3.png" alt="find3" width="970">
+</div>
+<div class="title">Figure 3. Finding modules with names containing <code>programming</code> and is offered in either semester <code>1</code> or <code>4</code>.</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you wish to search for module name with exact name <code>Information Security</code>, you could do so via the following command
+ <code>find name/information security</code></p>
+</div>
+<div class="paragraph">
+<p>Do note that if you prefer to search for module name containing both <code>Information</code> and <code>Security</code> but in any order,
+you can do the following command. <code>find name/Information &amp;&amp; name/Security</code><br>
+This command will return you modules with both name keywords. (e.g. <code>Security in Information Privacy</code>)</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -322,226 +526,408 @@ You may end up being stuck in the present and can&#8217;t go back into the futur
 </tbody>
 </table>
 <div class="sect2">
-<h3 id="undo-redo-feature"><a class="link" href="#undo-redo-feature">Undo/Redo Feature</a></h3>
+<h3 id="find-feature"><a class="link" href="#find-feature">Find Feature</a></h3>
+<div class="paragraph">
+<p>The <code>find</code> feature aims to help users to be able to easily locate any modules in our application. With a large number
+of modules available to our users, <code>find</code> feature is essential. Currently, the <code>find</code> feature only supports searching
+ of module&#8217;s name, code, credits, tags and the semesters it is offered in.</p>
+</div>
+<div class="paragraph">
+<p>This section shares the implementation and the design considerations gone through while enhancing the find feature.
+Details on how the find feature is implemented and how it supports more search parameters are also shared.</p>
+</div>
+<div class="sect3">
+<h4 id="overview-2"><a class="link" href="#overview-2">Overview</a></h4>
+<div class="paragraph">
+<p>When a user invokes the <code>find</code> command. (e.g. find name/Programming || code/CS1231), the following steps are taken by
+the program.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Extract out the text related to <code>find</code> command</p>
+</li>
+<li>
+<p>Parse the text related to each <code>PREFIX</code> individually.</p>
+</li>
+<li>
+<p>Return a composite predicate for all attributes.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Step 1 is performed by the <code>ApplicationParser</code> class, and no special actions is needed for the <code>find</code> feature.</p>
+</div>
+<div class="paragraph">
+<p>Step 2 and 3 are performed by <code>BooleanExpressionParser#parse</code></p>
+</div>
+<div class="paragraph">
+<p>The class diagram below shows the different components and constraints for <code>find</code> feature.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/FindCommandClassDiagram.png" alt="FindCommandClassDiagram" width="970">
+</div>
+<div class="title">Figure 4. Class diagram for <code>find</code> feature</div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
 <div class="paragraph">
-<p>The undo/redo mechanism is facilitated by <code>VersionedApplication</code>.
-It extends <code>application</code> with an undo/redo history, stored internally as an <code>applicationStateList</code> and <code>currentStatePointer</code>.
-Additionally, it implements the following operations:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>VersionedApplication#commit()</code>&#8201;&#8212;&#8201;Saves the current application state in its history.</p>
-</li>
-<li>
-<p><code>VersionedApplication#undo()</code>&#8201;&#8212;&#8201;Restores the previous application state from its history.</p>
-</li>
-<li>
-<p><code>VersionedApplication#redo()</code>&#8201;&#8212;&#8201;Restores a previously undone application state from its history.</p>
-</li>
-</ul>
+<p>The <code>FindCommandParser</code> parses the strings of arguments provided by the user to retrieve a composite <code>Predicate</code>
+which is used by <code>FindCommand</code>. A <code>ParseException</code> is thrown in the case if the input provided by the user does not
+conform to the expected format.</p>
 </div>
 <div class="paragraph">
-<p>These operations are exposed in the <code>Model</code> interface as <code>Model#commitApplication()</code>, <code>Model#undoApplication()</code> and
-<code>Model#redoApplication()</code> respectively.</p>
-</div>
-<div class="paragraph">
-<p>Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.</p>
-</div>
-<div class="paragraph">
-<p>Step 1. The user launches the application for the first time. The <code>VersionedApplication</code> will be initialized with the
- initial application state, and the <code>currentStatePointer</code> pointing to that single application state.</p>
+<p>The sequence diagram below shows the interaction within the <code>Logic</code> components.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/UndoRedoStartingStateListDiagram.png" alt="UndoRedoStartingStateListDiagram" width="800">
+<img src="../images/FindCommandSequenceDiagram.png" alt="FindCommandSequenceDiagram" width="970">
+</div>
+<div class="title">Figure 5. Find component interactions</div>
+</div>
+<div class="paragraph">
+<p>The main implementation of this feature is split into two components. The <code>Tokenizer</code> and <code>BooleanExpressionParser</code></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>Tokenizer</code> helps to split the user provided argument into tokens which could be used by <code>BooleanExpressionParser</code>.</p>
+</li>
+<li>
+<p><code>BooleanExpressionParser</code> simply performs Shunting-Yard algorithm on the boolean expression tokens provided by the
+<code>Tokenizer</code>  and maps them into <code>Predicate</code> which could be used by <code>FindCommand</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><code>FindCommandParser</code> calls <code>BooleanExpressionParser#parse</code> which handles the evaluation of the expression.<br>
+This process is achieved by the code snippet shown below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="predefined-type">String</span> trimmedArgs = args.trim();
+<span class="keyword">if</span> (trimmedArgs.isEmpty()) {
+    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">ParseException</span>(
+            <span class="predefined-type">String</span>.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+}
+<span class="predefined-type">Predicate</span>&lt;Module&gt; predicate = BooleanExpressionParser.parse(args, PREFIXES);
+<span class="keyword">return</span> <span class="keyword">new</span> FindCommand(predicate);</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Step 2. The user executes <code>delete 5</code> command to delete the 5th module in the application. The <code>delete</code> command calls
- <code>Model#commitApplication()</code>, causing the modified state of the application after the <code>delete 5</code> command executes to be saved in the <code>applicationStateList</code>, and the <code>currentStatePointer</code> is shifted to the newly inserted application state.</p>
+<p>To support more parameters for our <code>find</code> feature. You can do the following steps.</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoNewCommand1StateListDiagram.png" alt="UndoRedoNewCommand1StateListDiagram" width="800">
-</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a new <code>Predicate</code> class (e.g. <code>NameContainsKeywordsPredicate</code>) and define your expected behaviour in it.</p>
+</li>
+<li>
+<p>Ensure your <code>Predicate</code> class extends <code>KeywordsPredicate</code>.</p>
+</li>
+<li>
+<p>Update <code>BooleanExpressionParser#getKeywordsPredicate</code> to handle the creation of the <code>Predicate</code>.</p>
+</li>
+<li>
+<p>Update <code>CliSyntax</code> on the new prefix you would like for the new parameter.</p>
+</li>
+<li>
+<p>Update <code>FindCommandParser</code> to take in the new <code>PREFIX</code>.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
-<p>Step 3. The user executes <code>add n/David &#8230;&#8203;</code> to add a new module. The <code>add</code> command also calls
-<code>Model#commitApplication()</code>, causing another modified application state to be saved into the <code>applicationStateList</code>.</p>
+<p>Your new parameter will now be supported after the above steps!</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="tokenizer"><a class="link" href="#tokenizer">Tokenizer</a></h4>
+<div class="paragraph">
+<p>This is represented by the class <code>pwe.planner.logic.parser.BooleanExpressionTokenizer</code> and is designed to extract
+all argument with <code>PREFIX</code> and <code>OPERATOR</code> as a token.</p>
+</div>
+<div class="paragraph">
+<p>This class is initialized with the input argument and prefixes and can be queried for token multiple times.<br>
+Each query will consume the previous token and returns the next available token.<br>
+This is similar to how <code>java.util.Scanner</code> works.</p>
+</div>
+<div class="sect4">
+<h5 id="design-consideration"><a class="link" href="#design-consideration">Design Consideration</a></h5>
+<div class="paragraph">
+<p>After many rounds of experiment with <code>StringTokenizer</code> that is provided by native Java and <code>ArgumentMultimap</code>.<br>
+We found three main issues which could not be satisfied by either <code>StringTokenizer</code> or <code>ArgumentMultimap</code>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>ArgumentMultimap</code> does not keep track of the order of each delimiter. They will only track if the delimiter exists.</p>
+</li>
+<li>
+<p><code>StringTokenizer</code> has a default delimiter as a whitespace, although we could change the delimiter and parse multiple
+delimiters. It does not suit our situation.<br>
+e.g. <code>find name/AAAA code/BBBB</code>.<br>
+This will return us 1 token. <code>name/AAAA code/BBBB</code>, which we cannot use to check due to the missing <code>operator</code>.<br>
+We need the tokenizer to return us 2 tokens <code>name/AAAA</code> and <code>code/BBBB</code> in order for us to know that the expression
+was invalid due to the missing <code>operator</code>.</p>
+</li>
+<li>
+<p><code>StringTokenizer</code> can take in <code>PREFIX</code> as delimiter, however, this will split the argument (i.e. <code>code/CS1231</code>) into
+two tokens, <code>code/</code> and <code>CS1231</code>.<br>
+Additional parsing is required before we are able to pass it to <code>BooleanExpressionParser</code>. This parsing creates more
+overhead as we have to ensure that the proper checks are done.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>As such, our custom <code>Tokenizer</code> aims to solve these three issues.</p>
+</div>
+<div class="paragraph">
+<p>The table below shows the differences among our <code>Tokenizer</code>, <code>StringTokenizer</code> and <code>ArgumentMultimap</code></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>Tokenizer</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>StringTokenizer</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>ArgumentMultimap</code></strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Respect the order of delimiters.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Respect the order of delimiters</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Only keep track which delimiters are present.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Support multiple delimiters.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Support multiple delimiters.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Support multiple delimiters.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Splitting tokens is more flexible</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Only split token based on delimiters</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Does not split into token.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="operator"><a class="link" href="#operator">Operator</a></h4>
+<div class="paragraph">
+<p>This is represented by the class <code>pwe.planner.logic.parser.Operator</code> and defines all valid operators to be used in
+<code>BooleanExpressionParser</code>.</p>
+</div>
+<div class="paragraph">
+<p>The table below shows the valid operators that our application currently supports.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Operator</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precedence</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&amp;&amp;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical "AND" operation (both conditions A AND B must match)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Highest</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>||</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical "OR" operation (either conditions A OR B must match)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lowest</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(</code> and <code>)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Search term surrounded by parenthesis will always be evaluated first. If there is a tie, the logical
+operator precedence will be taken into consideration.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N.A</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>To support more operators for our <code>BooleanExpressionParser</code>. The following steps should be performed.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add the operator and give it precedence.</p>
+</li>
+<li>
+<p>Update the mapping between <code>String</code> and <code>Operator</code> in <code>Operator#getOperatorFromString</code></p>
+</li>
+<li>
+<p>Update the logic of the new operator in <code>Operator#applyOperator</code></p>
+</li>
+<li>
+<p>Update <code>CliSyntax.OPERATORS</code> to include the new operator.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="boolean-expression-parser"><a class="link" href="#boolean-expression-parser">Boolean Expression Parser</a></h4>
+<div class="paragraph">
+<p>This is represented by the class <code>pwe.planner.logic.parser.BooleanExpressionParser</code> and is designed to map user
+provided input into composite <code>Predicate&lt;Module&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>The following table shows the operators currently supported by <code>BooleanExpressionParser</code>(Highest precedence
+first).</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Operators</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&amp;&amp;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical AND of two predicates</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>||</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical OR of two predicates.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Parentheses <code>(</code> and <code>)</code> are also recognized and respected, and they may be nested to arbitrary depth. This is handled by
+ <a href="https://en.wikipedia.org/wiki/Shunting-yard_algorithm">Shunting Yard</a> algorithm which respects the precedence of each
+ operators when parsing.</p>
+</div>
+<div class="paragraph">
+<p>The sequence diagram below shows the interactions between <code>FindCommandParser</code> and <code>BooleanExpressionParser</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/UndoRedoNewCommand2StateListDiagram.png" alt="UndoRedoNewCommand2StateListDiagram" width="800">
+<img src="../images/parserSequenceDiagram.png" alt="parserSequenceDiagram" width="970">
 </div>
+<div class="title">Figure 6. Find component interactions</div>
 </div>
-<div class="admonitionblock note">
+<div class="paragraph">
+<p>When <code>FindCommandParser</code> receives the provided user argument, it will carry out checks and pass the argument to
+ <code>BooleanExpressionParser</code> which will initialize a new <code>Tokenizer</code> that extracts the arguments as tokens.<br>
+<code>BooleanExpressionParser</code> will create a <code>Predicate</code> based on the <code>Prefix</code> in each token. If the token is an <code>Operator</code>,
+<code>BooleanExpressionParser</code> will apply the operator on two <code>Predicate</code> to combine them into a composite <code>Predicate</code>.</p>
+</div>
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-If a command fails its execution, it will not call <code>Model#commitApplication()</code>, so the application state will not be
- saved into the <code>applicationStateList</code>.
+<div class="paragraph">
+<p>See <a href="#tokenizer">Tokenizer</a> for more details regarding the tokenizer.</p>
+</div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Step 4. The user now decides that adding the module was a mistake, and decides to undo that action by executing the
-<code>undo</code> command. The <code>undo</code> command will call <code>Model#undoApplication()</code>, which will shift the <code>currentStatePointer</code> once to the left, pointing it to the previous application state, and restores the application to that state.</p>
+<p>The process of how the predicate for each prefix is created is shown in the code snippet below.</p>
 </div>
-<div class="imageblock">
+<div class="listingblock">
 <div class="content">
-<img src="../images/UndoRedoExecuteUndoStateListDiagram.png" alt="UndoRedoExecuteUndoStateListDiagram" width="800">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>currentStatePointer</code> is at index 0, pointing to the initial application state, then there are no previous
-application states to restore. The <code>undo</code> command uses <code>Model#canUndoApplication()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The following sequence diagram shows how the undo operation works:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoSequenceDiagram.png" alt="UndoRedoSequenceDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>redo</code> command does the opposite&#8201;&#8212;&#8201;it calls <code>Model#redoApplication()</code>, which shifts the <code>currentStatePointer</code>
-once to the right, pointing to the previously undone state, and restores the application to that state.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>currentStatePointer</code> is at index <code>applicationStateList.size() - 1</code>, pointing to the latest application
-state, then there are no undone application states to restore. The <code>redo</code> command uses <code>Model#canRedoapplication()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Step 5. The user then decides to execute the command <code>list</code>. Commands that do not modify the application, such as <code>list</code>, will usually not call <code>Model#commitapplication()</code>, <code>Model#undoapplication()</code> or <code>Model#redoapplication()</code>. Thus, the <code>applicationStateList</code> remains unchanged.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoNewCommand3StateListDiagram.png" alt="UndoRedoNewCommand3StateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 6. The user executes <code>clear</code>, which calls <code>Model#commitApplication()</code>. Since the <code>currentStatePointer</code> is not
-pointing at the end of the <code>applicationStateList</code>, all application states after the <code>currentStatePointer</code> will be purged. We designed it this way because it no longer makes sense to redo the <code>add n/David &#8230;&#8203;</code> command. This is the behavior that most modern desktop applications follow.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoNewCommand4StateListDiagram.png" alt="UndoRedoNewCommand4StateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>The following activity diagram summarizes what happens when a user executes a new command:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoActivityDiagram.png" alt="UndoRedoActivityDiagram" width="650">
+<pre class="CodeRay highlight"><code data-lang="java">ArgumentMultimap argMultimap =
+        ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CODE, PREFIX_CREDITS);
+KeywordsPredicate predicate = <span class="predefined-constant">null</span>;
+<span class="keyword">if</span> (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+    <span class="predefined-type">String</span> nameKeyword = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()).toString();
+    predicate = <span class="keyword">new</span> NameContainsKeywordsPredicate(<span class="predefined-type">List</span>.of(nameKeyword));
+} <span class="keyword">else</span> <span class="keyword">if</span> (argMultimap.getValue(PREFIX_CODE).isPresent()) {
+    <span class="predefined-type">String</span> codeKeyword = ParserUtil.parseCode(argMultimap.getValue(PREFIX_CODE).get()).toString();
+    predicate = <span class="keyword">new</span> CodeContainsKeywordsPredicate(<span class="predefined-type">List</span>.of(codeKeyword));
+} <span class="keyword">else</span> <span class="keyword">if</span> (argMultimap.getValue(PREFIX_CREDITS).isPresent()) {
+    <span class="predefined-type">String</span> creditKeyword = ParserUtil.parseCredits(argMultimap.getValue(PREFIX_CREDITS).get()).toString();
+    predicate = <span class="keyword">new</span> CreditsContainsKeywordsPredicate(<span class="predefined-type">List</span>.of(creditKeyword));
+} <span class="keyword">else</span> {
+    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">ParseException</span>(
+            <span class="predefined-type">String</span>.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+}
+<span class="keyword">return</span> predicate;</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
-<div class="sect4">
-<h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Saves the entire application.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy to implement.</p>
-</li>
-<li>
-<p>Cons: May have performance issues in terms of memory usage.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Individual command knows how to undo/redo by itself.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Will use less memory (e.g. for <code>delete</code>, just save the module being deleted).</p>
-</li>
-<li>
-<p>Cons: We must ensure that the implementation of each individual command are correct.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="aspect-data-structure-to-support-the-undo-redo-commands"><a class="link" href="#aspect-data-structure-to-support-the-undo-redo-commands">Aspect: Data structure to support the undo/redo commands</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Use a list to store the history of application states.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.</p>
-</li>
-<li>
-<p>Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both
-<code>HistoryManager</code> and <code>VersionedApplication</code>.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Use <code>HistoryManager</code> for undo/redo</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.</p>
-</li>
-<li>
-<p>Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as <code>HistoryManager</code> now needs to do two different things.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="project-powerpointlabs"><a class="link" href="#project-powerpointlabs">PROJECT: PowerPointLabs</a></h2>
-<div class="sectionbody">
-<hr>
 <div class="paragraph">
-<p><em>{Optionally, you may include other projects in your portfolio.}</em></p>
+<p>This section shares the design considerations we went through during the enhancing the existing <code>find</code> feature.</p>
+</div>
+<div class="sect4">
+<h5 id="aspect-parsing-of-composite-predicate"><a class="link" href="#aspect-parsing-of-composite-predicate">Aspect: Parsing of composite predicate</a></h5>
+<div class="paragraph">
+<p>The table below shows comparisons between the two approaches.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 35%;">
+<col style="width: 35%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Approach</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>1.</strong> Implement an algorithm <a href="https://en.wikipedia.org/wiki/Shunting-yard_algorithm">Shunting Yard</a> that parses the complex
+boolean expression and returns a composite predicate.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Find command can be very flexible. It can work with multiple parameters to search for the specific modules that the
+user wants.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Requires many tests to ensure expected behaviours</p>
+</li>
+<li>
+<p>Extra work is required to integrate a new logic parser into <code>FindCommandParser</code>. It may result in  build problems if
+it is not implemented properly.</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2.</strong> Do an implicit logical <code>OR</code> for every predicate.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Very easy to implement</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Returns a very huge set of results when the number of keywords increase.</p>
+</li>
+<li>
+<p>Find command will be restricted to logical <code>OR</code> results.</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>After weighing both pros and cons, we decided to go with <strong>approach 1</strong>.<br>
+As we are expecting many similar names between modules in the university curriculum, if the user could only search
+with an implicit logical <code>OR</code>, the user would not be able to find the desired modules effectively. This can drastically
+ reduce the effectiveness of the <code>find</code> command.</p>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 15:18:34 UTC</div></div></div></body></html>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 15:34:45 UTC</div></div></div></body></html>
