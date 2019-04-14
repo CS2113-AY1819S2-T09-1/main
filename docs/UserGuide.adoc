@@ -361,7 +361,9 @@ Below is a list of command parameters that you can expect to use for commands in
 |======
 |*Parameter*| *Description* | *Acceptable Range of Values*
 | `CODE` | Indicates the module code +
-(e.g. `CS2101`). | `CODE` should begin with two alphabets, followed by four digits, and may optionally end with an alphabet. +
+(e.g. `CS2101`). | `CODE` should begin with two alphabets, followed by four digits, and may optionally end with an
+alphabet. +
+Code insensitive and must be unique
 | `NAME` | Indicates the name of the module +
 (e.g. `Effective Communication for Computing Professionals`). | +
 `NAME` should only contain alphanumeric characters, punctuations (excluding "(", ")", "&", "\|") and spaces. +
@@ -921,7 +923,7 @@ image::plannermove1.png[width=970]
 endif::[]
 
 After entering `planner_move` and pressing kbd:[Enter]:
-[[afterClear]]
+
 .After executing the `planner_move` command.
 ifdef::env-github[]
 image::plannermove2.png[width=800]
@@ -932,7 +934,7 @@ image::plannermove2.png[width=970]
 endif::[]
 
 Note that co-requste of the module is moved too:
-[[afterClear]]
+
 .After executing the `planner_move` command.
 ifdef::env-github[]
 image::plannermove3.png[width=800]
@@ -1013,7 +1015,7 @@ Shows a semester having the year `1` semester `1` and  year `2` semester `1` (e.
 Semester 2`) in the degree plan.
 
 Before the `planner_show` command:
-[[beforePlannerMove]]
+[[beforePlannerShow]]
 .Before executing the `planner_show` command.
 ifdef::env-github[]
 image::plannershow1.png[width=800]
@@ -1024,7 +1026,7 @@ image::plannershow1.png[width=970]
 endif::[]
 
 After entering `planner_show` and pressing kbd:[Enter]:
-[[afterClear]]
+
 .After executing the `planner_show` command.
 ifdef::env-github[]
 image::plannershow2.png[width=800]
