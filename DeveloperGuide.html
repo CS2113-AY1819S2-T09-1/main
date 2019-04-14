@@ -36,7 +36,7 @@
 <li><a href="#requirement-move-feature">3.5. Requirement Move Feature</a></li>
 <li><a href="#requirement-list-feature">3.6. Requirement List Feature</a></li>
 <li><a href="#planner-move-feature">3.7. Planner Move Feature</a></li>
-<li><a href="#planner-list-feature">3.8. Planner List Feature</a></li>
+<li><a href="#planner-show-feature">3.8. Planner Show Feature</a></li>
 <li><a href="#logging">3.9. Logging</a></li>
 <li><a href="#Implementation-Configuration">3.10. Configuration</a></li>
 </ul>
@@ -78,8 +78,11 @@
 <li><a href="#launch-and-shutdown">F.1. Launch and Shutdown</a></li>
 <li><a href="#deleting-a-module">F.2. Deleting a module</a></li>
 <li><a href="#find-modules">F.3. Find modules</a></li>
-<li><a href="#saving-data">F.4. Saving data</a></li>
-<li><a href="#degree-requirement-category">F.5. Degree Requirement Category</a></li>
+<li><a href="#moving-a-module-in-the-degree-plan">F.4. Moving a module in the degree plan</a></li>
+<li><a href="#showing-the-academic-semesters-in-the-degree-plan">F.5. Showing the academic semesters in the degree plan</a></li>
+<li><a href="#listing-all-the-academic-semesters-in-the-degree-plan">F.6. Listing all the academic semesters in the degree plan</a></li>
+<li><a href="#degree-requirement-category">F.7. Degree Requirement Category</a></li>
+<li><a href="#saving-data">F.8. Saving data</a></li>
 </ul>
 </li>
 </ul>
@@ -1789,52 +1792,33 @@ containing the module code must first be retrieved for the attribute to be updat
 <div class="sect2">
 <h3 id="planner-move-feature"><a class="link" href="#planner-move-feature">3.7. Planner Move Feature</a></h3>
 <div class="paragraph">
-<p>The <code>planner_move</code> command provides functionality for users to move a module between academic semesters in the degree
-plan.</p>
+<p>The <code>planner_move</code> command aims to provide functionality for users to move a module between academic semesters in the
+degree plan along with its co-requisites.</p>
+</div>
+<div class="paragraph">
+<p>This section shares the implementation and design considerations made during the enhancement of the <code>planner_move</code>
+feature.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">3.7.1. Current Implementation</a></h4>
+<h4 id="overview-2"><a class="link" href="#overview-2">3.7.1. Overview</a></h4>
 <div class="paragraph">
-<p>The user input provided will be parsed by the <code>PlannerMoveCommandParser</code> class.
-Then, the parsed input will be passed to <code>PlannerMoveCommand</code> class to execute the <code>planner_move</code> command.</p>
+<p>As the users often encounter situations where they decide to take the modules in other semesters after they have
+completed their degree planning, the <code>planner_move</code> feature is essential to have.</p>
 </div>
 <div class="paragraph">
-<p>The input should consist of the year and the semester of the degree plan that the user wants to move to and the module
-code that the user want to move.</p>
+<p>Current <code>planner_move</code> feature supports the moving of a module along with its co-requisites given the module and
+its co-requisites are offered in the semester the users wants to move to.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">3.7.2. Current Implementation</a></h4>
+<div class="paragraph">
+<p>When a user execute the <code>planner_move</code> command (e.g. <code>planner_move year/1 sem/2 code/CS1010</code>), the following steps
+are taken by the application.</p>
 </div>
 <div class="paragraph">
-<p><code>PlannerMoveCommandParser</code> will throw an error if the user input does not match the command format.</p>
-</div>
-<div class="paragraph">
-<p>When <code>PlannerMoveCommand</code> receives the parsed data, it will perform the following checks in order:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Check if there exists any academic semester in degree plan that has the module code provided through the user input.</p>
-</li>
-<li>
-<p>Check if there exists any academic semester in degree plan that has the corresponding year and the semester provided
-through the user input.</p>
-</li>
-<li>
-<p>Check if the academic semester in degree plan that the user is trying to move the module from is not same as the
-academic semester that the user is trying to move the module to.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><code>PlannerMoveCommand</code> will throw an error if any of the first two check fails.</p>
-</div>
-<div class="paragraph">
-<p>If the last check fails, <code>PlannerMoveCommand</code> will not update the degree plan since there is nothing to be changed.</p>
-</div>
-<div class="paragraph">
-<p>If all checks pass, <code>PlannerMoveCommand</code> will update the context in <code>ModelManager</code> through <code>setDegreePlanner</code>.</p>
-</div>
-<div class="paragraph">
-<p>In addition, the <code>PlannerMoveCommand</code> class also saves the current database state through <code>commitApplication</code> (for
-undo/redo functions).</p>
+<p>Given below is a sequence diagram for moving a module that illustrates the interactions among <code>PlannerMoveCommand</code>,
+<code>PlannerMoveCommandParser</code> and <code>Model</code>:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1842,9 +1826,148 @@ undo/redo functions).</p>
 </div>
 <div class="title">Figure 17. PlannerMove component interactions</div>
 </div>
+<div class="paragraph">
+<p>Step 1. The <code>PlannerMoveCommandParser#parse</code> method is invoked. The <code>PlannerMoveCommandParser</code> receives the command with
+the arguments as a string.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The <code>PlannerMoveCommandParser</code> parses the text related to each <code>PREFIX</code> and constructs the <code>PlannerMoveCommand</code>
+. If more than one of each kind of <code>PREFIX</code> (e.g. <code>year/1 sem/2 code/CS1231 code/CS1010</code>) is provided, only text related
+to last of each <code>PREFIX</code> (e.g. <code>year/1 sem/2 code/CS1010</code>) will be parsed.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The input should consist of the year and the semester of the degree plan that the user wants to move to and the module
+code that the user want to move.</p>
+</li>
+<li>
+<p><code>PlannerMoveCommandParser</code> will throw an error if the user input does not match the command format.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Step 3. The <code>PlannerMoveCommand</code> with <code>YEAR</code>, <code>SEMESTER</code> and <code>CODE</code> specified by the user is returned.</p>
+</div>
+<div class="paragraph">
+<p>Step 4. The <code>PlannerMoveCommand#execute</code> method is invoked.</p>
+</div>
+<div class="paragraph">
+<p>Given below is a sequence diagram that illustrates the interactions among <code>PlannerMoveCommand</code>, <code>Model</code> and
+<code>Application</code>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/PlannerMoveCommandSequenceDiagramDetail.png" alt="PlannerMoveCommandSequenceDiagramDetail" width="650">
+</div>
+<div class="title">Figure 18. PlannerMoveCommand in detail interactions</div>
+</div>
+<div class="paragraph">
+<p>During this step, the following methods are carried out in the order:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>getDegreePlannerByCode</code> method will be called to check if there exists any academic semester in degree plan that
+has the parsed module code.</p>
+</li>
+<li>
+<p>The <code>getApplication</code> method will be called followed by the <code>getDegreePlannerList</code> method will be called by the
+model to retrieve the list of academic semesters available in the degree plan. Then, <code>filter</code> will be carried out
+with the help of <code>DegreePlanner#isSameDegreePlanner</code> to locate the academic semester the user wants to move the
+module to.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>null</code> will be returned instead of <code>DegreePlanner</code> object if no academic semester matching the year and the semester is
+found.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>getModuleByCode</code> method will be called to return <code>Module</code> object having the code <code>toMove</code>. Then, the <code>Module</code>
+object will be used to retrieve the semesters the module is available in with the <code>getSemesters</code> method to check if the
+module is offered in the academic semester the user is trying to move to.</p>
+</li>
+<li>
+<p>The <code>getModuleByCode</code> method will be called in a loop during the <code>filter</code> to find out all the module&#8217;s co-requisites
+not offered in the academic semester the user is trying to move to.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Any violations in the checks will result in throwing of an error message.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Step 5. The <code>Model</code> is updated.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>If any of the above check fails, <code>Model</code> will not be updated since there is nothing to be
+changed.</p>
+</li>
+<li>
+<p>If all the above checks passes, the <code>PlannerMoveCommand</code> class will update the context in <code>ModelManager</code> by calling
+the`moveModuleBetweenPlanner` method which will call <code>setDegreePlanner</code> method.</p>
+</li>
+<li>
+<p>After updating the <code>Model</code> The <code>PlannerMoveCommand</code> will save the current database state through <code>commitApplication</code>
+(for undo/redo functions).</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Step 6. A <code>CommandResult</code> object is returned.</p>
+</div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.7.2. Design Considerations</a></h4>
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.7.3. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-should-searching-of-the-degree-plan-based-on-the-year-and-the-semester-provided-to-be-done"><a class="link" href="#aspect-how-should-searching-of-the-degree-plan-based-on-the-year-and-the-semester-provided-to-be-done">Aspect: How should searching of the degree plan based on the year and the semester provided to be done</a></h5>
 <div class="ulist">
@@ -1886,6 +2009,10 @@ the semester provided.</p>
 </colgroup>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Easy to implement.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The method will create unnecessary couplings between <code>Application</code> and <code>Year</code> as well as between <code>Application</code>
  and <code>Semester</code>.</p></td>
@@ -1893,77 +2020,25 @@ the semester provided.</p>
 </tbody>
 </table>
 </div>
-<div class="sect4">
-<h5 id="aspect-how-should-moving-of-the-module-code-provided-from-the-academic-semester-to-the-same-academic-semester-to-be-done"><a class="link" href="#aspect-how-should-moving-of-the-module-code-provided-from-the-academic-semester-to-the-same-academic-semester-to-be-done">Aspect: How should moving of the module code provided from the academic semester to the same academic semester to be done</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Do not update the degree plan</p>
-</li>
-</ul>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 30%;">
-<col style="width: 70%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Minimize any overhead trying to attempt moving of the module code from and to the same degree plan.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Extra check is needed to determine if the module that the user is trying to move belongs to the same academic
- semester as the academic semester the user wants to move to.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 2:</strong> Modify <code>setDegreePlanner</code> to not throw <code>DuplicateDegreePlannerException</code> when <code>target</code> is same as
-<code>editedDegreePlanner</code></p>
-</li>
-</ul>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 30%;">
-<col style="width: 70%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Easy to implement as just needs to remove the <code>if</code> condition for the check in <code>setDegreePlanner</code> method.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Simply modifying it to not throw the error will potentially break many other parts of codes. In this case, it
- is not easy to implement anymore.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="planner-list-feature"><a class="link" href="#planner-list-feature">3.8. Planner List Feature</a></h3>
+<h3 id="planner-show-feature"><a class="link" href="#planner-show-feature">3.8. Planner Show Feature</a></h3>
 <div class="paragraph">
-<p>Planner list feature aims to help users to be able to locate any degree planner(s) based on certain condition(s) in our
-application easily. We support the listing of degree planners based on year and semester. This enable a user to be able
-to list any degree planner(s) with partial information.</p>
+<p>Planner show feature aims to help users to be able to easily locate and display any academic semesters in the degree
+plan which is in our application. We support the displaying of degree planners based on year, semester and boolean
+expressions. This enables our users to display only specific academic semesters in the degree plan that they want.</p>
 </div>
 <div class="sect3">
-<h4 id="overview-2"><a class="link" href="#overview-2">3.8.1. Overview</a></h4>
+<h4 id="overview-3"><a class="link" href="#overview-3">3.8.1. Overview</a></h4>
 <div class="paragraph">
-<p>When a user invokes the <code>planner_list</code> command. (e.g. planner_list y/YEAR s/SEMESTER), the following steps
+<p>When a user invokes the <code>planner_show</code> command. (e.g. <code>planner_show y/YEAR &amp;&amp; s/SEMESTER</code>), the following steps
 are taken by the program.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Extract out the text related to <code>planner_list</code> command</p>
+<p>Extract the text related to <code>planner_show</code> command (e.g. <code>y/YEAR &amp;&amp; s/SEMESTER</code>)</p>
 </li>
 <li>
 <p>Parse the text related to each <code>PREFIX</code> individually.</p>
@@ -1973,33 +2048,30 @@ are taken by the program.</p>
 </li>
 </ol>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="images/PlannerListComponentSequenceDiagram.png" alt="PlannerListComponentSequenceDiagram" width="650">
+<div class="paragraph">
+<p>Step 1 is performed by the <code>ApplicationParser</code> class.</p>
 </div>
-<div class="title">Figure 18. PlannerList component interactions</div>
+<div class="paragraph">
+<p>Step 2 and 3 are performed by <code>BooleanExpressionParser#parse</code>.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="current-implementation-8"><a class="link" href="#current-implementation-8">3.8.2. Current Implementation</a></h4>
-<div class="paragraph">
-<p>Planner List is able to:</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
-<p>list degree planner(s) by year
-i.e. <code>planner_list y/YEAR</code>
+<p>Show degree planner(s) by year
+i.e. <code>planner_show y/YEAR</code>
 returns degree planner(s) having its year matches the year given</p>
 </li>
 <li>
-<p>list degree planner(s) by semester
-i.e. <code>planner_list s/SEMESTER</code>
+<p>Show degree planner(s) by semester
+i.e. <code>planner_show s/SEMESTER</code>
 returns degree planner(s) having its semester matches the semester given</p>
 </li>
 <li>
-<p>include <code>year</code> and <code>semester</code> attributes in one <code>planner_list</code> command and list degree planner(s)
-i.e. <code>planner_list y/YEAR s/SEMESTER</code>
+<p>include <code>year</code> and <code>semester</code> attributes in one <code>planner_show</code> command and list degree planner(s)
+i.e. <code>planner_show y/YEAR s/SEMESTER</code>
 returns module having its year or semester matches the given year and semester</p>
 </li>
 </ul>
@@ -2012,33 +2084,49 @@ returns module having its year or semester matches the given year and semester</
 <div class="ulist">
 <ul>
 <li>
-<p>Alternative 1 (current choice): Parse the text related to each <code>PREFIX</code> individually</p>
+<p><strong>Alternative 1 (current choice):</strong> Parse the text related to each <code>PREFIX</code> individually using <code>BooleanExpressionParser</code></p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User is able to have more flexible search.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">More time and work needed for developer to implement.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: User is able to have more flexible search</p>
-</li>
-<li>
-<p>Cons: More time and work needed for developer to implement</p>
+<p><strong>Alternative 2:</strong> Parse the text related to each <code>PREFIX</code> at one go without using <code>BooleanExpressionParser</code></p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>Alternative 2: Parse the text related to each <code>PREFIX</code> at one go</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy to implement</p>
-</li>
-<li>
-<p>Cons: Additional overhead needed</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Easy to implement.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Additional overhead needed and inconsistent in the application&#8217;s commands since <code>find</code> utilises <code>BooleanExpressionParser</code>.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -3740,27 +3828,145 @@ Expected: A guide on how the accepted value for <code>code</code> will be displa
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">F.4. Saving data</a></h3>
+<h3 id="moving-a-module-in-the-degree-plan"><a class="link" href="#moving-a-module-in-the-degree-plan">F.4. Moving a module in the degree plan</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Dealing with missing/corrupted data files</p>
+<p>Moving a module in the degree plan while all modules are listed</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p><em>{explain how to simulate a missing/corrupted file and the expected behavior}</em></p>
+<p>Prerequisites: List all academic semesters using the <code>planner_list</code> command. All academic semesters present in the
+degree plan. Application is started with the sample data without any modification in the data.</p>
 </li>
-</ol>
+<li>
+<p>Test case: <code>planner_move year/1 sem/1 code/CS1010</code><br>
+Expected: CS1010 module remains in <strong>Year 1 Semester 1</strong> of the degree plan. Success message will be shown in the
+status message. Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>planner_move year/1 sem/2 code/CS1010</code><br>
+Expected: CS1010 module is moved from <strong>Year 1 Semester 1</strong>  to <strong>Year 1 Semester 2</strong> of the degree plan. Success
+message will be shown in the status message. Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>planner_move year/1 sem/2 code/CS2101</code><br>
+Expected: CS2101 module is moved along with its co-requisite CS2113T to <strong>Year 1 Semester 2</strong> of the degree plan.
+Success message will be shown in the status message. Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Other incorrect <code>planner_move</code> commands to try:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>planner_move year/x sem/y code/CS1010</code> (where x or y is larger than 4)<br>
+Expected: Error message is displayed.</p>
+</li>
+<li>
+<p><code>planner_move year/1 sem/3 code/CS2101</code><br>
+Expected: Error message is displayed since CS2101 module is not offered in semester 3 based on the module list.</p>
+</li>
+</ul>
 </div>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="degree-requirement-category"><a class="link" href="#degree-requirement-category">F.5. Degree Requirement Category</a></h3>
+<h3 id="showing-the-academic-semesters-in-the-degree-plan"><a class="link" href="#showing-the-academic-semesters-in-the-degree-plan">F.5. Showing the academic semesters in the degree plan</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Showing some academic semesters in the degree plan based on the condition</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: List all academic semesters using the <code>planner_list</code> command. All academic semesters present in the degree plan.</p>
+</li>
+<li>
+<p>Test case: <code>planner_show year/1</code><br>
+Expected: Only the academic semesters with year <code>1</code> are displayed.</p>
+</li>
+<li>
+<p>Test case: <code>planner_show sem/1</code><br>
+Expected: Only the academic semesters with semester <code>1</code> are displayed.</p>
+</li>
+<li>
+<p>Test case: <code>planner_show year/1 || year/2</code><br>
+Expected: Only the academic semesters with year <code>1</code> or year <code>2</code> are displayed.</p>
+</li>
+<li>
+<p>Test case: <code>planner_show sem/1 || sem/2</code><br>
+Expected: Only the academic semesters with semester <code>1</code> or semester <code>2</code> are displayed.</p>
+</li>
+<li>
+<p>Test case: <code>planner_show year/1 &amp;&amp; ( sem/1 || sem2 )</code><br>
+Expected: Only the academic semesters with year <code>1</code> and semester 1 or semester 2 are displayed.</p>
+</li>
+<li>
+<p>Other incorrect <code>planner_show</code> commands to try:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>planner_show year/x</code>, (where x is larger than 4)<br>
+Expected: Error message is displayed.</p>
+</li>
+<li>
+<p><code>planner_show sem/x</code>, (where x is larger than 4)<br>
+Expected: Error message is displayed.</p>
+</li>
+<li>
+<p><code>planner_show sem/1 sem/2</code><br>
+Expected: Error message is displayed since there is no boolean expression in between.</p>
+</li>
+<li>
+<p><code>planner_show sem/1 ((</code>,<br>
+Expected: Error message is displayed.</p>
+</li>
+<li>
+<p><code>planner_show sem/2 &amp; yea/1</code>,<br>
+Expected: Error message is displayed.</p>
+</li>
+<li>
+<p><code>planner_show sem/2 | yea/1</code>,<br>
+Expected: Error message is displayed.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="listing-all-the-academic-semesters-in-the-degree-plan"><a class="link" href="#listing-all-the-academic-semesters-in-the-degree-plan">F.6. Listing all the academic semesters in the degree plan</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Listing all the academic semesters in the degree plan when only some academic semesters are listed</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: List some academic semesters using the <code>planner_show</code> command (e.g. <code>planner_show year/1</code>). All
+academic semesters present in the degree plan.</p>
+</li>
+<li>
+<p>Test case: <code>planner_list</code><br>
+Expected: All the academic semesters are listed in the degree plan.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="degree-requirement-category"><a class="link" href="#degree-requirement-category">F.7. Degree Requirement Category</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3899,5 +4105,25 @@ and the module code(s) added to the degree requirement categories is listed in t
 </ol>
 </div>
 </div>
+<div class="sect2">
+<h3 id="saving-data"><a class="link" href="#saving-data">F.8. Saving data</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Dealing with missing/corrupted data files</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>{explain how to simulate a missing/corrupted file and the expected behavior}</em></p>
+</li>
+</ol>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 15:41:46 UTC</div></div></div></body></html>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><em>{ more test cases &#8230;&#8203; }</em></p>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 15:55:04 UTC</div></div></div></body></html>
