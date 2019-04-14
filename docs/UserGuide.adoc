@@ -363,9 +363,9 @@ Below is a list of command parameters that you can expect to use for commands in
 | `CODE` | Indicates the module code +
 (e.g. `CS2101`). | `CODE` should begin with two alphabets, followed by four digits, and may optionally end with an
 alphabet. +
-Code insensitive and must be unique
+`CODE` is insensitive and must be unique
 | `NAME` | Indicates the name of the module +
-(e.g. `Effective Communication for Computing Professionals`). | +
+(e.g. `Effective Communication for Computing Professionals`). |
 `NAME` should only contain alphanumeric characters, punctuations (excluding "(", ")", "&", "\|") and spaces. +
 Note that if you are using punctuations, you may want to consider replacing "()" with "[]", "&" with "and", and "\|" with "l" (lowercase L) instead! +
 | `CREDITS` | Indicates the modular credits assigned to the module +
