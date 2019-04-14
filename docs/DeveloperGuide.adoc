@@ -978,27 +978,6 @@ the semester provided.
  and `Semester`.
 |======
 
-===== Aspect: How should moving of the module code provided from the academic semester to the same academic semester to be done
-
-* **Alternative 1 (current choice):** Do not update the degree plan
-
-[cols="30%,<70%"]
-|======
-|*Pros*|Minimize any overhead trying to attempt moving of the module code from and to the same degree plan.
-|*Cons*|Extra check is needed to determine if the module that the user is trying to move belongs to the same academic
- semester as the academic semester the user wants to move to.
-|======
-
-* **Alternative 2:** Modify `setDegreePlanner` to not throw `DuplicateDegreePlannerException` when `target` is same as
-`editedDegreePlanner`
-
-[cols="30%,<70%"]
-|======
-|*Pros*|Easy to implement as just needs to remove the `if` condition for the check in `setDegreePlanner` method.
-|*Cons*|Simply modifying it to not throw the error will potentially break many other parts of codes. In this case, it
- is not easy to implement anymore.
-|======
-
 // end::planner-move[]
 
 // tag::planner-show[]
@@ -1022,8 +1001,6 @@ Step 1 is performed by the `ApplicationParser` class.
 Step 2 and 3 are performed by `BooleanExpressionParser#parse`.
 
 ==== Current Implementation
-
-Planner List is able to:
 
 * Show degree planner(s) by year
 i.e. `planner_show y/YEAR`
