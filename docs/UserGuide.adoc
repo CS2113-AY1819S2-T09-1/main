@@ -315,6 +315,20 @@ image::clearafter.png[width=970]
 endif::[]
 // end::clear[]
 
+==== Reset the application: `reset` image:https://img.shields.io/badge/general-reset-8774C1.svg[]
+If you want to populate the program with our sample modules, you can enter `reset` in the *command box* +
+
+This will save you the trouble of adding new `module` again!
+
+[NOTE]
+====
+This will *discard* all changes you have made and populate the program with our sample modules.
+====
+[TIP]
+====
+If you unintentionally used this command, do use the undo command to revert back the changes
+====
+
 ==== Exiting the program : `exit` image:https://img.shields.io/badge/general-exit-8774C1.svg[]
 
 If you want to exit *PlanWithEase*, you can enter `exit` in the *command box*. +
@@ -460,20 +474,24 @@ Format: `find [name/NAME] OPERATOR [code/CODE] OPERATOR [credits/CREDITS]`
 
 When this command is used, the application will display only those modules which satisfy the search criteria.
 
-The following table describes the valid prefixes that you can use to supply to the search criteria.
+The following table describes the valid prefixes that you can supply to the search criteria.
 |====
 | *Prefix* | *Description*
 | `name/NAME` | Search for any module `name` which matches `NAME`
 | `code/CODE` | Search for any module `code` which matches `CODE`
 | `credits/CREDITS` | Search for any module `credits` which has `CREDITS`
+| `tag/TAG` | Search for any module `tag` which matches `TAG`
+| `sem/SEMESTER` | Search for any module that is being offered in `SEMESTER`
 |====
 
-The following table describes the valid operators which you can to use supply to the search criteria.
+The following table describes the valid operators which you can supply to the search criteria.
 
 |====
 | *Operator* | *Description* | *Precedence*
 | `&&` | Logical "AND" operation (both conditions A AND B must match) | Highest
 | `\|\|` | Logical "OR" operation (either conditions A OR B must match)| Lowest
+a| `(` and `)` | Search term surrounded by parenthesis will always be evaluated first. If there is a tie, the logical
+operator precedence will be taken into consideration. | N.A
 |====
 
 The following examples describes how you could form a valid search criteria for the `find` command.
@@ -485,7 +503,7 @@ The following examples describes how you could form a valid search criteria for 
 | `find credits/CREDITS` | Returns modules having `CREDITS` in their credits
 |====
 
-If you need multiple prefixes, the following table shows you how you could do it.
+If you need multiple prefixes, the following table shows some examples on how it can be done.
  +
 Note that you will need to separate multiple prefixes with an operator.
 [TIP]
@@ -494,8 +512,8 @@ You could choose which search criteria having a higher priority by specifying pa
 ====
 |====
 | *Multiple Prefix Usage* | *Expected Result*
-| `find name/NAME1 && name/NAME2` | Returns modules containing both `NAME1` and `NAME2 in their names.
-| `find name/NAME1 \|\| name/NAME2` | Returns modules containing both `NAME1` or `NAME2 in their names.
+| `find name/NAME1 && name/NAME2` | Returns modules containing both `NAME1` and `NAME2` in their names.
+| `find name/NAME1 \|\| name/NAME2` | Returns modules containing both `NAME1` or `NAME2` in their names.
 | `find name/NAME && code/CODE` | Returns modules containing `NAME` in their name and `CODE` in their codes.
 | `find code/CODE \|\| (name/NAME && code/CODE2)` | Returns modules containing either `CODE` in their codes or `NAME`
 in their names and `CODE2` in their codes.
@@ -509,20 +527,43 @@ in their names and `CODE2` in their codes.
 ****
 Examples:
 
-* `find name/Security` +
-Displays any modules having the word `security` (e.g. `security` and `Information Security`) in the module list.
-* `find name/Information Security` +
-Displays any modules having name with exact match  `Information Security` in the module list.
-* `find code/CS1231 || code/CS2040`  +
-Displays any modules having code `CS1231` or `CS2040` in the module list.
-* `find credits/4 || credits/12` +
-Displays any modules having credits `4` or `12` in the module list.
-* `find name/Programming || code/CS1231` +
-Displays any modules having name `Programming` or code `CS1231` in the module list.
-* `find code/CS2113 || credits/4 && name/Programming` +
-Displays any modules having name `Programming` and credits `4` or code `CS2113` in the module list.
-* `find name/Programming && (code/CS1231 || code/CS1010)` +
-Displays any modules having name `Programming` and code `CS1231` or code `CS1010` in the module list.
+* `find name/computer` +
+Displays all modules with names containing the word `computer` (e.g. `computer` and `Computer Security`) in the module
+list.
+
+.Finding modules with name contains `computer`
+ifdef::env-github[]
+image::find1.png[width=800]
+endif::[]
+
+ifndef::env-github[]
+image::find1.png[width=970]
+endif::[]
+
+* `find name/computer && name/Security`
+Displays all modules with names containing the word `computer` and `security` in the module list.
+
+.Finding modules with name contains `computer` and `security`.
+ifdef::env-github[]
+image::find2.png[width=800]
+endif::[]
+
+ifndef::env-github[]
+image::find2.png[width=970]
+endif::[]
+
+* `find (sem/1 || sem/4) && name/Programming` +
+Displays all modules with names containing `programming` and is offered in either semester `1` or `4` in the module
+list.
+
+.Finding modules with names containing `programming` and is offered in either semester `1` or `4`.
+ifdef::env-github[]
+image::find3.png[width=800]
+endif::[]
+
+ifndef::env-github[]
+image::find3.png[width=970]
+endif::[]
 
 [TIP]
 ====
