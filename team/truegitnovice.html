@@ -19,118 +19,227 @@ Information Security freshmen in creating a comprehensive degree plan according 
 designed to be simple and intuitive application that allows users to interact with by typing the commands
 (using a Command Line Interface). Moreover, PWE also comes with a clean Graphical User Interface (GUI) that presents
 information in an organized manner.Hence, even if you are unfamiliar with the Command Line Interface, you will  not
-need to spend much time understanding how to use PWE. PWE is build by me and 4 other Information Security students.</p>
+need to spend much time understanding how to use PWE. PWE was completed by a team of five members consisting of
+<a href="creastery.html">Ngo Wei Lin</a>, <a href="wendybaiyunwei.html">Bai YunWei</a>, <a href="lycjackie.html">Lee Yu Choy</a>, <a href="chyeo.html">Yeo Cheng Hong</a>
+and me.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/Ui.png" alt="Ui" width="800">
+<img src="../images/Ui.png" alt="Ui" width="970">
 </div>
-<div class="title">Figure 1. PlanWithEase Application</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="understanding-this-project-portfolio"><a class="link" href="#understanding-this-project-portfolio">Understanding This Project Portfolio</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following symbols are used throughout this project portfolio:</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This symbol denotes information that you may want to take note of when using the application.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This symbol denotes a tip which you may find useful when using the application.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This symbol denotes a warning message which you need to be careful of when using the application.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additionally, you may also encounter the following text styles:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Commands or parameters will be in this <code>format</code>.</p>
+</li>
+<li>
+<p>Important messages will be <strong>bold</strong>.</p>
+</li>
+<li>
+<p>Undoable command will be in <em>italics</em>.</p>
+</li>
+<li>
+<p>Keyboard buttons will be referred to as such: <kbd>F1</kbd>.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
 <div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below is a summary of contributions I made in this project.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="strong-major-enhancement-strong-degree-plan-management"><a class="link" href="#strong-major-enhancement-strong-degree-plan-management"><strong>Major Enhancement</strong>: Degree Plan Management</a></h3>
+<div class="sect3">
+<h4 id="planner-move-planner-show-planner-list"><a class="link" href="#planner-move-planner-show-planner-list">Planner Move, Planner Show &amp; Planner list</a></h4>
+<div class="paragraph">
+<p>During this enhancement, <strong>Degree Planner</strong> model was build to allow other developer <a href="wendybaiyunwei.html">Bai YunWei</a> and me
+to integrate planner related features into the application as well as stores degree plan related information.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Enhancements added:</strong></p>
+<p>Summary of the features:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Enhancement 1:</strong> Built the degree planner model
-(Pull Requests <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/34">#34</a>, <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/75">#75</a>)</p>
-<div class="ulist">
-<ul>
-<li>
-<p>What it does: allows the application to handle of all the <strong>degree planner</strong> related features.</p>
+<p>Planner Move feature allows a module in the degree plan to be easily moved to another semester.</p>
 </li>
 <li>
-<p>Justification: This feature &#8230;&#8203;</p>
+<p>Planner Show feature allows displaying of specific semesters.</p>
 </li>
 <li>
-<p>Highlights: This enhancement &#8230;&#8203;</p>
+<p>Planner list feature allows displaying of all semesters in the degree plan.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Enhancement 2:</strong> Added the ability to move modules between academic semesters of degree plan</p>
+<p>Justification:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be
-reversed by using the redo command.</p>
+<p>Users can keep track of degree plan details (such as modules to take in particular semesters).</p>
 </li>
 <li>
-<p>Justification: This feature improves the product significantly because a user can &#8230;&#8203;</p>
+<p>Users can easily make changes to the degree plan by moving a module in the degree plan with <code>planner_move</code> command.</p>
 </li>
 <li>
-<p>Highlights: This enhancement affects existing commands and commands to be added in future. It required an
-in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.</p>
+<p>Users can easily display specific semesters that the user wants with <code>planner_show</code> command.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Enhancement 3:</strong> Added the ability to list the degree plan</p>
+<p>Highlights:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be
-reversed by using the redo command.</p>
-</li>
-<li>
-<p>Justification: This feature is essential in the product &#8230;&#8203;</p>
-</li>
-<li>
-<p>Highlights: This enhancement affects existing commands and commands to be added in future. It required an
-in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.</p>
+<p>During the enhancement, there were numerous reviews done to ensure that no other model components is
+broken and any degree plan related features can be integrated without any problem.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Enhancement 4:</strong> Added the ability list specific academic semesters of degree plan</p>
+<p>Planner Move was enhanced to carried out checks for the module&#8217;s co-requisite and semesters it and its
+co-requisites are offered in.</p>
+</li>
+<li>
+<p>Planner Show was enhanced to utilize boolean expression parser that was designed by <a href="lycjackie.html">Lee Yu Choy</a>.</p>
+</li>
+<li>
+<p>Credits:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: allows the user to list specific academic semesters of degree plan</p>
+<p>Plenty of module corrections and suggestions were made during the built of  <strong>Degree Planner</strong> model by <a href="creastery.html">Ngo Wei Lin</a>.</p>
 </li>
 <li>
-<p>Justification: This feature improves the product significantly because a user can&#8230;&#8203;</p>
-</li>
-<li>
-<p>Highlights: T&#8230;&#8203;</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Enhancement 5:</strong> Added the degree planner panel for UI &#8230;&#8203;</p>
-<div class="ulist">
-<ul>
-<li>
-<p>What it does: allows the user to list specific academic semesters of degree plan</p>
-</li>
-<li>
-<p>Justification: This feature improves the product significantly because a user can&#8230;&#8203;</p>
-</li>
-<li>
-<p>Highlights: T&#8230;&#8203;</p>
+<p>Boolean expression parser was designed by <a href="lycjackie.html">Lee Yu Choy</a>.</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="strong-minor-enhancement-strong-adding-ui-segment-for-degree-plan"><a class="link" href="#strong-minor-enhancement-strong-adding-ui-segment-for-degree-plan"><strong>Minor Enhancement</strong>: Adding UI segment for degree plan</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Justification: UI part for degree plan was added to displays the semesters and modules to be taken during the
+semesters.</p>
 </li>
 <li>
-<p><strong>Code contributions</strong>: <a href="https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=Ahn%20TaeGyu">RepoSense</a></p>
+<p>Highlights:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Browser Panel that existed originally have to be adjusted in order for the UI part of the degree
+plan to be added.</p>
 </li>
 <li>
-<p><strong>Other contributions</strong>:</p>
+<p>UI for Degree plan was updated to sort the degree plan before displaying.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Credits:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Beautification of the overall UI including the part for the degree plan was done by <a href="lycjackie.html">Lee Yu
+Choy</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="strong-code-contributed-strong"><a class="link" href="#strong-code-contributed-strong"><strong>Code Contributed</strong>:</a></h3>
+<div class="paragraph">
+<p><a href="https://github.com/CS2113-AY1819S2-T09-1/main/commits?author=truegitnovice">Commits</a>,
+<a href="https://github.com/CS2113-AY1819S2-T09-1/main/pulls?q=is%3Apr+is%3Amerged+author%3Atruegitnovice">Pull Requests</a> &amp;
+<a href="https://nuscs2113-ay1819s2.github.io/dashboard-beta/#=undefined&amp;search=truegitnovice">RepoSense Code Contribution
+Dashboard</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="strong-other-contributions-strong"><a class="link" href="#strong-other-contributions-strong"><strong>Other contributions</strong>:</a></h3>
 <div class="ulist">
 <ul>
 <li>
@@ -141,7 +250,12 @@ in-depth analysis of design alternatives. The implementation too was challenging
 <div class="ulist">
 <ul>
 <li>
-<p>Enhance <code>planner_list</code> feature &#8230;&#8203;</p>
+<p>Enhance <code>planner_move</code> feature to handle co-requisites as well as semester the modules are offered in (Pull
+Request <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/197">#197</a>)</p>
+</li>
+<li>
+<p>Enhance <code>planner_show</code> feature to utilize <code>BooleanExpressionParser</code> (Pull Request
+<a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/196">#196</a>) (Note: this was done during the implementation)</p>
 </li>
 </ul>
 </div>
@@ -151,37 +265,50 @@ in-depth analysis of design alternatives. The implementation too was challenging
 <div class="ulist">
 <ul>
 <li>
-<p>Update UI mock up for v.1.2 &#8230;&#8203;</p>
-</li>
-<li>
-<p>Manage user guide &#8230;&#8203;</p>
-</li>
-<li>
-<p>Manage developer guide &#8230;&#8203;</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Community:</p>
+<p>Update UI mock up for</p>
 <div class="ulist">
 <ul>
 <li>
-<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com">#12</a>, <a href="https://github.com">#32</a>, <a href="https://github.com">#19</a>, <a href="https://github.com">#42</a></p>
+<p>v 1.1 (Pull Request <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/31">#31</a>)</p>
 </li>
 <li>
-<p>Reported bugs and suggestions for other teams in the class (examples:  <a href="https://github.com">1</a>, <a href="https://github.com">2</a>, <a href="https://github.com">3</a>)</p>
+<p>v.1.2 (Pull Request <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/98">#98</a>)</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p>Some parts of the history feature I added was adopted by several other class mates (<a href="https://github.com">1</a>, <a href="https://github.com">2</a>)</p>
+<p>Manage user guide (e.g. Pull Request <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/47">#47</a>)</p>
+</li>
+<li>
+<p>Manage developer guide (e.g. Pull Request <a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/2">#2</a>,
+<a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/7">#7</a>)</p>
+</li>
+<li>
+<p>Documentation management was mainly done through reviews (e.g.
+<a href="https://github.com/CS2113-AY1819S2-T09-1/main/pull/172">#172</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>PRs reviewed:
+<a href="https://github.com/CS2113-AY1819S2-T09-1/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Atruegitnovice">Approved Pull
+Requests</a></p>
+</li>
+<li>
+<p>Issues:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Opened issues for enhancement and improvements that could be made (e.g.
+<a href="https://github.com/CS2113-AY1819S2-T09-1/main/issues/164">164</a>, <a href="https://github.com/CS2113-AY1819S2-T09-1/main/issues/97">97</a>)</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
 </div>
-</li>
-</ul>
 </div>
 </div>
 </div>
@@ -198,6 +325,788 @@ in-depth analysis of design alternatives. The implementation too was challenging
 </tr>
 </tbody>
 </table>
+<div class="sect3">
+<h4 id="moving-a-module-between-semesters-code-planner_move-code-span-class-image-img-src-https-img-shields-io-badge-planner-move-f17d3f-svg-alt-planner-move-f17d3f-span"><a class="link" href="#moving-a-module-between-semesters-code-planner_move-code-span-class-image-img-src-https-img-shields-io-badge-planner-move-f17d3f-svg-alt-planner-move-f17d3f-span">Moving a module between semesters: <code>planner_move</code> <span class="image"><img src="https://img.shields.io/badge/planner-move-F17D3F.svg" alt="planner move F17D3F"></span></a></h4>
+<div class="paragraph">
+<p>Any change in your decision? Want to take your module in other semester instead?<br>
+No worry! Simply use <code>planner_move</code> command to move your module in the degree plan along with its co-requisite(s)
+between the semesters by providing your module code and a semester you want to move your module to.<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Command Format:</strong> <code>planner_move year/YEAR sem/SEMESTER code/CODE</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When moving a module with co-requisites, if the module is moved successfully, the co-requisite modules will be moved as
+well.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>planner_move year/1 sem/2 code/CS1231</code><br>
+Moves module CS1231 along with its co-requisite(s) to year 1 semester 2.</p>
+</li>
+<li>
+<p><code>planner_move year/2 sem/1 code/CS1231</code><br>
+Moves module CS1231 along with its co-requisite(s) to year 2 semester 1.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Before the <code>planner_move</code> command:</p>
+</div>
+<div id="beforePlannerMove" class="imageblock">
+<div class="content">
+<img src="../images/plannermove1.png" alt="plannermove1" width="970">
+</div>
+<div class="title">Figure 1. Before executing the <code>planner_move</code> command.</div>
+</div>
+<div class="paragraph">
+<p>After entering <code>planner_move</code> and pressing <kbd>Enter</kbd>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/plannermove2.png" alt="plannermove2" width="970">
+</div>
+<div class="title">Figure 2. After executing the <code>planner_move</code> command.</div>
+</div>
+<div class="paragraph">
+<p>Note that co-requste of the module is moved too:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/plannermove3.png" alt="plannermove3" width="970">
+</div>
+<div class="title">Figure 3. After executing the <code>planner_move</code> command.</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="showing-semesters-based-on-year-semester-code-planner_show-code-span-class-image-img-src-https-img-shields-io-badge-planner-show-f17d3f-svg-alt-planner-show-f17d3f-span"><a class="link" href="#showing-semesters-based-on-year-semester-code-planner_show-code-span-class-image-img-src-https-img-shields-io-badge-planner-show-f17d3f-svg-alt-planner-show-f17d3f-span">Showing semesters based on year/semester: <code>planner_show</code> <span class="image"><img src="https://img.shields.io/badge/planner-show-F17D3F.svg" alt="planner show F17D3F"></span></a></h4>
+<div class="paragraph">
+<p>Having trouble locating semesters you want?<br>
+Simply use <code>planner_show</code> command. It will only show you the semesters you want to see.<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Command Format:</strong> <code>planner_list [y/YEAR] OPERATOR [s/SEMESTER</code>]</p>
+</div>
+<div class="paragraph">
+<p>When this command is used, the application will display only those semesters which satisfy the search criteria.</p>
+</div>
+<div class="paragraph">
+<p>The following table describes the valid prefixes that you can use to supply to the search criteria.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Prefix</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>year/YEAR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Search for any semester <code>year</code> which matches <code>YEAR</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sem/SEMESTER</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Search for any semester <code>sem</code> which matches <code>SEMESTER</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The following table describes the valid operators which you can to use supply to the search criteria.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Operator</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precedence</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&amp;&amp;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical "AND" operation (both conditions A AND B must match)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Highest</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>||</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical "OR" operation (either conditions A OR B must match)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lowest</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The following examples describes how you could form a valid search criteria for the <code>planner_show</code> command.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Single Prefix Usage</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Expected Result</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>planner_show year/YEAR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shows only semesters that are in year <code>YEAR</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>planner_show sem/SEMESTER</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shows only semesters that are in semester <code>SEMESTER</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If you need multiple prefixes, the following table shows you how you could do it.
+<br>
+Note that you will need to separate multiple prefixes with an operator.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You could choose which search criteria having a higher priority by specifying parenthesis</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Multiple Prefix Usage</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Expected Result</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>planner_show year/YEAR1 || year/YEAR2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shows only semesters that are in years <code>YEAR1</code> or <code>YEAR2</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>planner_show sem/SEMESTER1 || sem/SEMESTER2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shows only semesters that are in semester <code>SEMESTER1</code>
+or <code>SEMESTER</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>planner_show sem/SEMESTER &amp;&amp; (year/YEAR1 || year/YEAR2)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shows only semesters that are in year <code>YEAR1</code>
+semester <code>SEMESTER</code> or <code>YEAR2</code> semester <code>SEMESTER</code>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The order of the prefixes does not matter. e.g. <code>planner_show sem/SEMESTER || year/YEAR</code> returns the same result as
+<code>planner_show year/YEAR || sem/SEMESTER</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>planner_show year/1</code><br>
+Shows any semesters having the year <code>1</code> (e.g. <code>Year 1 Semester 1</code>, <code>Year 1 Semester 2</code> &#8230;&#8203;) in the degree plan.</p>
+</li>
+<li>
+<p><code>planner_show sem/1</code><br>
+Shows any semesters having the year <code>1</code> (e.g. <code>Year 1 Semester 1</code>, <code>Year 2 Semester 1</code> &#8230;&#8203;) in the degree plan.</p>
+</li>
+<li>
+<p><code>planner_show year/1 || year/2</code> <br>
+Shows any semesters having the year <code>1</code> or year <code>2</code> in the degree plan.</p>
+</li>
+<li>
+<p><code>planner_show sem/1 || sem/2</code><br>
+Shows any semesters having the semester <code>1</code> or semester <code>2</code> in the degree plan.</p>
+</li>
+<li>
+<p><code>planner_show year/1 &amp;&amp; sem/1</code><br>
+Shows a semester having the year <code>1</code> and semester <code>1</code> (e.g. <code>Year 1 Semester 1</code>)in the degree plan.</p>
+</li>
+<li>
+<p><code>planner_show sem/1 &amp;&amp; (year/1 || year/2)</code><br>
+Shows a semester having the year <code>1</code> semester <code>1</code> and  year <code>2</code> semester <code>1</code> (e.g. <code>Year 1 Semester 1</code> and <code>Year 2
+Semester 2</code>) in the degree plan.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Before the <code>planner_show</code> command:</p>
+</div>
+<div id="beforePlannerShow" class="imageblock">
+<div class="content">
+<img src="../images/plannershow1.png" alt="plannershow1" width="970">
+</div>
+<div class="title">Figure 4. Before executing the <code>planner_show</code> command.</div>
+</div>
+<div class="paragraph">
+<p>After entering <code>planner_show</code> and pressing <kbd>Enter</kbd>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/plannershow2.png" alt="plannershow2" width="970">
+</div>
+<div class="title">Figure 5. After executing the <code>planner_show</code> command.</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="listing-all-semesters-code-planner_list-code-span-class-image-img-src-https-img-shields-io-badge-planner-list-f17d3f-svg-alt-planner-list-f17d3f-span"><a class="link" href="#listing-all-semesters-code-planner_list-code-span-class-image-img-src-https-img-shields-io-badge-planner-list-f17d3f-svg-alt-planner-list-f17d3f-span">Listing all semesters: <code>planner_list</code> <span class="image"><img src="https://img.shields.io/badge/planner-list-F17D3F.svg" alt="planner list F17D3F"></span></a></h4>
+<div class="paragraph">
+<p>Maybe you need to list all your semesters back after using <code>planner_show</code>?<br>
+Simply enter <code>planner_list</code> into the application!<br>
+It wil show you a list of all semesters in degree plan.</p>
+</div>
+<div class="paragraph">
+<p><strong>Command Format:</strong> <code>planner_list</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using-degree-plan-to-suggest-modules-code-planner_suggest-code-span-class-image-img-src-https-img-shields-io-badge-planner-suggest-f17d3f-svg-alt-planner-suggest-f17d3f-span"><a class="link" href="#using-degree-plan-to-suggest-modules-code-planner_suggest-code-span-class-image-img-src-https-img-shields-io-badge-planner-suggest-f17d3f-svg-alt-planner-suggest-f17d3f-span">Using degree plan to suggest modules : <code>planner_suggest</code> <span class="image"><img src="https://img.shields.io/badge/planner-suggest-F17D3F.svg" alt="planner suggest F17D3F"></span></a></h4>
+<div class="paragraph">
+<p>Having trouble identifying modules to add to the <strong>degree plan</strong>?<br>
+Make use of <code>planner_suggest</code> command to find out recommended modules to add to the <strong>degree plan</strong>.<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Command Format:</strong> <code>planner_suggest credits/CREDITS [tag/TAG]…</code></p>
+</div>
+<div class="paragraph">
+<p>When this command is successfully executed, the <strong>result box</strong> will display modules recommended.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Maximum 10</strong> modules are recommended in the recommendation list.</p>
+</li>
+<li>
+<p>In addition to the recommendation list, supplementary information on the specific modules with matching tags and credits
+is given as two additional lists. The modules in the two additional lists are all from the recommendation list.</p>
+</li>
+<li>
+<p>Modules recommended in all 3 aforementioned lists are sorted according to the following criteria:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For modules with different number of tags that match the desirable tags (matching tags), modules with more matching
+tags will be sorted to the front of the list.</p>
+</li>
+<li>
+<p>If modules have the same number of matching tags but different credits, modules with the credits closer to the
+desirable credits will be sorted to the front of the list.</p>
+</li>
+<li>
+<p>If modules have the same number of matching tags and credits, they will be sorted according to alphabetical
+order.</p>
+</li>
+<li>
+<p>If <code>tag/TAG</code> is not supplied as a parameter in the command, modules will be sorted according to credits and alphabetical order only.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>All modules in the recommendation list and the two additional lists are modules not found in the degree plan.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>planner_suggest credits/4</code><br>
+Suggests maximum 10 modules not found in the degree plan, prioritizing modules with credits closer to 4. If tie,
+prioritizes according to alphabetical order.</p>
+</li>
+<li>
+<p><code>planner_suggest credits/2 tag/algorithms</code><br>
+Suggests maximum 10 modules not found in the degree plan, prioritizing modules with tag <code>algorithms</code>. If tie, prioritizes
+according to credits closer to 2. If tie again, prioritizes according to alphabetical order.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="future-enhancements-code-coming-in-v2-0-code"><a class="link" href="#future-enhancements-code-coming-in-v2-0-code">Future Enhancements <code>[coming in v2.0]</code></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>These are features that will come in future releases of <strong>PlanWithEase</strong></p>
+</div>
+<div class="sect2">
+<h3 id="module-prerequisites-code-prereq-code"><a class="link" href="#module-prerequisites-code-prereq-code">Module Prerequisites <code>prereq/</code></a></h3>
+<div class="paragraph">
+<p>We aim to provide the support of <code>prerequisites</code> for our <strong>Module Management</strong>.<br>
+This changes will allow our users to indicate a module prerequisites and we can handle its dependency for the users
+before they add the module into the <strong>Degree Plan</strong>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="auto-create-degree-plan-code-autoplan-code"><a class="link" href="#auto-create-degree-plan-code-autoplan-code">Auto-create Degree Plan <code>autoplan</code></a></h3>
+<div class="paragraph">
+<p>We plan to implement this feature to allow an automated planning, we can make use of users feedback and current
+treads based on module popularity then create the degree plan for the users.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="faq"><a class="link" href="#faq">FAQ</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Q</strong>: How do I save my data in the application?<br>
+<strong>A</strong>: You do need to save the data manually. Whenever you run any commands that makes changes, <strong>PlanWithEase</strong>'s data are saved automatically in the <code>data</code> directory.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="command-summary"><a class="link" href="#command-summary">Command Summary</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section provides a quick references for all commands available in <strong>PlanWithEase</strong>.</p>
+</div>
+<div class="sect2">
+<h3 id="general-commands"><a class="link" href="#general-commands">General Commands</a></h3>
+<div class="paragraph">
+<p>The table below shows a list of general commands.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Task</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Purpose</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Command</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Example</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Clear</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clear the modules data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clear</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clear</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Help</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Displays the User Guide</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>help</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>help</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>History</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Get a list of command entered</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>history</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>history</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Undo</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Undo your previously action</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>undo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>undo</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Redo</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Redo your previous action</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>redo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>redo</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="degree-plan-commands"><a class="link" href="#degree-plan-commands">Degree Plan Commands</a></h3>
+<div class="paragraph">
+<p>The table below shows a list of commands which helps you to manage the degree plan.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Task</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Purpose</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Command</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Example</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Add module(s) to degree plan</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add module(s) to degree plan based on module code and academic year</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>planner_add year/YEAR sem/SEMESTER code/CODE [code/CODE]…</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>planner_add year/1 sem/2 code/CS1010 code/CS2113T</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Remove module(s) from degree plan</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remove module(s) from degree plan based on the module code</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>planner_remove code/CODE [code/CODE]…</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>planner_remove code/CS1231 code/CS1010</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Move module between semesters in the degree plan</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Move module between the semesters based on year and
+semester.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>planner_move year/YEAR sem/SEMESTER code/CODE</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>planner_move year/1 sem/2 code/CS1231</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>List all semesters in the degree plan</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List all semesters in the degree plan</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>planner_list</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>planner_list</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>List specific semesters in the degree plan</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List specific semesters in the degree plan based on your search term.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>planner_show [year/YEAR] OPERATOR [sem/SEMESTER]</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>planner_show sem/2 &amp;&amp; ( year/1 ||year/2 )</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Suggest available modules</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Suggest available modules from the module lists based on input argument.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>planner_suggest credits/CREDITS [tag/TAG]…</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>planner_suggest credits/4 tag/maths</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="requirement-tracker-commands"><a class="link" href="#requirement-tracker-commands">Requirement Tracker Commands</a></h3>
+<div class="paragraph">
+<p>The table below shows a list of command which helps you to manage and track your degree requirements.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Task</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Purpose</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Command</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Example</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Add module(s) to a requirement category</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add module(s) to the specified requirement category based
+ on the module code provided.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>requirement_add name/NAME code/CODE [code/CODE]…</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>requirement_add name/IT Professionalism code/IS4231</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Remove module(s) from the requirement category</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remove module(s) from the requirement category
+based on the module code provided.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>requirement_remove code/CODE [code/CODE]…</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>requirement_remove code/IS4231</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Move module(s) between requirement categories</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Move module(s) between the requirement categories from
+ any requirement categories to a specified requirement categories.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>requirement_move name/NAME code/CODE [code/CODE]…</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>requirement_move name/IT Professionalism code/IS4231</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>List all requirement categories in the application</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List all requirement categories in the application and the module(s) added to each requirement categories</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>requirement_list</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>requirement_list</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="showing-semesters-based-on-year-semester-code-planner_show-code-span-class-image-img-src-https-img-shields-io-badge-planner-show-f17d3f-svg-alt-planner-show-f17d3f-span-2"><a class="link" href="#showing-semesters-based-on-year-semester-code-planner_show-code-span-class-image-img-src-https-img-shields-io-badge-planner-show-f17d3f-svg-alt-planner-show-f17d3f-span-2">Showing semesters based on year/semester: <code>planner_show</code> <span class="image"><img src="https://img.shields.io/badge/planner-show-F17D3F.svg" alt="planner show F17D3F"></span></a></h4>
+<div class="paragraph">
+<p>Having trouble locating semesters you want?<br>
+Simply use <code>planner_show</code> command. It will only show you the semesters you want to see.<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Command Format:</strong> <code>planner_list [y/YEAR] OPERATOR [s/SEMESTER</code>]</p>
+</div>
+<div class="paragraph">
+<p>When this command is used, the application will display only those semesters which satisfy the search criteria.</p>
+</div>
+<div class="paragraph">
+<p>The following table describes the valid prefixes that you can use to supply to the search criteria.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Prefix</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>year/YEAR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Search for any semester <code>year</code> which matches <code>YEAR</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sem/SEMESTER</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Search for any semester <code>sem</code> which matches <code>SEMESTER</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The following table describes the valid operators which you can to use supply to the search criteria.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Operator</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Precedence</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&amp;&amp;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical "AND" operation (both conditions A AND B must match)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Highest</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>||</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical "OR" operation (either conditions A OR B must match)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lowest</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The following examples describes how you could form a valid search criteria for the <code>planner_show</code> command.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Single Prefix Usage</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Expected Result</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>planner_show year/YEAR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shows only semesters that are in year <code>YEAR</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>planner_show sem/SEMESTER</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shows only semesters that are in semester <code>SEMESTER</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If you need multiple prefixes, the following table shows you how you could do it.
+<br>
+Note that you will need to separate multiple prefixes with an operator.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You could choose which search criteria having a higher priority by specifying parenthesis</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Multiple Prefix Usage</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Expected Result</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>planner_show year/YEAR1 || year/YEAR2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shows only semesters that are in years <code>YEAR1</code> or <code>YEAR2</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>planner_show sem/SEMESTER1 || sem/SEMESTER2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shows only semesters that are in semester <code>SEMESTER1</code>
+or <code>SEMESTER</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>planner_show sem/SEMESTER &amp;&amp; (year/YEAR1 || year/YEAR2)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shows only semesters that are in year <code>YEAR1</code>
+semester <code>SEMESTER</code> or <code>YEAR2</code> semester <code>SEMESTER</code>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The order of the prefixes does not matter. e.g. <code>planner_show sem/SEMESTER || year/YEAR</code> returns the same result as
+<code>planner_show year/YEAR || sem/SEMESTER</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>planner_show year/1</code><br>
+Shows any semesters having the year <code>1</code> (e.g. <code>Year 1 Semester 1</code>, <code>Year 1 Semester 2</code> &#8230;&#8203;) in the degree plan.</p>
+</li>
+<li>
+<p><code>planner_show sem/1</code><br>
+Shows any semesters having the year <code>1</code> (e.g. <code>Year 1 Semester 1</code>, <code>Year 2 Semester 1</code> &#8230;&#8203;) in the degree plan.</p>
+</li>
+<li>
+<p><code>planner_show year/1 || year/2</code> <br>
+Shows any semesters having the year <code>1</code> or year <code>2</code> in the degree plan.</p>
+</li>
+<li>
+<p><code>planner_show sem/1 || sem/2</code><br>
+Shows any semesters having the semester <code>1</code> or semester <code>2</code> in the degree plan.</p>
+</li>
+<li>
+<p><code>planner_show year/1 &amp;&amp; sem/1</code><br>
+Shows a semester having the year <code>1</code> and semester <code>1</code> (e.g. <code>Year 1 Semester 1</code>)in the degree plan.</p>
+</li>
+<li>
+<p><code>planner_show sem/1 &amp;&amp; (year/1 || year/2)</code><br>
+Shows a semester having the year <code>1</code> semester <code>1</code> and  year <code>2</code> semester <code>1</code> (e.g. <code>Year 1 Semester 1</code> and <code>Year 2
+Semester 2</code>) in the degree plan.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Before the <code>planner_show</code> command:</p>
+</div>
+<div id="beforePlannerShow" class="imageblock">
+<div class="content">
+<img src="../images/plannershow1.png" alt="plannershow1" width="970">
+</div>
+<div class="title">Figure 6. Before executing the <code>planner_show</code> command.</div>
+</div>
+<div class="paragraph">
+<p>After entering <code>planner_show</code> and pressing <kbd>Enter</kbd>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/plannershow2.png" alt="plannershow2" width="970">
+</div>
+<div class="title">Figure 7. After executing the <code>planner_show</code> command.</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -248,7 +1157,7 @@ are taken by the application.</p>
 <div class="content">
 <img src="../images/PlannerMoveComponentSequenceDiagram.png" alt="PlannerMoveComponentSequenceDiagram" width="650">
 </div>
-<div class="title">Figure 2. PlannerMove component interactions</div>
+<div class="title">Figure 8. PlannerMove component interactions</div>
 </div>
 <div class="paragraph">
 <p>Step 1. The <code>PlannerMoveCommandParser#parse</code> method is invoked. The <code>PlannerMoveCommandParser</code> receives the command with
@@ -295,7 +1204,7 @@ code that the user want to move.</p>
 <div class="content">
 <img src="../images/PlannerMoveCommandSequenceDiagramDetail.png" alt="PlannerMoveCommandSequenceDiagramDetail" width="650">
 </div>
-<div class="title">Figure 3. PlannerMoveCommand in detail interactions</div>
+<div class="title">Figure 9. PlannerMoveCommand in detail interactions</div>
 </div>
 <div class="paragraph">
 <p>During this step, the following methods are carried out in the order:</p>
@@ -555,4 +1464,4 @@ returns module having its year or semester matches the given year and semester</
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 19:39:47 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 19:41:24 UTC</div></div></div></body></html>
