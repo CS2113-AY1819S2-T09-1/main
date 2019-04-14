@@ -30,18 +30,19 @@
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
 <li><a href="#undo-redo-feature">3.1. Undo/Redo Feature</a></li>
-<li><a href="#module-co-requisites">3.2. Module co-requisites</a></li>
-<li><a href="#find-feature">3.3. Find Feature</a></li>
-<li><a href="#requirement-add-feature">3.4. Requirement Add Feature</a></li>
-<li><a href="#requirement-move-feature">3.5. Requirement Move Feature</a></li>
-<li><a href="#requirement-list-feature">3.6. Requirement List Feature</a></li>
-<li><a href="#planner-add-feature">3.7. Planner Add Feature</a></li>
-<li><a href="#planner-remove-feature">3.8. Planner Remove Feature</a></li>
-<li><a href="#planner-move-feature">3.9. Planner Move Feature</a></li>
-<li><a href="#planner-show-feature">3.10. Planner Show Feature</a></li>
-<li><a href="#planner-suggest-feature">3.11. Planner Suggest Feature</a></li>
-<li><a href="#logging">3.12. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.13. Configuration</a></li>
+<li><a href="#edit-module-feature">3.2. Edit Module Feature</a></li>
+<li><a href="#module-co-requisites">3.3. Module co-requisites</a></li>
+<li><a href="#find-feature">3.4. Find Feature</a></li>
+<li><a href="#requirement-add-feature">3.5. Requirement Add Feature</a></li>
+<li><a href="#requirement-move-feature">3.6. Requirement Move Feature</a></li>
+<li><a href="#requirement-list-feature">3.7. Requirement List Feature</a></li>
+<li><a href="#planner-add-feature">3.8. Planner Add Feature</a></li>
+<li><a href="#planner-remove-feature">3.9. Planner Remove Feature</a></li>
+<li><a href="#planner-move-feature">3.10. Planner Move Feature</a></li>
+<li><a href="#planner-show-feature">3.11. Planner Show Feature</a></li>
+<li><a href="#planner-suggest-feature">3.12. Planner Suggest Feature</a></li>
+<li><a href="#logging">3.13. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.14. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -79,16 +80,17 @@
 <li><a href="#instructions-for-manual-testing">Appendix F: Instructions for Manual Testing</a>
 <ul class="sectlevel2">
 <li><a href="#launch-and-shutdown">F.1. Launch and Shutdown</a></li>
-<li><a href="#deleting-a-module">F.2. Deleting a module</a></li>
-<li><a href="#adding-module-s-to-the-degree-plan">F.3. Adding module(s) to the degree plan</a></li>
-<li><a href="#removing-module-s-from-the-degree-plan">F.4. Removing module(s) from the degree plan</a></li>
-<li><a href="#using-the-degree-plan-to-suggest-module-s-to-take">F.5. Using the degree plan to suggest module(s) to take</a></li>
-<li><a href="#find-modules">F.6. Find modules</a></li>
-<li><a href="#moving-a-module-in-the-degree-plan">F.7. Moving a module in the degree plan</a></li>
-<li><a href="#showing-the-academic-semesters-in-the-degree-plan">F.8. Showing the academic semesters in the degree plan</a></li>
-<li><a href="#listing-all-the-academic-semesters-in-the-degree-plan">F.9. Listing all the academic semesters in the degree plan</a></li>
-<li><a href="#degree-requirement-category">F.10. Degree Requirement Category</a></li>
-<li><a href="#saving-data">F.11. Saving data</a></li>
+<li><a href="#adding-a-module">F.2. Adding a module</a></li>
+<li><a href="#editing-a-module">F.3. Editing a module</a></li>
+<li><a href="#deleting-a-module">F.4. Deleting a module</a></li>
+<li><a href="#adding-module-s-to-the-degree-plan">F.5. Adding module(s) to the degree plan</a></li>
+<li><a href="#removing-module-s-from-the-degree-plan">F.6. Removing module(s) from the degree plan</a></li>
+<li><a href="#using-the-degree-plan-to-suggest-module-s-to-take">F.7. Using the degree plan to suggest module(s) to take</a></li>
+<li><a href="#find-modules">F.8. Find modules</a></li>
+<li><a href="#moving-a-module-in-the-degree-plan">F.9. Moving a module in the degree plan</a></li>
+<li><a href="#showing-the-academic-semesters-in-the-degree-plan">F.10. Showing the academic semesters in the degree plan</a></li>
+<li><a href="#listing-all-the-academic-semesters-in-the-degree-plan">F.11. Listing all the academic semesters in the degree plan</a></li>
+<li><a href="#degree-requirement-category">F.12. Degree Requirement Category</a></li>
 </ul>
 </li>
 </ul>
@@ -776,23 +778,195 @@ pointing at the end of the <code>applicationStateList</code>, all application st
 </div>
 </div>
 <div class="sect2">
-<h3 id="module-co-requisites"><a class="link" href="#module-co-requisites">3.2. Module co-requisites</a></h3>
+<h3 id="edit-module-feature"><a class="link" href="#edit-module-feature">3.2. Edit Module Feature</a></h3>
+<div class="paragraph">
+<p>The <code>edit</code> feature aims to help users update module details in our application. When there are changes to be made to
+the module (e.g. semesters which modules are offered in have changed), users will want to be able to update the
+module details easily without going through the hassle of deleting and adding the new module.</p>
+</div>
+<div class="paragraph">
+<p>This section describes the implementation and the design considerations of the <code>edit</code> feature, and how the <code>edit</code>
+feature is capable of cascading the updated module code from the module list to the requirement categories and degree
+ plan.</p>
+</div>
 <div class="sect3">
 <h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.2.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>When the user invokes the <code>edit</code> command, e.g. (<code>edit 1 code/CS1231</code>), the following steps are taken by the
+application.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The <code>CommandParser</code> invokes the <code>EditCommandParser</code> class to parse the user input provided. The parsed data will
+then be used to create a <code>EditCommand</code> object and will be returned to <code>CommandParser</code> and subsequently <code>LogicManager</code>.</p>
+</li>
+<li>
+<p><code>LogicManager</code> would then invoke the <code>EditCommand#execute(&#8230;&#8203;)</code>, which performs the following validation checks to ensure that the edited module details are valid.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Ensures that the edited module does not exists in module list (non-duplicate module)<br></p>
+</li>
+<li>
+<p>Ensures that the edited module is not updated to be a co-requisite of itself (no self-referencing)<br></p>
+</li>
+<li>
+<p>Ensures that the edited module&#8217;s co-requisite exists in the module list<br></p>
+</li>
+<li>
+<p>Ensures that the edited module&#8217;s co-requisites can be taken in the same semester<br></p>
+</li>
+<li>
+<p>Ensures that the edited module can be taken in the same semester as the edited module&#8217;s co-requisites<br></p>
+</li>
+<li>
+<p>Ensures that the updated semesters which the edited module is offered in allows the module to remain in the current semester of the degree plan.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Once the validation checks are complete, <code>EditCommand</code> will invoke <code>Model#editModule(&#8230;&#8203;)</code>, which will be
+discussed later.</p>
+</li>
+<li>
+<p><code>EditCommand</code> will then invoke <code>Model#updateFilteredModuleList(&#8230;&#8203;)</code> to display all modules in the filtered module list.</p>
+</li>
+<li>
+<p>Finally, a success message will be displayed to the user.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The high-level overview sequence diagram for the <code>edit</code> feature is shown below.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>errorChecks(&#8230;&#8203;)</code> does not actually exists in <code>EditCommand</code>.<br>
+It is used below as a representation of all the validation checks (discussed above) present in <code>EditCommand.execute(&#8230;&#8203;)</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/SD_Edit_Overview.png" alt="SD Edit Overview" width="970">
+</div>
+<div class="title">Figure 9. High-level overview sequence diagram for <code>edit</code> feature</div>
+</div>
+<div class="paragraph">
+<p>If there are any changes made to the module&#8217;s code, <code>Model#editModule(&#8230;&#8203;)</code> will cascade the edited module code to the rest of the Model objects (namely <code>UniqueModuleList</code>, <code>UniqueDegreePlannerList</code>, <code>UniqueRequirementCategoryList</code>) through <code>Application</code>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>When <code>Model#editModule(&#8230;&#8203;)</code> is invoked, <code>Application#editModule(&#8230;&#8203;)</code> will be called.</p>
+</li>
+<li>
+<p><code>Application#setModule(&#8230;&#8203;)</code> is invoked to replace the original module with the edited module in <code>UniqueModuleList</code>.</p>
+</li>
+<li>
+<p>When setting the edited module in <code>UniqueModuleList</code>, <code>UniqueModuleList</code> will cascade the edited module code to all modules' co-requisites</p>
+</li>
+<li>
+<p>The edited module code is cascaded to <code>UniqueDegreePlanner</code> as <code>Application#setModule(&#8230;&#8203;)</code> checks if the original module code exists in the degree planner, and if so, updates it accordingly.</p>
+</li>
+<li>
+<p>Similarly, <code>Application#setModule(&#8230;&#8203;)</code> also checks if the original module code exists in the requirement categories, and if so, updates it accordingly.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/SD_Edit_Detailed.png" alt="SD Edit Detailed" width="970">
+</div>
+<div class="title">Figure 10. Sequence diagram for <code>edit</code> feature illustrating cascading of edited module code</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-should-edited-module-code-be-cascaded-down-to-other-model-objects"><a class="link" href="#aspect-how-should-edited-module-code-be-cascaded-down-to-other-model-objects">Aspect: How should edited module code be cascaded down to other Model objects?</a></h5>
+<div class="paragraph">
+<p>The table below shows comparisons between the two approaches.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 35%;">
+<col style="width: 35%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Approach</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>1.</strong> Implement cascading of edited module code in <code>EditCommand</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It makes sense for a class in Logic component to handle logic-related matters.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>It creates coupling between <code>EditCommand</code> and the various Model objects (i.e. <code>UniqueModuleList</code>,
+<code>UniqueDegreePlannerList</code> and <code>UniqueRequirementCategoryList</code>.</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2.</strong> Implement cascading of edited module code in <code>Application</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It doesn&#8217;t create additional coupling with other Model components</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>
+<p>Implementing logic (cascading effect) in <code>Application</code> (a class in Model component) may contradict Separation of Concerns Principle.</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>After weighing the pros and cons, <strong>approach 2</strong> was chosen.<br></p>
+</div>
+<div class="paragraph">
+<p>Firstly, doing so will reduce the need for additional coupling with other Model components (as compared to approach
+1). Although it may seem strange to implement logic checks to achieve the desired cascading effect of the edited module
+code in <code>Application</code> (a class in the Model component), implementing logic checks in Model can also be seen as a way
+of maintaining data integrity. One such example is Java&#8217;s <code>Set</code> interface (Model), where each implementing class
+ensures that there are no duplicate elements in the collection of data (i.e. implementing logic in model).</p>
+</div>
+<div class="paragraph">
+<p>Similarly, implementing cascading of edited module code in <code>Application</code> is deemed to be similar to implement logic
+in model for maintaining data integrity. As such, <strong>approach 2</strong> is more suitable and was chosen.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="module-co-requisites"><a class="link" href="#module-co-requisites">3.3. Module co-requisites</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Module co-requisites are stored internally as <code>Set&lt;Code&gt;</code> within <code>Module</code>.</p>
 </div>
 <div class="paragraph">
-<p>A <code>Set&lt;Code&gt;</code> is used instead of a <code>List&lt;Code&gt;</code> to ensure uniqueness and prevents duplicate pre-requisites
-module codes.</p>
+<p>A <code>Set&lt;Code&gt;</code> is used instead of a <code>List&lt;Code&gt;</code> to ensure uniqueness and prevents duplicate co-requisites module codes.</p>
 </div>
 <div class="paragraph">
-<p>Notice that <code>Code</code> is used in place of <code>Module</code>. This is to prevent storage of duplicated information when
-serializing <code>UniqueModuleList</code>.</p>
+<p>Notice that <code>Code</code> is used in place of <code>Module</code>. This is to prevent storage of duplicated information when serializing <code>UniqueModuleList</code>.</p>
 </div>
 <div class="paragraph">
-<p><code>AddCommand</code> handles invalid cases by preventing adding a co-requisite module code that does not exists in the module
-list.<br>
+<p><code>AddCommand</code> handles invalid cases by preventing adding a co-requisite module code that does not exists in the module list.<br>
 <code>EditCommand</code> handles invalid cases by ensuring that:</p>
 </div>
 <div class="ulist">
@@ -810,50 +984,63 @@ list.<br>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design Considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-should-deletion-of-a-module-be-cascaded-down-to-other-modules"><a class="link" href="#aspect-how-should-deletion-of-a-module-be-cascaded-down-to-other-modules">Aspect: How should deletion of a module be cascaded down to other modules</a></h5>
-<div class="ulist">
+<div class="paragraph">
+<p>The table below shows comparisons between the two approaches.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 35%;">
+<col style="width: 35%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Approach</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>1.</strong> Delete module code from other modules' corequisites in <code>Application</code> class</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementing the cascading effect in <code>Application#removeModule()</code> protects data</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Delete module code from other modules' corequisites in <code>application</code> class</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Implementing the cascading effect in <code>Application#removeModule()</code> protects tampering of <code>application</code> data</p>
+<p>Requires extra overhead to obtain an immutable list of modules to update and modify existing modules in the <code>UniqueModuleList</code><br></p>
 </li>
 <li>
-<p>Cons: Requires extra overhead to obtain an immutable list of modules to update and modify existing modules in the
-<code>UniqueModuleList</code></p>
+<p><code>Application</code> class needs to handle logic checks to ensure data interity</p>
 </li>
 </ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Delete module code from other modules' corequisites in <code>DeleteCommand</code> class</p>
-<div class="ulist">
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2.</strong> Delete module code from other modules' corequisites in <code>DeleteCommand</code> class</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Convenient to implement.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
 <ul>
 <li>
-<p>Pros: Convenient to implement.</p>
-</li>
-<li>
-<p>Cons: Deleting a module via <code>Application#removeModule()</code> does not have any cascading effect on other modules'
+<p>Deleting a module via <code>Application#removeModule()</code> does not have any cascading effect on other modules'
 corequisites. The user will have to delete the invalid co-requisite manually afterwards.</p>
 </li>
-<li>
-<p>Cons: Can only interact with a filtered list of modules, and as such, the displayed list of modules need to be
-refreshed to display the full listing just to be able to iterate and delete modules co-requisites accordingly.</p>
-</li>
 </ul>
-</div>
-</li>
-</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>After weighing the pros and cons, <strong>approach 1</strong> was chosen.<br>
+As we are expecting many similar names between modules in the university curriculum, if the user could only search
+with an implicit logical <code>OR</code>, the user would not be able to find the desired modules effectively. This can drastically
+ reduce the effectiveness of the <code>find</code> command.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-feature"><a class="link" href="#find-feature">3.3. Find Feature</a></h3>
+<h3 id="find-feature"><a class="link" href="#find-feature">3.4. Find Feature</a></h3>
 <div class="paragraph">
 <p>The <code>find</code> feature aims to help users to be able to easily locate any modules in our application. With a large number
 of modules available to our users, <code>find</code> feature is essential. Currently, the <code>find</code> feature only supports searching
@@ -864,7 +1051,7 @@ of modules available to our users, <code>find</code> feature is essential. Curre
 Details on how the find feature is implemented and how it supports more search parameters are also shared.</p>
 </div>
 <div class="sect3">
-<h4 id="overview"><a class="link" href="#overview">3.3.1. Overview</a></h4>
+<h4 id="overview"><a class="link" href="#overview">3.4.1. Overview</a></h4>
 <div class="paragraph">
 <p>When a user invokes the <code>find</code> command. (e.g. find name/Programming || code/CS1231), the following steps are taken by
 the program.</p>
@@ -895,11 +1082,11 @@ the program.</p>
 <div class="content">
 <img src="images/FindCommandClassDiagram.png" alt="FindCommandClassDiagram" width="970">
 </div>
-<div class="title">Figure 9. Class diagram for <code>find</code> feature</div>
+<div class="title">Figure 11. Class diagram for <code>find</code> feature</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.2. Current Implementation</a></h4>
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.4.2. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The <code>FindCommandParser</code> parses the strings of arguments provided by the user to retrieve a composite <code>Predicate</code>
 which is used by <code>FindCommand</code>. A <code>ParseException</code> is thrown in the case if the input provided by the user does not
@@ -912,7 +1099,7 @@ conform to the expected format.</p>
 <div class="content">
 <img src="images/FindCommandSequenceDiagram.png" alt="FindCommandSequenceDiagram" width="970">
 </div>
-<div class="title">Figure 10. Find component interactions</div>
+<div class="title">Figure 12. Find component interactions</div>
 </div>
 <div class="paragraph">
 <p>The main implementation of this feature is split into two components. The <code>Tokenizer</code> and <code>BooleanExpressionParser</code></p>
@@ -970,7 +1157,7 @@ This process is achieved by the code snippet shown below.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="tokenizer"><a class="link" href="#tokenizer">3.3.3. Tokenizer</a></h4>
+<h4 id="tokenizer"><a class="link" href="#tokenizer">3.4.3. Tokenizer</a></h4>
 <div class="paragraph">
 <p>This is represented by the class <code>pwe.planner.logic.parser.BooleanExpressionTokenizer</code> and is designed to extract
 all argument with <code>PREFIX</code> and <code>OPERATOR</code> as a token.</p>
@@ -1045,7 +1232,7 @@ overhead as we have to ensure that the proper checks are done.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="operator"><a class="link" href="#operator">3.3.4. Operator</a></h4>
+<h4 id="operator"><a class="link" href="#operator">3.4.4. Operator</a></h4>
 <div class="paragraph">
 <p>This is represented by the class <code>pwe.planner.logic.parser.Operator</code> and defines all valid operators to be used in
 <code>BooleanExpressionParser</code>.</p>
@@ -1104,7 +1291,7 @@ operator precedence will be taken into consideration.</p></td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="boolean-expression-parser"><a class="link" href="#boolean-expression-parser">3.3.5. Boolean Expression Parser</a></h4>
+<h4 id="boolean-expression-parser"><a class="link" href="#boolean-expression-parser">3.4.5. Boolean Expression Parser</a></h4>
 <div class="paragraph">
 <p>This is represented by the class <code>pwe.planner.logic.parser.BooleanExpressionParser</code> and is designed to map user
 provided input into composite <code>Predicate&lt;Module&gt;</code>.</p>
@@ -1145,7 +1332,7 @@ first).</p>
 <div class="content">
 <img src="images/parserSequenceDiagram.png" alt="parserSequenceDiagram" width="970">
 </div>
-<div class="title">Figure 11. Find component interactions</div>
+<div class="title">Figure 13. Find component interactions</div>
 </div>
 <div class="paragraph">
 <p>When <code>FindCommandParser</code> receives the provided user argument, it will carry out checks and pass the argument to
@@ -1161,7 +1348,7 @@ first).</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>See <a href="#tokenizer">Section 3.3.3, &#8220;Tokenizer&#8221;</a> for more details regarding the tokenizer.</p>
+<p>See <a href="#tokenizer">Section 3.4.3, &#8220;Tokenizer&#8221;</a> for more details regarding the tokenizer.</p>
 </div>
 </td>
 </tr>
@@ -1193,7 +1380,7 @@ KeywordsPredicate predicate = <span class="predefined-constant">null</span>;
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.6. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.4.6. Design Considerations</a></h4>
 <div class="paragraph">
 <p>This section shares the design considerations we went through during the enhancing the existing <code>find</code> feature.</p>
 </div>
@@ -1257,13 +1444,13 @@ with an implicit logical <code>OR</code>, the user would not be able to find the
 </div>
 </div>
 <div class="sect2">
-<h3 id="requirement-add-feature"><a class="link" href="#requirement-add-feature">3.4. Requirement Add Feature</a></h3>
+<h3 id="requirement-add-feature"><a class="link" href="#requirement-add-feature">3.5. Requirement Add Feature</a></h3>
 <div class="paragraph">
 <p>The requirement add feature in the application aims to help users to keep track and check if they have fulfilled a
 particular degree requirement category by adding module code(s) to the specified requirement category.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.4.1. Current implementation</a></h4>
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current implementation</a></h4>
 <div class="paragraph">
 <p>When the user invokes the <code>requirement_add</code> command, e.g. (requirement_add name/Mathematics code/MA1531).<br>
 The following steps are taken by the application.</p>
@@ -1356,17 +1543,17 @@ class also saves the current database state through <code>commitApplication</cod
 <div class="content">
 <img src="images/RequirementAddCommandSequenceDiagram.png" alt="RequirementAddCommandSequenceDiagram" width="650">
 </div>
-<div class="title">Figure 12. RequirementAddCommand component interactions</div>
+<div class="title">Figure 14. RequirementAddCommand component interactions</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/RequirementAddCommandSequenceDiagramExtracted.png" alt="RequirementAddCommandSequenceDiagramExtracted" width="650">
 </div>
-<div class="title">Figure 13. Component interactions of the checks performed by RequirementAddCommand class</div>
+<div class="title">Figure 15. Component interactions of the checks performed by RequirementAddCommand class</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.4.2. Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.5.2. Design Considerations</a></h4>
 <div class="paragraph">
 <p>This section describes the various design considerations the taken when implementing the <code>requirement_add</code>
 feature.</p>
@@ -1452,13 +1639,13 @@ Hence, by storing the module code only, the module&#8217;s information can be ea
 </div>
 </div>
 <div class="sect2">
-<h3 id="requirement-move-feature"><a class="link" href="#requirement-move-feature">3.5. Requirement Move Feature</a></h3>
+<h3 id="requirement-move-feature"><a class="link" href="#requirement-move-feature">3.6. Requirement Move Feature</a></h3>
 <div class="paragraph">
 <p>The requirement move feature in the application aims to help users to be able to move module code(s) from any degree
 requirement category to the specified requirement category.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current implementation</a></h4>
+<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.6.1. Current implementation</a></h4>
 <div class="paragraph">
 <p>When the user invokes the <code>requirement_move</code> command, e.g. (requirement_move name/Mathematics code/CS1231).<br>
 The following steps are taken by the application.</p>
@@ -1558,17 +1745,17 @@ also saves the current database state through <code>commitApplication</code> (fo
 <div class="content">
 <img src="images/RequirementMoveCommandSequenceDiagram.png" alt="RequirementMoveCommandSequenceDiagram" width="650">
 </div>
-<div class="title">Figure 14. RequirementMoveCommand component interactions</div>
+<div class="title">Figure 16. RequirementMoveCommand component interactions</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/RequirementMoveCommandSequenceDiagramExtracted.png" alt="RequirementMoveCommandSequenceDiagramExtracted" width="650">
 </div>
-<div class="title">Figure 15. Component interactions of the checks performed by RequirementMoveCommand class</div>
+<div class="title">Figure 17. Component interactions of the checks performed by RequirementMoveCommand class</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.5.2. Design Considerations</a></h4>
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.6.2. Design Considerations</a></h4>
 <div class="paragraph">
 <p>This section describes the various design considerations the taken when implementing the <code>requirement_move</code>
 feature.</p>
@@ -1640,13 +1827,13 @@ together at once, reducing the overall overhead.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="requirement-list-feature"><a class="link" href="#requirement-list-feature">3.6. Requirement List Feature</a></h3>
+<h3 id="requirement-list-feature"><a class="link" href="#requirement-list-feature">3.7. Requirement List Feature</a></h3>
 <div class="paragraph">
 <p>The requirement list feature in the application allow users to display all requirement categories and the module code(s)
  that have been added to the requirement categories.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.6.1. Current implementation</a></h4>
+<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">3.7.1. Current implementation</a></h4>
 <div class="paragraph">
 <p>The <code>requirement_list</code> command requires no additional input other than the command itself.
 When the user executes the <code>requirement_list</code> command, the following steps are taken by the the application.</p>
@@ -1709,11 +1896,11 @@ through <code>getFilteredRequirementCategoryList</code></p>
 <div class="content">
 <img src="images/RequirementListCommandSequenceDiagram.png" alt="RequirementListCommandSequenceDiagram" width="650">
 </div>
-<div class="title">Figure 16. RequirmentListCommand component interactions</div>
+<div class="title">Figure 18. RequirmentListCommand component interactions</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.6.2. Design Considerations</a></h4>
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.7.2. Design Considerations</a></h4>
 <div class="paragraph">
 <p>This section describes the various design considerations the taken when implementing the <code>requirement_list</code>
 feature.</p>
@@ -1796,12 +1983,12 @@ containing the module code must first be retrieved for the attribute to be updat
 </div>
 </div>
 <div class="sect2">
-<h3 id="planner-add-feature"><a class="link" href="#planner-add-feature">3.7. Planner Add Feature</a></h3>
+<h3 id="planner-add-feature"><a class="link" href="#planner-add-feature">3.8. Planner Add Feature</a></h3>
 <div class="paragraph">
 <p>The <code>planner_add</code> command in PWE is used to add module code(s) to the degree plan.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">3.7.1. Current implementation</a></h4>
+<h4 id="current-implementation-8"><a class="link" href="#current-implementation-8">3.8.1. Current implementation</a></h4>
 <div class="paragraph">
 <p>The <code>planner_add</code> command requires the <code>PlannerAddCommandParser</code> class to parse the user input provided. The
  parsed data will then be passed to the <code>PlannerAddCommand</code> class.</p>
@@ -1846,17 +2033,17 @@ current database state through <code>commitApplication</code> (for undo/redo fun
 <div class="content">
 <img src="images/PlannerAddCommandSequenceDiagram1.png" alt="PlannerAddCommandSequenceDiagram1" width="650">
 </div>
-<div class="title">Figure 17. PlannerAddCommand component interactions part 1</div>
+<div class="title">Figure 19. PlannerAddCommand component interactions part 1</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/PlannerAddCommandSequenceDiagram2.png" alt="PlannerAddCommandSequenceDiagram2" width="650">
 </div>
-<div class="title">Figure 18. PlannerAddCommand component interactions part 2</div>
+<div class="title">Figure 20. PlannerAddCommand component interactions part 2</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.7.2. Design Considerations</a></h4>
+<h4 id="design-considerations-8"><a class="link" href="#design-considerations-8">3.8.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-choice-of-whether-to-deal-with-certain-possible-errors-when-the-application-gets-modified"><a class="link" href="#aspect-choice-of-whether-to-deal-with-certain-possible-errors-when-the-application-gets-modified">Aspect: Choice of whether to deal with certain possible errors when the application gets modified.</a></h5>
 <div class="ulist">
@@ -1909,12 +2096,12 @@ current database state through <code>commitApplication</code> (for undo/redo fun
 </div>
 </div>
 <div class="sect2">
-<h3 id="planner-remove-feature"><a class="link" href="#planner-remove-feature">3.8. Planner Remove Feature</a></h3>
+<h3 id="planner-remove-feature"><a class="link" href="#planner-remove-feature">3.9. Planner Remove Feature</a></h3>
 <div class="paragraph">
 <p>The <code>planner_remove</code> command in PWE is used to remove module code(s) from the degree plan.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-8"><a class="link" href="#current-implementation-8">3.8.1. Current implementation</a></h4>
+<h4 id="current-implementation-9"><a class="link" href="#current-implementation-9">3.9.1. Current implementation</a></h4>
 <div class="paragraph">
 <p>The <code>planner_remove</code> command requires the <code>PlannerRemoveCommandParser</code> class to parse the user input provided. The
  parsed data will then be passed to the <code>PlannerRemoveCommand</code> class.</p>
@@ -1950,11 +2137,11 @@ current database state through <code>commitApplication</code> (for undo/redo fun
 <div class="content">
 <img src="images/PlannerRemoveCommandClassDiagram.png" alt="PlannerRemoveCommandClassDiagram" width="650">
 </div>
-<div class="title">Figure 19. PlannerRemoveCommand class diagram</div>
+<div class="title">Figure 21. PlannerRemoveCommand class diagram</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-8"><a class="link" href="#design-considerations-8">3.8.2. Design Considerations</a></h4>
+<h4 id="design-considerations-9"><a class="link" href="#design-considerations-9">3.9.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-choice-of-whether-to-use-code-getdegreeplannerbycode-code-method-for-removing-module-codes"><a class="link" href="#aspect-choice-of-whether-to-use-code-getdegreeplannerbycode-code-method-for-removing-module-codes">Aspect: Choice of whether to use <code>getDegreePlannerByCode</code> method for removing module codes.</a></h5>
 <div class="ulist">
@@ -2009,7 +2196,7 @@ current database state through <code>commitApplication</code> (for undo/redo fun
 </div>
 </div>
 <div class="sect2">
-<h3 id="planner-move-feature"><a class="link" href="#planner-move-feature">3.9. Planner Move Feature</a></h3>
+<h3 id="planner-move-feature"><a class="link" href="#planner-move-feature">3.10. Planner Move Feature</a></h3>
 <div class="paragraph">
 <p>The <code>planner_move</code> command aims to provide functionality for users to move a module between academic semesters in the
 degree plan along with its co-requisites.</p>
@@ -2019,7 +2206,7 @@ degree plan along with its co-requisites.</p>
 feature.</p>
 </div>
 <div class="sect3">
-<h4 id="overview-2"><a class="link" href="#overview-2">3.9.1. Overview</a></h4>
+<h4 id="overview-2"><a class="link" href="#overview-2">3.10.1. Overview</a></h4>
 <div class="paragraph">
 <p>As the users often encounter situations where they decide to take the modules in other semesters after they have
 completed their degree planning, the <code>planner_move</code> feature is essential to have.</p>
@@ -2030,7 +2217,7 @@ its co-requisites are offered in the semester the users wants to move to.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-9"><a class="link" href="#current-implementation-9">3.9.2. Current Implementation</a></h4>
+<h4 id="current-implementation-10"><a class="link" href="#current-implementation-10">3.10.2. Current Implementation</a></h4>
 <div class="paragraph">
 <p>When a user execute the <code>planner_move</code> command (e.g. <code>planner_move year/1 sem/2 code/CS1010</code>), the following steps
 are taken by the application.</p>
@@ -2043,7 +2230,7 @@ are taken by the application.</p>
 <div class="content">
 <img src="images/PlannerMoveComponentSequenceDiagram.png" alt="PlannerMoveComponentSequenceDiagram" width="650">
 </div>
-<div class="title">Figure 20. PlannerMove component interactions</div>
+<div class="title">Figure 22. PlannerMove component interactions</div>
 </div>
 <div class="paragraph">
 <p>Step 1. The <code>PlannerMoveCommandParser#parse</code> method is invoked. The <code>PlannerMoveCommandParser</code> receives the command with
@@ -2090,7 +2277,7 @@ code that the user want to move.</p>
 <div class="content">
 <img src="images/PlannerMoveCommandSequenceDiagramDetail.png" alt="PlannerMoveCommandSequenceDiagramDetail" width="650">
 </div>
-<div class="title">Figure 21. PlannerMoveCommand in detail interactions</div>
+<div class="title">Figure 23. PlannerMoveCommand in detail interactions</div>
 </div>
 <div class="paragraph">
 <p>During this step, the following methods are carried out in the order:</p>
@@ -2186,7 +2373,7 @@ the`moveModuleBetweenPlanner` method which will call <code>setDegreePlanner</cod
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-9"><a class="link" href="#design-considerations-9">3.9.3. Design Considerations</a></h4>
+<h4 id="design-considerations-10"><a class="link" href="#design-considerations-10">3.10.3. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-should-searching-of-the-degree-plan-based-on-the-year-and-the-semester-provided-to-be-done"><a class="link" href="#aspect-how-should-searching-of-the-degree-plan-based-on-the-year-and-the-semester-provided-to-be-done">Aspect: How should searching of the degree plan based on the year and the semester provided to be done</a></h5>
 <div class="ulist">
@@ -2242,14 +2429,14 @@ the semester provided.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="planner-show-feature"><a class="link" href="#planner-show-feature">3.10. Planner Show Feature</a></h3>
+<h3 id="planner-show-feature"><a class="link" href="#planner-show-feature">3.11. Planner Show Feature</a></h3>
 <div class="paragraph">
 <p>Planner show feature aims to help users to be able to easily locate and display any academic semesters in the degree
 plan which is in our application. We support the displaying of degree planners based on year, semester and boolean
 expressions. This enables our users to display only specific academic semesters in the degree plan that they want.</p>
 </div>
 <div class="sect3">
-<h4 id="overview-3"><a class="link" href="#overview-3">3.10.1. Overview</a></h4>
+<h4 id="overview-3"><a class="link" href="#overview-3">3.11.1. Overview</a></h4>
 <div class="paragraph">
 <p>When a user invokes the <code>planner_show</code> command. (e.g. <code>planner_show y/YEAR &amp;&amp; s/SEMESTER</code>), the following steps
 are taken by the program.</p>
@@ -2275,7 +2462,7 @@ are taken by the program.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-10"><a class="link" href="#current-implementation-10">3.10.2. Current Implementation</a></h4>
+<h4 id="current-implementation-11"><a class="link" href="#current-implementation-11">3.11.2. Current Implementation</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2297,7 +2484,7 @@ returns module having its year or semester matches the given year and semester</
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-10"><a class="link" href="#design-considerations-10">3.10.3. Design Considerations</a></h4>
+<h4 id="design-considerations-11"><a class="link" href="#design-considerations-11">3.11.3. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-to-parse-multiple-attributes"><a class="link" href="#aspect-how-to-parse-multiple-attributes">Aspect: How to parse multiple attributes</a></h5>
 <div class="ulist">
@@ -2350,12 +2537,12 @@ returns module having its year or semester matches the given year and semester</
 </div>
 </div>
 <div class="sect2">
-<h3 id="planner-suggest-feature"><a class="link" href="#planner-suggest-feature">3.11. Planner Suggest Feature</a></h3>
+<h3 id="planner-suggest-feature"><a class="link" href="#planner-suggest-feature">3.12. Planner Suggest Feature</a></h3>
 <div class="paragraph">
 <p>The <code>planner_suggest</code> command in PWE is used to suggest module code(s) to add to the degree plan.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-11"><a class="link" href="#current-implementation-11">3.11.1. Current implementation</a></h4>
+<h4 id="current-implementation-12"><a class="link" href="#current-implementation-12">3.12.1. Current implementation</a></h4>
 <div class="paragraph">
 <p>The <code>planner_suggest</code> command requires the <code>PlannerSuggestCommandParser</code> class to parse the user input provided. The
  parsed data will then be passed to the <code>PlannerSuggestCommand</code> class.</p>
@@ -2381,11 +2568,11 @@ will be prioritized. If tie again, modules will be sorted according to alphabeti
 <div class="content">
 <img src="images/PlannerSuggestCommandActivityDiagram.png" alt="PlannerSuggestCommandActivityDiagram" width="650">
 </div>
-<div class="title">Figure 22. PlannerSuggestCommand activity diagram</div>
+<div class="title">Figure 24. PlannerSuggestCommand activity diagram</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-11"><a class="link" href="#design-considerations-11">3.11.2. Design Considerations</a></h4>
+<h4 id="design-considerations-12"><a class="link" href="#design-considerations-12">3.12.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-choice-of-where-to-put-code-moduletosuggest-code-class"><a class="link" href="#aspect-choice-of-where-to-put-code-moduletosuggest-code-class">Aspect: Choice of where to put <code>ModuleToSuggest</code> class.</a></h5>
 <div class="ulist">
@@ -2438,14 +2625,14 @@ will be prioritized. If tie again, modules will be sorted according to alphabeti
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.12. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.13. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.13, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.14, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -2476,7 +2663,7 @@ will be prioritized. If tie again, modules will be sorted according to alphabeti
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.13. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.14. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -2542,7 +2729,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 23. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 25. Saving documentation as PDF files in Chrome</div>
 </div>
 </div>
 <div class="sect2">
@@ -2829,7 +3016,7 @@ e.g. <code>pwe.planner.logic.LogicManagerTest</code></p>
 <div class="content">
 <img src="images/testfx-idea-accessibility-permissions.png" alt="testfx idea accessibility permissions" width="600">
 </div>
-<div class="title">Figure 24. <code>Accessibility</code> permission is granted to <code>IntelliJ IDEA</code></div>
+<div class="title">Figure 26. <code>Accessibility</code> permission is granted to <code>IntelliJ IDEA</code></div>
 </div>
 </div>
 </div>
@@ -3107,9 +3294,6 @@ categories</p></td>
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p><em>{More to be added}</em></p>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -3949,9 +4133,6 @@ inside the degree plan.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p><em>{More to be added}</em></p>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -4035,12 +4216,72 @@ Expected: The most recent window size and location is retained.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
+</div>
+<div class="sect2">
+<h3 id="adding-a-module"><a class="link" href="#adding-a-module">F.2. Adding a module</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Adding a module while all modules are listed</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Populate module list with sample data using <code>reset</code> command, then list all modules using the <code>list</code> command.</p>
+</li>
+<li>
+<p>Test case: <code>add code/AA1111 name/ABC credits/4</code><br>
+Expected: New module (AA1111 ABC) is added into the module list. Details of the added module shown in the status message. Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>add code/CS1010 name/DEF credits/4</code><br>
+Expected: Module is <strong>not</strong> added into the module list (Module <code>CS1010</code> already exists in the module list). Error details shown in the status message. Status bar remains the same.</p>
+</li>
+<li>
+<p>Test case: <code>add code/AA1111 name/DEF credits/4</code><br>
+Expected: Module is <strong>not</strong> added into the module list (Module <code>AA1111</code> already exists in the module list). Error details shown in the status message. Status bar remains the same.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-module"><a class="link" href="#deleting-a-module">F.2. Deleting a module</a></h3>
+<h3 id="editing-a-module"><a class="link" href="#editing-a-module">F.3. Editing a module</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Editing a module while all modules are listed</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Populate module list with sample data using <code>reset</code> command, then list all modules using the <code>list</code> command.</p>
+</li>
+<li>
+<p>Test case: <code>edit 1 code/CS1111</code><br>
+Expected: Module code CS1010 is edited to CS1111 in the module list, requirement categories, degree plan. Details of the edited module shown in the status message. Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>edit 2 name/ABC</code><br>
+Expected: Module name of 2nd module in module list (CS1231 Discrete Structures) is edited to ABC in the module list and degree plan. Details of the edited module shown in the status message. Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>edit 5 coreq/</code><br>
+Expected: Module name of 5th module in module list (CS2101 Effective Communications for Computing Professionals) is edited to None in the module list. CS2113T&#8217;s co-requisites will also be updated to None. Details of the edited module shown in the status message. Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>edit 1 coreq/CS1231</code><br>
+Expected: Module is <strong>not</strong> edited, as module <code>CS1010</code> and <code>CS1231</code> are in different semesters of the degree plan,
+and hence cannot be updated to be co-requisites. Error details shown in the status message. Status bar remains the same.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleting-a-module"><a class="link" href="#deleting-a-module">F.4. Deleting a module</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4048,18 +4289,23 @@ Expected: The most recent window size and location is retained.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: List all modules using the <code>list</code> command. Multiple modules in the list.</p>
+<p>Prerequisites: Populate module list with sample data using <code>reset</code> command, then list all modules using the <code>list</code> command.</p>
 </li>
 <li>
 <p>Test case: <code>delete 1</code><br>
-Expected: First module is deleted from the list. Details of the deleted module shown in the status message. Timestamp in the status bar is updated.</p>
+Expected: First module (CS1010) is deleted from the module list and year 1 semester 1 of the degree plan. Details of the deleted module shown in the status message. Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>delete 5</code><br>
+Expected: Fifth module (CS2101) module is deleted from the module list and year 2 semester 1 of the degree plan.
+CS2113T module co-requisites is updated to None. Error details shown in the status message. Status bar remains the same.</p>
 </li>
 <li>
 <p>Test case: <code>delete 0</code><br>
 Expected: No module is deleted. Error details shown in the status message. Status bar remains the same.</p>
 </li>
 <li>
-<p>Other incorrect delete commands to try: <code>delete</code>, <code>delete x</code> (where x is larger than the list size) <em>{give more}</em><br>
+<p>Other incorrect delete commands to try: <code>delete</code>, <code>delete x</code> (where x is larger than the list size)<br>
 Expected: Similar to previous.</p>
 </li>
 </ol>
@@ -4067,12 +4313,9 @@ Expected: Similar to previous.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
-</div>
 </div>
 <div class="sect2">
-<h3 id="adding-module-s-to-the-degree-plan"><a class="link" href="#adding-module-s-to-the-degree-plan">F.3. Adding module(s) to the degree plan</a></h3>
+<h3 id="adding-module-s-to-the-degree-plan"><a class="link" href="#adding-module-s-to-the-degree-plan">F.5. Adding module(s) to the degree plan</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4121,7 +4364,7 @@ Expected: A message that indicates the valid value range of year.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="removing-module-s-from-the-degree-plan"><a class="link" href="#removing-module-s-from-the-degree-plan">F.4. Removing module(s) from the degree plan</a></h3>
+<h3 id="removing-module-s-from-the-degree-plan"><a class="link" href="#removing-module-s-from-the-degree-plan">F.6. Removing module(s) from the degree plan</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4156,7 +4399,7 @@ Expected: Invalid command format.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="using-the-degree-plan-to-suggest-module-s-to-take"><a class="link" href="#using-the-degree-plan-to-suggest-module-s-to-take">F.5. Using the degree plan to suggest module(s) to take</a></h3>
+<h3 id="using-the-degree-plan-to-suggest-module-s-to-take"><a class="link" href="#using-the-degree-plan-to-suggest-module-s-to-take">F.7. Using the degree plan to suggest module(s) to take</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4181,7 +4424,7 @@ Expected: Maximum 10 modules recommended in a specially sorted order.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-modules"><a class="link" href="#find-modules">F.6. Find modules</a></h3>
+<h3 id="find-modules"><a class="link" href="#find-modules">F.8. Find modules</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4298,7 +4541,7 @@ Expected: A guide on how the accepted value for <code>code</code> will be displa
 </div>
 </div>
 <div class="sect2">
-<h3 id="moving-a-module-in-the-degree-plan"><a class="link" href="#moving-a-module-in-the-degree-plan">F.7. Moving a module in the degree plan</a></h3>
+<h3 id="moving-a-module-in-the-degree-plan"><a class="link" href="#moving-a-module-in-the-degree-plan">F.9. Moving a module in the degree plan</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4346,7 +4589,7 @@ Expected: Error message is displayed since CS2101 module is not offered in semes
 </div>
 </div>
 <div class="sect2">
-<h3 id="showing-the-academic-semesters-in-the-degree-plan"><a class="link" href="#showing-the-academic-semesters-in-the-degree-plan">F.8. Showing the academic semesters in the degree plan</a></h3>
+<h3 id="showing-the-academic-semesters-in-the-degree-plan"><a class="link" href="#showing-the-academic-semesters-in-the-degree-plan">F.10. Showing the academic semesters in the degree plan</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4414,7 +4657,7 @@ Expected: Error message is displayed.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-all-the-academic-semesters-in-the-degree-plan"><a class="link" href="#listing-all-the-academic-semesters-in-the-degree-plan">F.9. Listing all the academic semesters in the degree plan</a></h3>
+<h3 id="listing-all-the-academic-semesters-in-the-degree-plan"><a class="link" href="#listing-all-the-academic-semesters-in-the-degree-plan">F.11. Listing all the academic semesters in the degree plan</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4436,7 +4679,7 @@ Expected: All the academic semesters are listed in the degree plan.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="degree-requirement-category"><a class="link" href="#degree-requirement-category">F.10. Degree Requirement Category</a></h3>
+<h3 id="degree-requirement-category"><a class="link" href="#degree-requirement-category">F.12. Degree Requirement Category</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4575,25 +4818,5 @@ and the module code(s) added to the degree requirement categories is listed in t
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">F.11. Saving data</a></h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Dealing with missing/corrupted data files</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p><em>{explain how to simulate a missing/corrupted file and the expected behavior}</em></p>
-</li>
-</ol>
 </div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
-</div>
-</div>
-</div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 19:41:24 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 20:13:06 UTC</div></div></div></body></html>
