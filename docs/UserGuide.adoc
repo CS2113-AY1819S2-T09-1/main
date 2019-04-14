@@ -1009,6 +1009,19 @@ according to credits closer to 2. If tie again, prioritizes according to alphabe
 
 
 == Future Enhancements `[coming in v2.0]`
+These are features that will come in future releases of *PlanWithEase*
+
+=== Module Prerequisites `prereq/`
+
+We aim to provide the support of `prerequisites` for our *Module Management*. +
+This changes will allow our users to indicate a module prerequisites and we can handle its dependency for the users
+before they add the module into the *Degree Plan*.
+
+=== Auto-create Degree Plan `autoplan`
+
+We plan to implement this feature to allow an automated planning, we can make use of users feedback and current
+treads based on module popularity then create the degree plan for the users.
+
 
 == FAQ
 
