@@ -730,14 +730,8 @@ treads based on module popularity then create the degree plan for the users.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Task</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Purpose</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Command</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Command Format</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Example</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Clear</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Clear the modules data</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clear</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clear</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Help</strong></p></td>
@@ -753,7 +747,7 @@ treads based on module popularity then create the degree plan for the users.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Undo</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Undo your previously action</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Undo your previous action</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>undo</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>undo</code></p></td>
 </tr>
@@ -762,6 +756,172 @@ treads based on module popularity then create the degree plan for the users.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Redo your previous action</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>redo</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>redo</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Clear</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clear the all the modules from the specified section</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clear [requirement or planner]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clear</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Reset</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resets and populates the application with sample data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>reset</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>reset</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Exit</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exits the application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exit</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exit</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="module-management-commands"><a class="link" href="#module-management-commands">Module Management Commands</a></h3>
+<div class="paragraph">
+<p>The table below shows a list of commands which helps you to manage the module list.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Task</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Purpose</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Command Format</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Example</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Add module to module list</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add a new module to the module list.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>add code/CODE name/NAME credits/CREDITS [sem/SEMESTER]… [coreq/COREQUISITE]… [tag/TAG]…</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>add code/GEH1074 name/Luck credits/4 sem/1 sem/2</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Edit the details of a module</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Edit the module&#8217;s details based on the index given.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>edit INDEX [name/NAME] [code/CODE] [credits/CREDITS] [sem/SEMESTER]… [coreq/COREQUISITE]… [tag/TAG]…</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>edit 1 name/Data Structures and Algorithms code/CS2040C</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Delete module from module list</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remove the module
+entirely from the module list based on the index given.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>delete INDEX</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>delete 3</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Find modules in the module list</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Display a list of modules based on your search criteria</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>find [name/NAME] OPERATOR [code/CODE] OPERATOR [credits/CREDITS] OPERATOR [sem/SEMESTER] OPERATOR [tag/TAG]</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>find credits/4 &amp;&amp; (name/Programming || name/Discrete)</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>List all modules</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List all modules available in the module list</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>list</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>list</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Selecting a module</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selects a module in the module list</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>select INDEX</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>select 1</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="requirement-tracker-commands"><a class="link" href="#requirement-tracker-commands">Requirement Tracker Commands</a></h3>
+<div class="paragraph">
+<p>The table below shows a list of command which helps you to manage and track your degree requirements.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Task</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Purpose</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Command Format</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Example</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Add module(s) to a requirement category</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add module(s) to the specified requirement category based
+ on the module code provided.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>requirement_add name/NAME code/CODE [code/CODE]…</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>requirement_add name/IT Professionalism code/IS4231</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Remove module(s) from the requirement category</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remove module(s) from the requirement category
+based on the module code provided.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>requirement_remove code/CODE [code/CODE]…</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>requirement_remove code/IS4231</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Move module(s) between requirement categories</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Move module(s) between the requirement categories from
+ any requirement categories to a specified requirement categories.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>requirement_move name/NAME code/CODE [code/CODE]…</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>requirement_move name/IT Professionalism code/IS4231</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>List all requirement categories in the application</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List all requirement categories in the application and the module(s) added to each requirement categories</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>requirement_list</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>requirement_list</code></p>
+</div></div></td>
 </tr>
 </tbody>
 </table>
@@ -782,7 +942,7 @@ treads based on module popularity then create the degree plan for the users.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Task</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Purpose</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Command</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Command Format</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Example</strong></p></td>
 </tr>
 <tr>
@@ -844,71 +1004,6 @@ semester.</p></td>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div><div class="paragraph">
 <p><code>planner_suggest credits/4 tag/maths</code></p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="requirement-tracker-commands"><a class="link" href="#requirement-tracker-commands">Requirement Tracker Commands</a></h3>
-<div class="paragraph">
-<p>The table below shows a list of command which helps you to manage and track your degree requirements.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Task</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Purpose</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Command</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Example</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Add module(s) to a requirement category</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Add module(s) to the specified requirement category based
- on the module code provided.</p></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p><code>requirement_add name/NAME code/CODE [code/CODE]…</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p><code>requirement_add name/IT Professionalism code/IS4231</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Remove module(s) from the requirement category</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Remove module(s) from the requirement category
-based on the module code provided.</p></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p><code>requirement_remove code/CODE [code/CODE]…</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p><code>requirement_remove code/IS4231</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Move module(s) between requirement categories</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Move module(s) between the requirement categories from
- any requirement categories to a specified requirement categories.</p></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p><code>requirement_move name/NAME code/CODE [code/CODE]…</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p><code>requirement_move name/IT Professionalism code/IS4231</code></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>List all requirement categories in the application</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">List all requirement categories in the application and the module(s) added to each requirement categories</p></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p><code>requirement_list</code></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p><code>requirement_list</code></p>
 </div></div></td>
 </tr>
 </tbody>
@@ -1464,4 +1559,4 @@ returns module having its year or semester matches the given year and semester</
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-15 14:48:23 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-15 15:33:54 UTC</div></div></div></body></html>
