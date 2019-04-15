@@ -29,8 +29,8 @@ public class PlannerSuggestCommand extends Command {
 
     public static final String COMMAND_WORD = "planner_suggest";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Suggests module(s) to take. "
-            + "Parameters: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Suggests module(s) to take.\n"
+            + "Format: " + COMMAND_WORD + ' '
             + PREFIX_CREDITS + "CREDITS "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "

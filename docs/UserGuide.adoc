@@ -114,7 +114,7 @@ endif::[]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Below are some example commands you can try:
 * *`list`* : list and displays all modules in the *module list*.
-* **`add`**`name/Programming Methodology code/CS1010 credits/4` : adds a module named `Programming Methodology` with module code `CS1010`, which is assigned `4` modular credits, to the module list.
+* **`add`**`name/Programming Methodology code/CS1010J credits/4` : adds a module named `Programming Methodology` with module code `CS1010J`, which is assigned `4` modular credits, to the module list.
 * **`delete`**`3` : deletes the 3^rd^ module shown in the *module list*.
 * *`exit`* : exits the application
 
@@ -332,14 +332,16 @@ endif::[]
 // end::clear[]
 
 ==== Reset the application: `reset` image:https://img.shields.io/badge/general-reset-8774C1.svg[]
-If you want to populate the program with our sample modules, you can enter `reset` in the *command box* +
+If you want to populate the program with sample data (sample modules added to the requirement categories and degree plan), you can enter `reset` in the *command box* +
 
-This will save you the trouble of adding new `module` again!
+This can help you save time if you want to start afresh!
 
-[NOTE]
+[WARNING]
 ====
-This will *discard* all changes you have made and populate the program with our sample modules.
+This will *remove all changes* you have made to the module list, requirement categories and degree plan, and
+populate them with sample data.
 ====
+
 [TIP]
 ====
 If you unintentionally used this command, do use the `undo` command to revert back the changes
@@ -363,7 +365,7 @@ Below is a list of command parameters that you can expect to use for commands in
 | `CODE` | Indicates the module code +
 (e.g. `CS2101`). | `CODE` should begin with two alphabets, followed by four digits, and may optionally end with an
 alphabet. +
-`CODE` is insensitive and must be unique
+`CODE` is case-insensitive.
 | `NAME` | Indicates the name of the module +
 (e.g. `Effective Communication for Computing Professionals`). |
 `NAME` should only contain alphanumeric characters, punctuations (excluding "(", ")", "&", "\|") and spaces. +
@@ -377,6 +379,12 @@ Note that if you are using punctuations, you may want to consider replacing "()"
 (e.g. `CS2101` is a co-requisite module of `CS2113T`) | `COREQUISITE` follow the same format as `CODE`.
 | `TAG` | Indicates the extra information to associate the module with (e.g. `Presentation`, `Email`). | `TAG` should only contain alphabets and numbers.
 |======
+
+[WARNING]
+====
+`CODE` must be unique in the *module list*. +
+You cannot add/edit modules to have the same module code as another module in the *module list*.
+====
 // end::module_management[]
 
 // tag::module_add[]
@@ -415,7 +423,8 @@ When adding a module with a corequisite, if the module is added successfully, th
 *Example:* +
 
 * `add name/Skills code/GEH1074T credits/4 sem/1 sem/2 coreq/GEH1074 tag/GEM tag/economics` +
-Adds a module named `Skills` with module code `GEH1074T`, which is assigned `4` modular credits and has module code `GEH1074` as a corequisite, to the module list. +
+Adds a module named `Skills` with module code `GEH1074T`, which is assigned `4` modular credits and has module code
+`GEH1074` as a corequisite, to the module list. The module added has the tags `GEM` and `economics` as well. +
 Both modules (`GEH1074T` and `GEH1074`) will be updated to be co-requisites as shown below.
 
 .Module GEH1074T is added successfully; GEH1074T and GEH1074 are now co-requisites.
@@ -450,24 +459,22 @@ You can use this handy `edit` command to update the module details to your likin
 
 Examples:
 
-* `edit 1 name/Data Structures and Algorithms code/CS2040C` +
-Edits the name and code of the 1^st^ module in the displayed module list to be `Data Structures and Algorithms` and
-`CS2040C` respectively. +
-* `edit 2 code/CS2040C tag/` +
-Edits the code of the 2^nd^ module in the displayed module list to be `CS2040C` and clears all existing tags associated
- with the module. +
-* `edit 3 coreq/CS2105 coreq/CS2106 coreq/CS2107` +
- Edits the co-requisites of the 3^rd^ module in the displayed module list to be `CS2105`, `CS2106` and `CS2107`. +
+* `edit 1 name/Data Structures and Algorithms code/CS1234` +
+Edits the name and code of the 1^st^ module in the displayed module list to be `Data Structures and Algorithms` and `CS1234` respectively. +
+* `edit 3 code/CS2040C tag/` +
+Edits the code of the 3^rd^ module in the displayed module list to be `CS2040C` and clears all existing tags associated with the module. +
+* `edit 5 coreq/CS2105 coreq/CS2106` +
+ Edits the co-requisites of the 5^th^ module in the displayed module list to be `CS2105` and `CS2106`. +
 
 [NOTE]
 ====
 Just like the `add` command, when editing the co-requisites of a module, the co-requisite modules will be updated as well.
 ====
 
-*Example:* If `GEH1074` and `GEH1074T` are not co-requisites, running the command `edit 24 coreq/GEH1074T` will
-result in GEH1074 and GEH1074T being co-requisites.
+*Example:* If `GEH1074` and `GEH1074T` are not co-requisites, running the command `edit 1 coreq/GEH1074T`
+(assuming index `1` of the module list is `GEH1074`) will result in GEH1074 and GEH1074T being co-requisites.
 
-.GEH1074 and GEH1074T are being edited to be co-requisites.
+.`GEH1074` and `GEH1074T` are being edited to be co-requisites.
 ifdef::env-github[]
 image::module_edit_coreq.png[width=800]
 endif::[]
@@ -681,7 +688,7 @@ The following table describes the parameters you may use for the commands in thi
 |======
 |*Parameter*| *Description* | *Acceptable Range of Values*
 | `NAME` | Indicates the name of degree requirement category (e.g. `IT Professionalism`).
-| `NAME` must be one of the following values: +
+| `NAME` must be one of the following values (case-insensitive): +
 1. `Computing Foundation` +
 2. `Information Security Requirements` +
 3. `Information Security Electives` +
@@ -691,7 +698,8 @@ The following table describes the parameters you may use for the commands in thi
 7. `General Education` +
 8. `Unrestricted Electives`
 | `CODE` | Indicates the module code (e.g. `CS2101`). |
-`CODE` must begin with two or three alphabets, followed by four digits, and may optionally end with an alphabet.
+`CODE` must begin with two or three alphabets, followed by four digits, and may optionally end with an alphabet. +
+`CODE` is case-insensitive.
 |======
 
 [WARNING]
@@ -822,7 +830,7 @@ The following table describes the parameters you may use for commands in this se
 |======
 |*Parameter*| *Description* | *Acceptable Range of Values*
 | `CODE` | Indicates the module code +
-(e.g. `CS2101`). | `CODE` should begin with two alphabets, followed by four digits, and may optionally end with an alphabet.
+(e.g. `CS2101`). | `CODE` should begin with two alphabets, followed by four digits, and may optionally end with an alphabet. `CODE` is case-insensitive.
 | `YEAR` | Indicates the year of one of the semesters in the degree plan. +
 (e.g. `1`) | `YEAR` should only be either 1, 2, 3 or 4. +
 | `SEMESTER` | Indicates the semester of one of the semesters in the degree plan. +
@@ -1111,19 +1119,65 @@ This section provides a quick references for all commands available in *PlanWith
 === General Commands
 The table below shows a list of general commands.
 |====
-| *Task* | *Purpose* | *Command* | *Example*
-| *Clear* | Clear the modules data | `clear` | `clear`
-|*Help* | Displays the User Guide | `help` | `help`
+| *Task* | *Purpose* | *Command Format* | *Example*
+| *Help* | Displays the User Guide | `help` | `help`
 | *History* | Get a list of command entered | `history` | `history`
-| *Undo* | Undo your previously action| `undo` | `undo`
+| *Undo* | Undo your previous action| `undo` | `undo`
 | *Redo* | Redo your previous action | `redo` | `redo`
+| *Clear* | Clear the all the modules from the specified section | `clear [requirement or planner]` | `clear`
+| *Reset* | Resets and populates the application with sample data | `reset` | `reset`
+| *Exit* | Exits the application | `exit` | `exit`
+|====
+
+=== Module Management Commands
+The table below shows a list of commands which helps you to manage the module list.
+
+|====
+| *Task* | *Purpose* |*Command Format* | *Example*
+|*Add module to module list* | Add a new module to the module list.
+a|`add code/CODE name/NAME credits/CREDITS [sem/SEMESTER]… [coreq/COREQUISITE]… [tag/TAG]…`
+a|`add code/GEH1074 name/Luck credits/4 sem/1 sem/2`
+| *Edit the details of a module* | Edit the module's details based on the index given.
+a| `edit INDEX [name/NAME] [code/CODE] [credits/CREDITS] [sem/SEMESTER]… [coreq/COREQUISITE]… [tag/TAG]…`
+a| `edit 1 name/Data Structures and Algorithms code/CS2040C`
+ | *Delete module from module list*| Remove the module
+entirely from the module list based on the index given.
+a| `delete INDEX` a| `delete 3`
+| *Find modules in the module list* | Display a list of modules based on your search criteria
+a| `find [name/NAME] OPERATOR [code/CODE] OPERATOR [credits/CREDITS] OPERATOR [sem/SEMESTER] OPERATOR [tag/TAG]`
+a| `find credits/4 && (name/Programming \|\| name/Discrete)`
+| *List all modules* | List all modules available in the module list a| `list` a| `list`
+| *Selecting a module* | Selects a module in the module list a| `select INDEX` a| `select 1`
+|====
+
+=== Requirement Tracker Commands
+The table below shows a list of command which helps you to manage and track your degree requirements.
+
+|====
+|*Task*  | *Purpose* |*Command Format* | *Example*
+| *Add module(s) to a requirement category* | Add module(s) to the specified requirement category based
+ on the module code provided.
+a| `requirement_add name/NAME code/CODE [code/CODE]…`
+a| `requirement_add name/IT Professionalism code/IS4231`
+| *Remove module(s) from the requirement category* | Remove module(s) from the requirement category
+based on the module code provided.
+a| `requirement_remove code/CODE [code/CODE]…`
+a| `requirement_remove code/IS4231`
+| *Move module(s) between requirement categories* | Move module(s) between the requirement categories from
+ any requirement categories to a specified requirement categories.
+a| `requirement_move name/NAME code/CODE [code/CODE]…`
+a| `requirement_move name/IT Professionalism code/IS4231`
+| *List all requirement categories in the application*
+| List all requirement categories in the application and the module(s) added to each requirement categories
+a| `requirement_list`
+a| `requirement_list`
 |====
 
 === Degree Plan Commands
 The table below shows a list of commands which helps you to manage the degree plan.
 
 |====
-| *Task*  | *Purpose* |*Command* | *Example*
+| *Task*  | *Purpose* |*Command Format* | *Example*
 |*Add module(s) to degree plan* | Add module(s) to degree plan based on module code and academic year
 a|  `planner_add year/YEAR sem/SEMESTER code/CODE [code/CODE]…`
 a| `planner_add year/1 sem/2 code/CS1010 code/CS2113T`
@@ -1141,27 +1195,4 @@ a| `planner_show sem/2 && ( year/1 \|\|year/2 )`
 | *Suggest available modules* | Suggest available modules from the module lists based on input argument.
 a| `planner_suggest credits/CREDITS [tag/TAG]…`
 a| `planner_suggest credits/4 tag/maths`
-|====
-
-=== Requirement Tracker Commands
-The table below shows a list of command which helps you to manage and track your degree requirements.
-
-|====
-|*Task*  | *Purpose* |*Command* | *Example*
-| *Add module(s) to a requirement category* | Add module(s) to the specified requirement category based
- on the module code provided.
-a| `requirement_add name/NAME code/CODE [code/CODE]…`
-a| `requirement_add name/IT Professionalism code/IS4231`
-| *Remove module(s) from the requirement category* | Remove module(s) from the requirement category
-based on the module code provided.
-a| `requirement_remove code/CODE [code/CODE]…`
-a| `requirement_remove code/IS4231`
-| *Move module(s) between requirement categories* | Move module(s) between the requirement categories from
- any requirement categories to a specified requirement categories.
-a| `requirement_move name/NAME code/CODE [code/CODE]…`
-a| `requirement_move name/IT Professionalism code/IS4231`
-| *List all requirement categories in the application*
-| List all requirement categories in the application and the module(s) added to each requirement categories
-a| `requirement_list`
-a| `requirement_list`
 |====

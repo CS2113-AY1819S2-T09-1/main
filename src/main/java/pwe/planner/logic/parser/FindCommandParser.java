@@ -42,10 +42,10 @@ public class FindCommandParser implements Parser<FindCommand> {
     public FindCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+        if (args.isEmpty()) {
+            throw new ParseException(FindCommand.MESSAGE_USAGE);
         }
+
         try {
             BooleanExpressionParser<Module> expressionParser = new BooleanExpressionParser<>(args, PREFIXES);
             Predicate<Module> predicate = expressionParser.parse();

@@ -2,7 +2,6 @@ package pwe.planner.logic.parser;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
-import static pwe.planner.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static pwe.planner.logic.parser.CliSyntax.OPERATOR_AND;
 import static pwe.planner.logic.parser.CliSyntax.OPERATOR_LEFT_BRACKET;
 import static pwe.planner.logic.parser.CliSyntax.OPERATOR_OR;
@@ -35,7 +34,7 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "", FindCommand.MESSAGE_USAGE);
         // No name argument -> assertFailure
         assertParseFailure(parser, PREFIX_NAME + "     ", Name.MESSAGE_CONSTRAINTS);
         // No code argument -> assertFailure

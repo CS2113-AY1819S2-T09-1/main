@@ -21,6 +21,10 @@ public class SelectCommandParser implements Parser<SelectCommand> {
     public SelectCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
+        if (args.isEmpty()) {
+            throw new ParseException(SelectCommand.MESSAGE_USAGE);
+        }
+
         try {
             Index index = parseIndex(args);
             return new SelectCommand(index);

@@ -31,7 +31,7 @@ public class DeleteCommand extends Command {
             + "To choose which module you want to delete, please include the index number "
             + "(beside the module code) in the displayed module list.\n"
             + "Note: This will also remove the module from the degree plan, the requirement categories and other "
-            + "modules' corequisites (where applicable)."
+            + "modules' corequisites (where applicable).\n"
             + FORMAT_AND_EXAMPLES;
 
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Successfully deleted the module:\n%1$s";
