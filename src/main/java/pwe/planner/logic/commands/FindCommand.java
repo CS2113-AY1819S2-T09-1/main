@@ -9,6 +9,7 @@ import static pwe.planner.logic.parser.CliSyntax.OPERATOR_RIGHT_BRACKET;
 import static pwe.planner.logic.parser.CliSyntax.PREFIX_CODE;
 import static pwe.planner.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static pwe.planner.logic.parser.CliSyntax.PREFIX_NAME;
+import static pwe.planner.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static pwe.planner.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.function.Predicate;
@@ -27,15 +28,17 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all modules which satisfies the expression"
             + " of search conditions specified and displays them as a list with index numbers.\n"
-            + "Parameters: "
+            + "Format: " + COMMAND_WORD + ' '
             + "[" + PREFIX_NAME + "NAME] "
             + "OPERATOR "
             + "[" + PREFIX_CODE + "CODE] "
             + "OPERATOR "
-            + "[" + PREFIX_CREDITS + "CREDITS]"
+            + "[" + PREFIX_CREDITS + "CREDITS] "
             + "OPERATOR "
-            + "[" + PREFIX_TAG + "TAGS]\n"
-            + "OPERATOR " + OPERATOR_AND + "for logical \"AND\" operation (both conditions A AND B must match)\n"
+            + "[" + PREFIX_SEMESTER + "SEMESTER] "
+            + "OPERATOR "
+            + "[" + PREFIX_TAG + "TAG]\n"
+            + "OPERATOR " + OPERATOR_AND + " for logical \"AND\" operation (both conditions A AND B must match)\n"
             + "OPERATOR " + OPERATOR_OR + " for logical \"OR\" operation (either conditions A OR B must match)\n"
             + "You can also use parenthesis to group what search conditions to evaluate first.\n"
             + "Example 1 " + COMMAND_WORD + " " + PREFIX_NAME + "Programming " + OPERATOR_OR + " "

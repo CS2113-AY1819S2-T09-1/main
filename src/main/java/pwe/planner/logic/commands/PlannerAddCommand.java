@@ -29,8 +29,8 @@ public class PlannerAddCommand extends Command {
 
     public static final String COMMAND_WORD = "planner_add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds module(s) to the degree plan. "
-            + "Parameters: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds module(s) to the degree plan.\n"
+            + "Format: " + COMMAND_WORD + ' '
             + PREFIX_YEAR + "YEAR "
             + PREFIX_SEMESTER + "SEMESTER "
             + PREFIX_CODE + "CODE "
